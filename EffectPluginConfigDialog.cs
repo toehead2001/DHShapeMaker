@@ -592,6 +592,7 @@ namespace ShapeMaker
             this.undoToolStripMenuItem.Size = new System.Drawing.Size(32, 39);
             this.undoToolStripMenuItem.Tag = "0";
             this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.ToolTipText = "Undo (Ctrl+Z)";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.Undo_Click);
             this.undoToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseDown);
             this.undoToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseUp);
@@ -624,7 +625,7 @@ namespace ShapeMaker
             this.StraightLine.Size = new System.Drawing.Size(32, 39);
             this.StraightLine.Tag = "1";
             this.StraightLine.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.StraightLine.ToolTipText = "Straight Lines";
+            this.StraightLine.ToolTipText = "Straight Lines (Ctrl+L)";
             this.StraightLine.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
             this.StraightLine.Click += new System.EventHandler(this.ToolMenu_Click);
             this.StraightLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
@@ -640,7 +641,7 @@ namespace ShapeMaker
             this.MacroRect.Size = new System.Drawing.Size(32, 39);
             this.MacroRect.Tag = "2";
             this.MacroRect.Text = "Rectangle";
-            this.MacroRect.ToolTipText = "Auto Rectangle";
+            this.MacroRect.ToolTipText = "Auto Rectangle (Ctrl+R)";
             this.MacroRect.Click += new System.EventHandler(this.MacroRect_Click);
             this.MacroRect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.MacroRect.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -669,7 +670,7 @@ namespace ShapeMaker
             this.Cubic.Size = new System.Drawing.Size(32, 39);
             this.Cubic.Tag = "7";
             this.Cubic.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.Cubic.ToolTipText = "Cubic Bezier";
+            this.Cubic.ToolTipText = "Cubic Bezier (Ctrl+B)";
             this.Cubic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
             this.Cubic.Click += new System.EventHandler(this.ToolMenu_Click);
             this.Cubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
@@ -685,7 +686,7 @@ namespace ShapeMaker
             this.MacroCubic.Size = new System.Drawing.Size(32, 39);
             this.MacroCubic.Tag = "14";
             this.MacroCubic.Text = "MacroCubic";
-            this.MacroCubic.ToolTipText = "Cubic Spline";
+            this.MacroCubic.ToolTipText = "Cubic Spline (Ctrl+P)";
             this.MacroCubic.Click += new System.EventHandler(this.MacroCubic_Click);
             this.MacroCubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.MacroCubic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -701,6 +702,7 @@ namespace ShapeMaker
             this.SCubic.Size = new System.Drawing.Size(32, 39);
             this.SCubic.Tag = "8";
             this.SCubic.Text = "Smooth Cubic Bezier";
+            this.SCubic.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
             this.SCubic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
             this.SCubic.Click += new System.EventHandler(this.ToolMenu_Click);
             this.SCubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
@@ -716,6 +718,7 @@ namespace ShapeMaker
             this.Quadratic.Size = new System.Drawing.Size(32, 39);
             this.Quadratic.Tag = "9";
             this.Quadratic.Text = "Quadratic Bezier";
+            this.Quadratic.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
             this.Quadratic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
             this.Quadratic.Click += new System.EventHandler(this.ToolMenu_Click);
             this.Quadratic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
@@ -732,6 +735,7 @@ namespace ShapeMaker
             this.SQuadratic.Size = new System.Drawing.Size(32, 39);
             this.SQuadratic.Tag = "10";
             this.SQuadratic.Text = "Smooth Quad Bezier";
+            this.SQuadratic.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
             this.SQuadratic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
             this.SQuadratic.Click += new System.EventHandler(this.ToolMenu_Click);
             this.SQuadratic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
@@ -814,7 +818,7 @@ namespace ShapeMaker
             this.MacroCircle.Size = new System.Drawing.Size(32, 39);
             this.MacroCircle.Tag = "6";
             this.MacroCircle.Text = "Circle";
-            this.MacroCircle.ToolTipText = "Auto Circle";
+            this.MacroCircle.ToolTipText = "Auto Circle (Ctrl+I)";
             this.MacroCircle.Click += new System.EventHandler(this.MacroCircle_Click);
             this.MacroCircle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.MacroCircle.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -843,7 +847,7 @@ namespace ShapeMaker
             this.Snap.Size = new System.Drawing.Size(32, 39);
             this.Snap.Tag = "11";
             this.Snap.Text = "Snap";
-            this.Snap.ToolTipText = "Snap to Grid";
+            this.Snap.ToolTipText = "Snap to Grid (Ctrl+S)";
             this.Snap.Click += new System.EventHandler(this.Property_Click);
             this.Snap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.Snap.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -858,7 +862,7 @@ namespace ShapeMaker
             this.LinkedL.Size = new System.Drawing.Size(32, 39);
             this.LinkedL.Tag = "12";
             this.LinkedL.Text = "Linked Lines";
-            this.LinkedL.ToolTipText = "Linked with Previous Line";
+            this.LinkedL.ToolTipText = "Linked with Previous Line (Ctrl+3)";
             this.LinkedL.Click += new System.EventHandler(this.Property_Click);
             this.LinkedL.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.LinkedL.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -873,7 +877,7 @@ namespace ShapeMaker
             this.Loop.Size = new System.Drawing.Size(32, 39);
             this.Loop.Tag = "13";
             this.Loop.Text = "Closed Path";
-            this.Loop.ToolTipText = "Close Individual Path";
+            this.Loop.ToolTipText = "Close Individual Path (Ctrl+2)";
             this.Loop.Click += new System.EventHandler(this.Loops_Click);
             this.Loop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.Loop.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -889,7 +893,7 @@ namespace ShapeMaker
             this.MPMode.Size = new System.Drawing.Size(32, 39);
             this.MPMode.Tag = "15";
             this.MPMode.Text = "Multi-PathMode";
-            this.MPMode.ToolTipText = "Close Contiguous Paths";
+            this.MPMode.ToolTipText = "Close Contiguous Paths (Ctrl+Shift+2)";
             this.MPMode.Click += new System.EventHandler(this.Loops_Click);
             this.MPMode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
             this.MPMode.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
@@ -994,7 +998,7 @@ namespace ShapeMaker
             this.ApplyBtn.TabStop = false;
             this.ApplyBtn.Tag = "0";
             this.ApplyBtn.Text = "Apply Edit";
-            this.toolTip1.SetToolTip(this.ApplyBtn, "Apply Edit {Enter}");
+            this.toolTip1.SetToolTip(this.ApplyBtn, "Apply Edit (Enter)");
             this.ApplyBtn.UseVisualStyleBackColor = false;
             this.ApplyBtn.Click += new System.EventHandler(this.ApplyBtn_Click);
             this.ApplyBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ApplyBtn_Paint);
@@ -1031,7 +1035,7 @@ namespace ShapeMaker
             this.ClearBtn.TabStop = false;
             this.ClearBtn.Tag = "0";
             this.ClearBtn.Text = "Deselect";
-            this.toolTip1.SetToolTip(this.ClearBtn, "Deselect {Escape}");
+            this.toolTip1.SetToolTip(this.ClearBtn, "Deselect (Esc)");
             this.ClearBtn.UseVisualStyleBackColor = false;
             this.ClearBtn.Click += new System.EventHandler(this.ResetP_Click);
             this.ClearBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ClearBtn_Paint);
