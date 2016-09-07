@@ -3976,11 +3976,11 @@ namespace ShapeMaker
             {
                 float scale = e / 359f;
                 scale = 2f * scale + .5f - .5f * scale;
-                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.00}", scale));
+                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.00}x", scale));
             }
             else
             {
-                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.0}", SpinLine.Value - 180f));
+                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.0}\u00B0", SpinLine.Value - 180f));
             }
 
             if (e == 180)
