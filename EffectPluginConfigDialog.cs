@@ -920,7 +920,7 @@ namespace ShapeMaker
             this.FitBG.TabIndex = 33;
             this.FitBG.Text = "Fit Background";
             this.FitBG.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.toolTip1.SetToolTip(this.FitBG, "Scale Backgroung Image");
+            this.toolTip1.SetToolTip(this.FitBG, "Scale Background Image");
             this.FitBG.UseVisualStyleBackColor = false;
             this.FitBG.CheckedChanged += new System.EventHandler(this.FitBG_CheckedChanged);
             this.FitBG.Paint += new System.Windows.Forms.PaintEventHandler(this.FitBG_Paint);
@@ -980,7 +980,7 @@ namespace ShapeMaker
             this.posits.Size = new System.Drawing.Size(91, 19);
             this.posits.TabIndex = 28;
             this.posits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.posits, "X Y postion");
+            this.toolTip1.SetToolTip(this.posits, "XY Location");
             // 
             // ApplyBtn
             // 
@@ -1209,8 +1209,8 @@ namespace ShapeMaker
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(503, 50);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Right Click to add or delete Lines. Left Click to edit Lines, Nubs and Handles. S" +
-    "ee User\'s Manual  Complete instructions\r\n";
+            this.label7.Text = "Right Click to add or delete Lines. Left Click to edit Lines, Nubs and Handles.\r\n" +
+    "See User\'s Manual for Complete instructions.";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label7.VisibleChanged += new System.EventHandler(this.label7_VisibleChanged);
             // 
@@ -5193,7 +5193,7 @@ namespace ShapeMaker
         private void LineList_DoubleClick(object sender, EventArgs e)
         {
             if (LineList.Items.Count == 0) return;
-            string s = Microsoft.VisualBasic.Interaction.InputBox("Name?", "Path Name",
+            string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name",
                 LineList.SelectedItem.ToString(), -1, -1);
             if (!s.IsNullOrEmpty()) (Lines[LineList.SelectedIndex] as PData).Alias = s;
         }
