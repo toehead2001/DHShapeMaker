@@ -5192,7 +5192,7 @@ namespace ShapeMaker
 
         private void LineList_DoubleClick(object sender, EventArgs e)
         {
-            if (LineList.Items.Count == 0) return;
+            if (LineList.Items.Count == 0 || LineList.SelectedItem == null) return;
             string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name",
                 LineList.SelectedItem.ToString(), -1, -1);
             if (!s.IsNullOrEmpty()) (Lines[LineList.SelectedIndex] as PData).Alias = s;
