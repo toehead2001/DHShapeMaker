@@ -5106,7 +5106,17 @@ namespace ShapeMaker
                         }
                         catch (Exception myE) { MessageBox.Show("Load Error:Incorrect Format\r\n" + myE.Message); }
 
-                        if (!loadConfirm) MessageBox.Show("Load Error:Incorrect Format");
+                        if (loadConfirm)
+                        {
+                            UDCount = 0;
+                            UDPointer = 0;
+                            undoToolStripMenuItem.Enabled = false;
+                            resetRotation();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Load Error:Incorrect Format");
+                        }
                     }
                     else
                     {
