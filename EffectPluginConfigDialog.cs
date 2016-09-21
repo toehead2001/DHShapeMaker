@@ -396,14 +396,14 @@ namespace ShapeMaker
             // 
             this.loadProject.Name = "loadProject";
             this.loadProject.Size = new System.Drawing.Size(186, 22);
-            this.loadProject.Text = "Load Project";
+            this.loadProject.Text = "Load Project...";
             this.loadProject.Click += new System.EventHandler(this.loadProject_Click);
             // 
             // saveProject
             // 
             this.saveProject.Name = "saveProject";
             this.saveProject.Size = new System.Drawing.Size(186, 22);
-            this.saveProject.Text = "Save Project";
+            this.saveProject.Text = "Save Project...";
             this.saveProject.Click += new System.EventHandler(this.saveProject_Click);
             // 
             // toolStripSeparator1
@@ -415,14 +415,14 @@ namespace ShapeMaker
             // 
             this.loadPDNShapeToolStripMenuItem.Name = "loadPDNShapeToolStripMenuItem";
             this.loadPDNShapeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.loadPDNShapeToolStripMenuItem.Text = "Load PDN Shape";
+            this.loadPDNShapeToolStripMenuItem.Text = "Load PDN Shape...";
             this.loadPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.LoadBtn_Click);
             // 
             // savePDNShapeToolStripMenuItem
             // 
             this.savePDNShapeToolStripMenuItem.Name = "savePDNShapeToolStripMenuItem";
             this.savePDNShapeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.savePDNShapeToolStripMenuItem.Text = "Save PDN Shape";
+            this.savePDNShapeToolStripMenuItem.Text = "Save PDN Shape...";
             this.savePDNShapeToolStripMenuItem.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // pasteStreamGeomentyToolStripMenuItem
@@ -443,7 +443,7 @@ namespace ShapeMaker
             // 
             this.exportPathGeometryToolStripMenuItem.Name = "exportPathGeometryToolStripMenuItem";
             this.exportPathGeometryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.exportPathGeometryToolStripMenuItem.Text = "Export PathGeometry";
+            this.exportPathGeometryToolStripMenuItem.Text = "Export PathGeometry...";
             this.exportPathGeometryToolStripMenuItem.Click += new System.EventHandler(this.ExportPG_Click);
             // 
             // toolStripSeparator2
