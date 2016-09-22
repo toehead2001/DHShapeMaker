@@ -410,61 +410,61 @@ namespace ShapeMaker
             // loadProject
             // 
             this.loadProject.Name = "loadProject";
-            this.loadProject.Size = new System.Drawing.Size(186, 22);
+            this.loadProject.Size = new System.Drawing.Size(195, 22);
             this.loadProject.Text = "Load Project...";
             this.loadProject.Click += new System.EventHandler(this.loadProject_Click);
             // 
             // saveProject
             // 
             this.saveProject.Name = "saveProject";
-            this.saveProject.Size = new System.Drawing.Size(186, 22);
+            this.saveProject.Size = new System.Drawing.Size(195, 22);
             this.saveProject.Text = "Save Project...";
             this.saveProject.Click += new System.EventHandler(this.saveProject_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // loadPDNShapeToolStripMenuItem
             // 
             this.loadPDNShapeToolStripMenuItem.Name = "loadPDNShapeToolStripMenuItem";
-            this.loadPDNShapeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.loadPDNShapeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.loadPDNShapeToolStripMenuItem.Text = "Load PDN Shape...";
             this.loadPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.LoadBtn_Click);
             // 
             // savePDNShapeToolStripMenuItem
             // 
             this.savePDNShapeToolStripMenuItem.Name = "savePDNShapeToolStripMenuItem";
-            this.savePDNShapeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.savePDNShapeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.savePDNShapeToolStripMenuItem.Text = "Save PDN Shape...";
             this.savePDNShapeToolStripMenuItem.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // pasteStreamGeomentyToolStripMenuItem
             // 
             this.pasteStreamGeomentyToolStripMenuItem.Name = "pasteStreamGeomentyToolStripMenuItem";
-            this.pasteStreamGeomentyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.pasteStreamGeomentyToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.pasteStreamGeomentyToolStripMenuItem.Text = "Paste Path Stream";
             this.pasteStreamGeomentyToolStripMenuItem.Click += new System.EventHandler(this.pasteData_Click);
             // 
             // copyPathStreamToolStripMenuItem
             // 
             this.copyPathStreamToolStripMenuItem.Name = "copyPathStreamToolStripMenuItem";
-            this.copyPathStreamToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.copyPathStreamToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.copyPathStreamToolStripMenuItem.Text = "Copy Path Stream";
             this.copyPathStreamToolStripMenuItem.Click += new System.EventHandler(this.CopyStream_Click);
             // 
             // exportPathGeometryToolStripMenuItem
             // 
             this.exportPathGeometryToolStripMenuItem.Name = "exportPathGeometryToolStripMenuItem";
-            this.exportPathGeometryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.exportPathGeometryToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.exportPathGeometryToolStripMenuItem.Text = "Export PathGeometry...";
             this.exportPathGeometryToolStripMenuItem.Click += new System.EventHandler(this.ExportPG_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(192, 6);
             // 
             // SolidFillMenuItem
             // 
@@ -473,14 +473,14 @@ namespace ShapeMaker
             this.SolidFillMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.SolidFillMenuItem.Name = "SolidFillMenuItem";
             this.SolidFillMenuItem.Padding = new System.Windows.Forms.Padding(0);
-            this.SolidFillMenuItem.Size = new System.Drawing.Size(186, 20);
+            this.SolidFillMenuItem.Size = new System.Drawing.Size(195, 20);
             this.SolidFillMenuItem.Text = "Export as Solid Fill";
             this.SolidFillMenuItem.CheckedChanged += new System.EventHandler(this.SolidFillMenuItem_CheckedChanged);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(192, 6);
             // 
             // pathToolsToolStripMenuItem
             // 
@@ -712,7 +712,7 @@ namespace ShapeMaker
             this.SCubic.AutoToolTip = true;
             this.SCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.SCubic.Name = "SCubic";
-            this.SCubic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.SCubic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.B)));
             this.SCubic.Size = new System.Drawing.Size(32, 39);
             this.SCubic.Tag = "8";
@@ -745,7 +745,7 @@ namespace ShapeMaker
             this.SQuadratic.AutoToolTip = true;
             this.SQuadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.SQuadratic.Name = "SQuadratic";
-            this.SQuadratic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.SQuadratic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
             this.SQuadratic.Size = new System.Drawing.Size(32, 39);
             this.SQuadratic.Tag = "10";
@@ -903,7 +903,7 @@ namespace ShapeMaker
             this.MPMode.AutoToolTip = true;
             this.MPMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.MPMode.Name = "MPMode";
-            this.MPMode.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.MPMode.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D2)));
             this.MPMode.Size = new System.Drawing.Size(32, 39);
             this.MPMode.Tag = "15";
@@ -1403,7 +1403,7 @@ namespace ShapeMaker
             // 
             this.xToolStripMenuZoom8x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.xToolStripMenuZoom8x.Name = "xToolStripMenuZoom8x";
-            this.xToolStripMenuZoom8x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom8x.Size = new System.Drawing.Size(85, 22);
             this.xToolStripMenuZoom8x.Text = "8x";
             this.xToolStripMenuZoom8x.Click += new System.EventHandler(this.xToolStripMenuZoom8x_Click);
             // 
@@ -1411,7 +1411,7 @@ namespace ShapeMaker
             // 
             this.xToolStripMenuZoom4x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.xToolStripMenuZoom4x.Name = "xToolStripMenuZoom4x";
-            this.xToolStripMenuZoom4x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom4x.Size = new System.Drawing.Size(85, 22);
             this.xToolStripMenuZoom4x.Text = "4x";
             this.xToolStripMenuZoom4x.Click += new System.EventHandler(this.xToolStripMenuZoom4x_Click);
             // 
@@ -1419,7 +1419,7 @@ namespace ShapeMaker
             // 
             this.xToolStripMenuZoom2x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.xToolStripMenuZoom2x.Name = "xToolStripMenuZoom2x";
-            this.xToolStripMenuZoom2x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom2x.Size = new System.Drawing.Size(85, 22);
             this.xToolStripMenuZoom2x.Text = "2x";
             this.xToolStripMenuZoom2x.Click += new System.EventHandler(this.xToolStripMenuZoom2x_Click);
             // 
@@ -1427,7 +1427,7 @@ namespace ShapeMaker
             // 
             this.xToolStripMenuZoom1x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.xToolStripMenuZoom1x.Name = "xToolStripMenuZoom1x";
-            this.xToolStripMenuZoom1x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom1x.Size = new System.Drawing.Size(85, 22);
             this.xToolStripMenuZoom1x.Text = "1x";
             this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
             // 
