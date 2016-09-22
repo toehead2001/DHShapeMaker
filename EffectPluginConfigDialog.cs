@@ -385,7 +385,6 @@ namespace ShapeMaker
             this.menuStrip1.Size = new System.Drawing.Size(850, 43);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             this.menuStrip1.Resize += new System.EventHandler(this.menuStrip1_Resize);
             // 
             // fileToolStripMenuItem
@@ -1080,7 +1079,6 @@ namespace ShapeMaker
             this.LineList.TabStop = false;
             this.toolTip1.SetToolTip(this.LineList, "Select Shapes\r\nDouble Click to Rename");
             this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
-            this.LineList.SelectedIndexChanged += new System.EventHandler(this.LineList_SelectedIndexChanged_1);
             this.LineList.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedIndexChanged);
             this.LineList.DoubleClick += new System.EventHandler(this.LineList_DoubleClick);
             // 
@@ -1219,8 +1217,6 @@ namespace ShapeMaker
             this.label4.TabIndex = 2;
             this.label4.Text = "Shape Name";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label4.VisibleChanged += new System.EventHandler(this.label4_VisibleChanged);
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -1233,8 +1229,6 @@ namespace ShapeMaker
             this.label5.TabIndex = 2;
             this.label5.Text = "Output Scale %";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label5.VisibleChanged += new System.EventHandler(this.label5_VisibleChanged);
-            this.label5.Click += new System.EventHandler(this.label4_Click);
             // 
             // label1
             // 
@@ -1247,8 +1241,6 @@ namespace ShapeMaker
             this.label1.TabIndex = 29;
             this.label1.Text = "Image Tracing Opacity";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.VisibleChanged += new System.EventHandler(this.label1_VisibleChanged);
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label6
             // 
@@ -1260,7 +1252,6 @@ namespace ShapeMaker
             this.label6.TabIndex = 2;
             this.label6.Text = "Move Selected Path";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label6.Click += new System.EventHandler(this.label4_Click);
             // 
             // panel8
             // 
@@ -1312,7 +1303,6 @@ namespace ShapeMaker
             this.label2.TabIndex = 2;
             this.label2.Text = "Rotate and Scale";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label2.VisibleChanged += new System.EventHandler(this.label2_VisibleChanged);
             // 
             // PanelLabel
             // 
@@ -2915,10 +2905,6 @@ namespace ShapeMaker
             double aq = Math.Pow(a, 2);
             return (float)(Math.Sqrt(Math.Abs(cq - aq)) * Math.Sign(cq - aq));
         }
-        private void pb_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void style_CheckedChanged(object sender, EventArgs e)
         {
@@ -3109,11 +3095,6 @@ namespace ShapeMaker
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void Loop_CheckedChanged(object sender, EventArgs e)
-        {
-            pb.Refresh();
         }
 
         private bool getPathData(float Width, float Height, out string output)
@@ -3805,10 +3786,6 @@ namespace ShapeMaker
             e.DrawFocusRectangle();
         }
 
-        private void Big_CheckedChanged(object sender, EventArgs e)
-        {
-            pb.Refresh();
-        }
         private void ClearAll()
         {
             Array.Resize(ref pbpoint, 0);
@@ -3961,11 +3938,6 @@ namespace ShapeMaker
             pb.Refresh();
         }
 
-        private void MacroCircle_CheckedChanged(object sender, EventArgs e)
-        {
-
-            pb.Refresh();
-        }
         private void FlipLines(int index)
         {
             int si = index;
@@ -4116,13 +4088,10 @@ namespace ShapeMaker
             pb.Refresh();
         }
 
-
-
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
         {
             setUndo();
             toolTip1.Show(String.Format("    {0:0.0}", SpinLine.Value), (sender as BigKnobs));
-
         }
 
         private void LineLoop_Click(object sender, EventArgs e)
@@ -4132,11 +4101,6 @@ namespace ShapeMaker
                 pbpoint[pbpoint.Length - 1] = pbpoint[0];
                 pb.Refresh();
             }
-        }
-
-        private void posits_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -4380,11 +4344,6 @@ namespace ShapeMaker
             }
         }
 
-        private void circleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Loops_Click(object sender, EventArgs e)
         {
             if (MPMode.Equals(sender))
@@ -4455,26 +4414,6 @@ namespace ShapeMaker
             toolTip1.Hide((sender as BigKnobs));
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void opaque_ValueChanged(object sender, EventArgs e)
-        {
-            pb.Refresh();
-        }
-
-        private void ModeL_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private Bitmap SpriteSheet(int x, int y)
         {
             Bitmap bmp = new Bitmap(buttonWd, buttonHt);
@@ -4485,13 +4424,6 @@ namespace ShapeMaker
             }
             return bmp;
         }
-
-        private void StraightLine_CheckStateChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
 
         private void ToolChecked_Paint(object sender, PaintEventArgs e)
         {
@@ -4834,52 +4766,6 @@ namespace ShapeMaker
             }
         }
 
-        private void twoX_CheckedChanged(object sender, EventArgs e)
-        {
-
-            MoveFlag = false;
-
-            if ((sender as CheckBox).Checked && (Control.ModifierKeys & Keys.Control) == Keys.Control)
-            {
-
-                int maxmove = 4000 - ZoomMaster.ClientSize.Width;
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-                pb.Location = Zoomed;
-                pb.Width = 4000; pb.Height = 4000;
-            }
-            else if ((sender as CheckBox).Checked && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-            {
-
-                int maxmove = 2000 - ZoomMaster.ClientSize.Width;
-
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-                pb.Location = Zoomed;
-                pb.Width = 2000; pb.Height = 2000;
-            }
-            else if ((sender as CheckBox).Checked)
-            {
-                int maxmove = 1000 - ZoomMaster.ClientSize.Width;
-
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-                pb.Location = Zoomed;
-                pb.Width = 1000; pb.Height = 1000;
-            }
-            else
-            {
-                pb.Location = new Point(0, 0);
-                pb.Width = 500; pb.Height = 500;
-            }
-            pb.Refresh();
-        }
-
         private void keyboardShortcutsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Shortcuts ks = new Shortcuts())
@@ -4950,24 +4836,6 @@ namespace ShapeMaker
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.APPTESTUP,
                s.ClientRectangle,
                 new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void CHX_Paint(object sender, PaintEventArgs e)
-        {
-            CheckBox s = (sender as CheckBox);
-            CheckBoxRenderer.DrawParentBackground(e.Graphics, s.ClientRectangle, s);
-            int z = 0;
-            if (s.Checked)
-            {
-                z = (pb.Width == 1000) ? 1 :
-                (pb.Width == 2000) ? 2 : 3;
-            }
-            Size sz = ShapeMaker.Properties.Resources.zoom.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.zoom,
-                s.ClientRectangle,
-                new RectangleF(z * sz.Width / 4, 0, sz.Width / 4,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -5098,11 +4966,6 @@ namespace ShapeMaker
             sSize = e.Graphics.MeasureString("Path List", s.Font);
             e.Graphics.DrawString("Path List", s.Font,
                 new SolidBrush(s.ForeColor), new Point((s.Width - (int)sSize.Width) / 2));
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void loadProject_Click(object sender, EventArgs e)
@@ -5257,69 +5120,6 @@ namespace ShapeMaker
             if (!s.IsNullOrEmpty()) (Lines[LineList.SelectedIndex] as PData).Alias = s;
         }
 
-        private void label2_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
-        private void label3_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
-        private void label4_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
-        private void label5_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
-        private void label1_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
-        private void label7_Layout(object sender, LayoutEventArgs e)
-        {
-
-
-        }
-
-        private void label7_VisibleChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void label1_VisibleChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void label5_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void SolidFillMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             ToolStripMenuItem s = sender as ToolStripMenuItem;
@@ -5337,16 +5137,6 @@ namespace ShapeMaker
         private void menuStrip1_Resize(object sender, EventArgs e)
         {
             this.ClientSize = new Size(menuStrip1.Width, this.ClientSize.Height);
-        }
-
-        private void closePathMenuItem_Click(object sender, EventArgs e)
-        {
-            pb.Refresh();
-        }
-
-        private void LineList_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
         }
 
         private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
