@@ -91,6 +91,7 @@ namespace ShapeMaker
         Size SuperSize = new Size();
         bool MoveFlag = false;
         bool IsZoomed = false;
+        bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
 
 
@@ -340,6 +341,8 @@ namespace ShapeMaker
             this.pb.TabStop = false;
             this.pb.Paint += new System.Windows.Forms.PaintEventHandler(this.pb_Paint);
             this.pb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_MouseDown);
+            this.pb.MouseEnter += new System.EventHandler(this.pb_MouseEnter);
+            this.pb.MouseLeave += new System.EventHandler(this.pb_MouseLeave);
             this.pb.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_MouseMove);
             this.pb.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_MouseUp);
             // 
@@ -5488,6 +5491,71 @@ namespace ShapeMaker
 
             splitButtonZoom.Text = "Zoom 8x";
             IsZoomed = true;
+        }
+
+        private void pb_MouseEnter(object sender, EventArgs e)
+        {
+            CanScrollZoom = true;
+        }
+
+        private void pb_MouseLeave(object sender, EventArgs e)
+        {
+            CanScrollZoom = false;
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (!CanScrollZoom)
+                return;
+
+            if (pb.Height != pb.Width)
+                return;
+
+            int delta = Math.Sign(e.Delta);
+            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
+                return;
+
+            int newDimension = (delta > 0) ? pb.Width * 2 : pb.Width / 2;
+            int zoomFactor = newDimension / ZoomMaster.ClientSize.Width;
+            
+            if (zoomFactor == 1)
+                Zoomed = new Point(0, 0);
+            else
+            {
+                Point mousePosition = new Point(e.X - ZoomMaster.Location.X, e.Y - ZoomMaster.Location.Y);
+
+                Zoomed = new Point((pb.Location.X - mousePosition.X) * newDimension / pb.Width + mousePosition.X,
+                                   (pb.Location.Y - mousePosition.Y) * newDimension / pb.Width + mousePosition.Y);
+
+                Zoomed.X = Clamp(Zoomed.X, 500 - newDimension, 0);
+                Zoomed.Y = Clamp(Zoomed.Y, 500 - newDimension, 0);
+            }
+
+            // to avoid flicker, the order of execution is important
+            if (delta > 0) // Zooming In
+            {
+                pb.Width = newDimension;
+                pb.Height = newDimension;
+                pb.Location = Zoomed;
+            }
+            else // Zooming Out
+            {
+                pb.Location = Zoomed;
+                pb.Width = newDimension;
+                pb.Height = newDimension;
+            }
+            pb.Refresh();
+            
+            splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
+            IsZoomed = (zoomFactor > 1);
+
+            base.OnMouseWheel(e);
+        }
+
+        private static int Clamp(int value, int min, int max)
+        {
+            return (value < min) ? min : (value > max) ? max : value;
         }
     }
 }
