@@ -90,6 +90,7 @@ namespace ShapeMaker
         ArrayList Lines = new ArrayList();
         Size SuperSize = new Size();
         bool MoveFlag = false;
+        bool IsZoomed = false;
         Point Zoomed = new Point(0, 0);
 
 
@@ -133,7 +134,6 @@ namespace ShapeMaker
         private ToolStripMenuItem usersManualToolStripMenuItem;
         private ToolStripMenuItem keyboardShortcutsToolStripMenuItem;
         private ToolStripMenuItem aboutShapeMakerToolStripMenuItem;
-        private Label label7;
         private ToolStripMenuItem exportPathGeometryToolStripMenuItem;
         private ToolStripMenuItem QuickStartStripMenuItem;
         private Panel panel5;
@@ -142,9 +142,6 @@ namespace ShapeMaker
         private Panel panel6;
         private CheckBox FitBG;
         private CheckBox DrawOnCanvas;
-        private CheckBox twoX;
-        private Label posits;
-        private Label label3;
         private Label label4;
         private Label label5;
         private Button ApplyBtn;
@@ -175,6 +172,15 @@ namespace ShapeMaker
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem MacroCubic;
         private ToolStripMenuItem MPMode;
+        private StatusStrip statusStrip1;
+        private ToolStripSplitButton splitButtonZoom;
+        private ToolStripMenuItem xToolStripMenuZoom8x;
+        private ToolStripMenuItem xToolStripMenuZoom4x;
+        private ToolStripMenuItem xToolStripMenuZoom2x;
+        private ToolStripMenuItem xToolStripMenuZoom1x;
+        private ToolStripStatusLabel statusLabelNubsUsed;
+        private ToolStripStatusLabel statusLabelPathsUsed;
+        private ToolStripStatusLabel statusLabelLocation;
         ToolStripMenuItem[] radios = new ToolStripMenuItem[6];
 
         public EffectPluginConfigDialog()
@@ -279,8 +285,6 @@ namespace ShapeMaker
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.FitBG = new System.Windows.Forms.CheckBox();
             this.DrawOnCanvas = new System.Windows.Forms.CheckBox();
-            this.twoX = new System.Windows.Forms.CheckBox();
-            this.posits = new System.Windows.Forms.Label();
             this.ApplyBtn = new System.Windows.Forms.Button();
             this.FigureName = new System.Windows.Forms.TextBox();
             this.ClearBtn = new System.Windows.Forms.Button();
@@ -293,11 +297,9 @@ namespace ShapeMaker
             this.SpinLine = new Controlz.BigKnobs();
             this.ZoomMaster = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -310,10 +312,20 @@ namespace ShapeMaker
             this.PanelLabel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelPathsUsed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelLocation = new System.Windows.Forms.ToolStripStatusLabel();
+            this.splitButtonZoom = new System.Windows.Forms.ToolStripSplitButton();
+            this.xToolStripMenuZoom8x = new System.Windows.Forms.ToolStripMenuItem();
+            this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
+            this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
+            this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
             this.ZoomMaster.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pb
@@ -945,43 +957,6 @@ namespace ShapeMaker
             this.DrawOnCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawOnCanvas_Paint);
             this.DrawOnCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.twoX_MouseDown);
             // 
-            // twoX
-            // 
-            this.twoX.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.twoX.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.twoX.FlatAppearance.BorderSize = 0;
-            this.twoX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.twoX.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.twoX.ForeColor = System.Drawing.Color.Black;
-            this.twoX.Location = new System.Drawing.Point(613, 514);
-            this.twoX.MaximumSize = new System.Drawing.Size(80, 45);
-            this.twoX.MinimumSize = new System.Drawing.Size(80, 45);
-            this.twoX.Name = "twoX";
-            this.twoX.Size = new System.Drawing.Size(80, 45);
-            this.twoX.TabIndex = 33;
-            this.twoX.Text = "2 X Size View";
-            this.twoX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.twoX.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.twoX, "Click for 2x Zoom.\r\n Shift + Click for 4x Zoom\r\nCtrl +  Click for 8x Zoom\r\n");
-            this.twoX.UseVisualStyleBackColor = false;
-            this.twoX.CheckedChanged += new System.EventHandler(this.twoX_CheckedChanged);
-            this.twoX.Paint += new System.Windows.Forms.PaintEventHandler(this.CHX_Paint);
-            this.twoX.MouseDown += new System.Windows.Forms.MouseEventHandler(this.twoX_MouseDown);
-            // 
-            // posits
-            // 
-            this.posits.BackColor = System.Drawing.Color.White;
-            this.posits.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.posits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.posits.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posits.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.posits.Location = new System.Drawing.Point(723, 201);
-            this.posits.Name = "posits";
-            this.posits.Size = new System.Drawing.Size(91, 19);
-            this.posits.TabIndex = 28;
-            this.posits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.posits, "XY Location");
-            // 
             // ApplyBtn
             // 
             this.ApplyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
@@ -1200,20 +1175,6 @@ namespace ShapeMaker
             this.panel5.Size = new System.Drawing.Size(10, 501);
             this.panel5.TabIndex = 45;
             // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(4, 563);
-            this.label7.Margin = new System.Windows.Forms.Padding(0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(503, 50);
-            this.label7.TabIndex = 29;
-            this.label7.Text = "Right Click to add or delete Lines. Left Click to edit Lines, Nubs and Handles.\r\n" +
-    "See User\'s Manual for Complete instructions.";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label7.VisibleChanged += new System.EventHandler(this.label7_VisibleChanged);
-            // 
             // panel2
             // 
             this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
@@ -1243,19 +1204,6 @@ namespace ShapeMaker
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(10, 501);
             this.panel6.TabIndex = 45;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(725, 187);
-            this.label3.Margin = new System.Windows.Forms.Padding(0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 14);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Nub Location";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label3.VisibleChanged += new System.EventHandler(this.label3_VisibleChanged);
             // 
             // label4
             // 
@@ -1395,12 +1343,98 @@ namespace ShapeMaker
             this.panel7.Size = new System.Drawing.Size(10, 13);
             this.panel7.TabIndex = 47;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabelNubsUsed,
+            this.statusLabelPathsUsed,
+            this.statusLabelLocation,
+            this.splitButtonZoom});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 575);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.ShowItemToolTips = true;
+            this.statusStrip1.Size = new System.Drawing.Size(850, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 48;
+            // 
+            // statusLabelNubsUsed
+            // 
+            this.statusLabelNubsUsed.AutoSize = false;
+            this.statusLabelNubsUsed.Margin = new System.Windows.Forms.Padding(6, 3, 0, 2);
+            this.statusLabelNubsUsed.Name = "statusLabelNubsUsed";
+            this.statusLabelNubsUsed.Size = new System.Drawing.Size(156, 17);
+            this.statusLabelNubsUsed.Text = "0/255 Nubs Used";
+            this.statusLabelNubsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // statusLabelPathsUsed
+            // 
+            this.statusLabelPathsUsed.AutoSize = false;
+            this.statusLabelPathsUsed.Name = "statusLabelPathsUsed";
+            this.statusLabelPathsUsed.Size = new System.Drawing.Size(156, 17);
+            this.statusLabelPathsUsed.Text = "0/100 Paths Used";
+            this.statusLabelPathsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // statusLabelLocation
+            // 
+            this.statusLabelLocation.AutoSize = false;
+            this.statusLabelLocation.Name = "statusLabelLocation";
+            this.statusLabelLocation.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelLocation.Text = "0, 0";
+            this.statusLabelLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.statusLabelLocation.ToolTipText = "Nub Location";
+            // 
+            // splitButtonZoom
+            // 
+            this.splitButtonZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.splitButtonZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xToolStripMenuZoom8x,
+            this.xToolStripMenuZoom4x,
+            this.xToolStripMenuZoom2x,
+            this.xToolStripMenuZoom1x});
+            this.splitButtonZoom.Name = "splitButtonZoom";
+            this.splitButtonZoom.Size = new System.Drawing.Size(69, 20);
+            this.splitButtonZoom.Text = "Zoom 1x";
+            this.splitButtonZoom.ButtonClick += new System.EventHandler(this.splitButtonZoom_ButtonClick);
+            // 
+            // xToolStripMenuZoom8x
+            // 
+            this.xToolStripMenuZoom8x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.xToolStripMenuZoom8x.Name = "xToolStripMenuZoom8x";
+            this.xToolStripMenuZoom8x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom8x.Text = "8x";
+            this.xToolStripMenuZoom8x.Click += new System.EventHandler(this.xToolStripMenuZoom8x_Click);
+            // 
+            // xToolStripMenuZoom4x
+            // 
+            this.xToolStripMenuZoom4x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.xToolStripMenuZoom4x.Name = "xToolStripMenuZoom4x";
+            this.xToolStripMenuZoom4x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom4x.Text = "4x";
+            this.xToolStripMenuZoom4x.Click += new System.EventHandler(this.xToolStripMenuZoom4x_Click);
+            // 
+            // xToolStripMenuZoom2x
+            // 
+            this.xToolStripMenuZoom2x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.xToolStripMenuZoom2x.Name = "xToolStripMenuZoom2x";
+            this.xToolStripMenuZoom2x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom2x.Text = "2x";
+            this.xToolStripMenuZoom2x.Click += new System.EventHandler(this.xToolStripMenuZoom2x_Click);
+            // 
+            // xToolStripMenuZoom1x
+            // 
+            this.xToolStripMenuZoom1x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.xToolStripMenuZoom1x.Name = "xToolStripMenuZoom1x";
+            this.xToolStripMenuZoom1x.Size = new System.Drawing.Size(152, 22);
+            this.xToolStripMenuZoom1x.Text = "1x";
+            this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.opaque);
             this.Controls.Add(this.ClearBtn);
@@ -1416,9 +1450,7 @@ namespace ShapeMaker
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.upList);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.posits);
             this.Controls.Add(this.panel11);
             this.Controls.Add(this.DrawOnCanvas);
             this.Controls.Add(this.panel3);
@@ -1429,9 +1461,7 @@ namespace ShapeMaker
             this.Controls.Add(this.ZoomMaster);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.LineList);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.twoX);
             this.Controls.Add(this.FitBG);
             this.Controls.Add(this.PanelLabel);
             this.DoubleBuffered = true;
@@ -1445,9 +1475,7 @@ namespace ShapeMaker
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             this.Controls.SetChildIndex(this.PanelLabel, 0);
             this.Controls.SetChildIndex(this.FitBG, 0);
-            this.Controls.SetChildIndex(this.twoX, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
-            this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.LineList, 0);
             this.Controls.SetChildIndex(this.menuStrip1, 0);
             this.Controls.SetChildIndex(this.ZoomMaster, 0);
@@ -1458,9 +1486,7 @@ namespace ShapeMaker
             this.Controls.SetChildIndex(this.panel3, 0);
             this.Controls.SetChildIndex(this.DrawOnCanvas, 0);
             this.Controls.SetChildIndex(this.panel11, 0);
-            this.Controls.SetChildIndex(this.posits, 0);
             this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.upList, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.panel7, 0);
@@ -1476,11 +1502,14 @@ namespace ShapeMaker
             this.Controls.SetChildIndex(this.ClearBtn, 0);
             this.Controls.SetChildIndex(this.opaque, 0);
             this.Controls.SetChildIndex(this.OutputScale, 0);
+            this.Controls.SetChildIndex(this.statusStrip1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
             this.ZoomMaster.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1665,7 +1694,7 @@ namespace ShapeMaker
 
                 if (Control.ModifierKeys == Keys.Alt)
                 {
-                    if (twoX.Checked)
+                    if (IsZoomed)
                     {
                         MoveFlag = true;
                     }
@@ -1748,8 +1777,7 @@ namespace ShapeMaker
                             eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
-                        posits.Text = new Point(eX, eY).ToString().Replace("{", "").Replace("}", "");
-                        posits.Refresh();
+                        statusLabelLocation.Text = string.Format("{0}, {1}", eX, eY);
 
                         #region add
                         int len = pbpoint.Length;
@@ -2051,8 +2079,7 @@ namespace ShapeMaker
                 {
                     if (s.ClientRectangle.Contains(e.Location))
                     {
-                        posits.Text = new Point(eX, eY).ToString().Replace("{", "").Replace("}", "");
-                        posits.Refresh();
+                        statusLabelLocation.Text = string.Format("{0}, {1}", eX, eY);
 
 
                         //left shift move line or path
@@ -2311,7 +2338,7 @@ namespace ShapeMaker
                             }
 
                         }//Pan zoomed
-                        else if (MoveFlag && twoX.Checked)
+                        else if (MoveFlag && IsZoomed)
                         {
                             int mpx = (int)(mapPoint.X * 100);
                             int msx = (int)(MoveStart.X * 100);
@@ -3779,14 +3806,14 @@ namespace ShapeMaker
 
         private void pasteData_Click(object sender, EventArgs e)
         {
-            twoX.Checked = false;
+            IsZoomed = false;
 
             parsePathData(Clipboard.GetText());
         }
 
         private void CopyStream_Click(object sender, EventArgs e)
         {
-            twoX.Checked = false;
+            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
@@ -4125,8 +4152,8 @@ namespace ShapeMaker
 
             if (countflag || pbpoint.Length > 0 || LineList.Items.Count > 0)
             {
-                label7.Text = String.Format("{0} Nub(s) used out of {1}  / {2} Path(s) used out of 100",
-                    pbpoint.Length, maxpoint, LineList.Items.Count);
+                statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", pbpoint.Length, maxpoint);
+                statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
             }
         }
         private string getMyFolder()
@@ -4184,7 +4211,7 @@ namespace ShapeMaker
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            twoX.Checked = false;
+            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
@@ -4226,7 +4253,7 @@ namespace ShapeMaker
         }
         private void ExportPG_Click(object sender, EventArgs e)
         {
-            twoX.Checked = false;
+            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
@@ -4277,7 +4304,7 @@ namespace ShapeMaker
         }
         private void LoadBtn_Click(object sender, EventArgs e)
         {
-            twoX.Checked = false;
+            IsZoomed = false;
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 string fp = getMyFolder();
@@ -5059,7 +5086,7 @@ namespace ShapeMaker
         private void loadProject_Click(object sender, EventArgs e)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
-            twoX.Checked = false;
+            IsZoomed = false;
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 string fp = getMyProjectFolder();
@@ -5132,7 +5159,7 @@ namespace ShapeMaker
         private void saveProject_Click(object sender, EventArgs e)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
-            twoX.Checked = false;
+            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
@@ -5298,6 +5325,150 @@ namespace ShapeMaker
         private void LineList_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
+        {
+            MoveFlag = false;
+
+            if (IsZoomed)
+            {
+                Zoomed = new Point(0, 0);
+                pb.Location = Zoomed;
+                pb.Width = 500; pb.Height = 500;
+                pb.Refresh();
+
+                splitButtonZoom.Text = "Zoom 1x";
+                IsZoomed = false;
+                return;
+            }
+
+            if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                int maxmove = 4000 - ZoomMaster.ClientSize.Width;
+                Zoomed = new Point(
+                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+                pb.Width = 4000; pb.Height = 4000;
+                pb.Location = Zoomed;
+                splitButtonZoom.Text = "Zoom 8x";
+            }
+            else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+            {
+                int maxmove = 2000 - ZoomMaster.ClientSize.Width;
+                Zoomed = new Point(
+                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+                pb.Width = 2000; pb.Height = 2000;
+                pb.Location = Zoomed;
+                splitButtonZoom.Text = "Zoom 4x";
+            }
+            else
+            {
+                int maxmove = 1000 - ZoomMaster.ClientSize.Width;
+                Zoomed = new Point(
+                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+                pb.Width = 1000; pb.Height = 1000;
+                pb.Location = Zoomed;
+                splitButtonZoom.Text = "Zoom 2x";
+            }
+            pb.Refresh();
+            IsZoomed = true;
+        }
+
+        private void xToolStripMenuZoom1x_Click(object sender, EventArgs e)
+        {
+            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            if (oldZoomFactor == 1)
+                return;
+
+            Zoomed = new Point(0, 0);
+            pb.Location = Zoomed;
+            pb.Width = 500; pb.Height = 500;
+            pb.Refresh();
+
+            splitButtonZoom.Text = "Zoom 1x";
+            IsZoomed = false;
+        }
+
+        private void xToolStripMenuZoom2x_Click(object sender, EventArgs e)
+        {
+            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            if (oldZoomFactor == 2)
+                return;
+
+            int maxmove = 1000 - ZoomMaster.ClientSize.Width;
+            pb.Location = new Point(0, 0);
+            Zoomed = new Point(
+                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+            if (oldZoomFactor > 2)
+            {
+                pb.Location = Zoomed;
+                pb.Width = 1000; pb.Height = 1000;
+            }
+            else
+            {
+                pb.Width = 1000; pb.Height = 1000;
+                pb.Location = Zoomed;
+            }
+            pb.Refresh();
+
+            splitButtonZoom.Text = "Zoom 2x";
+            IsZoomed = true;
+        }
+
+        private void xToolStripMenuZoom4x_Click(object sender, EventArgs e)
+        {
+            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            if (oldZoomFactor == 4)
+                return;
+
+            int maxmove = 2000 - ZoomMaster.ClientSize.Width;
+            pb.Location = new Point(0, 0);
+            Zoomed = new Point(
+                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+            if (oldZoomFactor > 4)
+            {
+                pb.Location = Zoomed;
+                pb.Width = 2000; pb.Height = 2000;
+            }
+            else
+            {
+                pb.Width = 2000; pb.Height = 2000;
+                pb.Location = Zoomed;
+            }
+            pb.Refresh();
+
+            splitButtonZoom.Text = "Zoom 4x";
+            IsZoomed = true;
+        }
+
+        private void xToolStripMenuZoom8x_Click(object sender, EventArgs e)
+        {
+            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            if (oldZoomFactor == 8)
+                return;
+
+            int maxmove = 4000 - ZoomMaster.ClientSize.Width;
+            pb.Location = new Point(0, 0);
+            Zoomed = new Point(
+                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
+                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+
+            pb.Width = 4000; pb.Height = 4000;
+            pb.Location = Zoomed;
+            pb.Refresh();
+
+            splitButtonZoom.Text = "Zoom 8x";
+            IsZoomed = true;
         }
     }
 }
