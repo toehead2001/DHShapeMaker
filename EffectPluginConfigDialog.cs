@@ -2361,6 +2361,25 @@ namespace ShapeMaker
                     pb.Refresh();
                 }
 
+                if (e.Button == MouseButtons.Middle && IsZoomed)
+                {
+                    int mpx = (int)(mapPoint.X * 100);
+                    int msx = (int)(MoveStart.X * 100);
+                    int mpy = (int)(mapPoint.Y * 100);
+                    int msy = (int)(MoveStart.Y * 100);
+                    int tx = 10 * (mpx - msx);
+                    int ty = 10 * (mpy - msy);
+
+                    int maxmove = pb.Width - ZoomMaster.ClientSize.Width;
+
+                    Zoomed = new Point(
+                        (pb.Location.X + tx < -maxmove) ? -maxmove : (pb.Location.X + tx > 0) ? 0 : pb.Location.X + tx,
+                        (pb.Location.Y + ty < -maxmove) ? -maxmove : (pb.Location.Y + ty > 0) ? 0 : pb.Location.Y + ty);
+
+                    pb.Location = Zoomed;
+                    pb.Refresh();
+                }
+
             }
             catch { }// (Exception ex) { MessageBox.Show(ex.Message); }
         }
