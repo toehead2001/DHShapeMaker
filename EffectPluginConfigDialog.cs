@@ -1770,7 +1770,8 @@ namespace ShapeMaker
                             eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
-                        statusLabelLocation.Text = string.Format("{0}, {1}", eX, eY);
+                        int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor), Math.Round(eY / (float)zoomFactor));
 
                         #region add
                         int len = pbpoint.Length;
@@ -2072,7 +2073,8 @@ namespace ShapeMaker
                 {
                     if (s.ClientRectangle.Contains(e.Location))
                     {
-                        statusLabelLocation.Text = string.Format("{0}, {1}", eX, eY);
+                        int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor), Math.Round(eY / (float)zoomFactor));
 
 
                         //left shift move line or path
