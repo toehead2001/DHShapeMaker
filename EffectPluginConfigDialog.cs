@@ -1258,7 +1258,7 @@ namespace ShapeMaker
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 48);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Move Selected Item";
+            this.label6.Text = "Move Selected Path";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label6.Click += new System.EventHandler(this.label4_Click);
             // 
@@ -3010,7 +3010,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK);
+                    MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK);
 
                 }
                 resetRotation();
