@@ -93,6 +93,8 @@ namespace ShapeMaker
         bool IsZoomed = false;
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
+        float DPI = 1;
+        int baseSize = 500;
 
 
         private Timer timer1;
@@ -385,7 +387,6 @@ namespace ShapeMaker
             this.menuStrip1.Size = new System.Drawing.Size(850, 43);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Resize += new System.EventHandler(this.menuStrip1_Resize);
             // 
             // fileToolStripMenuItem
             // 
@@ -1520,6 +1521,10 @@ namespace ShapeMaker
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
+            using (Graphics g = this.CreateGraphics())
+            DPI = g.DpiX / 96;
+            baseSize = (int)(baseSize * DPI);
+
             pb.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
 
@@ -1542,11 +1547,11 @@ namespace ShapeMaker
                 {
                     if (item.Text.Equals("Blank"))
                     {
-                        item.Size = new Size(blankWd, blankHt);
+                        item.Size = new Size((int)(blankWd * DPI), (int)(blankHt * DPI));
                     }
                     else
                     {
-                        item.Size = new Size(buttonWd, buttonHt);
+                        item.Size = new Size((int)(buttonWd * DPI), (int)(buttonHt * DPI));
                     }
                 }
             }
@@ -1576,6 +1581,10 @@ namespace ShapeMaker
             setShadows();
             //======
 
+            LineList.ItemHeight = (int)(LineList.ItemHeight * DPI);
+            statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
+            statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
+            statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
         }
         private void setShadows()
         {
@@ -1771,7 +1780,7 @@ namespace ShapeMaker
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
                         int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor), Math.Round(eY / (float)zoomFactor));
+                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
 
                         #region add
                         int len = pbpoint.Length;
@@ -2074,7 +2083,7 @@ namespace ShapeMaker
                     if (s.ClientRectangle.Contains(e.Location))
                     {
                         int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor), Math.Round(eY / (float)zoomFactor));
+                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
 
 
                         //left shift move line or path
@@ -4418,11 +4427,13 @@ namespace ShapeMaker
 
         private Bitmap SpriteSheet(int x, int y)
         {
-            Bitmap bmp = new Bitmap(buttonWd, buttonHt);
+            Bitmap bmp = new Bitmap((int)(buttonWd * DPI), (int)(buttonHt * DPI));
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.DrawImage(ShapeMaker.Properties.Resources.NewUI,
-                    new RectangleF(0, 0, buttonWd, buttonHt), new RectangleF(x * buttonWd, y * buttonHt, buttonWd, buttonHt), GraphicsUnit.Pixel);
+                    new RectangleF(0, 0, (int)(buttonWd * DPI), (int)(buttonHt * DPI)),
+                    new RectangleF(x * buttonWd, y * buttonHt, buttonWd, buttonHt),
+                    GraphicsUnit.Pixel);
             }
             return bmp;
         }
@@ -4469,7 +4480,7 @@ namespace ShapeMaker
 
         private void blank2_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.blank2, 0, 0, blankWd, blankHt);
+            e.Graphics.DrawImage(Properties.Resources.blank2, 0, 0, (int)(blankWd * DPI), (int)(blankHt * DPI));
         }
 
         private void MakePath()
@@ -5136,11 +5147,6 @@ namespace ShapeMaker
 
         }
 
-        private void menuStrip1_Resize(object sender, EventArgs e)
-        {
-            this.ClientSize = new Size(menuStrip1.Width, this.ClientSize.Height);
-        }
-
         private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
         {
             MoveFlag = false;
@@ -5149,7 +5155,7 @@ namespace ShapeMaker
             {
                 Zoomed = new Point(0, 0);
                 pb.Location = Zoomed;
-                pb.Width = 500; pb.Height = 500;
+                pb.Width = baseSize; pb.Height = baseSize;
                 pb.Refresh();
 
                 splitButtonZoom.Text = "Zoom 1x";
@@ -5159,34 +5165,37 @@ namespace ShapeMaker
 
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
             {
-                int maxmove = 4000 - ZoomMaster.ClientSize.Width;
+                int newDimension = baseSize * 8;
+                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
                 Zoomed = new Point(
                     (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
                     (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
 
-                pb.Width = 4000; pb.Height = 4000;
+                pb.Width = newDimension; pb.Height = newDimension;
                 pb.Location = Zoomed;
                 splitButtonZoom.Text = "Zoom 8x";
             }
             else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                int maxmove = 2000 - ZoomMaster.ClientSize.Width;
+                int newDimension = baseSize * 4;
+                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
                 Zoomed = new Point(
                     (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
                     (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
 
-                pb.Width = 2000; pb.Height = 2000;
+                pb.Width = newDimension; pb.Height = newDimension;
                 pb.Location = Zoomed;
                 splitButtonZoom.Text = "Zoom 4x";
             }
             else
             {
-                int maxmove = 1000 - ZoomMaster.ClientSize.Width;
+                int newDimension = baseSize * 2;
+                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
                 Zoomed = new Point(
                     (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
                     (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
 
-                pb.Width = 1000; pb.Height = 1000;
+                pb.Width = newDimension; pb.Height = newDimension;
                 pb.Location = Zoomed;
                 splitButtonZoom.Text = "Zoom 2x";
             }
@@ -5202,7 +5211,7 @@ namespace ShapeMaker
 
             Zoomed = new Point(0, 0);
             pb.Location = Zoomed;
-            pb.Width = 500; pb.Height = 500;
+            pb.Width = baseSize; pb.Height = baseSize;
             pb.Refresh();
 
             splitButtonZoom.Text = "Zoom 1x";
@@ -5215,7 +5224,8 @@ namespace ShapeMaker
             if (oldZoomFactor == 2)
                 return;
 
-            int maxmove = 1000 - ZoomMaster.ClientSize.Width;
+            int newDimension = baseSize * 2;
+            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
             pb.Location = new Point(0, 0);
             Zoomed = new Point(
                 (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
@@ -5224,11 +5234,11 @@ namespace ShapeMaker
             if (oldZoomFactor > 2)
             {
                 pb.Location = Zoomed;
-                pb.Width = 1000; pb.Height = 1000;
+                pb.Width = newDimension; pb.Height = newDimension;
             }
             else
             {
-                pb.Width = 1000; pb.Height = 1000;
+                pb.Width = newDimension; pb.Height = newDimension;
                 pb.Location = Zoomed;
             }
             pb.Refresh();
@@ -5243,7 +5253,8 @@ namespace ShapeMaker
             if (oldZoomFactor == 4)
                 return;
 
-            int maxmove = 2000 - ZoomMaster.ClientSize.Width;
+            int newDimension = baseSize * 4;
+            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
             pb.Location = new Point(0, 0);
             Zoomed = new Point(
                 (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
@@ -5252,11 +5263,11 @@ namespace ShapeMaker
             if (oldZoomFactor > 4)
             {
                 pb.Location = Zoomed;
-                pb.Width = 2000; pb.Height = 2000;
+                pb.Width = newDimension; pb.Height = newDimension;
             }
             else
             {
-                pb.Width = 2000; pb.Height = 2000;
+                pb.Width = newDimension; pb.Height = newDimension;
                 pb.Location = Zoomed;
             }
             pb.Refresh();
@@ -5271,13 +5282,14 @@ namespace ShapeMaker
             if (oldZoomFactor == 8)
                 return;
 
-            int maxmove = 4000 - ZoomMaster.ClientSize.Width;
+            int newDimension = baseSize * 8;
+            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
             pb.Location = new Point(0, 0);
             Zoomed = new Point(
                 (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
                 (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
 
-            pb.Width = 4000; pb.Height = 4000;
+            pb.Width = newDimension; pb.Height = newDimension;
             pb.Location = Zoomed;
             pb.Refresh();
 
@@ -5320,8 +5332,8 @@ namespace ShapeMaker
                 Zoomed = new Point((pb.Location.X - mousePosition.X) * newDimension / pb.Width + mousePosition.X,
                                    (pb.Location.Y - mousePosition.Y) * newDimension / pb.Width + mousePosition.Y);
 
-                Zoomed.X = Clamp(Zoomed.X, 500 - newDimension, 0);
-                Zoomed.Y = Clamp(Zoomed.Y, 500 - newDimension, 0);
+                Zoomed.X = Clamp(Zoomed.X, baseSize - newDimension, 0);
+                Zoomed.Y = Clamp(Zoomed.Y, baseSize - newDimension, 0);
             }
 
             // to avoid flicker, the order of execution is important
