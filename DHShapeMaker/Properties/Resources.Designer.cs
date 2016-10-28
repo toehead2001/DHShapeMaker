@@ -352,16 +352,6 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SbOHUUR {
-            get {
-                object obj = ResourceManager.GetObject("SbOHUUR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ShpeMaker_sample {
             get {
                 object obj = ResourceManager.GetObject("ShpeMaker_sample", resourceCulture);
