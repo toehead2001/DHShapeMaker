@@ -23,7 +23,7 @@ namespace ShapeMaker
         
         public static Bitmap StaticImage
         {
-            get { return ShapeMaker.Properties.Resources.pdndwarvesicon2; }
+            get { return ShapeMaker.Properties.Resources.icon; }
         }
 
         public static string StaticSubMenuName

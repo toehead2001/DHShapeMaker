@@ -144,12 +144,12 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon Icon {
+        internal static System.Drawing.Bitmap icon {
             get {
-                object obj = ResourceManager.GetObject("Icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -252,16 +252,6 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap OKTESTUP {
             get {
                 object obj = ResourceManager.GetObject("OKTESTUP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap pdndwarvesicon2 {
-            get {
-                object obj = ResourceManager.GetObject("pdndwarvesicon2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
