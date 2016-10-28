@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHShapeMaker", "DHShapeMaker.csproj", "{4F426B1B-0AD4-4F08-B185-F01E22A50D7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHShapeMaker", "DHShapeMaker\DHShapeMaker.csproj", "{4F426B1B-0AD4-4F08-B185-F01E22A50D7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
