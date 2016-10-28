@@ -20,21 +20,9 @@ namespace ShapeMaker
 
         private void Shortcuts_Load(object sender, EventArgs e)
         {
-
-            Assembly asm = Assembly.GetExecutingAssembly();
-            using (Stream stream = asm.GetManifestResourceStream("ShapeMaker.Resources.Keyboard.rtf"))
-            {
-                rt3.LoadFile(stream, RichTextBoxStreamType.RichText);
-            }
-            using (Stream stream = asm.GetManifestResourceStream("ShapeMaker.Resources.Mouse.rtf"))
-            {
-                rt1.LoadFile(stream, RichTextBoxStreamType.RichText);
-            }
-            using (Stream stream = asm.GetManifestResourceStream("ShapeMaker.Resources.Misc.rtf"))
-            {
-                rt2.LoadFile(stream, RichTextBoxStreamType.RichText);
-            }
-
+            rt3.Rtf = Properties.Resources.Keyboard;
+            rt1.Rtf = Properties.Resources.Mouse;
+            rt2.Rtf = Properties.Resources.Misc;
         }
 
 
