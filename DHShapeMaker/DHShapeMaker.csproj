@@ -168,6 +168,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ShpeMaker.sample.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetFileName)" "C:\Program Files\Paint.NET\Effects"</PostBuildEvent>
   </PropertyGroup>
