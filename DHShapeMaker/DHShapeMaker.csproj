@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,7 +12,7 @@
     <AssemblyName>DHShapeMaker</AssemblyName>
     <StartupObject>
     </StartupObject>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -42,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
@@ -64,23 +66,14 @@
   -->
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="PaintDotNet">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.exe</HintPath>
-    </Reference>
     <Reference Include="PaintDotNet.Base">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.Base.DLL</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\paint.net\PaintDotNet.Base.dll</HintPath>
     </Reference>
     <Reference Include="PaintDotNet.Core">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PaintDotNet.Data">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\paint.net\PaintDotNet.Core.dll</HintPath>
     </Reference>
     <Reference Include="PaintDotNet.Effects">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.Effects.dll</HintPath>
-    </Reference>
-    <Reference Include="PaintDotNet.Resources">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Paint.NET\pdn35\PaintDotNet.Resources.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\paint.net\PaintDotNet.Effects.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -175,7 +168,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
     <None Include="Resources\LEDGon.png" />
     <None Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\Keyboard.rtf" />
