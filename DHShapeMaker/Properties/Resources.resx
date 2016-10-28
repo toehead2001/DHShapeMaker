@@ -197,21 +197,6 @@
   <data name="sliderHandle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sliderHandle.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="leftCorner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\leftCorner.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="leftStrip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\leftStrip.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rightCorner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rightCorner.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rightStrip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rightStrip.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="topStrip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\topStrip.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Draw_on_canvas_ss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Draw on canvas ss.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

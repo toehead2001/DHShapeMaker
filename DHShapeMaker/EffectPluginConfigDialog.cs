@@ -140,9 +140,6 @@ namespace ShapeMaker
         private ToolStripMenuItem exportPathGeometryToolStripMenuItem;
         private ToolStripMenuItem QuickStartStripMenuItem;
         private Panel panel5;
-        private Panel panel2;
-        private Panel panel4;
-        private Panel panel6;
         private CheckBox FitBG;
         private CheckBox DrawOnCanvas;
         private Label label4;
@@ -159,13 +156,6 @@ namespace ShapeMaker
         private Button DNList;
         private Label label6;
         private dhScroll opaque;
-        private Panel panel3;
-        private Panel panel7;
-        private Panel panel12;
-        private Panel panel11;
-        private Panel PanelLabel;
-        private Panel panel9;
-        private Panel panel8;
         private Label label2;
         private ToolStripMenuItem loadProject;
         private ToolStripMenuItem saveProject;
@@ -300,21 +290,11 @@ namespace ShapeMaker
             this.SpinLine = new Controlz.BigKnobs();
             this.ZoomMaster = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.PanelLabel = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelPathsUsed = new System.Windows.Forms.ToolStripStatusLabel();
@@ -334,7 +314,6 @@ namespace ShapeMaker
             // pb
             // 
             this.pb.BackColor = System.Drawing.Color.White;
-            this.pb.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pb.BackgroundImage")));
             this.pb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pb.Location = new System.Drawing.Point(0, 0);
             this.pb.Name = "pb";
@@ -1177,36 +1156,6 @@ namespace ShapeMaker
             this.panel5.Size = new System.Drawing.Size(10, 501);
             this.panel5.TabIndex = 45;
             // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(7, 48);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(502, 10);
-            this.panel2.TabIndex = 42;
-            // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(-2, 60);
-            this.panel4.Margin = new System.Windows.Forms.Padding(0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(10, 501);
-            this.panel4.TabIndex = 44;
-            // 
-            // panel6
-            // 
-            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
-            this.panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel6.Location = new System.Drawing.Point(509, 59);
-            this.panel6.Margin = new System.Windows.Forms.Padding(0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(10, 501);
-            this.panel6.TabIndex = 45;
-            // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1254,44 +1203,6 @@ namespace ShapeMaker
             this.label6.Text = "Move Selected Path";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // panel8
-            // 
-            this.panel8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel8.BackgroundImage")));
-            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel8.Location = new System.Drawing.Point(530, 54);
-            this.panel8.Margin = new System.Windows.Forms.Padding(0);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(11, 19);
-            this.panel8.TabIndex = 46;
-            // 
-            // panel12
-            // 
-            this.panel12.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel12.BackgroundImage")));
-            this.panel12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel12.Location = new System.Drawing.Point(683, 73);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(10, 329);
-            this.panel12.TabIndex = 45;
-            // 
-            // panel11
-            // 
-            this.panel11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel11.BackgroundImage")));
-            this.panel11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel11.Location = new System.Drawing.Point(528, 73);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(11, 329);
-            this.panel11.TabIndex = 44;
-            // 
-            // panel9
-            // 
-            this.panel9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel9.BackgroundImage")));
-            this.panel9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel9.Location = new System.Drawing.Point(685, 54);
-            this.panel9.Margin = new System.Windows.Forms.Padding(0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(10, 19);
-            this.panel9.TabIndex = 47;
-            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1304,38 +1215,6 @@ namespace ShapeMaker
             this.label2.TabIndex = 2;
             this.label2.Text = "Rotate and Scale";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // PanelLabel
-            // 
-            this.PanelLabel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PanelLabel.BackgroundImage")));
-            this.PanelLabel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.PanelLabel.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelLabel.Location = new System.Drawing.Point(540, 54);
-            this.PanelLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PanelLabel.Name = "PanelLabel";
-            this.PanelLabel.Size = new System.Drawing.Size(145, 18);
-            this.PanelLabel.TabIndex = 42;
-            this.PanelLabel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel10_Paint);
-            // 
-            // panel3
-            // 
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(-1, 48);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(10, 13);
-            this.panel3.TabIndex = 46;
-            // 
-            // panel7
-            // 
-            this.panel7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel7.BackgroundImage")));
-            this.panel7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel7.Location = new System.Drawing.Point(509, 48);
-            this.panel7.Margin = new System.Windows.Forms.Padding(0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(10, 13);
-            this.panel7.TabIndex = 47;
             // 
             // statusStrip1
             // 
@@ -1432,32 +1311,22 @@ namespace ShapeMaker
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.opaque);
             this.Controls.Add(this.ClearBtn);
-            this.Controls.Add(this.panel8);
             this.Controls.Add(this.SpinLine);
             this.Controls.Add(this.FigureName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.ApplyBtn);
-            this.Controls.Add(this.panel12);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.DNList);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.panel7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.upList);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel11);
             this.Controls.Add(this.DrawOnCanvas);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel9);
-            this.Controls.Add(this.panel6);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.ZoomMaster);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.LineList);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.FitBG);
-            this.Controls.Add(this.PanelLabel);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -1548,68 +1417,12 @@ namespace ShapeMaker
 
             timer1.Enabled = true;
             StraightLine.Image = SpriteSheet(0, 1);
-            setShadows();
             //======
 
             LineList.ItemHeight = (int)(LineList.ItemHeight * DPI);
             statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
             statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
             statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
-        }
-        private void setShadows()
-        {
-            //shadows
-            PanelLabel.Left = LineList.Left;
-            PanelLabel.Top = LineList.Top - 18;
-            PanelLabel.Width = LineList.Width;
-            PanelLabel.Height = 18;
-
-            panel11.Top = LineList.Top;
-            panel11.Left = LineList.Left - 10;
-            panel11.Width = 10;
-            panel11.Height = LineList.Height;
-
-            panel12.Left = LineList.Right;
-            panel12.Top = LineList.Top;
-            panel12.Width = 10;
-            panel12.Height = LineList.Height;
-
-            panel8.Left = LineList.Left - 10;
-            panel8.Top = LineList.Top - 18;
-            panel8.Width = 10;
-            panel8.Height = 18;
-
-            panel9.Left = LineList.Right;
-            panel9.Top = LineList.Top - 18;
-            panel9.Width = 10;
-            panel9.Height = 18;
-            //==============
-            panel2.Left = ZoomMaster.Left;
-            panel2.Top = ZoomMaster.Top - 10;
-            panel2.Width = ZoomMaster.Width;
-            panel2.Height = 10;
-
-            panel4.Top = ZoomMaster.Top;
-            panel4.Left = ZoomMaster.Left - 10;
-            panel4.Width = 10;
-            panel4.Height = ZoomMaster.Height;
-
-            panel6.Left = ZoomMaster.Right;
-            panel6.Top = ZoomMaster.Top;
-            panel6.Width = 10;
-            panel6.Height = ZoomMaster.Height;
-
-            panel3.Left = ZoomMaster.Left - 10;
-            panel3.Top = ZoomMaster.Top - 10;
-            panel3.Width = 10;
-            panel3.Height = 10;
-
-            panel7.Left = ZoomMaster.Right;
-            panel7.Top = ZoomMaster.Top - 10;
-            panel7.Width = 10;
-            panel7.Height = 10;
-
-            //
         }
 
         private void setUndo()
@@ -4940,15 +4753,6 @@ namespace ShapeMaker
         {
             CheckBox c = (sender as CheckBox);
             if (e.Button == MouseButtons.Right) c.Checked = !c.Checked;
-        }
-
-        private void panel10_Paint(object sender, PaintEventArgs e)
-        {
-            Panel s = (sender as Panel);
-            SizeF sSize = new SizeF();
-            sSize = e.Graphics.MeasureString("Path List", s.Font);
-            e.Graphics.DrawString("Path List", s.Font,
-                new SolidBrush(s.ForeColor), new Point((s.Width - (int)sSize.Width) / 2));
         }
 
         private void loadProject_Click(object sender, EventArgs e)

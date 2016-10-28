@@ -235,26 +235,6 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap leftCorner {
-            get {
-                object obj = ResourceManager.GetObject("leftCorner", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap leftStrip {
-            get {
-                object obj = ResourceManager.GetObject("leftStrip", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {\rtf1\adeflang1025\ansi\ansicpg1252\uc1\adeff0\deff0\stshfdbch31505\stshfloch31506\stshfhich31506\stshfbi0\deflang1033\deflangfe1033\themelang1033\themelangfe0\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\fbidi \fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}
         ///{\f1\fbidi \fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}{\f39\fbidi \fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Microsoft Sans Serif;}
         ///{\flomaj [rest of string was truncated]&quot;;.
@@ -392,26 +372,6 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rightCorner {
-            get {
-                object obj = ResourceManager.GetObject("rightCorner", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap rightStrip {
-            get {
-                object obj = ResourceManager.GetObject("rightStrip", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap SbOHUUR {
             get {
                 object obj = ResourceManager.GetObject("SbOHUUR", resourceCulture);
@@ -445,16 +405,6 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap sliderHandleLit {
             get {
                 object obj = ResourceManager.GetObject("sliderHandleLit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap topStrip {
-            get {
-                object obj = ResourceManager.GetObject("topStrip", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
