@@ -54,7 +54,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -166,47 +167,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LEDGon.png" />
-    <None Include="Resources\Icon.ico" />
-    <EmbeddedResource Include="Resources\Keyboard.rtf" />
-    <EmbeddedResource Include="Resources\Misc.rtf" />
-    <EmbeddedResource Include="Resources\Mouse.rtf" />
-    <None Include="Resources\pdndwarvesicon2.png" />
-    <None Include="Resources\sliderHandleLit.png" />
-    <None Include="Resources\rightarrow.png" />
-    <None Include="Resources\rightarrowLit.png" />
-    <None Include="Resources\leftarrow.png" />
-    <None Include="Resources\leftarrowLit.png" />
-    <None Include="Resources\V6 left ImageOpacityArrow ss.png" />
-    <None Include="Resources\V6 right ImageOpacityArrow ss.png" />
-    <None Include="Resources\zoom.png" />
-    <None Include="Resources\Draw on canvas ss.png" />
-    <None Include="Resources\Fit background ss.png" />
-    <None Include="Resources\TwoTimesView ss.png" />
-    <None Include="Resources\leftCorner.png" />
-    <None Include="Resources\rightCorner.png" />
-    <None Include="Resources\topStrip.png" />
-    <None Include="Resources\leftStrip.png" />
-    <None Include="Resources\rightStrip.png" />
-    <None Include="Resources\sliderHandle.png" />
-    <None Include="Resources\sliderBG.png" />
-    <None Include="Resources\OKTESTUP.png" />
-    <None Include="Resources\DnList.png" />
-    <None Include="Resources\UpList.png" />
-    <None Include="Resources\DESLCTUP.png" />
-    <None Include="Resources\APPTESTUP.png" />
-    <EmbeddedResource Include="Resources\ShpeMaker.sample.png" />
-    <None Include="Resources\big.png" />
-    <None Include="Resources\blank2.png" />
-    <None Include="Resources\blank.png" />
-    <None Include="Resources\Possible NewUI.png" />
-    <None Include="Resources\LEDon.png" />
-    <None Include="Resources\LEDoff.png" />
-    <None Include="Resources\SbOHUUR.png" />
-    <None Include="Resources\pdndwarvesicon.png" />
-    <None Include="Resources\bg.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetFileName)" "C:\Program Files\Paint.NET\Effects"</PostBuildEvent>
