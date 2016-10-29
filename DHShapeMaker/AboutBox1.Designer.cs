@@ -76,12 +76,11 @@
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
-            this.logoPictureBox.Click += new System.EventHandler(this.logoPictureBox_Click);
             // 
             // labelProductName
             // 
             this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProductName.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProductName.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelProductName.Location = new System.Drawing.Point(188, 0);
             this.labelProductName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.labelProductName.MaximumSize = new System.Drawing.Size(0, 17);
@@ -94,7 +93,7 @@
             // labelVersion
             // 
             this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelVersion.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelVersion.Location = new System.Drawing.Point(188, 23);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
@@ -107,20 +106,20 @@
             // labelCopyright
             // 
             this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCopyright.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCopyright.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCopyright.Location = new System.Drawing.Point(188, 46);
             this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 17);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(226, 17);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "© 2015 The Dwarf Horde ";
+            this.labelCopyright.Text = "© 2016 The Dwarf Horde ";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName
             // 
             this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCompanyName.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCompanyName.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCompanyName.Location = new System.Drawing.Point(188, 71);
             this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
@@ -133,7 +132,6 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDescription.Location = new System.Drawing.Point(188, 97);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.textBoxDescription.Multiline = true;
@@ -154,7 +152,6 @@
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AboutBox1
             // 
@@ -163,7 +160,7 @@
             this.CancelButton = this.okButton;
             this.ClientSize = new System.Drawing.Size(435, 341);
             this.Controls.Add(this.tableLayoutPanel);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
