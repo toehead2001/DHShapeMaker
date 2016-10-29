@@ -638,7 +638,6 @@ namespace ShapeMaker
             MoveFlag = false;
             lastHit = -1;
             pb.Refresh();
-            posBarsTimer.Stop();
             posBarsTimer.Start();
         }
         private void pb_MouseMove(object sender, MouseEventArgs e)
@@ -944,6 +943,7 @@ namespace ShapeMaker
 
                             pb.Location = Zoomed;
 
+                            posBarsTimer.Stop();
                             DrawPosBars = true;
                             verPos.Refresh();
                             horPos.Refresh();
@@ -972,6 +972,7 @@ namespace ShapeMaker
                     pb.Location = Zoomed;
                     pb.Refresh();
 
+                    posBarsTimer.Stop();
                     DrawPosBars = true;
                     verPos.Refresh();
                     horPos.Refresh();
