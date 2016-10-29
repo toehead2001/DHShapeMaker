@@ -3740,148 +3740,79 @@ namespace ShapeMaker
 
             if (IsZoomed)
             {
-                Zoomed = new Point(0, 0);
-                pb.Location = Zoomed;
-                pb.Width = baseSize; pb.Height = baseSize;
-                pb.Refresh();
-
-                splitButtonZoom.Text = "Zoom 1x";
-                IsZoomed = false;
-                return;
+                ZoomToFactor(1);
             }
-
-            if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
+            else if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
             {
-                int newDimension = baseSize * 8;
-                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-                pb.Width = newDimension; pb.Height = newDimension;
-                pb.Location = Zoomed;
-                splitButtonZoom.Text = "Zoom 8x";
+                ZoomToFactor(8);
             }
             else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                int newDimension = baseSize * 4;
-                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-                pb.Width = newDimension; pb.Height = newDimension;
-                pb.Location = Zoomed;
-                splitButtonZoom.Text = "Zoom 4x";
+                ZoomToFactor(4);
             }
             else
             {
-                int newDimension = baseSize * 2;
-                int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-                Zoomed = new Point(
-                    (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                    (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-                pb.Width = newDimension; pb.Height = newDimension;
-                pb.Location = Zoomed;
-                splitButtonZoom.Text = "Zoom 2x";
+                ZoomToFactor(2);
             }
-            pb.Refresh();
-            IsZoomed = true;
         }
 
         private void xToolStripMenuZoom1x_Click(object sender, EventArgs e)
         {
-            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-            if (oldZoomFactor == 1)
-                return;
-
-            Zoomed = new Point(0, 0);
-            pb.Location = Zoomed;
-            pb.Width = baseSize; pb.Height = baseSize;
-            pb.Refresh();
-
-            splitButtonZoom.Text = "Zoom 1x";
-            IsZoomed = false;
+            ZoomToFactor(1);
         }
 
         private void xToolStripMenuZoom2x_Click(object sender, EventArgs e)
         {
-            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-            if (oldZoomFactor == 2)
-                return;
-
-            int newDimension = baseSize * 2;
-            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-            pb.Location = new Point(0, 0);
-            Zoomed = new Point(
-                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-            if (oldZoomFactor > 2)
-            {
-                pb.Location = Zoomed;
-                pb.Width = newDimension; pb.Height = newDimension;
-            }
-            else
-            {
-                pb.Width = newDimension; pb.Height = newDimension;
-                pb.Location = Zoomed;
-            }
-            pb.Refresh();
-
-            splitButtonZoom.Text = "Zoom 2x";
-            IsZoomed = true;
+            ZoomToFactor(2);
         }
 
         private void xToolStripMenuZoom4x_Click(object sender, EventArgs e)
         {
-            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-            if (oldZoomFactor == 4)
-                return;
-
-            int newDimension = baseSize * 4;
-            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-            pb.Location = new Point(0, 0);
-            Zoomed = new Point(
-                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
-
-            if (oldZoomFactor > 4)
-            {
-                pb.Location = Zoomed;
-                pb.Width = newDimension; pb.Height = newDimension;
-            }
-            else
-            {
-                pb.Width = newDimension; pb.Height = newDimension;
-                pb.Location = Zoomed;
-            }
-            pb.Refresh();
-
-            splitButtonZoom.Text = "Zoom 4x";
-            IsZoomed = true;
+            ZoomToFactor(4);
         }
 
         private void xToolStripMenuZoom8x_Click(object sender, EventArgs e)
         {
+            ZoomToFactor(8);
+        }
+
+        private void ZoomToFactor(int zoomFactor)
+        {
             int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
-            if (oldZoomFactor == 8)
+            if (oldZoomFactor == zoomFactor)
                 return;
 
-            int newDimension = baseSize * 8;
+            int newDimension = baseSize * zoomFactor;
             int maxmove = newDimension - ZoomMaster.ClientSize.Width;
             pb.Location = new Point(0, 0);
             Zoomed = new Point(
                 (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
                 (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
 
-            pb.Width = newDimension; pb.Height = newDimension;
-            pb.Location = Zoomed;
+            // to avoid flicker, the order of execution is important
+            if (oldZoomFactor > zoomFactor) // Zooming Out
+            {
+                pb.Location = Zoomed;
+                pb.Width = newDimension;
+                pb.Height = newDimension;
+            }
+            else // Zooming In
+            {
+                pb.Width = newDimension;
+                pb.Height = newDimension;
+                pb.Location = Zoomed;
+            }
             pb.Refresh();
 
-            splitButtonZoom.Text = "Zoom 8x";
-            IsZoomed = true;
+            splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
+            IsZoomed = (zoomFactor > 1);
+
+            // Update Position Bars
+            posBarsTimer.Stop();
+            posBarsTimer.Start();
+            DrawPosBars = (zoomFactor > 1);
+            verPos.Refresh();
+            horPos.Refresh();
         }
 
         private void pb_MouseEnter(object sender, EventArgs e)
