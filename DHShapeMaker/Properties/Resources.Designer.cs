@@ -362,16 +362,6 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TwoTimesView_ss {
-            get {
-                object obj = ResourceManager.GetObject("TwoTimesView_ss", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap UpList {
             get {
                 object obj = ResourceManager.GetObject("UpList", resourceCulture);
