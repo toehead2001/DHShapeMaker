@@ -95,6 +95,8 @@ namespace ShapeMaker
         Point Zoomed = new Point(0, 0);
         float DPI = 1;
         int baseSize = 500;
+        Timer posBarsTimer = new Timer();
+        bool DrawPosBars = false;
 
 
         private Timer timer1;
@@ -174,6 +176,8 @@ namespace ShapeMaker
         private ToolStripStatusLabel statusLabelNubsUsed;
         private ToolStripStatusLabel statusLabelPathsUsed;
         private ToolStripStatusLabel statusLabelLocation;
+        private Panel verPos;
+        private Panel horPos;
         ToolStripMenuItem[] radios = new ToolStripMenuItem[6];
 
         public EffectPluginConfigDialog()
@@ -304,6 +308,8 @@ namespace ShapeMaker
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
+            this.verPos = new System.Windows.Forms.Panel();
+            this.horPos = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -1301,12 +1307,30 @@ namespace ShapeMaker
             this.xToolStripMenuZoom1x.Text = "1x";
             this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
             // 
+            // verPos
+            // 
+            this.verPos.Location = new System.Drawing.Point(509, 59);
+            this.verPos.Name = "verPos";
+            this.verPos.Size = new System.Drawing.Size(5, 500);
+            this.verPos.TabIndex = 49;
+            this.verPos.Paint += new System.Windows.Forms.PaintEventHandler(this.verPos_Paint);
+            // 
+            // horPos
+            // 
+            this.horPos.Location = new System.Drawing.Point(8, 560);
+            this.horPos.Name = "horPos";
+            this.horPos.Size = new System.Drawing.Size(500, 5);
+            this.horPos.TabIndex = 50;
+            this.horPos.Paint += new System.Windows.Forms.PaintEventHandler(this.horPos_Paint);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.horPos);
+            this.Controls.Add(this.verPos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.opaque);
@@ -1360,6 +1384,9 @@ namespace ShapeMaker
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
+            posBarsTimer.Interval = 1000;
+            posBarsTimer.Tick += PosBarsTimer_Tick;
+
             using (Graphics g = this.CreateGraphics())
             DPI = g.DpiX / 96;
             baseSize = (int)(baseSize * DPI);
@@ -1423,6 +1450,14 @@ namespace ShapeMaker
             statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
             statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
             statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
+        }
+
+        private void PosBarsTimer_Tick(object sender, EventArgs e)
+        {
+            DrawPosBars = false;
+            verPos.Refresh();
+            horPos.Refresh();
+            posBarsTimer.Stop();
         }
 
         private void setUndo()
@@ -1838,6 +1873,8 @@ namespace ShapeMaker
             MoveFlag = false;
             lastHit = -1;
             pb.Refresh();
+            posBarsTimer.Stop();
+            posBarsTimer.Start();
         }
         private void pb_MouseMove(object sender, MouseEventArgs e)
         {
@@ -2141,6 +2178,10 @@ namespace ShapeMaker
                                 (pb.Location.Y + ty < -maxmove) ? -maxmove : (pb.Location.Y + ty > 0) ? 0 : pb.Location.Y + ty);
 
                             pb.Location = Zoomed;
+
+                            DrawPosBars = true;
+                            verPos.Refresh();
+                            horPos.Refresh();
                         }
 
                     }
@@ -2165,6 +2206,10 @@ namespace ShapeMaker
 
                     pb.Location = Zoomed;
                     pb.Refresh();
+
+                    DrawPosBars = true;
+                    verPos.Refresh();
+                    horPos.Refresh();
                 }
 
             }
@@ -5128,12 +5173,42 @@ namespace ShapeMaker
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
             IsZoomed = (zoomFactor > 1);
 
+            posBarsTimer.Stop();
+            posBarsTimer.Start();
+            DrawPosBars = true;
+            verPos.Refresh();
+            horPos.Refresh();
+
             base.OnMouseWheel(e);
         }
 
         private static int Clamp(int value, int min, int max)
         {
             return (value < min) ? min : (value > max) ? max : value;
+        }
+
+        private void verPos_Paint(object sender, PaintEventArgs e)
+        {
+            if (IsZoomed && DrawPosBars)
+            {
+                int length = ZoomMaster.ClientSize.Height / (pb.Height / ZoomMaster.ClientSize.Height);
+                int maxPos = ZoomMaster.ClientSize.Height - length;
+                float pos = Math.Abs(pb.Location.Y) / (float)(pb.Height - ZoomMaster.ClientSize.Height) * maxPos;
+                RectangleF verBar = new RectangleF(1, pos, 3, length);
+                e.Graphics.FillRectangle(Brushes.Gray, verBar);
+            }
+        }
+
+        private void horPos_Paint(object sender, PaintEventArgs e)
+        {
+            if (IsZoomed && DrawPosBars)
+            {
+                int length = ZoomMaster.ClientSize.Width / (pb.Width / ZoomMaster.ClientSize.Width);
+                int maxPos = ZoomMaster.ClientSize.Width - length;
+                float pos = Math.Abs(pb.Location.X) / (float)(pb.Width - ZoomMaster.ClientSize.Width) * maxPos;
+                RectangleF horBar = new RectangleF(pos, 1, length, 3);
+                e.Graphics.FillRectangle(Brushes.Gray, horBar);
+            }
         }
     }
 }
