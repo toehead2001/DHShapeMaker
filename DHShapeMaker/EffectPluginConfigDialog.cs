@@ -178,6 +178,7 @@ namespace ShapeMaker
         private ToolStripStatusLabel statusLabelLocation;
         private Panel verPos;
         private Panel horPos;
+        private Label label3;
         ToolStripMenuItem[] radios = new ToolStripMenuItem[6];
 
         public EffectPluginConfigDialog()
@@ -310,6 +311,7 @@ namespace ShapeMaker
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
             this.verPos = new System.Windows.Forms.Panel();
             this.horPos = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -1164,8 +1166,6 @@ namespace ShapeMaker
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(728, 350);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
@@ -1176,8 +1176,6 @@ namespace ShapeMaker
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(729, 403);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
@@ -1188,8 +1186,6 @@ namespace ShapeMaker
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(533, 450);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
@@ -1200,8 +1196,6 @@ namespace ShapeMaker
             // 
             // label6
             // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(581, 403);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 48);
@@ -1211,16 +1205,14 @@ namespace ShapeMaker
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.AutoSize = true;
             this.label2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label2.Location = new System.Drawing.Point(721, 48);
+            this.label2.Location = new System.Drawing.Point(721, 56);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 16);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Rotate and Scale";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // statusStrip1
             // 
@@ -1323,12 +1315,22 @@ namespace ShapeMaker
             this.horPos.TabIndex = 50;
             this.horPos.Paint += new System.Windows.Forms.PaintEventHandler(this.horPos_Paint);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(584, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 51;
+            this.label3.Text = "Path List";
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.horPos);
             this.Controls.Add(this.verPos);
             this.Controls.Add(this.statusStrip1);
@@ -1352,7 +1354,7 @@ namespace ShapeMaker
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.FitBG);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.menuStrip1;
