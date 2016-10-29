@@ -3624,6 +3624,7 @@ namespace ShapeMaker
                             UDPointer = 0;
                             undoToolStripMenuItem.Enabled = false;
                             resetRotation();
+                            ZoomToFactor(1);
                         }
                         else
                         {
