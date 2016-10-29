@@ -972,10 +972,8 @@ namespace ShapeMaker
             // 
             // FigureName
             // 
-            this.FigureName.BackColor = System.Drawing.Color.White;
             this.FigureName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FigureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FigureName.ForeColor = System.Drawing.Color.Black;
             this.FigureName.Location = new System.Drawing.Point(723, 368);
             this.FigureName.Name = "FigureName";
             this.FigureName.Size = new System.Drawing.Size(93, 18);
@@ -1009,7 +1007,6 @@ namespace ShapeMaker
             // 
             // OutputScale
             // 
-            this.OutputScale.BackColor = System.Drawing.Color.White;
             this.OutputScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OutputScale.Location = new System.Drawing.Point(724, 421);
             this.OutputScale.Maximum = new decimal(new int[] {
@@ -1431,8 +1428,9 @@ namespace ShapeMaker
                 {
                     if (pi.Name.Equals("BackColor"))
                     {
-                        if (!c.BackColor.Equals(Color.White)
-                            && !c.BackColor.Equals(Color.Transparent))
+                        if (!c.BackColor.Equals(Color.White) &&
+                            !c.BackColor.Equals(Color.Transparent) &&
+                            !c.BackColor.Equals(SystemColors.Window))
                             c.BackColor = BackColorConst;
                     }
                 }
@@ -3593,8 +3591,11 @@ namespace ShapeMaker
             {
                 Graphics g = e.Graphics;
 
-                using (SolidBrush backgroundColorBrush = new SolidBrush((isItemSelected) ? Color.LightGray : Color.White))
-                    g.FillRectangle(backgroundColorBrush, e.Bounds);
+                if (isItemSelected)
+                {
+                    using (SolidBrush backgroundColorBrush = new SolidBrush(Color.LightGray))
+                        g.FillRectangle(backgroundColorBrush, e.Bounds);
+                }
 
                 string itemText;
                 if (!(Lines[itemIndex] as PData).Alias.IsNullOrEmpty())
