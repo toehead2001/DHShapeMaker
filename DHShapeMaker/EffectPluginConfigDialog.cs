@@ -1601,7 +1601,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK);
+                    MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
                 resetRotation();
@@ -1659,7 +1659,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK);
+                    MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
             }
@@ -2309,7 +2309,7 @@ namespace ShapeMaker
             if (!errorflagx || !errorflagy || lineType < 0)
             {
                 MessageBox.Show("No Line Type or Bad Format" + Environment.NewLine + " Error Number " + errornum.ToString(),
-                    "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (pts.Length > 1 && LineList.Items.Count < 100) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
@@ -2342,7 +2342,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK);
+                MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
         }
@@ -2432,14 +2432,14 @@ namespace ShapeMaker
                 if (r)
                 {
                     Clipboard.SetText(TMP);
-                    MessageBox.Show("SVG Copied to Clipboard");
+                    MessageBox.Show("SVG Copied to Clipboard", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Copy Error");
+                    MessageBox.Show("Copy Error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else { MessageBox.Show("Nothing to Copy"); }
+            else { MessageBox.Show("Nothing to Copy", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
 
@@ -2837,17 +2837,17 @@ namespace ShapeMaker
                             {
                                 writer.Write(output);
                             }
-                            MessageBox.Show("XAML Saved");
+                            MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             saveMyFolder(sfd.FileName);
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Save Error");
+                    MessageBox.Show("Save Error", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else { MessageBox.Show("Nothing to Save"); }
+            else { MessageBox.Show("Nothing to Save", "Nothing to Save", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
         private void ExportPG_Click(object sender, EventArgs e)
         {
@@ -2940,15 +2940,15 @@ namespace ShapeMaker
                                     parsePathData(data);
                                     loadConfirm = true;
                                 }
-                                catch { MessageBox.Show("Load Error:Incorrect Format"); }
+                                catch { MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                                 break;
                             }
                         }
-                        if (!loadConfirm) MessageBox.Show("Load Error:Incorrect Format");
+                        if (!loadConfirm) MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        MessageBox.Show("Load Error");
+                        MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -3260,7 +3260,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Help File Not Found!");
+                    MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Cursor.Current = Cursors.Default;
                     return;
                 }
@@ -3268,7 +3268,7 @@ namespace ShapeMaker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to open the Help Page\r\n" + ex.Message + "\r\n" + dest);
+                MessageBox.Show("Unable to open the Help Page\r\n" + ex.Message + "\r\n" + dest, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3621,7 +3621,10 @@ namespace ShapeMaker
                             }
 
                         }
-                        catch (Exception myE) { MessageBox.Show("Load Error:Incorrect Format\r\n" + myE.Message); }
+                        catch (Exception myE)
+                        {
+                            MessageBox.Show("Incorrect Format\r\n" + myE.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
                         if (loadConfirm)
                         {
@@ -3633,12 +3636,12 @@ namespace ShapeMaker
                         }
                         else
                         {
-                            MessageBox.Show("Load Error:Incorrect Format");
+                            MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Load Error");
+                        MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -3687,10 +3690,10 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Save Error");
+                    MessageBox.Show("Save Error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else { MessageBox.Show("Nothing to Save"); }
+            else { MessageBox.Show("Nothing to Save", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
