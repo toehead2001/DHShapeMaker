@@ -93,7 +93,6 @@
             this.opaque = new ShapeMaker.dhScroll();
             this.SpinLine = new Controlz.BigKnobs();
             this.ZoomMaster = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -951,7 +950,6 @@
             // 
             this.ZoomMaster.BackColor = System.Drawing.Color.Transparent;
             this.ZoomMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ZoomMaster.Controls.Add(this.panel5);
             this.ZoomMaster.Controls.Add(this.pb);
             this.ZoomMaster.Location = new System.Drawing.Point(7, 58);
             this.ZoomMaster.Name = "ZoomMaster";
@@ -1220,7 +1218,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutShapeMakerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportPathGeometryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem QuickStartStripMenuItem;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.CheckBox FitBG;
         private System.Windows.Forms.CheckBox DrawOnCanvas;
         private System.Windows.Forms.Label label4;
