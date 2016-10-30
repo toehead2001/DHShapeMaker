@@ -2397,16 +2397,20 @@ namespace ShapeMaker
         private void ClearAll()
         {
             Array.Resize(ref pbpoint, 0);
+            statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", pbpoint.Length, maxpoint);
+            statusLabelLocation.Text = "0, 0";
+
             if (LineList.Items.Count == 0) return;
             Lines.Clear();
             LineList.Items.Clear();
+            statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
 
             pb.Refresh();
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            DialogResult result2 = MessageBox.Show("Delete All Lines?",
-             "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            DialogResult result2 = MessageBox.Show("Delete All Paths?",
+             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result2 == System.Windows.Forms.DialogResult.Yes) ClearAll();
 
         }

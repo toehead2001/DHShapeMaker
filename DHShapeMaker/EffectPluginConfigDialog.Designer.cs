@@ -330,7 +330,7 @@
             // 
             this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
             this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.clearAllToolStripMenuItem.Text = "Clear All";
+            this.clearAllToolStripMenuItem.Text = "Clear All Paths";
             this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
             // 
             // HelpMenu
