@@ -253,7 +253,6 @@ namespace ShapeMaker
             PictureBox s = (PictureBox)sender;
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
             RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
-            setUndo();
 
 
             //identify node selected
@@ -290,6 +289,7 @@ namespace ShapeMaker
                 }
                 else if (e.Button == System.Windows.Forms.MouseButtons.Right) //process add or delete
                 {
+                    setUndo();
 
                     if (lastHit > -1)//delete
                     {
@@ -511,6 +511,10 @@ namespace ShapeMaker
                 {
                     LineList.SelectedIndex = getNearestLine(bhit);
 
+                }
+                else if (e.Button != MouseButtons.Middle)
+                {
+                    setUndo();
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
