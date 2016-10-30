@@ -166,36 +166,6 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LEDGon {
-            get {
-                object obj = ResourceManager.GetObject("LEDGon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LEDoff {
-            get {
-                object obj = ResourceManager.GetObject("LEDoff", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LEDon {
-            get {
-                object obj = ResourceManager.GetObject("LEDon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap leftarrow {
             get {
                 object obj = ResourceManager.GetObject("leftarrow", resourceCulture);

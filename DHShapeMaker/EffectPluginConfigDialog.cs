@@ -2807,7 +2807,7 @@ namespace ShapeMaker
             key.Close();
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void exportPndShape_Click(object sender, EventArgs e)
         {
             IsZoomed = false;
             if (Lines.Count > 0)
@@ -2900,7 +2900,7 @@ namespace ShapeMaker
             }
             else { MessageBox.Show("Nothing to Save"); }
         }
-        private void LoadBtn_Click(object sender, EventArgs e)
+        private void importPdnShape_Click(object sender, EventArgs e)
         {
             IsZoomed = false;
             using (OpenFileDialog OFD = new OpenFileDialog())
@@ -3573,7 +3573,7 @@ namespace ShapeMaker
             if (e.Button == MouseButtons.Right) c.Checked = !c.Checked;
         }
 
-        private void loadProject_Click(object sender, EventArgs e)
+        private void openProject_Click(object sender, EventArgs e)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
             IsZoomed = false;
@@ -3727,20 +3727,6 @@ namespace ShapeMaker
             string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name",
                 LineList.SelectedItem.ToString(), -1, -1);
             if (!s.IsNullOrEmpty()) (Lines[LineList.SelectedIndex] as PData).Alias = s;
-        }
-
-        private void SolidFillMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            ToolStripMenuItem s = sender as ToolStripMenuItem;
-            if (s.Checked)
-            {
-                s.Image = ShapeMaker.Properties.Resources.LEDGon;
-            }
-            else
-            {
-                s.Image = ShapeMaker.Properties.Resources.LEDoff;
-            }
-
         }
 
         private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
@@ -3916,6 +3902,23 @@ namespace ShapeMaker
                 float pos = Math.Abs(pb.Location.X) / (float)(pb.Width - ZoomMaster.ClientSize.Width) * maxPos;
                 RectangleF horBar = new RectangleF(pos, 1, length, 3);
                 e.Graphics.FillRectangle(Brushes.Gray, horBar);
+            }
+        }
+
+        private void newProjectMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult confirm = MessageBox.Show("Clear the current Shape Project, and start over?", "New Shape", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
+            {
+                ClearAll();
+
+                ZoomToFactor(1);
+                resetRotation();
+                FigureName.Text = "Untitled";
+
+                UDCount = 0;
+                UDPointer = 0;
+                undoToolStripMenuItem.Enabled = false;
             }
         }
     }
