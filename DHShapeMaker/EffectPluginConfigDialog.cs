@@ -2607,6 +2607,30 @@ namespace ShapeMaker
             }
         }
 
+        private void ToggleUpDownButtons()
+        {
+            if (LineList.Items.Count < 2 || LineList.SelectedIndex == -1)
+            {
+                upList.Enabled = false;
+                DNList.Enabled = false;
+            }
+            else if (LineList.SelectedIndex == 0)
+            {
+                upList.Enabled = false;
+                DNList.Enabled = true;
+            }
+            else if (LineList.SelectedIndex == LineList.Items.Count - 1)
+            {
+                upList.Enabled = true;
+                DNList.Enabled = false;
+            }
+            else
+            {
+                upList.Enabled = true;
+                DNList.Enabled = true;
+            }
+        }
+
         private void SpinLine_ValueChanged(object sender, float e)
         {
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
@@ -2727,8 +2751,7 @@ namespace ShapeMaker
             if (!StraightLine.Checked) MacroRect.Checked = false;
             if (!Cubic.Checked) MacroCubic.Checked = false;
 
-            upList.Enabled = (LineList.SelectedIndex != -1);
-            DNList.Enabled = (LineList.SelectedIndex != -1);
+            ToggleUpDownButtons();
             MacroCircle.Enabled = (LineList.SelectedIndex == -1);
             MacroRect.Enabled = (LineList.SelectedIndex == -1);
             MacroCubic.Enabled = (LineList.SelectedIndex == -1);
