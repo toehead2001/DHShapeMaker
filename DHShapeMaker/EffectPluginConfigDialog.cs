@@ -2758,6 +2758,21 @@ namespace ShapeMaker
             Loop.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             MPMode.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             ClearBtn.Enabled = (pbpoint.Length != 0);
+
+            if (LineList.SelectedIndex != -1)
+            {
+                if (pbpoint != (Lines[LineList.SelectedIndex] as PData).Lines)
+                    ApplyBtn.Enabled = true;
+                else
+                    ApplyBtn.Enabled = false;
+            }
+            else
+            {
+                if (pbpoint.Length > 1)
+                    ApplyBtn.Enabled = true;
+                else
+                    ApplyBtn.Enabled = false;
+            }
             //MPMode.Enabled = Loop.Checked;
             //if (!Loop.Checked) MPMode.Checked = false;
 
@@ -3472,6 +3487,7 @@ namespace ShapeMaker
         {
             Button s = (sender as Button);
             int z = Convert.ToInt32(s.Tag);
+            if (!ApplyBtn.Enabled) z = 2;
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             Size sz = ShapeMaker.Properties.Resources.APPTESTUP.Size;
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.APPTESTUP,
