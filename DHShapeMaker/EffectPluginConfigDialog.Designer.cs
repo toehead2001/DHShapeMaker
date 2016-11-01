@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EffectPluginConfigDialog));
-            this.pb = new System.Windows.Forms.PictureBox();
+            this.canvas = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.posBarsTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -111,31 +111,31 @@
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
-            this.verPos = new System.Windows.Forms.Panel();
-            this.horPos = new System.Windows.Forms.Panel();
+            this.verPosBar = new System.Windows.Forms.Panel();
+            this.horPosBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
             this.ZoomMaster.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pb
+            // canvas
             // 
-            this.pb.BackColor = System.Drawing.Color.White;
-            this.pb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pb.Location = new System.Drawing.Point(0, 0);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(500, 500);
-            this.pb.TabIndex = 28;
-            this.pb.TabStop = false;
-            this.pb.Paint += new System.Windows.Forms.PaintEventHandler(this.pb_Paint);
-            this.pb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_MouseDown);
-            this.pb.MouseEnter += new System.EventHandler(this.pb_MouseEnter);
-            this.pb.MouseLeave += new System.EventHandler(this.pb_MouseLeave);
-            this.pb.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_MouseMove);
-            this.pb.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pb_MouseUp);
+            this.canvas.BackColor = System.Drawing.Color.White;
+            this.canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.canvas.Location = new System.Drawing.Point(0, 0);
+            this.canvas.Name = "canvas";
+            this.canvas.Size = new System.Drawing.Size(500, 500);
+            this.canvas.TabIndex = 28;
+            this.canvas.TabStop = false;
+            this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
+            this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
+            this.canvas.MouseEnter += new System.EventHandler(this.canvas_MouseEnter);
+            this.canvas.MouseLeave += new System.EventHandler(this.canvas_MouseLeave);
+            this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
+            this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
             // timer1
             // 
@@ -357,7 +357,7 @@
             this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
             this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.clearAllToolStripMenuItem.Text = "Clear All Paths";
-            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.button2_Click);
+            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAll_Click);
             // 
             // HelpMenu
             // 
@@ -411,7 +411,7 @@
             this.blank1.Size = new System.Drawing.Size(32, 39);
             this.blank1.Text = "Blank";
             this.blank1.Click += new System.EventHandler(this.blankToolStripMenuItem_Click);
-            this.blank1.Paint += new System.Windows.Forms.PaintEventHandler(this.blank2_Paint);
+            this.blank1.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // undoToolStripMenuItem
             // 
@@ -440,7 +440,7 @@
             this.blank5.ShowShortcutKeys = false;
             this.blank5.Size = new System.Drawing.Size(32, 39);
             this.blank5.Text = "Blank";
-            this.blank5.Paint += new System.Windows.Forms.PaintEventHandler(this.blank2_Paint);
+            this.blank5.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // StraightLine
             // 
@@ -488,7 +488,7 @@
             this.blank3.ShowShortcutKeys = false;
             this.blank3.Size = new System.Drawing.Size(32, 39);
             this.blank3.Text = "Blank";
-            this.blank3.Paint += new System.Windows.Forms.PaintEventHandler(this.blank2_Paint);
+            this.blank3.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // Cubic
             // 
@@ -583,7 +583,7 @@
             this.blank4.ShowShortcutKeys = false;
             this.blank4.Size = new System.Drawing.Size(32, 39);
             this.blank4.Text = "Blank";
-            this.blank4.Paint += new System.Windows.Forms.PaintEventHandler(this.blank2_Paint);
+            this.blank4.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // Ellipse
             // 
@@ -665,7 +665,7 @@
             this.blank2.ShowShortcutKeys = false;
             this.blank2.Size = new System.Drawing.Size(32, 39);
             this.blank2.Text = "Blank";
-            this.blank2.Paint += new System.Windows.Forms.PaintEventHandler(this.blank2_Paint);
+            this.blank2.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // Snap
             // 
@@ -894,7 +894,7 @@
             this.LineList.TabStop = false;
             this.toolTip1.SetToolTip(this.LineList, "Select Shapes\r\nDouble Click to Rename");
             this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
-            this.LineList.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedIndexChanged);
+            this.LineList.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedValueChanged);
             this.LineList.DoubleClick += new System.EventHandler(this.LineList_DoubleClick);
             // 
             // upList
@@ -977,7 +977,7 @@
             // 
             this.ZoomMaster.BackColor = System.Drawing.Color.Transparent;
             this.ZoomMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ZoomMaster.Controls.Add(this.pb);
+            this.ZoomMaster.Controls.Add(this.canvas);
             this.ZoomMaster.Location = new System.Drawing.Point(7, 58);
             this.ZoomMaster.Name = "ZoomMaster";
             this.ZoomMaster.Size = new System.Drawing.Size(502, 502);
@@ -1118,21 +1118,21 @@
             this.xToolStripMenuZoom1x.Text = "1x";
             this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
             // 
-            // verPos
+            // verPosBar
             // 
-            this.verPos.Location = new System.Drawing.Point(509, 59);
-            this.verPos.Name = "verPos";
-            this.verPos.Size = new System.Drawing.Size(5, 500);
-            this.verPos.TabIndex = 49;
-            this.verPos.Paint += new System.Windows.Forms.PaintEventHandler(this.verPos_Paint);
+            this.verPosBar.Location = new System.Drawing.Point(509, 59);
+            this.verPosBar.Name = "verPosBar";
+            this.verPosBar.Size = new System.Drawing.Size(5, 500);
+            this.verPosBar.TabIndex = 49;
+            this.verPosBar.Paint += new System.Windows.Forms.PaintEventHandler(this.verPosBar_Paint);
             // 
-            // horPos
+            // horPosBar
             // 
-            this.horPos.Location = new System.Drawing.Point(8, 560);
-            this.horPos.Name = "horPos";
-            this.horPos.Size = new System.Drawing.Size(500, 5);
-            this.horPos.TabIndex = 50;
-            this.horPos.Paint += new System.Windows.Forms.PaintEventHandler(this.horPos_Paint);
+            this.horPosBar.Location = new System.Drawing.Point(8, 560);
+            this.horPosBar.Name = "horPosBar";
+            this.horPosBar.Size = new System.Drawing.Size(500, 5);
+            this.horPosBar.TabIndex = 50;
+            this.horPosBar.Paint += new System.Windows.Forms.PaintEventHandler(this.horPosBar_Paint);
             // 
             // label3
             // 
@@ -1150,8 +1150,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.horPos);
-            this.Controls.Add(this.verPos);
+            this.Controls.Add(this.horPosBar);
+            this.Controls.Add(this.verPosBar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.opaque);
@@ -1174,14 +1174,13 @@
             this.Controls.Add(this.FitBG);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(850, 580);
             this.Name = "EffectPluginConfigDialog";
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
@@ -1195,7 +1194,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pb;
+        private System.Windows.Forms.PictureBox canvas;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer posBarsTimer;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -1272,8 +1271,8 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelPathsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelLocation;
-        private System.Windows.Forms.Panel verPos;
-        private System.Windows.Forms.Panel horPos;
+        private System.Windows.Forms.Panel verPosBar;
+        private System.Windows.Forms.Panel horPosBar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem[] radios = new System.Windows.Forms.ToolStripMenuItem[6];
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;

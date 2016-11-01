@@ -16,7 +16,7 @@ namespace ShapeMaker
         {
             get
             {
-                return "DH ShapeMaker";
+                return "ShapeMaker";
             }
         }
 

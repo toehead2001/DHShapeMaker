@@ -67,7 +67,7 @@ namespace ShapeMaker
         const int basepoint = 0;
         int lastHit = -1;
         PointF MoveStart;
-        PointF[] pbpoint = new PointF[basepoint];
+        PointF[] canvasPoints = new PointF[basepoint];
         private const int UndoMax = 15;
         int keylock = 0;
 
@@ -84,7 +84,7 @@ namespace ShapeMaker
         GraphicsPath[] PGP = new GraphicsPath[0];
         ArrayList Lines = new ArrayList();
         Size SuperSize = new Size();
-        bool MoveFlag = false;
+        bool PanFlag = false;
         bool IsZoomed = false;
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
@@ -115,9 +115,9 @@ namespace ShapeMaker
 
         }
 
-        protected override void InitDialogFromToken(EffectConfigToken effectToken)
+        protected override void InitDialogFromToken(EffectConfigToken effectTokenCopy)
         {
-            EffectPluginConfigToken token = (EffectPluginConfigToken)effectToken;
+            EffectPluginConfigToken token = (EffectPluginConfigToken)effectTokenCopy;
             DrawOnCanvas.Checked = token.Draw;
             FigureName.Text = token.ShapeName;
             OutputScale.Value = token.Scale;
@@ -155,7 +155,7 @@ namespace ShapeMaker
             DPI = g.DpiX / 96;
             baseSize = (int)(baseSize * DPI);
 
-            pb.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
+            canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
 
             if (SuperSize.Width >= SuperSize.Height)
@@ -220,8 +220,8 @@ namespace ShapeMaker
         private void PosBarsTimer_Tick(object sender, EventArgs e)
         {
             DrawPosBars = false;
-            verPos.Refresh();
-            horPos.Refresh();
+            verPosBar.Refresh();
+            horPosBar.Refresh();
             posBarsTimer.Stop();
         }
 
@@ -236,8 +236,8 @@ namespace ShapeMaker
             UDPointer %= UndoMax;
             UDtype[UDPointer] = getLType();
             UDSelect[UDPointer] = LineList.SelectedIndex;
-            UDPoint[UDPointer] = new PointF[pbpoint.Length];
-            Array.Copy(pbpoint, UDPoint[UDPointer], pbpoint.Length);
+            UDPoint[UDPointer] = new PointF[canvasPoints.Length];
+            Array.Copy(canvasPoints, UDPoint[UDPointer], canvasPoints.Length);
             UDLines[UDPointer] = new ArrayList();
             foreach (PData pd in Lines)
             {
@@ -248,7 +248,7 @@ namespace ShapeMaker
             }
         }
 
-        private void pb_MouseDown(object sender, MouseEventArgs e)
+        private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             PictureBox s = (PictureBox)sender;
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
@@ -261,10 +261,10 @@ namespace ShapeMaker
                                 (float)e.X / s.ClientSize.Width,
                                 (float)e.Y / s.ClientSize.Height);
 
-            for (int i = 0; i < pbpoint.Length; i++)
+            for (int i = 0; i < canvasPoints.Length; i++)
             {
-                PointF p = new PointF(pbpoint[i].X * s.ClientSize.Width,
-                    pbpoint[i].Y * s.ClientSize.Height);
+                PointF p = new PointF(canvasPoints[i].X * s.ClientSize.Width,
+                    canvasPoints[i].Y * s.ClientSize.Height);
                 if (hit.Contains(p))
                 {
                     lastHit = i;
@@ -280,11 +280,11 @@ namespace ShapeMaker
                 {
                     if (IsZoomed)
                     {
-                        MoveFlag = true;
+                        PanFlag = true;
                     }
                     else
                     {
-                        MoveFlag = false;
+                        PanFlag = false;
                     }
                 }
                 else if (e.Button == System.Windows.Forms.MouseButtons.Right) //process add or delete
@@ -299,59 +299,59 @@ namespace ShapeMaker
                         switch (lt)
                         {
                             case (int)LineTypes.Straight:
-                                pbpoint = RemoveAt(pbpoint, lastHit);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit);
 
                                 break;
                             case (int)LineTypes.Ellipse:
                                 if (lastHit != 4) return;
-                                Array.Resize(ref pbpoint, 1);
+                                Array.Resize(ref canvasPoints, 1);
                                 break;
                             case (int)LineTypes.Cubic:
                                 if (getPtype(lastHit) != 3) return;
-                                pbpoint = RemoveAt(pbpoint, lastHit);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit);
                                 //remove control points
-                                pbpoint = RemoveAt(pbpoint, lastHit - 1);
-                                pbpoint = RemoveAt(pbpoint, lastHit - 2);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 1);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 2);
                                 if (MacroCubic.Checked) CubicAdjust();
                                 break;
                             case (int)LineTypes.Quadratic:
                                 if (getPtype(lastHit) != 3) return;
-                                pbpoint = RemoveAt(pbpoint, lastHit);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit);
                                 //remove control points
-                                pbpoint = RemoveAt(pbpoint, lastHit - 1);
-                                pbpoint = RemoveAt(pbpoint, lastHit - 2);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 1);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 2);
 
                                 break;
                             case (int)LineTypes.SmoothCubic:
                                 if (getPtype(lastHit) != 3) return;
-                                pbpoint = RemoveAt(pbpoint, lastHit);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit);
                                 //remove control points
-                                pbpoint = RemoveAt(pbpoint, lastHit - 1);
-                                pbpoint = RemoveAt(pbpoint, lastHit - 2);
-                                for (int i = 1; i < pbpoint.Length; i++)
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 1);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 2);
+                                for (int i = 1; i < canvasPoints.Length; i++)
                                 {
                                     if (getPtype(i) == 1 && i > 3)
-                                        pbpoint[i] = reverseAverage(pbpoint[i - 2], pbpoint[i - 1]);
+                                        canvasPoints[i] = reverseAverage(canvasPoints[i - 2], canvasPoints[i - 1]);
                                 }
                                 break;
                             case (int)LineTypes.SmoothQuadratic:
                                 if (getPtype(lastHit) != 3) return;
-                                pbpoint = RemoveAt(pbpoint, lastHit);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit);
                                 //remove control points
-                                pbpoint = RemoveAt(pbpoint, lastHit - 1);
-                                pbpoint = RemoveAt(pbpoint, lastHit - 2);
-                                for (int i = 1; i < pbpoint.Length; i++)
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 1);
+                                canvasPoints = RemoveAt(canvasPoints, lastHit - 2);
+                                for (int i = 1; i < canvasPoints.Length; i++)
                                 {
                                     if (getPtype(i) == 1 && i > 3)
                                     {
-                                        pbpoint[i] = reverseAverage(pbpoint[i - 3], pbpoint[i - 1]);
-                                        if (i < pbpoint.Length - 1) pbpoint[i + 1] = pbpoint[i];
+                                        canvasPoints[i] = reverseAverage(canvasPoints[i - 3], canvasPoints[i - 1]);
+                                        if (i < canvasPoints.Length - 1) canvasPoints[i + 1] = canvasPoints[i];
                                     }
                                 }
 
                                 break;
                         }
-                        pb.Refresh();
+                        canvas.Refresh();
                         #endregion //delete
                     }
                     else if (lastHit == -1)//add new
@@ -362,17 +362,17 @@ namespace ShapeMaker
                             eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
-                        int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+                        int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
                         statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
 
                         #region add
-                        int len = pbpoint.Length;
+                        int len = canvasPoints.Length;
                         if (len >= maxpoint) return;
-                        if (lt == (int)LineTypes.Ellipse && pbpoint.Length > 2) return;
+                        if (lt == (int)LineTypes.Ellipse && canvasPoints.Length > 2) return;
                         if (len == 0)//first point
                         {
-                            Array.Resize(ref pbpoint, len + 1);
-                            pbpoint[0] = new PointF(
+                            Array.Resize(ref canvasPoints, len + 1);
+                            canvasPoints[0] = new PointF(
                                 (float)eX / s.ClientSize.Width,
                                 (float)eY / s.ClientSize.Height);
                             countflag = true;
@@ -383,28 +383,28 @@ namespace ShapeMaker
                             switch (lt)
                             {
                                 case (int)LineTypes.Straight:
-                                    Array.Resize(ref pbpoint, len + 1);
-                                    pbpoint[len] = new PointF(
+                                    Array.Resize(ref canvasPoints, len + 1);
+                                    canvasPoints[len] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
 
                                     break;
                                 case (int)LineTypes.Ellipse:
-                                    Array.Resize(ref pbpoint, 5);
-                                    pbpoint[4] = new PointF(
+                                    Array.Resize(ref canvasPoints, 5);
+                                    canvasPoints[4] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
-                                    PointF mid = pointAverage(pbpoint[0], pbpoint[4]);
-                                    PointF mid2 = ThirdPoint(pbpoint[0], mid, true, 1f);
-                                    pbpoint[1] = pointAverage(pbpoint[0], mid2);
-                                    pbpoint[2] = pointAverage(pbpoint[4], mid2);
-                                    pbpoint[3] = ThirdPoint(pbpoint[0], mid, false, 1f);
+                                    PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
+                                    PointF mid2 = ThirdPoint(canvasPoints[0], mid, true, 1f);
+                                    canvasPoints[1] = pointAverage(canvasPoints[0], mid2);
+                                    canvasPoints[2] = pointAverage(canvasPoints[4], mid2);
+                                    canvasPoints[3] = ThirdPoint(canvasPoints[0], mid, false, 1f);
                                     break;
 
                                 case (int)LineTypes.Cubic:
-                                    Array.Resize(ref pbpoint, len + 3);
+                                    Array.Resize(ref canvasPoints, len + 3);
 
-                                    pbpoint[len + 2] = new PointF(
+                                    canvasPoints[len + 2] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
                                     if (MacroCubic.Checked)
@@ -416,84 +416,84 @@ namespace ShapeMaker
                                         PointF mid4 = new PointF();
                                         if (len > 1)
                                         {
-                                            PointF mid3 = reverseAverage(pbpoint[len - 1], pbpoint[len - 2]);
-                                            mid4 = AsymRevAverage(pbpoint[len - 4], pbpoint[len - 1], pbpoint[len + 2], mid3);
+                                            PointF mid3 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
+                                            mid4 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid3);
                                         }
                                         else
                                         {
-                                            PointF mid3 = pointAverage(pbpoint[len - 1], pbpoint[len + 2]);
-                                            mid4 = ThirdPoint(pbpoint[len - 1], mid3, true, 1f);
+                                            PointF mid3 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
+                                            mid4 = ThirdPoint(canvasPoints[len - 1], mid3, true, 1f);
                                         }
-                                        pbpoint[len] = pointAverage(pbpoint[len - 1], mid4);
-                                        pbpoint[len + 1] = pointAverage(pbpoint[len + 2], mid4);
+                                        canvasPoints[len] = pointAverage(canvasPoints[len - 1], mid4);
+                                        canvasPoints[len + 1] = pointAverage(canvasPoints[len + 2], mid4);
                                     }
 
                                     break;
                                 case (int)LineTypes.Quadratic:
-                                    Array.Resize(ref pbpoint, len + 3);
-                                    pbpoint[len + 2] = new PointF(
+                                    Array.Resize(ref canvasPoints, len + 3);
+                                    canvasPoints[len + 2] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
                                     PointF tmp = new PointF();
                                     //add
                                     if (len > 1)
                                     {
-                                        tmp = AsymRevAverage(pbpoint[len - 4], pbpoint[len - 1], pbpoint[len + 2], pbpoint[len - 2]);
+                                        tmp = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], canvasPoints[len - 2]);
                                     }
                                     else
                                     {
                                         //add end
-                                        pbpoint[len + 1] = ThirdPoint(pbpoint[len - 1], pbpoint[len + 2], true, .5f);
-                                        pbpoint[len] = ThirdPoint(pbpoint[len + 2], pbpoint[len - 1], false, .5f);
-                                        tmp = pointAverage(pbpoint[len + 1], pbpoint[len]);
+                                        canvasPoints[len + 1] = ThirdPoint(canvasPoints[len - 1], canvasPoints[len + 2], true, .5f);
+                                        canvasPoints[len] = ThirdPoint(canvasPoints[len + 2], canvasPoints[len - 1], false, .5f);
+                                        tmp = pointAverage(canvasPoints[len + 1], canvasPoints[len]);
                                     }
-                                    pbpoint[len + 1] = tmp;
-                                    pbpoint[len] = tmp;
+                                    canvasPoints[len + 1] = tmp;
+                                    canvasPoints[len] = tmp;
                                     break;
 
                                 case (int)LineTypes.SmoothCubic:
-                                    Array.Resize(ref pbpoint, len + 3);
-                                    pbpoint[len + 2] = new PointF(
+                                    Array.Resize(ref canvasPoints, len + 3);
+                                    canvasPoints[len + 2] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
                                     //startchange
                                     PointF mid6 = new PointF();
                                     if (len > 1)
                                     {
-                                        PointF mid5 = reverseAverage(pbpoint[len - 1], pbpoint[len - 2]);
-                                        mid6 = AsymRevAverage(pbpoint[len - 4], pbpoint[len - 1], pbpoint[len + 2], mid5);
+                                        PointF mid5 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
+                                        mid6 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid5);
                                     }
                                     else
                                     {
-                                        PointF mid5 = pointAverage(pbpoint[len - 1], pbpoint[len + 2]);
-                                        mid6 = ThirdPoint(pbpoint[len - 1], mid5, true, 1f);
+                                        PointF mid5 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
+                                        mid6 = ThirdPoint(canvasPoints[len - 1], mid5, true, 1f);
                                     }
 
-                                    pbpoint[len + 1] = pointAverage(mid6, pbpoint[len + 2]);
+                                    canvasPoints[len + 1] = pointAverage(mid6, canvasPoints[len + 2]);
                                     if (len > 1)
                                     {
-                                        pbpoint[len] = reverseAverage(pbpoint[len - 2], pbpoint[len - 1]);
+                                        canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
                                     }
                                     else
                                     {
-                                        pbpoint[1] = pbpoint[0];
+                                        canvasPoints[1] = canvasPoints[0];
                                     }
 
                                     break;
                                 case (int)LineTypes.SmoothQuadratic:
-                                    Array.Resize(ref pbpoint, len + 3);
-                                    pbpoint[len + 2] = new PointF(
+                                    Array.Resize(ref canvasPoints, len + 3);
+                                    canvasPoints[len + 2] = new PointF(
                                         (float)eX / s.ClientSize.Width,
                                         (float)eY / s.ClientSize.Height);
                                     if (len > 1)
                                     {
-                                        pbpoint[len] = reverseAverage(pbpoint[len - 2], pbpoint[len - 1]);
-                                        pbpoint[len + 1] = pbpoint[len];
+                                        canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
+                                        canvasPoints[len + 1] = canvasPoints[len];
                                     }
                                     else
                                     {
-                                        pbpoint[1] = pbpoint[0];
-                                        pbpoint[2] = pbpoint[0];
+                                        canvasPoints[1] = canvasPoints[0];
+                                        canvasPoints[2] = canvasPoints[0];
                                     }
                                     break;
                             }
@@ -502,12 +502,12 @@ namespace ShapeMaker
 
                         }
 
-                        pb.Refresh();
+                        canvas.Refresh();
                         #endregion //add
                     }
 
                 }
-                else if (pbpoint.Length == 0 && e.Button == System.Windows.Forms.MouseButtons.Left)
+                else if (canvasPoints.Length == 0 && e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
                     LineList.SelectedIndex = getNearestLine(bhit);
 
@@ -526,8 +526,8 @@ namespace ShapeMaker
             PointF mid4 = new PointF();
             PointF mid3 = new PointF();
 
-            PointF[] knots = new PointF[(int)Math.Ceiling((decimal)pbpoint.Length / 3)];
-            for (int ri = 0; ri < knots.Length; ri++) knots[ri] = pbpoint[ri * 3];
+            PointF[] knots = new PointF[(int)Math.Ceiling((decimal)canvasPoints.Length / 3)];
+            for (int ri = 0; ri < knots.Length; ri++) knots[ri] = canvasPoints[ri * 3];
 
             int n = knots.Length - 1;
 
@@ -542,8 +542,8 @@ namespace ShapeMaker
 
                 mid4.X = 2 * mid3.X - knots[0].X;
                 mid4.Y = 2 * mid3.Y - knots[0].Y;
-                pbpoint[1] = mid3;
-                pbpoint[2] = mid4;
+                canvasPoints[1] = mid3;
+                canvasPoints[2] = mid4;
             }
 
             if (n > 1)
@@ -563,16 +563,16 @@ namespace ShapeMaker
 
                 for (int ri = 0; ri < n; ri++)
                 {
-                    pbpoint[ri * 3 + 1] = xy[ri];
+                    canvasPoints[ri * 3 + 1] = xy[ri];
                     if (ri < (n - 1))
                     {
-                        pbpoint[ri * 3 + 2] =
+                        canvasPoints[ri * 3 + 2] =
                             new PointF(2f * knots[1 + ri].X - xy[1 + ri].X,
                                 2f * knots[1 + ri].Y - xy[1 + ri].Y);
                     }
                     else
                     {
-                        pbpoint[ri * 3 + 2] =
+                        canvasPoints[ri * 3 + 2] =
                             new PointF((knots[n].X + xy[n - 1].X) / 2,
                                 (knots[n].Y + xy[n - 1].Y) / 2);
                     }
@@ -622,8 +622,8 @@ namespace ShapeMaker
                     tmp = gp.PathPoints;
                     for (int j = 0; j < tmp.Length; j++)
                     {
-                        PointF p = new PointF(tmp[j].X * pb.ClientSize.Width,
-                        tmp[j].Y * pb.ClientSize.Height);
+                        PointF p = new PointF(tmp[j].X * canvas.ClientSize.Width,
+                        tmp[j].Y * canvas.ClientSize.Height);
 
                         if (hit.Contains(p))
                         {
@@ -637,14 +637,14 @@ namespace ShapeMaker
             return result;
         }
 
-        private void pb_MouseUp(object sender, MouseEventArgs e)
+        private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            MoveFlag = false;
+            PanFlag = false;
             lastHit = -1;
-            pb.Refresh();
+            canvas.Refresh();
             posBarsTimer.Start();
         }
-        private void pb_MouseMove(object sender, MouseEventArgs e)
+        private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
             PictureBox s = (PictureBox)sender;
 
@@ -670,16 +670,16 @@ namespace ShapeMaker
                 {
                     if (s.ClientRectangle.Contains(e.Location))
                     {
-                        int zoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+                        int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
                         statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
 
 
                         //left shift move line or path
                         if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                         {
-                            if (pbpoint.Length != 0 && i > -1 && i < pbpoint.Length)
+                            if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                             {
-                                PointF oldp = pbpoint[i];
+                                PointF oldp = canvasPoints[i];
 
                                 switch (lt)
                                 {
@@ -689,9 +689,9 @@ namespace ShapeMaker
                                     case (int)LineTypes.SmoothCubic:
                                     case (int)LineTypes.SmoothQuadratic:
                                     case (int)LineTypes.Ellipse:
-                                        for (int j = 0; j < pbpoint.Length; j++)
+                                        for (int j = 0; j < canvasPoints.Length; j++)
                                         {
-                                            pbpoint[j] = movepoint(oldp, mapPoint, pbpoint[j]);
+                                            canvasPoints[j] = movepoint(oldp, mapPoint, canvasPoints[j]);
                                         }
 
                                         break;
@@ -701,7 +701,7 @@ namespace ShapeMaker
                             else
                             {
 
-                                if (pbpoint.Length == 0 && LineList.Items.Count > 0)
+                                if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
                                 {
                                     for (int k = 0; k < Lines.Count; k++)
                                     {
@@ -727,142 +727,142 @@ namespace ShapeMaker
                                 }
                             }
                         }//no shift movepoint
-                        else if (pbpoint.Length != 0 && i > 0 && i < pbpoint.Length)
+                        else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
                         {
-                            PointF oldp = pbpoint[i];
+                            PointF oldp = canvasPoints[i];
                             switch (lt)
                             {
                                 case (int)LineTypes.Straight:
-                                    pbpoint[i] = mapPoint;
+                                    canvasPoints[i] = mapPoint;
 
                                     break;
                                 case (int)LineTypes.Ellipse:
-                                    pbpoint[i] = mapPoint;
+                                    canvasPoints[i] = mapPoint;
                                     break;
                                 case (int)LineTypes.Cubic:
                                     #region cubic
-                                    oldp = pbpoint[i];
+                                    oldp = canvasPoints[i];
                                     if (ptype == 0)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        if (pbpoint.Length > 1) pbpoint[i + 1] =
-                                            movepoint(oldp, pbpoint[i], pbpoint[i + 1]);
+                                        canvasPoints[i] = mapPoint;
+                                        if (canvasPoints.Length > 1) canvasPoints[i + 1] =
+                                            movepoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                     }
                                     else if (ptype == 1 || ptype == 2)
                                     {
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                     }
                                     else if (ptype == 3)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        pbpoint[i - 1] = movepoint(oldp, pbpoint[i], pbpoint[i - 1]);
-                                        if ((i + 1) < pbpoint.Length) pbpoint[i + 1] =
-                                           movepoint(oldp, pbpoint[i], pbpoint[i + 1]);
+                                        canvasPoints[i] = mapPoint;
+                                        canvasPoints[i - 1] = movepoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                        if ((i + 1) < canvasPoints.Length) canvasPoints[i + 1] =
+                                           movepoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                     }
                                     if (MacroCubic.Checked) CubicAdjust();
                                     #endregion
                                     break;
                                 case (int)LineTypes.Quadratic:
                                     #region Quadratic
-                                    oldp = pbpoint[i];
+                                    oldp = canvasPoints[i];
                                     if (ptype == 0)
                                     {
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                     }
                                     else if (ptype == 1)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        if ((i + 1) < pbpoint.Length) pbpoint[i + 1] = pbpoint[i];
+                                        canvasPoints[i] = mapPoint;
+                                        if ((i + 1) < canvasPoints.Length) canvasPoints[i + 1] = canvasPoints[i];
                                     }
                                     if (ptype == 2)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        if ((i - 1) > 0) pbpoint[i - 1] = pbpoint[i];
+                                        canvasPoints[i] = mapPoint;
+                                        if ((i - 1) > 0) canvasPoints[i - 1] = canvasPoints[i];
                                     }
                                     else if (ptype == 3)
                                     {
                                         if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                         {
                                             //online
-                                            if (i == pbpoint.Length - 1)
+                                            if (i == canvasPoints.Length - 1)
                                             {
-                                                PointF rtmp = reverseAverage(pbpoint[i - 1], pbpoint[i]);
-                                                pbpoint[i] = onLinePoint(pbpoint[i - 1], rtmp,
+                                                PointF rtmp = reverseAverage(canvasPoints[i - 1], canvasPoints[i]);
+                                                canvasPoints[i] = onLinePoint(canvasPoints[i - 1], rtmp,
                                                     mapPoint);
                                             }
                                             else
                                             {
-                                                pbpoint[i] = onLinePoint(pbpoint[i - 1], pbpoint[i + 1],
+                                                canvasPoints[i] = onLinePoint(canvasPoints[i - 1], canvasPoints[i + 1],
                                                     mapPoint);
                                             }
                                         }
                                         else
                                         {
-                                            pbpoint[i] = mapPoint;
+                                            canvasPoints[i] = mapPoint;
                                         }
                                     }
                                     #endregion
                                     break;
                                 case (int)LineTypes.SmoothCubic:
                                     #region smooth Cubic
-                                    oldp = pbpoint[i];
+                                    oldp = canvasPoints[i];
 
                                     if (ptype == 0)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        if (pbpoint.Length > 1) pbpoint[i + 1] =
-                                            movepoint(oldp, pbpoint[i], pbpoint[i + 1]);
-                                        pbpoint[1] = pbpoint[0];
+                                        canvasPoints[i] = mapPoint;
+                                        if (canvasPoints.Length > 1) canvasPoints[i + 1] =
+                                            movepoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                        canvasPoints[1] = canvasPoints[0];
                                     }
                                     else if (ptype == 1)
                                     {
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                         if (i > 1)
                                         {
-                                            pbpoint[i - 2] = reverseAverage(pbpoint[i], pbpoint[i - 1]);
+                                            canvasPoints[i - 2] = reverseAverage(canvasPoints[i], canvasPoints[i - 1]);
                                         }
                                         else
                                         {
-                                            pbpoint[1] = pbpoint[0];
+                                            canvasPoints[1] = canvasPoints[0];
                                         }
                                     }
                                     else if (ptype == 2)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        if (i < pbpoint.Length - 2)
+                                        canvasPoints[i] = mapPoint;
+                                        if (i < canvasPoints.Length - 2)
                                         {
-                                            pbpoint[i + 2] = reverseAverage(pbpoint[i], pbpoint[i + 1]);
+                                            canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
                                         }
                                     }
                                     else if (ptype == 3)
                                     {
-                                        pbpoint[i] = mapPoint;
-                                        pbpoint[i - 1] = movepoint(oldp, pbpoint[i], pbpoint[i - 1]);
-                                        if ((i + 1) < pbpoint.Length) pbpoint[i + 1] =
-                                           movepoint(oldp, pbpoint[i], pbpoint[i + 1]);
+                                        canvasPoints[i] = mapPoint;
+                                        canvasPoints[i - 1] = movepoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                        if ((i + 1) < canvasPoints.Length) canvasPoints[i + 1] =
+                                           movepoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                     }
                                     #endregion
 
                                     break;
                                 case (int)LineTypes.SmoothQuadratic:
                                     #region Smooth Quadratic
-                                    oldp = pbpoint[i];
+                                    oldp = canvasPoints[i];
                                     if (ptype == 0)
                                     {
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
 
                                     }
                                     if (ptype == 3)
                                     {
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
 
                                     }
-                                    for (int j = 0; j < pbpoint.Length; j++)
+                                    for (int j = 0; j < canvasPoints.Length; j++)
                                     {
                                         if (getPtype(j) == 1 && j > 1)
                                         {
-                                            pbpoint[j] = reverseAverage(pbpoint[j - 3], pbpoint[j - 1]);
-                                            pbpoint[j + 1] = pbpoint[j];
+                                            canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                            canvasPoints[j + 1] = canvasPoints[j];
 
                                         }
                                     }
@@ -871,57 +871,57 @@ namespace ShapeMaker
                                     break;
                             }
                         }//move first point
-                        else if (pbpoint.Length != 0 && i == 0 && i < pbpoint.Length)
+                        else if (canvasPoints.Length != 0 && i == 0 && i < canvasPoints.Length)
                         {
-                            PointF oldp = pbpoint[i];
+                            PointF oldp = canvasPoints[i];
 
                             if (ptype == 0)//special quadratic
                             {
                                 switch (lt)
                                 {
                                     case (int)LineTypes.Straight:
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                         break;
                                     case (int)LineTypes.Ellipse:
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                         break;
                                     case (int)LineTypes.Cubic:
                                     case (int)LineTypes.SmoothCubic:
-                                        pbpoint[i] = mapPoint;
+                                        canvasPoints[i] = mapPoint;
                                         //recent change 8/22/2015
-                                        if (pbpoint.Length > 1) pbpoint[i + 1] =
-                                            movepoint(oldp, pbpoint[i], pbpoint[i + 1]);
+                                        if (canvasPoints.Length > 1) canvasPoints[i + 1] =
+                                            movepoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                         break;
                                     case (int)LineTypes.Quadratic:
                                         if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                         {
-                                            if (pbpoint.Length == 1)
+                                            if (canvasPoints.Length == 1)
                                             {
-                                                pbpoint[i] = mapPoint;
+                                                canvasPoints[i] = mapPoint;
                                             }
                                             else
                                             {
-                                                PointF rtmp = reverseAverage(pbpoint[i + 1], pbpoint[i]);
-                                                pbpoint[i] = onLinePoint(pbpoint[i + 1], rtmp,
+                                                PointF rtmp = reverseAverage(canvasPoints[i + 1], canvasPoints[i]);
+                                                canvasPoints[i] = onLinePoint(canvasPoints[i + 1], rtmp,
                                                     mapPoint);
                                             }
                                         }
                                         else
                                         {
-                                            pbpoint[i] = mapPoint;
+                                            canvasPoints[i] = mapPoint;
                                         }
                                         break;
                                     case (int)LineTypes.SmoothQuadratic:
 
-                                        pbpoint[0] = mapPoint;
-                                        pbpoint[1] = mapPoint;
+                                        canvasPoints[0] = mapPoint;
+                                        canvasPoints[1] = mapPoint;
 
-                                        for (int j = 0; j < pbpoint.Length; j++)
+                                        for (int j = 0; j < canvasPoints.Length; j++)
                                         {
                                             if (getPtype(j) == 1 && j > 1)
                                             {
-                                                pbpoint[j] = reverseAverage(pbpoint[j - 3], pbpoint[j - 1]);
-                                                pbpoint[j + 1] = pbpoint[j];
+                                                canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                                canvasPoints[j + 1] = canvasPoints[j];
 
                                             }
                                         }
@@ -930,7 +930,7 @@ namespace ShapeMaker
                             }
 
                         }//Pan zoomed
-                        else if (MoveFlag && IsZoomed)
+                        else if (PanFlag && IsZoomed)
                         {
                             int mpx = (int)(mapPoint.X * 100);
                             int msx = (int)(MoveStart.X * 100);
@@ -939,23 +939,23 @@ namespace ShapeMaker
                             int tx = 10 * (mpx - msx);
                             int ty = 10 * (mpy - msy);
 
-                            int maxmove = pb.Width - ZoomMaster.ClientSize.Width;
+                            int maxmove = canvas.Width - ZoomMaster.ClientSize.Width;
 
                             Zoomed = new Point(
-                                (pb.Location.X + tx < -maxmove) ? -maxmove : (pb.Location.X + tx > 0) ? 0 : pb.Location.X + tx,
-                                (pb.Location.Y + ty < -maxmove) ? -maxmove : (pb.Location.Y + ty > 0) ? 0 : pb.Location.Y + ty);
+                                (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
+                                (canvas.Location.Y + ty < -maxmove) ? -maxmove : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty);
 
-                            pb.Location = Zoomed;
+                            canvas.Location = Zoomed;
 
                             posBarsTimer.Stop();
                             DrawPosBars = true;
-                            verPos.Refresh();
-                            horPos.Refresh();
+                            verPosBar.Refresh();
+                            horPosBar.Refresh();
                         }
 
                     }
 
-                    pb.Refresh();
+                    canvas.Refresh();
                 }
 
                 if (e.Button == MouseButtons.Middle && IsZoomed)
@@ -967,19 +967,19 @@ namespace ShapeMaker
                     int tx = 10 * (mpx - msx);
                     int ty = 10 * (mpy - msy);
 
-                    int maxmove = pb.Width - ZoomMaster.ClientSize.Width;
+                    int maxmove = canvas.Width - ZoomMaster.ClientSize.Width;
 
                     Zoomed = new Point(
-                        (pb.Location.X + tx < -maxmove) ? -maxmove : (pb.Location.X + tx > 0) ? 0 : pb.Location.X + tx,
-                        (pb.Location.Y + ty < -maxmove) ? -maxmove : (pb.Location.Y + ty > 0) ? 0 : pb.Location.Y + ty);
+                        (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
+                        (canvas.Location.Y + ty < -maxmove) ? -maxmove : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty);
 
-                    pb.Location = Zoomed;
-                    pb.Refresh();
+                    canvas.Location = Zoomed;
+                    canvas.Refresh();
 
                     posBarsTimer.Stop();
                     DrawPosBars = true;
-                    verPos.Refresh();
-                    horPos.Refresh();
+                    verPosBar.Refresh();
+                    horPosBar.Refresh();
                 }
 
             }
@@ -1089,7 +1089,7 @@ namespace ShapeMaker
             return dest;
         }
 
-        private void pb_Paint(object sender, PaintEventArgs e)
+        private void canvas_Paint(object sender, PaintEventArgs e)
         {
             Image img;
             img = ShapeMaker.Properties.Resources.bg;
@@ -1127,7 +1127,7 @@ namespace ShapeMaker
                     {
                         if (j == LineList.SelectedIndex)
                         {
-                            line = pbpoint;
+                            line = canvasPoints;
                             ltype = getLType();
                             ctype = Loop.Checked;
                             mpmode = MPMode.Checked;
@@ -1147,7 +1147,7 @@ namespace ShapeMaker
                     }
                     else
                     {
-                        line = pbpoint;
+                        line = canvasPoints;
                         ltype = getLType();
                         ctype = Loop.Checked;
                         mpmode = MPMode.Checked;
@@ -1523,24 +1523,24 @@ namespace ShapeMaker
             if ((sender as ToolStripMenuItem).Checked)
             {
 
-                if (pbpoint.Length > 0)
+                if (canvasPoints.Length > 0)
                 {
 
-                    PointF hold = pbpoint[0];
-                    Array.Resize(ref pbpoint, 1);
-                    pbpoint[0] = hold;
+                    PointF hold = canvasPoints[0];
+                    Array.Resize(ref canvasPoints, 1);
+                    canvasPoints[0] = hold;
 
                 }
-                pb.Refresh();
+                canvas.Refresh();
             }
             menuStrip1.Refresh();
         }
 
         private void ResetP_Click(object sender, EventArgs e)
         {
-            pbpoint = new PointF[0];
+            canvasPoints = new PointF[0];
             LineList.SelectedIndex = -1;
-            pb.Refresh();
+            canvas.Refresh();
         }
 
 
@@ -1548,10 +1548,10 @@ namespace ShapeMaker
         {
             SpinLine.Value = 180;
             toolTip1.SetToolTip(SpinLine, "0");
-            if (pbpoint.Length == 0) return;
+            if (canvasPoints.Length == 0) return;
             if (LineList.SelectedIndex > -1)
             {
-                Lines[LineList.SelectedIndex] = new PData(pbpoint, Loop.Checked, getLType(), Big.Checked, Sweep.Checked,
+                Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getLType(), Big.Checked, Sweep.Checked,
                     (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
                 LineList.Items[LineList.SelectedIndex] = LineNames[getLType()];
             }
@@ -1562,18 +1562,18 @@ namespace ShapeMaker
                 {
                     if (MacroCircle.Checked && getLType() == (int)LineTypes.Ellipse)
                     {
-                        if (pbpoint.Length < 5) return;
-                        PointF mid = pointAverage(pbpoint[0], pbpoint[4]);
-                        pbpoint[1] = pbpoint[0];
-                        pbpoint[2] = pbpoint[4];
-                        pbpoint[3] = mid;
-                        Lines.Add(new PData(pbpoint, false, getLType(), Big.Checked, Sweep.Checked, "", false));
+                        if (canvasPoints.Length < 5) return;
+                        PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
+                        canvasPoints[1] = canvasPoints[0];
+                        canvasPoints[2] = canvasPoints[4];
+                        canvasPoints[3] = mid;
+                        Lines.Add(new PData(canvasPoints, false, getLType(), Big.Checked, Sweep.Checked, "", false));
                         LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
-                        PointF[] tmp = new PointF[pbpoint.Length];
+                        PointF[] tmp = new PointF[canvasPoints.Length];
                         //fix
-                        tmp[0] = pbpoint[4];
-                        tmp[4] = pbpoint[0];
-                        tmp[3] = pbpoint[3];
+                        tmp[0] = canvasPoints[4];
+                        tmp[4] = canvasPoints[0];
+                        tmp[3] = canvasPoints[3];
                         tmp[1] = tmp[0];
                         tmp[2] = tmp[4];
                         //test below
@@ -1584,14 +1584,14 @@ namespace ShapeMaker
                     else if (MacroRect.Checked && getLType() == (int)LineTypes.Straight)
                     {
 
-                        for (int i = 1; i < pbpoint.Length; i++)
+                        for (int i = 1; i < canvasPoints.Length; i++)
                         {
                             PointF[] tmp = new PointF[5];
-                            tmp[0] = new PointF(pbpoint[i - 1].X, pbpoint[i - 1].Y);
-                            tmp[1] = new PointF(pbpoint[i].X, pbpoint[i - 1].Y);
-                            tmp[2] = new PointF(pbpoint[i].X, pbpoint[i].Y);
-                            tmp[3] = new PointF(pbpoint[i - 1].X, pbpoint[i].Y);
-                            tmp[4] = new PointF(pbpoint[i - 1].X, pbpoint[i - 1].Y);
+                            tmp[0] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
+                            tmp[1] = new PointF(canvasPoints[i].X, canvasPoints[i - 1].Y);
+                            tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
+                            tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
+                            tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
                             Lines.Add(new PData(tmp, false, getLType(), Big.Checked, Sweep.Checked, "", false));
                             LineList.Items.Add(LineNames[getLType()]);
                         }
@@ -1599,7 +1599,7 @@ namespace ShapeMaker
                     }
                     else
                     {
-                        Lines.Add(new PData(pbpoint, Loop.Checked, getLType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
+                        Lines.Add(new PData(canvasPoints, Loop.Checked, getLType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
                         LineList.Items.Add(LineNames[getLType()]);
                     }
                 }
@@ -1610,18 +1610,18 @@ namespace ShapeMaker
                 }
                 resetRotation();
             }
-            PointF hold = pbpoint[pbpoint.Length - 1];
+            PointF hold = canvasPoints[canvasPoints.Length - 1];
             if (!LinkedL.Checked)
             {
-                Array.Resize(ref pbpoint, 1);
-                pbpoint[0] = hold;
+                Array.Resize(ref canvasPoints, 1);
+                canvasPoints[0] = hold;
             }
             else
             {
-                Array.Resize(ref pbpoint, 0);
+                Array.Resize(ref canvasPoints, 0);
             }
             LineList.SelectedIndex = -1;
-            pb.Refresh();
+            canvas.Refresh();
         }
         private void resetRotation()
         {
@@ -1639,23 +1639,23 @@ namespace ShapeMaker
                 int spi = LineList.SelectedIndex;
                 Lines.RemoveAt(spi);
                 LineList.Items.RemoveAt(spi);
-                pbpoint = new PointF[0];
+                canvasPoints = new PointF[0];
                 LineList.SelectedIndex = -1;
             }
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void Clonebtn_Click(object sender, EventArgs e)
         {
             if (LineList.SelectedIndex == -1) return;
 
-            if (LineList.SelectedIndex > -1 && pbpoint.Length > 0)
+            if (LineList.SelectedIndex > -1 && canvasPoints.Length > 0)
             {
 
                 if (Lines.Count < 100)
                 {
-                    PointF[] tmp = new PointF[pbpoint.Length];
-                    Array.Copy(pbpoint, tmp, pbpoint.Length);
+                    PointF[] tmp = new PointF[canvasPoints.Length];
+                    Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
                     Lines.Add(new PData(tmp, Loop.Checked, getLType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
                     LineList.Items.Add(LineNames[getLType()]);
@@ -1668,9 +1668,9 @@ namespace ShapeMaker
                 }
             }
             LineList.SelectedIndex = LineList.Items.Count - 1;
-            pb.Refresh();
+            canvas.Refresh();
         }
-        private void LineList_SelectedIndexChanged(object sender, EventArgs e)
+        private void LineList_SelectedValueChanged(object sender, EventArgs e)
         {
             if (LineList.SelectedIndex == -1) return;
 
@@ -1679,10 +1679,10 @@ namespace ShapeMaker
                 int spi = LineList.SelectedIndex;
                 setLType((Lines[spi] as PData).LineType, (Lines[spi] as PData).ClosedType,
                     (Lines[spi] as PData).IsLarge, (Lines[spi] as PData).RevSweep, (Lines[spi] as PData).LoopBack);
-                pbpoint = (Lines[spi] as PData).Lines;
+                canvasPoints = (Lines[spi] as PData).Lines;
 
             }
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -2244,7 +2244,7 @@ namespace ShapeMaker
                         errornum = 3;
                         errorflagx = float.TryParse(str[i++], out x);
                         if (!errorflagx) break;
-                        x = x / pb.ClientRectangle.Height;
+                        x = x / canvas.ClientRectangle.Height;
                         LastPos = pbAdjust(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
@@ -2255,7 +2255,7 @@ namespace ShapeMaker
                         errornum = 4;
                         errorflagy = float.TryParse(str[i], out y);
                         if (!errorflagy) break;
-                        y = y / pb.ClientRectangle.Height;
+                        y = y / canvas.ClientRectangle.Height;
                         LastPos = pbAdjust(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
@@ -2272,8 +2272,8 @@ namespace ShapeMaker
                         LastPos = pbAdjust(x, y);
                         pts[ptbase + 4] = LastPos; ;//ENDPOINT
 
-                        PointF From = new PointF(pts[ptbase].X * (float)pb.ClientRectangle.Width,
-                            pts[ptbase].Y * (float)pb.ClientRectangle.Height);
+                        PointF From = new PointF(pts[ptbase].X * (float)canvas.ClientRectangle.Width,
+                            pts[ptbase].Y * (float)canvas.ClientRectangle.Height);
                         PointF To = new PointF(x, y);
 
                         PointF mid = pointAverage(From, To);
@@ -2317,7 +2317,7 @@ namespace ShapeMaker
                 return;
             }
             if (pts.Length > 1 && LineList.Items.Count < 100) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private PointF pointOrbit(PointF c, float r, float d)
@@ -2331,8 +2331,8 @@ namespace ShapeMaker
         private PointF pbAdjust(float x, float y)
         {
             return new PointF(
-                            x / (float)pb.ClientSize.Width,
-                            y / (float)pb.ClientSize.Height);
+                            x / (float)canvas.ClientSize.Width,
+                            y / (float)canvas.ClientSize.Height);
         }
 
         private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType,
@@ -2400,8 +2400,8 @@ namespace ShapeMaker
 
         private void ClearAll()
         {
-            Array.Resize(ref pbpoint, 0);
-            statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", pbpoint.Length, maxpoint);
+            Array.Resize(ref canvasPoints, 0);
+            statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
             statusLabelLocation.Text = "0, 0";
 
             if (LineList.Items.Count == 0) return;
@@ -2409,9 +2409,9 @@ namespace ShapeMaker
             LineList.Items.Clear();
             statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
 
-            pb.Refresh();
+            canvas.Refresh();
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void clearAll_Click(object sender, EventArgs e)
         {
             DialogResult result2 = MessageBox.Show("Delete All Paths?",
              "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -2432,7 +2432,7 @@ namespace ShapeMaker
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
-                bool r = getPathData((int)(OutputScale.Value * pb.ClientRectangle.Width / 100), (int)(OutputScale.Value * pb.ClientRectangle.Height / 100), out TMP);
+                bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
                     Clipboard.SetText(TMP);
@@ -2451,12 +2451,12 @@ namespace ShapeMaker
         {
             if (UDCount > 0)
             {
-                pbpoint = new PointF[0];
+                canvasPoints = new PointF[0];
                 setLType(UDtype[UDPointer], false, false, false, false);
                 if (UDPoint[UDPointer].Length != 0)
                 {
-                    pbpoint = new PointF[UDPoint[UDPointer].Length];
-                    Array.Copy(UDPoint[UDPointer], pbpoint, pbpoint.Length);
+                    canvasPoints = new PointF[UDPoint[UDPointer].Length];
+                    Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
                 }
 
                 //MDown = UDtype[UDPointer];
@@ -2484,13 +2484,13 @@ namespace ShapeMaker
             resetRotation();
 
             menuStrip1.Refresh();
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void Flip_Click(object sender, EventArgs e)
         {
 
-            if (pbpoint.Length == 0)
+            if (canvasPoints.Length == 0)
             {
                 for (int k = 0; k < Lines.Count; k++)
                 {
@@ -2522,8 +2522,8 @@ namespace ShapeMaker
             }
             else
             {
-                PointF[] tmp = new PointF[pbpoint.Length];
-                Array.Copy(pbpoint, tmp, pbpoint.Length);
+                PointF[] tmp = new PointF[canvasPoints.Length];
+                Array.Copy(canvasPoints, tmp, canvasPoints.Length);
                 PointF mid = PathAverage(tmp);
                 if ((sender as ToolStripMenuItem).Tag.ToString() == "H")
                 {
@@ -2542,16 +2542,16 @@ namespace ShapeMaker
                     }
                 }
                 if (Ellipse.Checked) Sweep.Checked = !Sweep.Checked;
-                pbpoint = tmp;
+                canvasPoints = tmp;
             }
-            pb.Refresh();
+            canvas.Refresh();
 
         }
 
         private void FitBG_CheckedChanged(object sender, EventArgs e)
         {
-            pb.BackgroundImageLayout = (FitBG.Checked) ? ImageLayout.Zoom : ImageLayout.Center;
-            pb.Refresh();
+            canvas.BackgroundImageLayout = (FitBG.Checked) ? ImageLayout.Zoom : ImageLayout.Center;
+            canvas.Refresh();
         }
 
         private void FlipLines(int index)
@@ -2654,7 +2654,7 @@ namespace ShapeMaker
             lastRot = e;
 
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift &&
-                pbpoint.Length == 0 && LineList.Items.Count > 0)
+                canvasPoints.Length == 0 && LineList.Items.Count > 0)
             {
                 PointF pa = new PointF(.5f, .5f);
 
@@ -2674,7 +2674,7 @@ namespace ShapeMaker
 
 
             }
-            else if (pbpoint.Length == 0 && LineList.Items.Count > 0)
+            else if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
             {
                 PointF mid = new PointF(.5f, .5f);
                 for (int k = 0; k < Lines.Count; k++)
@@ -2692,25 +2692,25 @@ namespace ShapeMaker
                     }
                 }
             }
-            else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift && pbpoint.Length > 1)
+            else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift && canvasPoints.Length > 1)
             {
-                PointF pa = PathAverage(pbpoint);
+                PointF pa = PathAverage(canvasPoints);
 
                 float scale = e / 359f;
                 scale = 2f * scale + .5f - .5f * scale;
                 if (scale > 1 && !InView()) return;
-                for (int idx = 0; idx < pbpoint.Length; idx++)
+                for (int idx = 0; idx < canvasPoints.Length; idx++)
                 {
-                    pbpoint[idx].X = (UDPoint[UDPointer][idx].X - pa.X) * scale + pa.X;
-                    pbpoint[idx].Y = (UDPoint[UDPointer][idx].Y - pa.Y) * scale + pa.Y;
+                    canvasPoints[idx].X = (UDPoint[UDPointer][idx].X - pa.X) * scale + pa.X;
+                    canvasPoints[idx].Y = (UDPoint[UDPointer][idx].Y - pa.Y) * scale + pa.Y;
                 }
 
             }
 
-            else if (pbpoint.Length > 1)
+            else if (canvasPoints.Length > 1)
             {
-                PointF[] tmp = new PointF[pbpoint.Length];
-                Array.Copy(pbpoint, tmp, pbpoint.Length);
+                PointF[] tmp = new PointF[canvasPoints.Length];
+                Array.Copy(canvasPoints, tmp, canvasPoints.Length);
                 PointF mid = PathAverage(tmp);
 
                 for (int i = 0; i < tmp.Length; i++)
@@ -2722,10 +2722,10 @@ namespace ShapeMaker
 
                     tmp[i] = new PointF((float)nx, (float)ny);
                 }
-                pbpoint = tmp;
+                canvasPoints = tmp;
             }
 
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
@@ -2736,10 +2736,10 @@ namespace ShapeMaker
 
         private void LineLoop_Click(object sender, EventArgs e)
         {
-            if (pbpoint.Length > 2 && !Ellipse.Checked)
+            if (canvasPoints.Length > 2 && !Ellipse.Checked)
             {
-                pbpoint[pbpoint.Length - 1] = pbpoint[0];
-                pb.Refresh();
+                canvasPoints[canvasPoints.Length - 1] = canvasPoints[0];
+                canvas.Refresh();
             }
         }
 
@@ -2757,18 +2757,18 @@ namespace ShapeMaker
             MacroCubic.Enabled = (LineList.SelectedIndex == -1);
             Loop.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             MPMode.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
-            ClearBtn.Enabled = (pbpoint.Length != 0);
+            ClearBtn.Enabled = (canvasPoints.Length != 0);
 
             if (LineList.SelectedIndex != -1)
             {
-                if (pbpoint != (Lines[LineList.SelectedIndex] as PData).Lines)
+                if (canvasPoints != (Lines[LineList.SelectedIndex] as PData).Lines)
                     ApplyBtn.Enabled = true;
                 else
                     ApplyBtn.Enabled = false;
             }
             else
             {
-                if (pbpoint.Length > 1)
+                if (canvasPoints.Length > 1)
                     ApplyBtn.Enabled = true;
                 else
                     ApplyBtn.Enabled = false;
@@ -2783,16 +2783,16 @@ namespace ShapeMaker
             else if (KeyTrak && Control.ModifierKeys != Keys.Control)
             {
                 KeyTrak = false;
-                pb.Refresh();
+                canvas.Refresh();
             }
             else
             {
                 KeyTrak = false;
             }
 
-            if (countflag || pbpoint.Length > 0 || LineList.Items.Count > 0)
+            if (countflag || canvasPoints.Length > 0 || LineList.Items.Count > 0)
             {
-                statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", pbpoint.Length, maxpoint);
+                statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
                 statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
             }
         }
@@ -2855,7 +2855,7 @@ namespace ShapeMaker
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
-                bool r = getPathData((int)(OutputScale.Value * pb.ClientRectangle.Width / 100), (int)(OutputScale.Value * pb.ClientRectangle.Height / 100), out TMP);
+                bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
                     string output = ShapeMaker.Properties.Resources.BaseString;
@@ -2897,7 +2897,7 @@ namespace ShapeMaker
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
-                bool r = getPGPathData((int)(OutputScale.Value * pb.ClientRectangle.Width / 100), (int)(OutputScale.Value * pb.ClientRectangle.Height / 100), out TMP);
+                bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
                     string output = ShapeMaker.Properties.Resources.PGBaseString;
@@ -3024,27 +3024,27 @@ namespace ShapeMaker
                     Loop.Checked = false;
                 }
             }
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void Property_Click(object sender, EventArgs e)
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void MacroRect_Click(object sender, EventArgs e)
         {
             MacroRect.Checked = !MacroRect.Checked;
             if (MacroRect.Checked) ToolMenu_Click(radios[0], e);
-            pb.Refresh();
+            canvas.Refresh();
         }
         private void MacroCubic_Click(object sender, EventArgs e)
         {
             MacroCubic.Checked = !MacroCubic.Checked;
             if (MacroCubic.Checked) ToolMenu_Click(radios[2], e);
             if (MacroCubic.Checked) CubicAdjust();
-            pb.Refresh();
+            canvas.Refresh();
         }
         private void MacroCircle_Click(object sender, EventArgs e)
         {
@@ -3052,7 +3052,7 @@ namespace ShapeMaker
             Big.Enabled = !MacroCircle.Checked;
             Sweep.Enabled = !MacroCircle.Checked;
             if (MacroCircle.Checked) ToolMenu_Click(radios[1], e);
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void ToolMenu_Click(object sender, EventArgs e)
@@ -3121,7 +3121,7 @@ namespace ShapeMaker
         }
 
 
-        private void blank2_Paint(object sender, PaintEventArgs e)
+        private void blank_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(Properties.Resources.blank2, 0, 0, (int)(blankWd * DPI), (int)(blankHt * DPI));
         }
@@ -3443,12 +3443,12 @@ namespace ShapeMaker
         private bool InView()
         {
 
-            if (pbpoint.Length > 0)
+            if (canvasPoints.Length > 0)
             {
-                for (int j = 0; j < pbpoint.Length; j++)
+                for (int j = 0; j < canvasPoints.Length; j++)
                 {
-                    if (pbpoint[j].X > 1.5f) return false;
-                    if (pbpoint[j].Y > 1.5f) return false;
+                    if (canvasPoints[j].X > 1.5f) return false;
+                    if (canvasPoints[j].Y > 1.5f) return false;
 
                 }
             }
@@ -3589,7 +3589,7 @@ namespace ShapeMaker
 
         private void tool_MouseDown(object sender, MouseEventArgs e)
         {
-            if (pbpoint.Length > 0) setUndo();
+            if (canvasPoints.Length > 0) setUndo();
             int z = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
             if (z > 0 && z < 11)
             {
@@ -3639,7 +3639,7 @@ namespace ShapeMaker
                         try
                         {
 
-                            Array.Resize(ref pbpoint, 0);
+                            Array.Resize(ref canvasPoints, 0);
                             Lines.Clear();
                             using (FileStream stream = File.OpenRead(OFD.FileName))
                             {
@@ -3690,7 +3690,7 @@ namespace ShapeMaker
 
                 }
             }
-            pb.Refresh();
+            canvas.Refresh();
         }
 
         private void saveProject_Click(object sender, EventArgs e)
@@ -3700,7 +3700,7 @@ namespace ShapeMaker
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
-                bool r = getPathData((int)(OutputScale.Value * pb.ClientRectangle.Width / 100), (int)(OutputScale.Value * pb.ClientRectangle.Height / 100), out TMP);
+                bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
                     //string output = ShapeMaker.Properties.Resources.BaseString;
@@ -3774,7 +3774,7 @@ namespace ShapeMaker
 
         private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
         {
-            MoveFlag = false;
+            PanFlag = false;
 
             if (IsZoomed)
             {
@@ -3816,31 +3816,31 @@ namespace ShapeMaker
 
         private void ZoomToFactor(int zoomFactor)
         {
-            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
             if (oldZoomFactor == zoomFactor)
                 return;
 
             int newDimension = baseSize * zoomFactor;
             int maxmove = newDimension - ZoomMaster.ClientSize.Width;
-            pb.Location = new Point(0, 0);
+            canvas.Location = new Point(0, 0);
             Zoomed = new Point(
-                (pb.Location.X < -maxmove) ? -maxmove : (pb.Location.X > 0) ? 0 : -maxmove / 2,
-                (pb.Location.Y < -maxmove) ? -maxmove : (pb.Location.Y > 0) ? 0 : -maxmove / 2);
+                (canvas.Location.X < -maxmove) ? -maxmove : (canvas.Location.X > 0) ? 0 : -maxmove / 2,
+                (canvas.Location.Y < -maxmove) ? -maxmove : (canvas.Location.Y > 0) ? 0 : -maxmove / 2);
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
             {
-                pb.Location = Zoomed;
-                pb.Width = newDimension;
-                pb.Height = newDimension;
+                canvas.Location = Zoomed;
+                canvas.Width = newDimension;
+                canvas.Height = newDimension;
             }
             else // Zooming In
             {
-                pb.Width = newDimension;
-                pb.Height = newDimension;
-                pb.Location = Zoomed;
+                canvas.Width = newDimension;
+                canvas.Height = newDimension;
+                canvas.Location = Zoomed;
             }
-            pb.Refresh();
+            canvas.Refresh();
 
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
             IsZoomed = (zoomFactor > 1);
@@ -3849,16 +3849,16 @@ namespace ShapeMaker
             posBarsTimer.Stop();
             posBarsTimer.Start();
             DrawPosBars = (zoomFactor > 1);
-            verPos.Refresh();
-            horPos.Refresh();
+            verPosBar.Refresh();
+            horPosBar.Refresh();
         }
 
-        private void pb_MouseEnter(object sender, EventArgs e)
+        private void canvas_MouseEnter(object sender, EventArgs e)
         {
             CanScrollZoom = true;
         }
 
-        private void pb_MouseLeave(object sender, EventArgs e)
+        private void canvas_MouseLeave(object sender, EventArgs e)
         {
             CanScrollZoom = false;
         }
@@ -3868,15 +3868,15 @@ namespace ShapeMaker
             if (!CanScrollZoom)
                 return;
 
-            if (pb.Height != pb.Width)
+            if (canvas.Height != canvas.Width)
                 return;
 
             int delta = Math.Sign(e.Delta);
-            int oldZoomFactor = pb.Width / ZoomMaster.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
             if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
                 return;
 
-            int newDimension = (delta > 0) ? pb.Width * 2 : pb.Width / 2;
+            int newDimension = (delta > 0) ? canvas.Width * 2 : canvas.Width / 2;
             int zoomFactor = newDimension / ZoomMaster.ClientSize.Width;
             
             if (zoomFactor == 1)
@@ -3885,8 +3885,8 @@ namespace ShapeMaker
             {
                 Point mousePosition = new Point(e.X - ZoomMaster.Location.X, e.Y - ZoomMaster.Location.Y);
 
-                Zoomed = new Point((pb.Location.X - mousePosition.X) * newDimension / pb.Width + mousePosition.X,
-                                   (pb.Location.Y - mousePosition.Y) * newDimension / pb.Width + mousePosition.Y);
+                Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
+                                   (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Width + mousePosition.Y);
 
                 Zoomed.X = Clamp(Zoomed.X, baseSize - newDimension, 0);
                 Zoomed.Y = Clamp(Zoomed.Y, baseSize - newDimension, 0);
@@ -3895,17 +3895,17 @@ namespace ShapeMaker
             // to avoid flicker, the order of execution is important
             if (delta > 0) // Zooming In
             {
-                pb.Width = newDimension;
-                pb.Height = newDimension;
-                pb.Location = Zoomed;
+                canvas.Width = newDimension;
+                canvas.Height = newDimension;
+                canvas.Location = Zoomed;
             }
             else // Zooming Out
             {
-                pb.Location = Zoomed;
-                pb.Width = newDimension;
-                pb.Height = newDimension;
+                canvas.Location = Zoomed;
+                canvas.Width = newDimension;
+                canvas.Height = newDimension;
             }
-            pb.Refresh();
+            canvas.Refresh();
             
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
             IsZoomed = (zoomFactor > 1);
@@ -3913,8 +3913,8 @@ namespace ShapeMaker
             posBarsTimer.Stop();
             posBarsTimer.Start();
             DrawPosBars = true;
-            verPos.Refresh();
-            horPos.Refresh();
+            verPosBar.Refresh();
+            horPosBar.Refresh();
 
             base.OnMouseWheel(e);
         }
@@ -3924,25 +3924,25 @@ namespace ShapeMaker
             return (value < min) ? min : (value > max) ? max : value;
         }
 
-        private void verPos_Paint(object sender, PaintEventArgs e)
+        private void verPosBar_Paint(object sender, PaintEventArgs e)
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = ZoomMaster.ClientSize.Height / (pb.Height / ZoomMaster.ClientSize.Height);
+                int length = ZoomMaster.ClientSize.Height / (canvas.Height / ZoomMaster.ClientSize.Height);
                 int maxPos = ZoomMaster.ClientSize.Height - length;
-                float pos = Math.Abs(pb.Location.Y) / (float)(pb.Height - ZoomMaster.ClientSize.Height) * maxPos;
+                float pos = Math.Abs(canvas.Location.Y) / (float)(canvas.Height - ZoomMaster.ClientSize.Height) * maxPos;
                 RectangleF verBar = new RectangleF(1, pos, 3, length);
                 e.Graphics.FillRectangle(Brushes.Gray, verBar);
             }
         }
 
-        private void horPos_Paint(object sender, PaintEventArgs e)
+        private void horPosBar_Paint(object sender, PaintEventArgs e)
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = ZoomMaster.ClientSize.Width / (pb.Width / ZoomMaster.ClientSize.Width);
+                int length = ZoomMaster.ClientSize.Width / (canvas.Width / ZoomMaster.ClientSize.Width);
                 int maxPos = ZoomMaster.ClientSize.Width - length;
-                float pos = Math.Abs(pb.Location.X) / (float)(pb.Width - ZoomMaster.ClientSize.Width) * maxPos;
+                float pos = Math.Abs(canvas.Location.X) / (float)(canvas.Width - ZoomMaster.ClientSize.Width) * maxPos;
                 RectangleF horBar = new RectangleF(pos, 1, length, 3);
                 e.Graphics.FillRectangle(Brushes.Gray, horBar);
             }
