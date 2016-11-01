@@ -143,8 +143,6 @@ namespace ShapeMaker
         {
             MakePath();
             FinishTokenUpdate();
-            DialogResult = DialogResult.OK;
-            this.Close();
         }
 
 

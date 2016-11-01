@@ -863,6 +863,7 @@
             // buttonOK
             // 
             this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.ForeColor = System.Drawing.Color.Black;
             this.buttonOK.Location = new System.Drawing.Point(723, 515);
