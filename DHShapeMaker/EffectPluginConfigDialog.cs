@@ -503,12 +503,16 @@ namespace ShapeMaker
                     }
 
                 }
+                else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
+                {
+                    setUndo();
+                }
                 else if (canvasPoints.Length == 0 && e.Button == MouseButtons.Left)
                 {
                     LineList.SelectedIndex = getNearestLine(bhit);
 
                 }
-                else if (e.Button != MouseButtons.Middle)
+                else if (e.Button != MouseButtons.Middle && lastHit != -1)
                 {
                     setUndo();
                 }
