@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PaintDotNet;
-using PaintDotNet.Effects;
 using System.Reflection;
 
 namespace ShapeMaker
 {
-    
     public class PluginSupportInfo : IPluginSupportInfo
     {
         public string Author

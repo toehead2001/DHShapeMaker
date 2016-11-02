@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using PaintDotNet;
 using PaintDotNet.Effects;
-using System.Windows.Forms;
 
 namespace ShapeMaker
 {
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "ShapeMaker")]
-    public class EffectPlugin
-        : PaintDotNet.Effects.Effect
+    public class EffectPlugin : Effect
     {
         public static string StaticName
         {
@@ -20,7 +16,6 @@ namespace ShapeMaker
             }
         }
 
-        
         public static Bitmap StaticImage
         {
             get { return ShapeMaker.Properties.Resources.icon; }
@@ -30,7 +25,7 @@ namespace ShapeMaker
         {
             get
             {
-                return  "Advanced"; 
+                return "Advanced";
             }
         }
 
@@ -62,7 +57,7 @@ namespace ShapeMaker
             ColorBgra PrimaryColor = (ColorBgra)EnvironmentParameters.PrimaryColor;
             ColorBgra SecondaryColor = (ColorBgra)EnvironmentParameters.SecondaryColor;
             int BrushWidth = (int)EnvironmentParameters.BrushWidth;
-            if (PGP.Length > 0 && Draw )
+            if (PGP.Length > 0 && Draw)
             {
                 using (Graphics g = new RenderArgs(dst).Graphics)
                 {
@@ -77,7 +72,7 @@ namespace ShapeMaker
                     {
                         if (PGP[i].PointCount > 0)
                         {
-                            
+
                             g.DrawPath(p, PGP[i]);
                         }
                     }

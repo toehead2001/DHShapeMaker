@@ -1,13 +1,10 @@
-using System;
 using System.Collections;
-using System.Drawing;
-using PaintDotNet;
 using PaintDotNet.Effects;
 using System.Drawing.Drawing2D;
 
 namespace ShapeMaker
 {
-    public class EffectPluginConfigToken : PaintDotNet.Effects.EffectConfigToken
+    public class EffectPluginConfigToken : EffectConfigToken
     {
         public GraphicsPath[] GP
         {

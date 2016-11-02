@@ -63,7 +63,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Keyboard Shortcuts";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // rt3
             // 
@@ -105,7 +104,6 @@
             this.rt1.TabIndex = 6;
             this.rt1.Text = "";
             this.rt1.WordWrap = false;
-            this.rt1.VisibleChanged += new System.EventHandler(this.richTextBox1_VisibleChanged);
             // 
             // tabPage3
             // 

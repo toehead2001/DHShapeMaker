@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 
 namespace ShapeMaker
 {
-    public partial class EffectPluginConfigDialog : PaintDotNet.Effects.EffectConfigDialog
+    public partial class EffectPluginConfigDialog : EffectConfigDialog
     {
         enum LineTypes
         {
@@ -27,17 +27,17 @@ namespace ShapeMaker
             Cubic,
             SmoothCubic,
             Quadratic,
-            SmoothQuadratic,
+            SmoothQuadratic
         }
-        //lacsqt
-        string[] LineNames = 
+
+        string[] LineNames =
         {
             "Straight Lines",
             "Ellipse",
             "Cubic Beziers",
             "Smooth Cubic Beziers",
             "Quadratic Beziers",
-            "Smooth Quadratic Beziers",
+            "Smooth Quadratic Beziers"
         };
 
         Color[] LineColors =
@@ -47,7 +47,7 @@ namespace ShapeMaker
             Color.Blue,
             Color.Green,
             Color.DarkGoldenrod,
-            Color.Purple,
+            Color.Purple
         };
 
         Color AnchorColor = Color.FromArgb(0, 128, 128);
@@ -145,12 +145,10 @@ namespace ShapeMaker
             FinishTokenUpdate();
         }
 
-
-
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
             using (Graphics g = this.CreateGraphics())
-            DPI = g.DpiX / 96;
+                DPI = g.DpiX / 96;
             baseSize = (int)(baseSize * DPI);
 
             canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
@@ -285,7 +283,7 @@ namespace ShapeMaker
                         PanFlag = false;
                     }
                 }
-                else if (e.Button == System.Windows.Forms.MouseButtons.Right) //process add or delete
+                else if (e.Button == MouseButtons.Right) //process add or delete
                 {
                     setUndo();
 
@@ -505,7 +503,7 @@ namespace ShapeMaker
                     }
 
                 }
-                else if (canvasPoints.Length == 0 && e.Button == System.Windows.Forms.MouseButtons.Left)
+                else if (canvasPoints.Length == 0 && e.Button == MouseButtons.Left)
                 {
                     LineList.SelectedIndex = getNearestLine(bhit);
 
@@ -642,6 +640,7 @@ namespace ShapeMaker
             canvas.Refresh();
             posBarsTimer.Start();
         }
+
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
             PictureBox s = (PictureBox)sender;
@@ -664,7 +663,7 @@ namespace ShapeMaker
 
             try
             {
-                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                if (e.Button == MouseButtons.Left)
                 {
                     if (s.ClientRectangle.Contains(e.Location))
                     {
@@ -983,6 +982,7 @@ namespace ShapeMaker
             }
             catch { }// (Exception ex) { MessageBox.Show(ex.Message); }
         }
+
         private PointF onLinePoint(PointF sp, PointF ep, PointF mt)
         {
             PointF xy = new PointF(sp.X, sp.Y);
@@ -1020,6 +1020,7 @@ namespace ShapeMaker
             return ((lasth - 1) % 3) + 1;//1 =ctl1,2=ctl2, 3= end point;
 
         }
+
         private void loadRadio()
         {
             radios[0] = StraightLine;
@@ -1029,6 +1030,7 @@ namespace ShapeMaker
             radios[4] = Quadratic;
             radios[5] = SQuadratic;
         }
+
         private int getLType()
         {
             for (int i = 0; i < radios.Length; i++)
@@ -1037,6 +1039,7 @@ namespace ShapeMaker
             }
             return 0;
         }
+
         private void setLType(int i, bool c, bool b, bool s, bool m)
         {
             SuspendLayout();
@@ -1052,7 +1055,6 @@ namespace ShapeMaker
             ResumeLayout();
         }
 
-
         private PointF[] RemoveAt(PointF[] source, int index)
         {
             PointF[] dest = new PointF[source.Length - 1];
@@ -1064,6 +1066,7 @@ namespace ShapeMaker
 
             return dest;
         }
+
         private int[] RemoveAtInt(int[] source, int index)
         {
             int[] dest = new int[source.Length - 1];
@@ -1075,6 +1078,7 @@ namespace ShapeMaker
 
             return dest;
         }
+
         private bool[] RemoveAtBool(bool[] source, int index)
         {
             bool[] dest = new bool[source.Length - 1];
@@ -1102,7 +1106,7 @@ namespace ShapeMaker
             using (TextureBrush texture =
                 new TextureBrush(img, new Rectangle(0, 0, img.Width, img.Height), attr))
             {
-                texture.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
+                texture.WrapMode = WrapMode.Tile;
                 e.Graphics.FillRectangle(texture, e.ClipRectangle);
             }
             attr.Dispose();
@@ -1424,6 +1428,7 @@ namespace ShapeMaker
             }
             catch { }//(Exception ex) { label7.Text = ex.Message; }
         }
+
         private PointF ThirdPoint(PointF p1, PointF p2, bool flip, float curve)
         {
             float Shift = (float)(1f / Math.Sqrt(3));
@@ -1442,6 +1447,7 @@ namespace ShapeMaker
             y3 = (y3 - p2.Y) * curve + p2.Y;
             return new PointF(x3, y3);
         }
+
         private PointF ThirdPointAbs(PointF p1, PointF p2, bool flip, float curve)
         {
             float Shift = (float)(1f / Math.Sqrt(3));
@@ -1470,6 +1476,7 @@ namespace ShapeMaker
             y3 = p2.Y * 2f - p1.Y;
             return new PointF(x3, y3);
         }
+
         private PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
         {
             PointF tmp = reverseAverage(c1, p1);
@@ -1488,6 +1495,7 @@ namespace ShapeMaker
             y3 = (p2.Y + p1.Y) / 2f;
             return new PointF(x3, y3);
         }
+
         private PointF PathAverage(PointF[] p)
         {
             float x = 0, y = 0;
@@ -1502,10 +1510,12 @@ namespace ShapeMaker
             }
             return new PointF(0, 0);
         }
+
         private float pythag(PointF p1, PointF p2)
         {
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
+
         private float hypot(float c, float a)
         {
             double cq = Math.Pow(c, 2);
@@ -1540,7 +1550,6 @@ namespace ShapeMaker
             LineList.SelectedIndex = -1;
             canvas.Refresh();
         }
-
 
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
@@ -1621,6 +1630,7 @@ namespace ShapeMaker
             LineList.SelectedIndex = -1;
             canvas.Refresh();
         }
+
         private void resetRotation()
         {
             SuspendLayout();
@@ -1628,6 +1638,7 @@ namespace ShapeMaker
             lastRot = 180;
             ResumeLayout();
         }
+
         private void removebtn_Click(object sender, EventArgs e)
         {
             if (LineList.SelectedIndex == -1) return;
@@ -1668,6 +1679,7 @@ namespace ShapeMaker
             LineList.SelectedIndex = LineList.Items.Count - 1;
             canvas.Refresh();
         }
+
         private void LineList_SelectedValueChanged(object sender, EventArgs e)
         {
             if (LineList.SelectedIndex == -1) return;
@@ -1706,7 +1718,7 @@ namespace ShapeMaker
 
         private bool getPathData(float Width, float Height, out string output)
         {
-            string strPath = String.Empty;
+            string strPath = string.Empty;
             if (SolidFillMenuItem.Checked) strPath = "F1 ";
             if (Lines.Count < 1)
             {
@@ -1737,9 +1749,9 @@ namespace ShapeMaker
                 {
                     if (index > 0) strPath += " ";
                     strPath += "M ";
-                    strPath += String.Format("{0:0.##}", x);
+                    strPath += string.Format("{0:0.##}", x);
                     strPath += ",";
-                    strPath += String.Format("{0:0.##}", y); //((int)y).ToString();
+                    strPath += string.Format("{0:0.##}", y); //((int)y).ToString();
                 }
                 switch (lt)
                 {
@@ -1749,9 +1761,9 @@ namespace ShapeMaker
                         {
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            strPath += String.Format("{0:0.##}", x);
+                            strPath += string.Format("{0:0.##}", x);
                             strPath += ",";
-                            strPath += String.Format("{0:0.##}", y); //((int)y).ToString();
+                            strPath += string.Format("{0:0.##}", y); //((int)y).ToString();
                             if (i < line.Length - 1) strPath += ",";
 
                         }
@@ -1772,19 +1784,19 @@ namespace ShapeMaker
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
-                        strPath += String.Format("{0:0.##}", l);
+                        strPath += string.Format("{0:0.##}", l);
                         strPath += ",";
-                        strPath += String.Format("{0:0.##}", h);
+                        strPath += string.Format("{0:0.##}", h);
                         strPath += ",";
-                        strPath += String.Format("{0:0.##}", a);
+                        strPath += string.Format("{0:0.##}", a);
                         strPath += ",";
-                        strPath += String.Format("{0:0}", b);
+                        strPath += string.Format("{0:0}", b);
                         strPath += ",";
-                        strPath += String.Format("{0:0}", s);
+                        strPath += string.Format("{0:0}", s);
                         strPath += ",";
-                        strPath += String.Format("{0:0.##}", pts[4].X);
+                        strPath += string.Format("{0:0.##}", pts[4].X);
                         strPath += ",";
-                        strPath += String.Format("{0:0.##}", pts[4].Y);
+                        strPath += string.Format("{0:0.##}", pts[4].Y);
                         oldx = pts[4].X; oldy = pts[4].Y;
                         break;
                     case (int)LineTypes.Cubic:
@@ -1793,9 +1805,9 @@ namespace ShapeMaker
                         {
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            strPath += String.Format("{0:0.##}", x);
+                            strPath += string.Format("{0:0.##}", x);
                             strPath += ",";
-                            strPath += String.Format("{0:0.##}", y);
+                            strPath += string.Format("{0:0.##}", y);
                             if (i < line.Length - 1) strPath += ",";
                             oldx = x; oldy = y;
                         }
@@ -1809,9 +1821,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += String.Format("{0:0.##}", x);
+                                strPath += string.Format("{0:0.##}", x);
                                 strPath += ",";
-                                strPath += String.Format("{0:0.##}", y);
+                                strPath += string.Format("{0:0.##}", y);
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -1826,9 +1838,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += String.Format("{0:0.##}", x);
+                                strPath += string.Format("{0:0.##}", x);
                                 strPath += ",";
-                                strPath += String.Format("{0:0.##}", y);
+                                strPath += string.Format("{0:0.##}", y);
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -1842,9 +1854,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += String.Format("{0:0.##}", x);
+                                strPath += string.Format("{0:0.##}", x);
                                 strPath += ",";
-                                strPath += String.Format("{0:0.##}", y);
+                                strPath += string.Format("{0:0.##}", y);
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -1867,10 +1879,9 @@ namespace ShapeMaker
             return true;
         }
 
-
         private bool getPGPathData(float Width, float Height, out string output)
         {
-            string strPath = String.Empty;
+            string strPath = string.Empty;
             if (Lines.Count < 1)
             {
                 output = string.Empty;
@@ -1879,7 +1890,7 @@ namespace ShapeMaker
             float oldx = 0, oldy = 0;
             //int oldLt = -1;
             string[] repstr = { "~1", "~2", "~3" };
-            string tmpstr = String.Empty;
+            string tmpstr = string.Empty;
             for (int index = 0; index < Lines.Count; index++)
             {
                 Application.DoEvents();
@@ -1902,26 +1913,26 @@ namespace ShapeMaker
                 {
 
                     strPath += "\t\t\t\t" + ShapeMaker.Properties.Resources.PGMove + "\r\n";
-                    strPath = strPath.Replace("~1", String.Format("{0:0.##},{1:0.##}", x, y));
+                    strPath = strPath.Replace("~1", string.Format("{0:0.##},{1:0.##}", x, y));
                 }
                 else if ((Lines[index] as PData).ClosedType || (x != oldx || y != oldy))//mod 091515
                 {
                     strPath = strPath.Replace("~0", "False");
                     strPath += "\t\t\t\t</PathFigure>\r\n";
                     strPath += "\t\t\t\t" + ShapeMaker.Properties.Resources.PGMove + "\r\n";
-                    strPath = strPath.Replace("~1", String.Format("{0:0.##},{1:0.##}", x, y));
+                    strPath = strPath.Replace("~1", string.Format("{0:0.##},{1:0.##}", x, y));
                 }
                 switch (lt)
                 {
                     case (int)LineTypes.Straight:
 
-                        tmpstr = String.Empty;
+                        tmpstr = string.Empty;
                         for (int i = 1; i < line.Length; i++)
                         {
                             strPath += "\t\t\t\t\t" + ShapeMaker.Properties.Resources.PGLine + "\r\n";
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            tmpstr = String.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
 
                             strPath = strPath.Replace("~1", tmpstr);
                         }
@@ -1944,15 +1955,15 @@ namespace ShapeMaker
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
 
-                        tmpstr = String.Format("{0:0.##}", l);
+                        tmpstr = string.Format("{0:0.##}", l);
                         tmpstr += ",";
-                        tmpstr += String.Format("{0:0.##}", h);
+                        tmpstr += string.Format("{0:0.##}", h);
                         strPath = strPath.Replace("~1", tmpstr);
-                        strPath = strPath.Replace("~2", String.Format("{0:0.##}", a));
+                        strPath = strPath.Replace("~2", string.Format("{0:0.##}", a));
                         strPath = strPath.Replace("~3", (b == 1) ? "True" : "False");
                         strPath = strPath.Replace("~4", (s == 1) ? "Clockwise" : "CounterClockwise");
 
-                        tmpstr = String.Format("{0:0.##},{1:0.##}", pts[4].X, pts[4].Y);
+                        tmpstr = string.Format("{0:0.##},{1:0.##}", pts[4].X, pts[4].Y);
                         strPath = strPath.Replace("~5", tmpstr);
                         oldx = pts[4].X; oldy = pts[4].Y;
                         break;
@@ -1967,7 +1978,7 @@ namespace ShapeMaker
                             {
                                 x = Width * line[j + i].X;
                                 y = Height * line[j + i].Y;
-                                tmpstr = String.Format("{0:0.##},{1:0.##}", x, y);
+                                tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
                                 strPath = strPath.Replace(repstr[j], tmpstr);
                             }
                         }
@@ -1983,11 +1994,11 @@ namespace ShapeMaker
 
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            tmpstr = String.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
                             strPath = strPath.Replace("~1", tmpstr);
                             x = Width * line[i + 2].X;
                             y = Height * line[i + 2].Y;
-                            tmpstr = String.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
                             strPath = strPath.Replace("~2", tmpstr);
 
                         }
@@ -2333,8 +2344,7 @@ namespace ShapeMaker
                             y / (float)canvas.ClientSize.Height);
         }
 
-        private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType,
-            bool islarge, bool revsweep, bool mpmtype)
+        private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
         {
             if (Lines.Count < 100)
             {
@@ -2409,12 +2419,12 @@ namespace ShapeMaker
 
             canvas.Refresh();
         }
+
         private void clearAll_Click(object sender, EventArgs e)
         {
-            DialogResult result2 = MessageBox.Show("Delete All Paths?",
-             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result2 == System.Windows.Forms.DialogResult.Yes) ClearAll();
-
+            DialogResult result2 = MessageBox.Show("Delete All Paths?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result2 == DialogResult.Yes)
+                    ClearAll();
         }
 
         private void pasteData_Click(object sender, EventArgs e)
@@ -2443,7 +2453,6 @@ namespace ShapeMaker
             }
             else { MessageBox.Show("Nothing to Copy", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
-
 
         private void Undo_Click(object sender, EventArgs e)
         {
@@ -2635,11 +2644,11 @@ namespace ShapeMaker
             {
                 float scale = e / 359f;
                 scale = 2f * scale + .5f - .5f * scale;
-                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.00}x", scale));
+                toolTip1.SetToolTip((sender as BigKnobs), string.Format("    {0:0.00}x", scale));
             }
             else
             {
-                toolTip1.SetToolTip((sender as BigKnobs), String.Format("    {0:0.0}\u00B0", SpinLine.Value - 180f));
+                toolTip1.SetToolTip((sender as BigKnobs), string.Format("    {0:0.0}\u00B0", SpinLine.Value - 180f));
             }
 
             if (e == 180)
@@ -2729,7 +2738,7 @@ namespace ShapeMaker
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
         {
             setUndo();
-            toolTip1.Show(String.Format("    {0:0.0}", SpinLine.Value), (sender as BigKnobs));
+            toolTip1.Show(string.Format("    {0:0.0}", SpinLine.Value), (sender as BigKnobs));
         }
 
         private void LineLoop_Click(object sender, EventArgs e)
@@ -2794,29 +2803,31 @@ namespace ShapeMaker
                 statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
             }
         }
+
         private string getMyFolder()
         {
-            string fp = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            RegistryKey rk = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("PDNDwarves");
+            string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("PDNDwarves");
 
             if (rk != null)
             {
                 try
                 {
                     fp = (string)rk.GetValue("ShapeMaker");
-                    if (!Directory.Exists(fp)) fp = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    if (!Directory.Exists(fp)) fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 }
                 catch
                 {
-                    fp = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 }
             }
             return fp;
         }
+
         private string getMyProjectFolder()
         {
-            string fp = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            RegistryKey rk = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("PDNDwarves");
+            string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("PDNDwarves");
 
             if (rk != null)
             {
@@ -2827,22 +2838,24 @@ namespace ShapeMaker
                 }
                 catch
                 {
-                    fp = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 }
             }
             return fp;
         }
+
         private void saveMyFolder(string fp)
         {
             RegistryKey key;
-            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("PDNDwarves");
+            key = Registry.CurrentUser.CreateSubKey("PDNDwarves");
             key.SetValue("ShapeMaker", Path.GetDirectoryName(fp));
             key.Close();
         }
+
         private void saveMyProjectFolder(string fp)
         {
             RegistryKey key;
-            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("PDNDwarves");
+            key = Registry.CurrentUser.CreateSubKey("PDNDwarves");
             key.SetValue("ShapeMakerPrj", Path.GetDirectoryName(fp));
             key.Close();
         }
@@ -2889,6 +2902,7 @@ namespace ShapeMaker
             }
             else { MessageBox.Show("Nothing to Save", "Nothing to Save", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
+
         private void ExportPG_Click(object sender, EventArgs e)
         {
             IsZoomed = false;
@@ -2940,6 +2954,7 @@ namespace ShapeMaker
             }
             else { MessageBox.Show("Nothing to Save"); }
         }
+
         private void importPdnShape_Click(object sender, EventArgs e)
         {
             IsZoomed = false;
@@ -3037,6 +3052,7 @@ namespace ShapeMaker
             if (MacroRect.Checked) ToolMenu_Click(radios[0], e);
             canvas.Refresh();
         }
+
         private void MacroCubic_Click(object sender, EventArgs e)
         {
             MacroCubic.Checked = !MacroCubic.Checked;
@@ -3044,6 +3060,7 @@ namespace ShapeMaker
             if (MacroCubic.Checked) CubicAdjust();
             canvas.Refresh();
         }
+
         private void MacroCircle_Click(object sender, EventArgs e)
         {
             MacroCircle.Checked = !MacroCircle.Checked;
@@ -3117,7 +3134,6 @@ namespace ShapeMaker
             (sender as ToolStripMenuItem).Checked = false;
             menuStrip1.Refresh();
         }
-
 
         private void blank_Paint(object sender, PaintEventArgs e)
         {
@@ -3580,6 +3596,7 @@ namespace ShapeMaker
                 new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
+
         private void upList_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right) upList_Click(sender, new EventArgs());
@@ -3736,6 +3753,7 @@ namespace ShapeMaker
             }
             else { MessageBox.Show("Nothing to Save", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
+
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if ((keyData & Keys.Alt) == Keys.Alt)
@@ -3876,7 +3894,7 @@ namespace ShapeMaker
 
             int newDimension = (delta > 0) ? canvas.Width * 2 : canvas.Width / 2;
             int zoomFactor = newDimension / ZoomMaster.ClientSize.Width;
-            
+
             if (zoomFactor == 1)
                 Zoomed = new Point(0, 0);
             else
@@ -3904,7 +3922,7 @@ namespace ShapeMaker
                 canvas.Height = newDimension;
             }
             canvas.Refresh();
-            
+
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
             IsZoomed = (zoomFactor > 1);
 
