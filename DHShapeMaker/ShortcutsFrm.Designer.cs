@@ -68,7 +68,6 @@
             // 
             this.rt3.BackColor = System.Drawing.SystemColors.Window;
             this.rt3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rt3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rt3.Location = new System.Drawing.Point(8, 6);
             this.rt3.Margin = new System.Windows.Forms.Padding(0);
             this.rt3.Name = "rt3";
@@ -94,7 +93,6 @@
             // 
             this.rt1.BackColor = System.Drawing.Color.White;
             this.rt1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rt1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rt1.Location = new System.Drawing.Point(8, 6);
             this.rt1.Margin = new System.Windows.Forms.Padding(0);
             this.rt1.Name = "rt1";
@@ -120,7 +118,6 @@
             // 
             this.rt2.BackColor = System.Drawing.Color.White;
             this.rt2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rt2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rt2.Location = new System.Drawing.Point(8, 6);
             this.rt2.Name = "rt2";
             this.rt2.ReadOnly = true;
@@ -133,9 +130,9 @@
             // Shortcuts
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(363, 407);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -145,7 +142,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Shortcuts";
             this.Load += new System.EventHandler(this.Shortcuts_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Shortcuts_Paint);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
