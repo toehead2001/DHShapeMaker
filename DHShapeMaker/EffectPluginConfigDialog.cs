@@ -506,10 +506,10 @@ namespace ShapeMaker
                 {
                     setUndo();
                 }
-                else if (canvasPoints.Length == 0 && e.Button == MouseButtons.Left)
+                else if (e.Button == MouseButtons.Left)
                 {
-                    LineList.SelectedIndex = getNearestLine(bhit);
-
+                    if (lastHit == - 1)
+                        LineList.SelectedIndex = getNearestLine(bhit);
                 }
                 else if (e.Button != MouseButtons.Middle && lastHit != -1)
                 {
