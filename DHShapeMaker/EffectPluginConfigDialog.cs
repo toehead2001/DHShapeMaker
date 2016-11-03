@@ -3581,7 +3581,7 @@ namespace ShapeMaker
 
         private void opaque_ValueChanged(object sender, float e)
         {
-            this.Refresh();
+            canvas.Refresh();
         }
 
         private void FitBG_Paint(object sender, PaintEventArgs e)
