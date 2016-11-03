@@ -91,6 +91,7 @@ namespace ShapeMaker
         float DPI = 1;
         int baseSize = 500;
         bool DrawPosBars = false;
+        Control hadFocus;
 
         public EffectPluginConfigDialog()
         {
@@ -3886,11 +3887,14 @@ namespace ShapeMaker
         private void canvas_MouseEnter(object sender, EventArgs e)
         {
             CanScrollZoom = true;
+            hadFocus = this.ActiveControl;
+            canvas.Focus();
         }
 
         private void canvas_MouseLeave(object sender, EventArgs e)
         {
             CanScrollZoom = false;
+            hadFocus.Focus();
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
