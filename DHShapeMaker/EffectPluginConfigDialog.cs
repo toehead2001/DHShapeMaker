@@ -358,8 +358,7 @@ namespace ShapeMaker
                             eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
-                        int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
-                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
+                        UpdateNubLocation(eX, eY);
 
                         #region add
                         int len = canvasPoints.Length;
@@ -671,15 +670,13 @@ namespace ShapeMaker
                 {
                     if (s.ClientRectangle.Contains(e.Location))
                     {
-                        int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
-                        statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(eX / (float)zoomFactor / DPI), Math.Round(eY / (float)zoomFactor / DPI));
-
-
                         //left shift move line or path
                         if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                         {
                             if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                             {
+                                UpdateNubLocation(eX, eY);
+
                                 PointF oldp = canvasPoints[i];
 
                                 switch (lt)
@@ -704,6 +701,8 @@ namespace ShapeMaker
 
                                 if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
                                 {
+                                    UpdateNubLocation(eX, eY);
+
                                     for (int k = 0; k < Lines.Count; k++)
                                     {
                                         int t = (Lines[k] as PData).LineType;
@@ -730,6 +729,8 @@ namespace ShapeMaker
                         }//no shift movepoint
                         else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
                         {
+                            UpdateNubLocation(eX, eY);
+
                             PointF oldp = canvasPoints[i];
                             switch (lt)
                             {
@@ -874,6 +875,8 @@ namespace ShapeMaker
                         }//move first point
                         else if (canvasPoints.Length != 0 && i == 0 && i < canvasPoints.Length)
                         {
+                            UpdateNubLocation(eX, eY);
+
                             PointF oldp = canvasPoints[i];
 
                             if (ptype == 0)//special quadratic
@@ -985,6 +988,13 @@ namespace ShapeMaker
 
             }
             catch { }// (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void UpdateNubLocation(int x, int y)
+        {
+            int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
+            statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(x / (float)zoomFactor / DPI), Math.Round(y / (float)zoomFactor / DPI));
+            statusStrip1.Refresh();
         }
 
         private PointF onLinePoint(PointF sp, PointF ep, PointF mt)
