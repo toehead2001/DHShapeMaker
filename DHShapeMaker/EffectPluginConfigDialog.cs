@@ -509,8 +509,12 @@ namespace ShapeMaker
                 }
                 else if (e.Button == MouseButtons.Left)
                 {
-                    if (lastHit == - 1)
-                        LineList.SelectedIndex = getNearestLine(bhit);
+                    if (lastHit == -1)
+                    {
+                        int clickedPath = getNearestLine(bhit);
+                        if (clickedPath != -1)
+                            LineList.SelectedIndex = clickedPath;
+                    }
                 }
                 else if (e.Button != MouseButtons.Middle && lastHit != -1)
                 {
