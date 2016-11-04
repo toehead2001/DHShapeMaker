@@ -360,7 +360,7 @@ namespace ShapeMaker
                             eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
-                        UpdateNubLocation(eX, eY);
+                        StatusBarNubLocation(eX, eY);
 
                         #region add
                         int len = canvasPoints.Length;
@@ -689,7 +689,7 @@ namespace ShapeMaker
                         {
                             if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                             {
-                                UpdateNubLocation(eX, eY);
+                                StatusBarNubLocation(eX, eY);
 
                                 PointF oldp = canvasPoints[i];
 
@@ -715,7 +715,7 @@ namespace ShapeMaker
 
                                 if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
                                 {
-                                    UpdateNubLocation(eX, eY);
+                                    StatusBarNubLocation(eX, eY);
 
                                     for (int k = 0; k < Lines.Count; k++)
                                     {
@@ -743,7 +743,7 @@ namespace ShapeMaker
                         }//no shift movepoint
                         else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
                         {
-                            UpdateNubLocation(eX, eY);
+                            StatusBarNubLocation(eX, eY);
 
                             PointF oldp = canvasPoints[i];
                             switch (lt)
@@ -889,7 +889,7 @@ namespace ShapeMaker
                         }//move first point
                         else if (canvasPoints.Length != 0 && i == 0 && i < canvasPoints.Length)
                         {
-                            UpdateNubLocation(eX, eY);
+                            StatusBarNubLocation(eX, eY);
 
                             PointF oldp = canvasPoints[i];
 
@@ -1004,7 +1004,7 @@ namespace ShapeMaker
             catch { }// (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void UpdateNubLocation(int x, int y)
+        private void StatusBarNubLocation(int x, int y)
         {
             int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
             statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(x / (float)zoomFactor / DPI), Math.Round(y / (float)zoomFactor / DPI));
