@@ -635,6 +635,19 @@ namespace ShapeMaker
                     tmp = gp.PathPoints;
                     for (int j = 0; j < tmp.Length; j++)
                     {
+                        // exclude 'control' nubs.
+                        switch ((Lines[i] as PData).LineType)
+                        {
+                            case 1: // Ellipse (Red)
+                                if (j % 4 != 0) continue;
+                                break;
+                            case 2: // Cubic (Blue)
+                            case 3: // Smooth Cubic (Green)
+                            case 4: // Quadratic (Goldenrod)
+                                if (j % 3 != 0) continue;
+                                break;
+                        }
+
                         PointF p = new PointF(tmp[j].X * canvas.ClientSize.Width,
                         tmp[j].Y * canvas.ClientSize.Height);
 
