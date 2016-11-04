@@ -2607,7 +2607,7 @@ namespace ShapeMaker
         private void FlipLines(int index)
         {
             int si = index;
-            if (si >= -1)
+            if (si > -1)
             {
                 PData pd1 = (Lines[si] as PData);
                 string LineTxt1 = LineList.Items[si].ToString();
