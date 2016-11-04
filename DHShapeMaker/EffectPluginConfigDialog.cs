@@ -275,13 +275,14 @@ namespace ShapeMaker
 
                 if (Control.ModifierKeys == Keys.Alt)
                 {
-                    if (IsZoomed)
+                    if (lastHit == -1)
                     {
-                        PanFlag = true;
+                        if (IsZoomed)
+                            PanFlag = true;
                     }
                     else
                     {
-                        PanFlag = false;
+                        setUndo();
                     }
                 }
                 else if (e.Button == MouseButtons.Right) //process add or delete
@@ -505,7 +506,15 @@ namespace ShapeMaker
                 }
                 else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
                 {
-                    setUndo();
+                    if (canvasPoints.Length != 0)
+                    {
+                        if (lastHit != -1)
+                            setUndo();
+                    }
+                    else
+                    {
+                        setUndo();
+                    }
                 }
                 else if (e.Button == MouseButtons.Left)
                 {
@@ -515,10 +524,10 @@ namespace ShapeMaker
                         if (clickedPath != -1)
                             LineList.SelectedIndex = clickedPath;
                     }
-                }
-                else if (e.Button != MouseButtons.Middle && lastHit != -1)
-                {
-                    setUndo();
+                    else
+                    {
+                        setUndo();
+                    }
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
