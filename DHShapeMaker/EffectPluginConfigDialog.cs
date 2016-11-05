@@ -3923,7 +3923,8 @@ namespace ShapeMaker
         private void canvas_MouseLeave(object sender, EventArgs e)
         {
             CanScrollZoom = false;
-            hadFocus.Focus();
+            if (hadFocus != null)
+                hadFocus.Focus();
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
