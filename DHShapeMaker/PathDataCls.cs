@@ -6,17 +6,17 @@ namespace ShapeMaker
     [Serializable]
     public class PData
     {
-        public PointF[] Lines
+        public PointF[] Points
         {
             get;
             set;
         }
-        public int LineType
+        public int PathType
         {
             get;
             set;
         }
-        public bool ClosedType
+        public bool ClosedPath
         {
             get;
             set;
@@ -51,15 +51,15 @@ namespace ShapeMaker
             get;
             set;
         }
-        public PData(PointF[] _coords, bool _closed, int _lineType, bool _islarge,bool _revsweep,string _alias,bool _loopback)
+        public PData(PointF[] points, bool closed, int lineType, bool isLarge, bool revSweep, string alias, bool loopBack)
         {
-            Lines = _coords;
-            LineType = _lineType;
-            ClosedType = _closed;
-            IsLarge = _islarge;
-            RevSweep = _revsweep;
-            Alias = _alias;
-            LoopBack = _loopback;
+            Points = points;
+            PathType = lineType;
+            ClosedPath = closed;
+            IsLarge = isLarge;
+            RevSweep = revSweep;
+            Alias = alias;
+            LoopBack = loopBack;
         }
         public PData()
         {

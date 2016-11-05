@@ -829,7 +829,7 @@
             this.ClearBtn.Text = "Deselect";
             this.toolTip1.SetToolTip(this.ClearBtn, "Deselect (Esc)");
             this.ClearBtn.UseVisualStyleBackColor = false;
-            this.ClearBtn.Click += new System.EventHandler(this.ResetP_Click);
+            this.ClearBtn.Click += new System.EventHandler(this.Deselect_Click);
             this.ClearBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ClearBtn_Paint);
             this.ClearBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
             this.ClearBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
