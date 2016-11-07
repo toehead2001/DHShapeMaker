@@ -2683,16 +2683,7 @@ namespace ShapeMaker
 
         private void SpinLine_ValueChanged(object sender, float e)
         {
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-            {
-                float scale = e / 359f;
-                scale = 2f * scale + .5f - .5f * scale;
-                toolTip1.SetToolTip((sender as BigKnobs), string.Format("    {0:0.00}x", scale));
-            }
-            else
-            {
-                toolTip1.SetToolTip((sender as BigKnobs), string.Format("    {0:0.0}\u00B0", SpinLine.Value - 180f));
-            }
+            toolTip1.SetToolTip((sender as BigKnobs), string.Format("{0:0.0}\u00B0", SpinLine.Value - 180f));
 
             if (e == 180)
             {
@@ -2703,28 +2694,8 @@ namespace ShapeMaker
             double rad = (double)(lastRot - e) * Math.PI / 180;
             lastRot = e;
 
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift &&
-                canvasPoints.Length == 0 && LineList.Items.Count > 0)
-            {
-                PointF pa = new PointF(.5f, .5f);
 
-                float scale = e / 359f;
-                scale = 2f * scale + .5f - .5f * scale;
-                if (scale > 1 && !InView()) return;
-                for (int k = 0; k < Lines.Count; k++)
-                {
-                    PointF[] tmp = (Lines[k] as PData).Lines;
-                    PointF[] tmp2 = (UDLines[UDPointer][k] as PData).Lines;
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        tmp[i] = new PointF((tmp2[i].X - pa.X) * scale + pa.X,
-                        (tmp2[i].Y - pa.Y) * scale + pa.Y);
-                    }
-                }
-
-
-            }
-            else if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
+            if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
             {
                 PointF mid = new PointF(.5f, .5f);
                 for (int k = 0; k < Lines.Count; k++)
@@ -2742,21 +2713,6 @@ namespace ShapeMaker
                     }
                 }
             }
-            else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift && canvasPoints.Length > 1)
-            {
-                PointF pa = PathAverage(canvasPoints);
-
-                float scale = e / 359f;
-                scale = 2f * scale + .5f - .5f * scale;
-                if (scale > 1 && !InView()) return;
-                for (int idx = 0; idx < canvasPoints.Length; idx++)
-                {
-                    canvasPoints[idx].X = (UDPoint[UDPointer][idx].X - pa.X) * scale + pa.X;
-                    canvasPoints[idx].Y = (UDPoint[UDPointer][idx].Y - pa.Y) * scale + pa.Y;
-                }
-
-            }
-
             else if (canvasPoints.Length > 1)
             {
                 PointF[] tmp = new PointF[canvasPoints.Length];
@@ -4027,6 +3983,56 @@ namespace ShapeMaker
                 UDPointer = 0;
                 undoToolStripMenuItem.Enabled = false;
             }
+        }
+
+        private void scaleSlider_ValueChanged(object sender, float e)
+        {
+            float scale = e;
+            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scale));
+
+            if (scale > 1 && !InView())
+                return;
+
+            if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
+            {
+                PointF pa = new PointF(.5f, .5f);
+
+                for (int k = 0; k < Lines.Count; k++)
+                {
+                    PointF[] tmp = (Lines[k] as PData).Lines;
+                    PointF[] tmp2 = (UDLines[UDPointer][k] as PData).Lines;
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        tmp[i] = new PointF((tmp2[i].X - pa.X) * scale + pa.X,
+                        (tmp2[i].Y - pa.Y) * scale + pa.Y);
+                    }
+                }
+            }
+            else if (canvasPoints.Length > 1)
+            {
+                PointF pa = PathAverage(canvasPoints);
+
+                for (int idx = 0; idx < canvasPoints.Length; idx++)
+                {
+                    canvasPoints[idx].X = (UDPoint[UDPointer][idx].X - pa.X) * scale + pa.X;
+                    canvasPoints[idx].Y = (UDPoint[UDPointer][idx].Y - pa.Y) * scale + pa.Y;
+                }
+            }
+            canvas.Refresh();
+        }
+
+        private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (canvasPoints.Length > 1 || LineList.Items.Count > 0)
+                setUndo();
+        }
+
+        private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
+        {
+            scaleSlider.ValueChanged -= scaleSlider_ValueChanged;
+            scaleSlider.Value = 1;
+            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scaleSlider.Value));
+            scaleSlider.ValueChanged += scaleSlider_ValueChanged;
         }
     }
 }

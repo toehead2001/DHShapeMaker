@@ -94,8 +94,6 @@
             this.LineList = new System.Windows.Forms.ListBox();
             this.upList = new System.Windows.Forms.Button();
             this.DNList = new System.Windows.Forms.Button();
-            this.opaque = new ShapeMaker.dhScroll();
-            this.SpinLine = new Controlz.BigKnobs();
             this.ZoomMaster = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -114,6 +112,10 @@
             this.verPosBar = new System.Windows.Forms.Panel();
             this.horPosBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.scaleSlider = new ShapeMaker.dhScroll();
+            this.opaque = new ShapeMaker.dhScroll();
+            this.SpinLine = new Controlz.BigKnobs();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -931,48 +933,6 @@
             this.DNList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
             this.DNList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
-            // opaque
-            // 
-            this.opaque.AutoSize = true;
-            this.opaque.Location = new System.Drawing.Point(532, 472);
-            this.opaque.Margin = new System.Windows.Forms.Padding(4);
-            this.opaque.MaximumSize = new System.Drawing.Size(156, 37);
-            this.opaque.maxValue = 1000F;
-            this.opaque.MinimumSize = new System.Drawing.Size(156, 37);
-            this.opaque.minValue = 0F;
-            this.opaque.Name = "opaque";
-            this.opaque.Size = new System.Drawing.Size(156, 37);
-            this.opaque.TabIndex = 29;
-            this.opaque.Tag = "0";
-            this.toolTip1.SetToolTip(this.opaque, "Fade Background Image");
-            this.opaque.Value = 250F;
-            this.opaque.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.opaque_ValueChanged);
-            // 
-            // SpinLine
-            // 
-            this.SpinLine.AutoSize = true;
-            this.SpinLine.BackColor = System.Drawing.Color.Transparent;
-            this.SpinLine.KnobBase = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobBase")));
-            this.SpinLine.KnobDial = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobDial")));
-            this.SpinLine.KnobTop = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobTop")));
-            this.SpinLine.Location = new System.Drawing.Point(720, 73);
-            this.SpinLine.Margin = new System.Windows.Forms.Padding(4);
-            this.SpinLine.MaximumSize = new System.Drawing.Size(95, 95);
-            this.SpinLine.maxValue = 359F;
-            this.SpinLine.MinimumSize = new System.Drawing.Size(95, 95);
-            this.SpinLine.minValue = 0F;
-            this.SpinLine.Name = "SpinLine";
-            this.SpinLine.Offset = 0F;
-            this.SpinLine.Size = new System.Drawing.Size(95, 95);
-            this.SpinLine.Span = 359F;
-            this.SpinLine.SpinRate = 1F;
-            this.SpinLine.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all.\r\nShift to Scale");
-            this.SpinLine.Value = 180F;
-            this.SpinLine.ValueChanged += new Controlz.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
-            this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
-            this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
-            // 
             // ZoomMaster
             // 
             this.ZoomMaster.BackColor = System.Drawing.Color.Transparent;
@@ -1025,13 +985,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label2.Location = new System.Drawing.Point(721, 56);
+            this.label2.Location = new System.Drawing.Point(746, 56);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Rotate and Scale";
+            this.label2.Text = "Rotate";
             // 
             // statusStrip1
             // 
@@ -1143,12 +1102,79 @@
             this.label3.TabIndex = 51;
             this.label3.Text = "Path List";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(750, 182);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(33, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "Scale";
+            // 
+            // scaleSlider
+            // 
+            this.scaleSlider.Location = new System.Drawing.Point(686, 200);
+            this.scaleSlider.Margin = new System.Windows.Forms.Padding(0);
+            this.scaleSlider.maxValue = 2F;
+            this.scaleSlider.minValue = 0.5F;
+            this.scaleSlider.Name = "scaleSlider";
+            this.scaleSlider.Size = new System.Drawing.Size(159, 28);
+            this.scaleSlider.TabIndex = 52;
+            this.scaleSlider.Value = 1F;
+            this.scaleSlider.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.scaleSlider_ValueChanged);
+            this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
+            this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
+            // 
+            // opaque
+            // 
+            this.opaque.AutoSize = true;
+            this.opaque.Location = new System.Drawing.Point(532, 472);
+            this.opaque.Margin = new System.Windows.Forms.Padding(4);
+            this.opaque.MaximumSize = new System.Drawing.Size(156, 37);
+            this.opaque.maxValue = 1000F;
+            this.opaque.MinimumSize = new System.Drawing.Size(156, 37);
+            this.opaque.minValue = 0F;
+            this.opaque.Name = "opaque";
+            this.opaque.Size = new System.Drawing.Size(156, 37);
+            this.opaque.TabIndex = 29;
+            this.opaque.Tag = "0";
+            this.toolTip1.SetToolTip(this.opaque, "Fade Background Image");
+            this.opaque.Value = 250F;
+            this.opaque.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.opaque_ValueChanged);
+            // 
+            // SpinLine
+            // 
+            this.SpinLine.AutoSize = true;
+            this.SpinLine.BackColor = System.Drawing.Color.Transparent;
+            this.SpinLine.KnobBase = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobBase")));
+            this.SpinLine.KnobDial = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobDial")));
+            this.SpinLine.KnobTop = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobTop")));
+            this.SpinLine.Location = new System.Drawing.Point(720, 73);
+            this.SpinLine.Margin = new System.Windows.Forms.Padding(4);
+            this.SpinLine.MaximumSize = new System.Drawing.Size(95, 95);
+            this.SpinLine.maxValue = 359F;
+            this.SpinLine.MinimumSize = new System.Drawing.Size(95, 95);
+            this.SpinLine.minValue = 0F;
+            this.SpinLine.Name = "SpinLine";
+            this.SpinLine.Offset = 0F;
+            this.SpinLine.Size = new System.Drawing.Size(95, 95);
+            this.SpinLine.Span = 359F;
+            this.SpinLine.SpinRate = 1F;
+            this.SpinLine.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all");
+            this.SpinLine.Value = 180F;
+            this.SpinLine.ValueChanged += new Controlz.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
+            this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
+            this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.horPosBar);
             this.Controls.Add(this.verPosBar);
@@ -1279,5 +1305,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private dhScroll scaleSlider;
+        private System.Windows.Forms.Label label7;
     }
 }
