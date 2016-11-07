@@ -128,14 +128,14 @@ namespace ShapeMaker
             Lines.Clear();
             foreach (PData p in token.PathData)
             {
-                Lines.Add(new PData(p.Points, p.ClosedPath, p.PathType, p.IsLarge, p.RevSweep, p.Alias, p.LoopBack));
+                Lines.Add(new PData(p.Lines, p.ClosedType, p.LineType, p.IsLarge, p.RevSweep, p.Alias, p.LoopBack));
 
             }
 
             LineList.Items.Clear();
             foreach (PData p in token.PathData)
             {
-                LineList.Items.Add(LineNames[p.PathType]);
+                LineList.Items.Add(LineNames[p.LineType]);
             }
 
         }
@@ -238,9 +238,9 @@ namespace ShapeMaker
             UDLines[UDPointer] = new ArrayList();
             foreach (PData pd in Lines)
             {
-                PointF[] tmp = new PointF[pd.Points.Length];
-                Array.Copy(pd.Points, tmp, pd.Points.Length);
-                UDLines[UDPointer].Add(new PData(tmp, pd.ClosedPath, pd.PathType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                PointF[] tmp = new PointF[pd.Lines.Length];
+                Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                UDLines[UDPointer].Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
             }
         }
 
@@ -623,7 +623,7 @@ namespace ShapeMaker
             if (LineList.Items.Count == 0) return -1;
             for (int i = 0; i < LineList.Items.Count; i++)
             {
-                PointF[] tmp = (Lines[i] as PData).Points;
+                PointF[] tmp = (Lines[i] as PData).Lines;
 
                 using (GraphicsPath gp = new GraphicsPath())
                 {
@@ -635,7 +635,7 @@ namespace ShapeMaker
                     for (int j = 0; j < tmp.Length; j++)
                     {
                         // exclude 'control' nubs.
-                        switch ((Lines[i] as PData).PathType)
+                        switch ((Lines[i] as PData).LineType)
                         {
                             case 1: // Ellipse (Red)
                                 if (j % 4 != 0) continue;
@@ -731,8 +731,8 @@ namespace ShapeMaker
 
                                     for (int k = 0; k < Lines.Count; k++)
                                     {
-                                        int t = (Lines[k] as PData).PathType;
-                                        PointF[] pl = (Lines[k] as PData).Points;
+                                        int t = (Lines[k] as PData).LineType;
+                                        PointF[] pl = (Lines[k] as PData).Lines;
                                         switch (t)
                                         {
                                             case (int)LineTypes.Straight:
@@ -1180,9 +1180,9 @@ namespace ShapeMaker
                         else
                         {
                             PData itemPath = (Lines[j] as PData);
-                            line = itemPath.Points;
-                            ltype = itemPath.PathType;
-                            ctype = itemPath.ClosedPath;
+                            line = itemPath.Lines;
+                            ltype = itemPath.LineType;
+                            ctype = itemPath.ClosedType;
                             mpmode = itemPath.LoopBack;
                             islarge = itemPath.IsLarge;
                             revsweep = itemPath.RevSweep;
@@ -1728,8 +1728,8 @@ namespace ShapeMaker
             if ((LineList.Items.Count > 0) && (LineList.SelectedIndex < Lines.Count))
             {
                 PData selectedPath = (Lines[LineList.SelectedIndex] as PData);
-                setUiForPath(selectedPath.PathType, selectedPath.ClosedPath, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
-                canvasPoints = selectedPath.Points;
+                setUiForPath(selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+                canvasPoints = selectedPath.Lines;
             }
             canvas.Refresh();
         }
@@ -1770,8 +1770,8 @@ namespace ShapeMaker
             for (int index = 0; index < Lines.Count; index++)
             {
                 PData currentPath = (Lines[index] as PData);
-                int lt = currentPath.PathType;
-                PointF[] line = currentPath.Points;
+                int lt = currentPath.LineType;
+                PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
                 bool revsweep = currentPath.RevSweep;
                 if (line.Length < 2)
@@ -1784,7 +1784,7 @@ namespace ShapeMaker
                 x = Width * line[0].X;
                 y = Height * line[0].Y;
 
-                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedPath)
+                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType)
                 {
                     if (index > 0) strPath += " ";
                     strPath += "M ";
@@ -1903,10 +1903,10 @@ namespace ShapeMaker
                         break;
                 }
 
-                if (currentPath.ClosedPath || currentPath.LoopBack)
+                if (currentPath.ClosedType || currentPath.LoopBack)
                 {
                     strPath += " Z";
-                    if (currentPath.ClosedPath)
+                    if (currentPath.ClosedType)
                     {
                         oldx += 10;
                         oldy += 10;
@@ -1935,8 +1935,8 @@ namespace ShapeMaker
                 Application.DoEvents();
 
                 PData currentPath = (Lines[index] as PData);
-                int lt = currentPath.PathType;
-                PointF[] line = currentPath.Points;
+                int lt = currentPath.LineType;
+                PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
                 bool revsweep = currentPath.RevSweep;
                 if (line.Length < 2)
@@ -1956,7 +1956,7 @@ namespace ShapeMaker
                     strPath += "\t\t\t\t" + ShapeMaker.Properties.Resources.PGMove + "\r\n";
                     strPath = strPath.Replace("~1", string.Format("{0:0.##},{1:0.##}", x, y));
                 }
-                else if (currentPath.ClosedPath || (x != oldx || y != oldy))//mod 091515
+                else if (currentPath.ClosedType || (x != oldx || y != oldy))//mod 091515
                 {
                     strPath = strPath.Replace("~0", "False");
                     strPath += "\t\t\t\t</PathFigure>\r\n";
@@ -2048,7 +2048,7 @@ namespace ShapeMaker
                         break;
                 }
 
-                if (currentPath.ClosedPath || currentPath.LoopBack)
+                if (currentPath.ClosedType || currentPath.LoopBack)
                 {
                     strPath = strPath.Replace("~0", "True");
                     //strPath += "\t\t\t\t</PathFigure>\r\n";
@@ -2432,7 +2432,7 @@ namespace ShapeMaker
                 {
                     itemText = "(MZ)" + itemText;
                 }
-                else if (itemPath.ClosedPath)
+                else if (itemPath.ClosedType)
                 {
                     itemText = "(Z)" + itemText;
                 }
@@ -2441,7 +2441,7 @@ namespace ShapeMaker
                     itemText = "   " + itemText;
                 }
 
-                using (SolidBrush itemTextColorBrush = new SolidBrush(LineColors[itemPath.PathType]))
+                using (SolidBrush itemTextColorBrush = new SolidBrush(LineColors[itemPath.LineType]))
                     g.DrawString(itemText, e.Font, itemTextColorBrush, LineList.GetItemRectangle(itemIndex).Location);
 
             }
@@ -2516,10 +2516,10 @@ namespace ShapeMaker
                 {
                     foreach (PData pd in UDLines[UDPointer])
                     {
-                        PointF[] tmp = new PointF[pd.Points.Length];
-                        Array.Copy(pd.Points, tmp, pd.Points.Length);
-                        Lines.Add(new PData(tmp, pd.ClosedPath, pd.PathType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
-                        LineList.Items.Add(LineNames[pd.PathType]);
+                        PointF[] tmp = new PointF[pd.Lines.Length];
+                        Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                        Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                        LineList.Items.Add(LineNames[pd.LineType]);
                     }
                     if (UDSelect[UDPointer] < LineList.Items.Count) LineList.SelectedIndex = UDSelect[UDPointer];
                 }
@@ -2544,8 +2544,8 @@ namespace ShapeMaker
                 for (int k = 0; k < Lines.Count; k++)
                 {
                     PData currentPath = (Lines[k] as PData);
-                    int t = currentPath.PathType;
-                    PointF[] pl = currentPath.Points;
+                    int t = currentPath.LineType;
+                    PointF[] pl = currentPath.Lines;
 
                     if ((sender as ToolStripMenuItem).Tag.ToString() == "H")
                     {
@@ -2562,7 +2562,7 @@ namespace ShapeMaker
                             pl[j] = new PointF(pl[j].X, 1 - pl[j].Y);
                         }
                     }
-                    if (currentPath.PathType == (int)LineTypes.Ellipse)
+                    if (currentPath.LineType == (int)LineTypes.Ellipse)
                     {
                         currentPath.RevSweep = !currentPath.RevSweep;
                     }
@@ -2611,20 +2611,20 @@ namespace ShapeMaker
             {
                 PData pd1 = (Lines[si] as PData);
                 string LineTxt1 = LineList.Items[si].ToString();
-                PointF[] tmp1 = new PointF[pd1.Points.Length];
-                Array.Copy(pd1.Points, tmp1, pd1.Points.Length);
-                int tmpType1 = pd1.PathType;
-                bool tmpClosed1 = pd1.ClosedPath;
+                PointF[] tmp1 = new PointF[pd1.Lines.Length];
+                Array.Copy(pd1.Lines, tmp1, pd1.Lines.Length);
+                int tmpType1 = pd1.LineType;
+                bool tmpClosed1 = pd1.ClosedType;
                 bool tmpIsLarge1 = pd1.IsLarge;
                 bool tmpRevSweep1 = pd1.RevSweep;
                 string tmpAlias1 = pd1.Alias;
 
                 PData pd2 = (Lines[si + 1] as PData);
                 string LineTxt2 = LineList.Items[si + 1].ToString();
-                PointF[] tmp2 = new PointF[pd2.Points.Length];
-                Array.Copy(pd2.Points, tmp2, pd2.Points.Length);
-                int tmpType2 = pd2.PathType;
-                bool tmpClosed2 = pd2.ClosedPath;
+                PointF[] tmp2 = new PointF[pd2.Lines.Length];
+                Array.Copy(pd2.Lines, tmp2, pd2.Lines.Length);
+                int tmpType2 = pd2.LineType;
+                bool tmpClosed2 = pd2.ClosedType;
                 bool tmpIsLarge2 = pd2.IsLarge;
                 bool tmpRevSweep2 = pd2.RevSweep;
                 string tmpAlias2 = pd2.Alias;
@@ -2713,8 +2713,8 @@ namespace ShapeMaker
                 if (scale > 1 && !InView()) return;
                 for (int k = 0; k < Lines.Count; k++)
                 {
-                    PointF[] tmp = (Lines[k] as PData).Points;
-                    PointF[] tmp2 = (UDLines[UDPointer][k] as PData).Points;
+                    PointF[] tmp = (Lines[k] as PData).Lines;
+                    PointF[] tmp2 = (UDLines[UDPointer][k] as PData).Lines;
                     for (int i = 0; i < tmp.Length; i++)
                     {
                         tmp[i] = new PointF((tmp2[i].X - pa.X) * scale + pa.X,
@@ -2729,7 +2729,7 @@ namespace ShapeMaker
                 PointF mid = new PointF(.5f, .5f);
                 for (int k = 0; k < Lines.Count; k++)
                 {
-                    PointF[] tmp = (Lines[k] as PData).Points;
+                    PointF[] tmp = (Lines[k] as PData).Lines;
 
                     for (int i = 0; i < tmp.Length; i++)
                     {
@@ -2811,7 +2811,7 @@ namespace ShapeMaker
 
             if (LineList.SelectedIndex != -1)
             {
-                if (canvasPoints != (Lines[LineList.SelectedIndex] as PData).Points)
+                if (canvasPoints != (Lines[LineList.SelectedIndex] as PData).Lines)
                     ApplyBtn.Enabled = true;
                 else
                     ApplyBtn.Enabled = false;
@@ -3205,9 +3205,9 @@ namespace ShapeMaker
                 catch (Exception e) { MessageBox.Show(e.Message); }
 
                 PData currentPath = (Lines[j] as PData);
-                line = currentPath.Points;
-                ltype = currentPath.PathType;
-                ctype = currentPath.ClosedPath;
+                line = currentPath.Lines;
+                ltype = currentPath.LineType;
+                ctype = currentPath.ClosedType;
                 mpmode = currentPath.LoopBack;
                 islarge = currentPath.IsLarge;
                 revsweep = currentPath.RevSweep;
@@ -3515,7 +3515,7 @@ namespace ShapeMaker
             {
                 for (int k = 0; k < Lines.Count; k++)
                 {
-                    PointF[] pl = (Lines[k] as PData).Points;
+                    PointF[] pl = (Lines[k] as PData).Lines;
                     for (int j = 0; j < pl.Length; j++)
                     {
                         if (pl[j].X > 1.5f) return false;
@@ -3712,7 +3712,7 @@ namespace ShapeMaker
                             {
                                 for (int i = 0; i < Lines.Count; i++)
                                 {
-                                    LineList.Items.Add(LineNames[(Lines[i] as PData).PathType]);
+                                    LineList.Items.Add(LineNames[(Lines[i] as PData).LineType]);
 
                                 }
                                 loadConfirm = true;
