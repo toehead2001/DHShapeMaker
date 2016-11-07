@@ -1595,7 +1595,7 @@ namespace ShapeMaker
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
             SpinLine.Value = 180;
-            toolTip1.SetToolTip(SpinLine, "0");
+            toolTip1.SetToolTip(SpinLine, "0\u00B0");
             if (canvasPoints.Length == 0) return;
             if (LineList.SelectedIndex > -1)
             {
@@ -2737,7 +2737,7 @@ namespace ShapeMaker
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
         {
             setUndo();
-            toolTip1.Show(string.Format("    {0:0.0}", SpinLine.Value), (sender as BigKnobs));
+            toolTip1.Show(string.Format("{0:0.0}\u00B0", SpinLine.Value), (sender as BigKnobs));
         }
 
         private void LineLoop_Click(object sender, EventArgs e)
