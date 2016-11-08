@@ -4077,5 +4077,17 @@ namespace ShapeMaker
             flipVerticalToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
             clearAllToolStripMenuItem.Enabled = (canvasPoints.Length > 0 || LineList.Items.Count > 0);
         }
+
+        private void FigureName_Enter(object sender, EventArgs e)
+        {
+            if (FigureName.Text == "Untitled")
+                FigureName.Text = string.Empty;
+        }
+
+        private void FigureName_Leave(object sender, EventArgs e)
+        {
+            if (FigureName.Text == string.Empty)
+                FigureName.Text = "Untitled";
+        }
     }
 }

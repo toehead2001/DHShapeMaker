@@ -813,6 +813,8 @@
             this.FigureName.Text = "Untitled";
             this.FigureName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.FigureName, "Enter Shape Name");
+            this.FigureName.Enter += new System.EventHandler(this.FigureName_Enter);
+            this.FigureName.Leave += new System.EventHandler(this.FigureName_Leave);
             // 
             // ClearBtn
             // 
