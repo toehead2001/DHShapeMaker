@@ -49,10 +49,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.SolidFillMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clonePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.loopPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -291,10 +291,10 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem5,
+            this.removePathToolStripMenuItem,
+            this.clonePathToolStripMenuItem,
             this.toolStripSeparator6,
+            this.loopPathToolStripMenuItem,
             this.flipHorizontalToolStripMenuItem,
             this.flipVerticalToolStripMenuItem,
             this.toolStripSeparator5,
@@ -303,34 +303,35 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 39);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.DropDownOpening += new System.EventHandler(this.editToolStripMenuItem_DropDownOpening);
             // 
-            // toolStripMenuItem4
+            // removePathToolStripMenuItem
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(168, 22);
-            this.toolStripMenuItem4.Text = "Remove Path";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.removebtn_Click);
+            this.removePathToolStripMenuItem.Name = "removePathToolStripMenuItem";
+            this.removePathToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.removePathToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.removePathToolStripMenuItem.Text = "Remove Path";
+            this.removePathToolStripMenuItem.Click += new System.EventHandler(this.removebtn_Click);
             // 
-            // toolStripMenuItem1
+            // clonePathToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
-            this.toolStripMenuItem1.Text = "Clone Path";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.Clonebtn_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(168, 22);
-            this.toolStripMenuItem5.Text = "Loop Path";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.LineLoop_Click);
+            this.clonePathToolStripMenuItem.Name = "clonePathToolStripMenuItem";
+            this.clonePathToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.clonePathToolStripMenuItem.Text = "Clone Path";
+            this.clonePathToolStripMenuItem.Click += new System.EventHandler(this.Clonebtn_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(165, 6);
+            // 
+            // loopPathToolStripMenuItem
+            // 
+            this.loopPathToolStripMenuItem.Name = "loopPathToolStripMenuItem";
+            this.loopPathToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.loopPathToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.loopPathToolStripMenuItem.Text = "Loop Path";
+            this.loopPathToolStripMenuItem.Click += new System.EventHandler(this.LineLoop_Click);
             // 
             // flipHorizontalToolStripMenuItem
             // 
@@ -1234,9 +1235,9 @@
         private System.Windows.Forms.ToolStripMenuItem flipVerticalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem removePathToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clonePathToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loopPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem StraightLine;
         private System.Windows.Forms.ToolStripMenuItem Cubic;
         private System.Windows.Forms.ToolStripMenuItem Ellipse;

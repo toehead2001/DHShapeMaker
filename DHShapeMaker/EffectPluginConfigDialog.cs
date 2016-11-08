@@ -4067,5 +4067,15 @@ namespace ShapeMaker
             toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scaleSlider.Value));
             scaleSlider.ValueChanged += scaleSlider_ValueChanged;
         }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            removePathToolStripMenuItem.Enabled = (LineList.SelectedIndex > -1);
+            clonePathToolStripMenuItem.Enabled = (LineList.SelectedIndex > -1);
+            loopPathToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
+            flipHorizontalToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
+            flipVerticalToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
+            clearAllToolStripMenuItem.Enabled = (canvasPoints.Length > 0 || LineList.Items.Count > 0);
+        }
     }
 }
