@@ -2683,7 +2683,10 @@ namespace ShapeMaker
 
         private void SpinLine_ValueChanged(object sender, float e)
         {
-            toolTip1.SetToolTip((sender as BigKnobs), string.Format("{0:0.0}\u00B0", SpinLine.Value - 180f));
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                e = (float)(Math.Round(e / 15) * 15);
+
+            toolTip1.SetToolTip((sender as BigKnobs), string.Format("{0:0.0}\u00B0", e - 180f));
 
             if (e == 180)
             {
