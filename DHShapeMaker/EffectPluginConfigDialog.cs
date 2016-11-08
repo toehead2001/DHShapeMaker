@@ -1339,15 +1339,21 @@ namespace ShapeMaker
 
                     #region drawlines
                     using (Pen p = new Pen(LineColors[ltype]))
+                    using (Pen activePen = new Pen(LineColors[ltype]))
                     {
                         p.DashStyle = DashStyle.Solid;
                         p.Width = 1;
+
+                        activePen.Width = 5f;
+                        activePen.Color = Color.FromArgb(51, p.Color);
 
                         if (line.Length > 3 && (ltype == (int)LineTypes.Quadratic || ltype == (int)LineTypes.SmoothQuadratic))
                         {
                             try
                             {
                                 e.Graphics.DrawBeziers(p, Qpts);
+                                if (j == -1 || j == LineList.SelectedIndex)
+                                    e.Graphics.DrawBeziers(activePen, Qpts);
                             }
                             catch { }
                         }
@@ -1356,6 +1362,8 @@ namespace ShapeMaker
                             try
                             {
                                 e.Graphics.DrawBeziers(p, pts);
+                                if (j == -1 || j == LineList.SelectedIndex)
+                                    e.Graphics.DrawBeziers(activePen, pts);
                             }
                             catch { }
                         }
@@ -1365,21 +1373,25 @@ namespace ShapeMaker
                             {
                                 for (int i = 1; i < pts.Length; i++)
                                 {
-                                    e.Graphics.DrawLine(p, new PointF(pts[i - 1].X, pts[i - 1].Y),
-                                    new PointF(pts[i].X, pts[i - 1].Y));
-                                    e.Graphics.DrawLine(p, new PointF(pts[i].X, pts[i - 1].Y),
-                                    new PointF(pts[i].X, pts[i].Y));
-                                    e.Graphics.DrawLine(p, new PointF(pts[i].X, pts[i].Y),
-                                    new PointF(pts[i - 1].X, pts[i].Y));
-                                    e.Graphics.DrawLine(p, new PointF(pts[i - 1].X, pts[i].Y),
-                                    new PointF(pts[i - 1].X, pts[i - 1].Y));
+                                    PointF[] rectPts =
+                                    {
+                                        new PointF(pts[i - 1].X, pts[i - 1].Y),
+                                        new PointF(pts[i].X, pts[i - 1].Y),
+                                        new PointF(pts[i].X, pts[i].Y),
+                                        new PointF(pts[i - 1].X, pts[i].Y),
+                                        new PointF(pts[i - 1].X, pts[i - 1].Y)
+                                    };
 
+                                    e.Graphics.DrawLines(p, rectPts);
+                                    e.Graphics.DrawLines(activePen, rectPts);
                                 }
                             }
                             else
                             {
 
                                 e.Graphics.DrawLines(p, pts);
+                                if (j == -1 || j == LineList.SelectedIndex)
+                                    e.Graphics.DrawLines(activePen, pts);
                             }
                         }
                         else if (line.Length == 5 && ltype == (int)LineTypes.Ellipse)
@@ -1389,6 +1401,7 @@ namespace ShapeMaker
                             {
                                 float far = pythag(pts[0], pts[4]);
                                 e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                                e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
                             }
                             else
                             {
@@ -1399,6 +1412,8 @@ namespace ShapeMaker
                                 {
                                     PointF[] nullLine = new PointF[] { pts[0], pts[4] };
                                     e.Graphics.DrawLines(p, nullLine);
+                                    if (j == -1 || j == LineList.SelectedIndex)
+                                        e.Graphics.DrawLines(activePen, nullLine);
                                 }
                                 else
                                 {
@@ -1411,6 +1426,8 @@ namespace ShapeMaker
                                         (revsweep) ? 1 : 0,
                                         pts[4]);
                                         e.Graphics.DrawPath(p, gp);
+                                        if (j == -1 || j == LineList.SelectedIndex)
+                                            e.Graphics.DrawPath(activePen, gp);
                                     }
                                     if (j == -1 && line.Length >= 1)
                                     {
@@ -1449,6 +1466,9 @@ namespace ShapeMaker
                             if (!noJoin && ctype && pts.Length > 1)
                             {
                                 e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]);//preserve
+                                if (j == -1 || j == LineList.SelectedIndex)
+                                    e.Graphics.DrawLine(activePen, pts[0], pts[pts.Length - 1]);//preserve
+
                                 loopBack = pts[pts.Length - 1];
                             }
                         }
@@ -1458,6 +1478,8 @@ namespace ShapeMaker
                             if (!noJoin && pts.Length > 1)
                             {
                                 e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
+                                if (j == -1 || j == LineList.SelectedIndex)
+                                    e.Graphics.DrawLine(activePen, pts[pts.Length - 1], loopBack);
 
                                 loopBack = pts[pts.Length - 1];
                             }
