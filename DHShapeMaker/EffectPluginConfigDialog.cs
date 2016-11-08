@@ -1619,6 +1619,7 @@ namespace ShapeMaker
             if (canvasPoints.Length == 0) return;
             if (LineList.SelectedIndex > -1)
             {
+                // TODO something needs to be fixed before undo can be added here
                 Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked,
                     (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
                 LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
@@ -1628,6 +1629,7 @@ namespace ShapeMaker
 
                 if (Lines.Count < 100)
                 {
+                    setUndo();
                     if (MacroCircle.Checked && getPathType() == (int)LineTypes.Ellipse)
                     {
                         if (canvasPoints.Length < 5) return;
@@ -1724,6 +1726,7 @@ namespace ShapeMaker
 
                 if (Lines.Count < 100)
                 {
+                    setUndo();
                     PointF[] tmp = new PointF[canvasPoints.Length];
                     Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
@@ -2487,12 +2490,16 @@ namespace ShapeMaker
         {
             DialogResult result2 = MessageBox.Show("Delete All Paths?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result2 == DialogResult.Yes)
-                    ClearAll();
+            {
+                setUndo();
+                ClearAll();
+            }
         }
 
         private void pasteData_Click(object sender, EventArgs e)
         {
-            IsZoomed = false;
+            setUndo();
+            ZoomToFactor(1);
 
             parsePathData(Clipboard.GetText());
         }
@@ -2558,6 +2565,7 @@ namespace ShapeMaker
 
         private void Flip_Click(object sender, EventArgs e)
         {
+            setUndo();
 
             if (canvasPoints.Length == 0)
             {
@@ -2767,6 +2775,7 @@ namespace ShapeMaker
         {
             if (canvasPoints.Length > 2 && !Ellipse.Checked)
             {
+                setUndo();
                 canvasPoints[canvasPoints.Length - 1] = canvasPoints[0];
                 canvas.Refresh();
             }
@@ -2995,6 +3004,7 @@ namespace ShapeMaker
 
                     if (File.Exists(OFD.FileName))
                     {
+                        setUndo();
                         saveMyFolder(OFD.FileName);
                         using (StreamReader reader = new StreamReader(OFD.FileName))
                         {
