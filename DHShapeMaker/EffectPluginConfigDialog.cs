@@ -4048,6 +4048,8 @@ namespace ShapeMaker
         {
             if (canvasPoints.Length > 1 || LineList.Items.Count > 0)
                 setUndo();
+
+            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scaleSlider.Value));
         }
 
         private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
