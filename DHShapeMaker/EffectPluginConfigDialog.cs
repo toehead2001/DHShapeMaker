@@ -2506,9 +2506,9 @@ namespace ShapeMaker
 
         private void CopyStream_Click(object sender, EventArgs e)
         {
-            IsZoomed = false;
             if (Lines.Count > 0)
             {
+                ZoomToFactor(1);
                 string TMP = string.Empty;
                 bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
@@ -2893,13 +2893,13 @@ namespace ShapeMaker
 
         private void exportPndShape_Click(object sender, EventArgs e)
         {
-            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
                 bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
+                    ZoomToFactor(1);
                     string output = ShapeMaker.Properties.Resources.BaseString;
                     string figure = FigureName.Text;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
@@ -2936,13 +2936,13 @@ namespace ShapeMaker
 
         private void ExportPG_Click(object sender, EventArgs e)
         {
-            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
                 bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
                 if (r)
                 {
+                    ZoomToFactor(1);
                     string output = ShapeMaker.Properties.Resources.PGBaseString;
                     string figure = FigureName.Text;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
@@ -2988,7 +2988,6 @@ namespace ShapeMaker
 
         private void importPdnShape_Click(object sender, EventArgs e)
         {
-            IsZoomed = false;
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 string fp = getMyFolder();
@@ -3004,6 +3003,7 @@ namespace ShapeMaker
 
                     if (File.Exists(OFD.FileName))
                     {
+                        ZoomToFactor(1);
                         setUndo();
                         saveMyFolder(OFD.FileName);
                         using (StreamReader reader = new StreamReader(OFD.FileName))
@@ -3667,7 +3667,6 @@ namespace ShapeMaker
         private void openProject_Click(object sender, EventArgs e)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
-            IsZoomed = false;
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 string fp = getMyProjectFolder();
@@ -3744,7 +3743,6 @@ namespace ShapeMaker
         private void saveProject_Click(object sender, EventArgs e)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
-            IsZoomed = false;
             if (Lines.Count > 0)
             {
                 string TMP = string.Empty;
