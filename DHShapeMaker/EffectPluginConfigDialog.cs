@@ -987,8 +987,7 @@ namespace ShapeMaker
 
                     canvas.Refresh();
                 }
-
-                if (e.Button == MouseButtons.Middle && IsZoomed)
+                else if (e.Button == MouseButtons.Middle && IsZoomed)
                 {
                     int mpx = (int)(mapPoint.X * 100);
                     int msx = (int)(MoveStart.X * 100);
@@ -1004,7 +1003,6 @@ namespace ShapeMaker
                         (canvas.Location.Y + ty < -maxmove) ? -maxmove : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty);
 
                     canvas.Location = Zoomed;
-                    canvas.Refresh();
 
                     posBarsTimer.Stop();
                     DrawPosBars = true;
