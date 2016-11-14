@@ -54,9 +54,11 @@ namespace ShapeMaker
         private void MyRender(Surface dst, Surface src)
         {
             PdnRegion selectionRegion = EnvironmentParameters.GetSelection(src.Bounds);
-            ColorBgra PrimaryColor = (ColorBgra)EnvironmentParameters.PrimaryColor;
-            ColorBgra SecondaryColor = (ColorBgra)EnvironmentParameters.SecondaryColor;
-            int BrushWidth = (int)EnvironmentParameters.BrushWidth;
+            ColorBgra PrimaryColor = EnvironmentParameters.PrimaryColor;
+            float BrushWidth = EnvironmentParameters.BrushWidth;
+
+            dst.CopySurface(src, selectionRegion);
+
             if (PGP.Length > 0 && Draw)
             {
                 using (Graphics g = new RenderArgs(dst).Graphics)
@@ -66,14 +68,18 @@ namespace ShapeMaker
                         g.SetClip(reg, CombineMode.Replace);
                     }
                     g.SmoothingMode = SmoothingMode.AntiAlias;
-                    Pen p = new Pen(PrimaryColor);
-                    p.Width = BrushWidth;
-                    for (int i = 0; i < PGP.Length; i++)
-                    {
-                        if (PGP[i].PointCount > 0)
-                        {
 
-                            g.DrawPath(p, PGP[i]);
+                    using (Pen p = new Pen(PrimaryColor))
+                    {
+                        p.Width = BrushWidth;
+                        p.StartCap = LineCap.Round;
+                        p.EndCap = LineCap.Round;
+                        for (int i = 0; i < PGP.Length; i++)
+                        {
+                            if (PGP[i].PointCount > 0)
+                            {
+                                g.DrawPath(p, PGP[i]);
+                            }
                         }
                     }
                 }
