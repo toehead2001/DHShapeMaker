@@ -906,7 +906,7 @@
             // 
             this.upList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.upList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.upList.Location = new System.Drawing.Point(539, 403);
+            this.upList.Location = new System.Drawing.Point(539, 396);
             this.upList.MaximumSize = new System.Drawing.Size(40, 45);
             this.upList.MinimumSize = new System.Drawing.Size(40, 45);
             this.upList.Name = "upList";
@@ -923,7 +923,7 @@
             // 
             this.DNList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.DNList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DNList.Location = new System.Drawing.Point(643, 403);
+            this.DNList.Location = new System.Drawing.Point(643, 396);
             this.DNList.MaximumSize = new System.Drawing.Size(40, 45);
             this.DNList.MinimumSize = new System.Drawing.Size(40, 45);
             this.DNList.Name = "DNList";
@@ -948,41 +948,45 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(728, 350);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(732, 350);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 15);
+            this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "Shape Name";
             this.label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(729, 403);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(724, 403);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 15);
+            this.label5.Size = new System.Drawing.Size(86, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "Output Scale %";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(533, 450);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(550, 450);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 20);
+            this.label1.Size = new System.Drawing.Size(120, 13);
             this.label1.TabIndex = 29;
             this.label1.Text = "Image Tracing Opacity";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(581, 403);
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(586, 396);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 48);
+            this.label6.Size = new System.Drawing.Size(50, 39);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Move Selected Path";
+            this.label6.Text = "Move\r\nSelected\r\nPath";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
