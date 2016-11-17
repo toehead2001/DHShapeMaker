@@ -92,6 +92,7 @@ namespace ShapeMaker
         int baseSize = 500;
         bool DrawPosBars = false;
         Control hadFocus;
+        bool isNewPath = true;
 
         public EffectPluginConfigDialog()
         {
@@ -224,6 +225,11 @@ namespace ShapeMaker
 
         private void setUndo()
         {
+            setUndo(false);
+        }
+
+        private void setUndo(bool addingNewPath)
+        {
             // set undo
             undoToolStripMenuItem.Enabled = true;
 
@@ -232,7 +238,7 @@ namespace ShapeMaker
             UDPointer++;
             UDPointer %= UndoMax;
             UDtype[UDPointer] = getPathType();
-            UDSelect[UDPointer] = LineList.SelectedIndex;
+            UDSelect[UDPointer] = (addingNewPath) ? -1 : LineList.SelectedIndex;
             UDPoint[UDPointer] = new PointF[canvasPoints.Length];
             Array.Copy(canvasPoints, UDPoint[UDPointer], canvasPoints.Length);
             UDLines[UDPointer] = new ArrayList();
@@ -502,6 +508,13 @@ namespace ShapeMaker
                         #endregion //add
                     }
 
+                    // If modifying an existing Path, save the change
+                    if (LineList.SelectedIndex != -1 && clickedNub != 0)
+                    {
+                        Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
+                            Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+                        LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
+                    }
                 }
                 else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
                 {
@@ -1607,6 +1620,9 @@ namespace ShapeMaker
 
         private void Deselect_Click(object sender, EventArgs e)
         {
+            if (LineList.SelectedIndex == -1 && canvasPoints.Length > 1)
+                setUndo();
+
             canvasPoints = new PointF[0];
             LineList.SelectedIndex = -1;
             canvas.Refresh();
@@ -1614,72 +1630,64 @@ namespace ShapeMaker
 
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
+            if (canvasPoints.Length <= 1)
+                return;
+
             SpinLine.Value = 180;
             toolTip1.SetToolTip(SpinLine, "0\u00B0");
-            if (canvasPoints.Length == 0) return;
-            if (LineList.SelectedIndex > -1)
-            {
-                // TODO something needs to be fixed before undo can be added here
-                Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked,
-                    (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-            }
-            else
-            {
 
-                if (Lines.Count < 100)
+            if (Lines.Count < 100)
+            {
+                setUndo(sender == LineList);
+                if (MacroCircle.Checked && getPathType() == (int)LineTypes.Ellipse)
                 {
-                    setUndo();
-                    if (MacroCircle.Checked && getPathType() == (int)LineTypes.Ellipse)
-                    {
-                        if (canvasPoints.Length < 5) return;
-                        PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
-                        canvasPoints[1] = canvasPoints[0];
-                        canvasPoints[2] = canvasPoints[4];
-                        canvasPoints[3] = mid;
-                        Lines.Add(new PData(canvasPoints, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
-                        LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
-                        PointF[] tmp = new PointF[canvasPoints.Length];
-                        //fix
-                        tmp[0] = canvasPoints[4];
-                        tmp[4] = canvasPoints[0];
-                        tmp[3] = canvasPoints[3];
-                        tmp[1] = tmp[0];
-                        tmp[2] = tmp[4];
-                        //test below
-                        Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", true));
-                        LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
+                    if (canvasPoints.Length < 5) return;
+                    PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
+                    canvasPoints[1] = canvasPoints[0];
+                    canvasPoints[2] = canvasPoints[4];
+                    canvasPoints[3] = mid;
+                    Lines.Add(new PData(canvasPoints, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
+                    LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
+                    PointF[] tmp = new PointF[canvasPoints.Length];
+                    //fix
+                    tmp[0] = canvasPoints[4];
+                    tmp[4] = canvasPoints[0];
+                    tmp[3] = canvasPoints[3];
+                    tmp[1] = tmp[0];
+                    tmp[2] = tmp[4];
+                    //test below
+                    Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", true));
+                    LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
 
-                    }
-                    else if (MacroRect.Checked && getPathType() == (int)LineTypes.Straight)
-                    {
+                }
+                else if (MacroRect.Checked && getPathType() == (int)LineTypes.Straight)
+                {
 
-                        for (int i = 1; i < canvasPoints.Length; i++)
-                        {
-                            PointF[] tmp = new PointF[5];
-                            tmp[0] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
-                            tmp[1] = new PointF(canvasPoints[i].X, canvasPoints[i - 1].Y);
-                            tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
-                            tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
-                            tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
-                            Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
-                            LineList.Items.Add(LineNames[getPathType()]);
-                        }
-
-                    }
-                    else
+                    for (int i = 1; i < canvasPoints.Length; i++)
                     {
-                        Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
+                        PointF[] tmp = new PointF[5];
+                        tmp[0] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
+                        tmp[1] = new PointF(canvasPoints[i].X, canvasPoints[i - 1].Y);
+                        tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
+                        tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
+                        tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
+                        Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
                         LineList.Items.Add(LineNames[getPathType()]);
                     }
+
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
+                    LineList.Items.Add(LineNames[getPathType()]);
                 }
-                resetRotation();
             }
+            else
+            {
+                MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            resetRotation();
+
             PointF hold = canvasPoints[canvasPoints.Length - 1];
             if (!LinkedL.Checked)
             {
@@ -1690,7 +1698,7 @@ namespace ShapeMaker
             {
                 Array.Resize(ref canvasPoints, 0);
             }
-            LineList.SelectedIndex = -1;
+
             canvas.Refresh();
         }
 
@@ -1746,6 +1754,11 @@ namespace ShapeMaker
 
         private void LineList_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (isNewPath && canvasPoints.Length > 1)
+                ApplyBtn_Click(LineList, new EventArgs());
+            isNewPath = false;
+
+
             if (LineList.SelectedIndex == -1) return;
 
             if ((LineList.Items.Count > 0) && (LineList.SelectedIndex < Lines.Count))
@@ -2796,21 +2809,8 @@ namespace ShapeMaker
             Loop.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             MPMode.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             ClearBtn.Enabled = (canvasPoints.Length != 0);
+            ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
 
-            if (LineList.SelectedIndex != -1)
-            {
-                if (canvasPoints != (Lines[LineList.SelectedIndex] as PData).Lines)
-                    ApplyBtn.Enabled = true;
-                else
-                    ApplyBtn.Enabled = false;
-            }
-            else
-            {
-                if (canvasPoints.Length > 1)
-                    ApplyBtn.Enabled = true;
-                else
-                    ApplyBtn.Enabled = false;
-            }
             //MPMode.Enabled = Loop.Checked;
             //if (!Loop.Checked) MPMode.Checked = false;
 
@@ -2833,6 +2833,8 @@ namespace ShapeMaker
                 statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
                 statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
             }
+
+            if (LineList.SelectedIndex == -1) isNewPath = true;
         }
 
         private string getMyFolder()
