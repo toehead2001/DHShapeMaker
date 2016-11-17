@@ -1630,7 +1630,7 @@ namespace ShapeMaker
 
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
-            if (canvasPoints.Length <= 1)
+            if (LineList.SelectedIndex != -1 || canvasPoints.Length <= 1)
                 return;
 
             SpinLine.Value = 180;
