@@ -1327,7 +1327,8 @@ namespace ShapeMaker
                                     case (int)LineTypes.SmoothCubic:
                                         if (getNubType(i) == 1 & !MacroCubic.Checked)
                                         {
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                            if (i != 1 || ltype == (int)LineTypes.Cubic)
+                                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                             e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
