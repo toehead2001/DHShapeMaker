@@ -3754,14 +3754,18 @@
     <value>A paint.net plugin by The Dwarf Horde
 
 Rob Tauler (TechnoRobbo)
-Code Lead, Design
+- Code Lead, Design
 
-John Robbins (Red Ochre) 
-Graphics Lead, Design
+John Robbins (Red Ochre)
+- Graphics Lead, Design
 
 Scott Stringer (Ego Eram Reputo) 
- Documentation Lead, Design
+- Documentation Lead, Design
 
-David Issel (BoltBait) - Beta Testing, Design</value>
+David Issel (BoltBait)
+- Beta Testing, Design
+
+Jason Wendt (toe_head2001)
+- Bug Fixes, Code Cleanup</value>
   </data>
 </root>
