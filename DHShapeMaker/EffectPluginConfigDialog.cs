@@ -1617,7 +1617,7 @@ namespace ShapeMaker
 
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
-            if (LineList.SelectedIndex != -1 || canvasPoints.Length <= 1)
+            if (canvasPoints.Length <= 1)
                 return;
 
             SpinLine.Value = 180;
@@ -1762,7 +1762,7 @@ namespace ShapeMaker
 
             if (keyData == Keys.Enter)
             {
-                if (keylock == 0)
+                if (keylock == 0 && LineList.SelectedIndex == -1)
                 {
                     keylock = 10;
                     ApplyBtn_Click(ApplyBtn, new EventArgs());
