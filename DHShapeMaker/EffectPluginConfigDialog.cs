@@ -1144,29 +1144,29 @@ namespace ShapeMaker
 
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            Image img;
-            img = ShapeMaker.Properties.Resources.bg;
-
-            PointF loopBack = new PointF(-9999, -9999);
-            PointF Oldxy = new PointF(-9999, -9999);
-
+            Image gridImg = Properties.Resources.bg;
             ImageAttributes attr = new ImageAttributes();
             ColorMatrix mx = new ColorMatrix();
-            mx.Matrix33 = (1001f - (float)opaque.Value) / 1000f;
+            mx.Matrix33 = (1001f - opaque.Value) / 1000f;
             attr.SetColorMatrix(mx);
             using (TextureBrush texture =
-                new TextureBrush(img, new Rectangle(0, 0, img.Width, img.Height), attr))
+                new TextureBrush(gridImg, new Rectangle(0, 0, gridImg.Width, gridImg.Height), attr))
             {
                 texture.WrapMode = WrapMode.Tile;
                 e.Graphics.FillRectangle(texture, e.ClipRectangle);
             }
             attr.Dispose();
 
-            int ltype = 0;
-            bool ctype = false;
-            bool mpmode = false;
-            bool islarge = false;
-            bool revsweep = false;
+            PointF loopBack = new PointF(-9999, -9999);
+            PointF Oldxy = new PointF(-9999, -9999);
+
+            int pType = 0;
+            bool isClosed = false;
+            bool mpMode = false;
+            bool isLarge = false;
+            bool revSweep = false;
+            PointF[] pPoints;
+
             try
             {
                 int j;
@@ -1174,53 +1174,40 @@ namespace ShapeMaker
                 {
                     j = jj + 1;
                     if (j == Lines.Count && LineList.SelectedIndex == -1) j = -1;
-                    PointF[] line;
+                    if (j >= Lines.Count) continue;
 
-                    if (j > -1)
+                    if (j == LineList.SelectedIndex)
                     {
-                        if (j == LineList.SelectedIndex)
-                        {
-                            line = canvasPoints;
-                            ltype = getPathType();
-                            ctype = Loop.Checked;
-                            mpmode = MPMode.Checked;
-                            islarge = Big.Checked;
-                            revsweep = Sweep.Checked;
-                            //continue;
-                        }
-                        else
-                        {
-                            PData itemPath = (Lines[j] as PData);
-                            line = itemPath.Lines;
-                            ltype = itemPath.LineType;
-                            ctype = itemPath.ClosedType;
-                            mpmode = itemPath.LoopBack;
-                            islarge = itemPath.IsLarge;
-                            revsweep = itemPath.RevSweep;
-                        }
+                        pPoints = canvasPoints;
+                        pType = getPathType();
+                        isClosed = Loop.Checked;
+                        mpMode = MPMode.Checked;
+                        isLarge = Big.Checked;
+                        revSweep = Sweep.Checked;
                     }
                     else
                     {
-                        line = canvasPoints;
-                        ltype = getPathType();
-                        ctype = Loop.Checked;
-                        mpmode = MPMode.Checked;
-                        islarge = Big.Checked;
-                        revsweep = Sweep.Checked;
+                        PData itemPath = (Lines[j] as PData);
+                        pPoints = itemPath.Lines;
+                        pType = itemPath.LineType;
+                        isClosed = itemPath.ClosedType;
+                        mpMode = itemPath.LoopBack;
+                        isLarge = itemPath.IsLarge;
+                        revSweep = itemPath.RevSweep;
                     }
 
-                    PointF[] pts = new PointF[line.Length];
-                    PointF[] Qpts = new PointF[line.Length];
-                    for (int i = 0; i < line.Length; i++)
+                    PointF[] pts = new PointF[pPoints.Length];
+                    for (int i = 0; i < pPoints.Length; i++)
                     {
-                        float x = (sender as PictureBox).ClientSize.Width * line[i].X;
-                        float y = (sender as PictureBox).ClientSize.Height * line[i].Y;
-                        pts[i] = new PointF(x, y);
+                        pts[i].X = canvas.ClientSize.Width * pPoints[i].X;
+                        pts[i].Y = canvas.ClientSize.Height * pPoints[i].Y;
                     }
+
+                    PointF[] Qpts = new PointF[pPoints.Length];
                     #region cube to quad
-                    if (ltype == (int)LineTypes.Quadratic || ltype == (int)LineTypes.SmoothQuadratic)
+                    if (pType == (int)LineTypes.Quadratic || pType == (int)LineTypes.SmoothQuadratic)
                     {
-                        for (int i = 0; i < line.Length; i++)
+                        for (int i = 0; i < pPoints.Length; i++)
                         {
                             int PT = getNubType(i);
                             if (PT == 0)
@@ -1260,19 +1247,18 @@ namespace ShapeMaker
                     if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
                     {
                         #region draw handles
-                        if ((j == -1 || j == LineList.SelectedIndex) && line.Length >= 1) //buffer draw
+                        if (j == LineList.SelectedIndex && pPoints.Length >= 1) //buffer draw
                         {
 
-
-                            if ((ctype || mpmode) && pts.Length > 1)
+                            if ((isClosed || mpMode) && pts.Length > 1)
                             {
                                 e.Graphics.DrawRectangle(new Pen(AnchorColor), loopBack.X - 4, loopBack.Y - 4, 6, 6);
                             }
                             else if (islinked)
                             {
                                 PointF[] tri = {new PointF(pts[0].X, pts[0].Y - 4f),
-                                                new PointF(pts[0].X + 3f, pts[0].Y + 3f),
-                                                new PointF(pts[0].X - 4f, pts[0].Y + 3f)};
+                                            new PointF(pts[0].X + 3f, pts[0].Y + 3f),
+                                            new PointF(pts[0].X - 4f, pts[0].Y + 3f)};
                                 e.Graphics.DrawPolygon(new Pen(AnchorColor), tri);
                             }
                             else
@@ -1284,7 +1270,7 @@ namespace ShapeMaker
                             for (int i = 1; i < pts.Length; i++)
                             {
 
-                                switch (ltype)
+                                switch (pType)
                                 {
                                     case (int)LineTypes.Straight:
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
@@ -1327,7 +1313,7 @@ namespace ShapeMaker
                                     case (int)LineTypes.SmoothCubic:
                                         if (getNubType(i) == 1 & !MacroCubic.Checked)
                                         {
-                                            if (i != 1 || ltype == (int)LineTypes.Cubic)
+                                            if (i != 1 || pType == (int)LineTypes.Cubic)
                                                 e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                             e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
@@ -1338,8 +1324,6 @@ namespace ShapeMaker
                                         {
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                         }
-
-
                                         break;
                                 }
 
@@ -1350,8 +1334,8 @@ namespace ShapeMaker
                     }
 
                     #region drawlines
-                    using (Pen p = new Pen(LineColors[ltype]))
-                    using (Pen activePen = new Pen(LineColors[ltype]))
+                    using (Pen p = new Pen(LineColors[pType]))
+                    using (Pen activePen = new Pen(LineColors[pType]))
                     {
                         p.DashStyle = DashStyle.Solid;
                         p.Width = 1;
@@ -1359,27 +1343,27 @@ namespace ShapeMaker
                         activePen.Width = 5f;
                         activePen.Color = Color.FromArgb(51, p.Color);
 
-                        if (line.Length > 3 && (ltype == (int)LineTypes.Quadratic || ltype == (int)LineTypes.SmoothQuadratic))
+                        if (pPoints.Length > 3 && (pType == (int)LineTypes.Quadratic || pType == (int)LineTypes.SmoothQuadratic))
                         {
                             try
                             {
                                 e.Graphics.DrawBeziers(p, Qpts);
-                                if (j == -1 || j == LineList.SelectedIndex)
+                                if (j == LineList.SelectedIndex)
                                     e.Graphics.DrawBeziers(activePen, Qpts);
                             }
                             catch { }
                         }
-                        else if (line.Length > 3 && (ltype == (int)LineTypes.Cubic || ltype == (int)LineTypes.SmoothCubic))
+                        else if (pPoints.Length > 3 && (pType == (int)LineTypes.Cubic || pType == (int)LineTypes.SmoothCubic))
                         {
                             try
                             {
                                 e.Graphics.DrawBeziers(p, pts);
-                                if (j == -1 || j == LineList.SelectedIndex)
+                                if (j == LineList.SelectedIndex)
                                     e.Graphics.DrawBeziers(activePen, pts);
                             }
                             catch { }
                         }
-                        else if (line.Length > 1 && ltype == (int)LineTypes.Straight)
+                        else if (pPoints.Length > 1 && pType == (int)LineTypes.Straight)
                         {
                             if (MacroRect.Checked && j == -1 && LineList.SelectedIndex == -1)
                             {
@@ -1402,11 +1386,11 @@ namespace ShapeMaker
                             {
 
                                 e.Graphics.DrawLines(p, pts);
-                                if (j == -1 || j == LineList.SelectedIndex)
+                                if (j == LineList.SelectedIndex)
                                     e.Graphics.DrawLines(activePen, pts);
                             }
                         }
-                        else if (line.Length == 5 && ltype == (int)LineTypes.Ellipse)
+                        else if (pPoints.Length == 5 && pType == (int)LineTypes.Ellipse)
                         {
                             PointF mid = pointAverage(pts[0], pts[4]);
                             if (MacroCircle.Checked && j == -1 && LineList.SelectedIndex == -1)
@@ -1422,9 +1406,9 @@ namespace ShapeMaker
                                 float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                                 if ((int)h == 0 || (int)l == 0)
                                 {
-                                    PointF[] nullLine = new PointF[] { pts[0], pts[4] };
+                                    PointF[] nullLine = { pts[0], pts[4] };
                                     e.Graphics.DrawLines(p, nullLine);
-                                    if (j == -1 || j == LineList.SelectedIndex)
+                                    if (j == LineList.SelectedIndex)
                                         e.Graphics.DrawLines(activePen, nullLine);
                                 }
                                 else
@@ -1434,14 +1418,14 @@ namespace ShapeMaker
                                     {
                                         AddPath(gp, pts[0]
                                         , l, h, a,
-                                        (islarge) ? 1 : 0,
-                                        (revsweep) ? 1 : 0,
+                                        (isLarge) ? 1 : 0,
+                                        (revSweep) ? 1 : 0,
                                         pts[4]);
                                         e.Graphics.DrawPath(p, gp);
-                                        if (j == -1 || j == LineList.SelectedIndex)
+                                        if (j == LineList.SelectedIndex)
                                             e.Graphics.DrawPath(activePen, gp);
                                     }
-                                    if (j == -1 && line.Length >= 1)
+                                    if (j == -1 && pPoints.Length >= 1)
                                     {
                                         if (!MacroCircle.Checked || LineList.SelectedIndex != -1)
                                         {
@@ -1449,8 +1433,8 @@ namespace ShapeMaker
                                             {
                                                 AddPath(gp, pts[0]
                                                 , l, h, a,
-                                                (islarge) ? 0 : 1,
-                                                (revsweep) ? 0 : 1,
+                                                (isLarge) ? 0 : 1,
+                                                (revSweep) ? 0 : 1,
                                                 pts[4]);
                                                 using (Pen p2 = new Pen(Color.LightGray))
                                                 {
@@ -1473,12 +1457,12 @@ namespace ShapeMaker
                             if (MacroRect.Checked && StraightLine.Checked) noJoin = true;
                         }
 
-                        if (!mpmode)
+                        if (!mpMode)
                         {
-                            if (!noJoin && ctype && pts.Length > 1)
+                            if (!noJoin && isClosed && pts.Length > 1)
                             {
                                 e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]);//preserve
-                                if (j == -1 || j == LineList.SelectedIndex)
+                                if (j == LineList.SelectedIndex)
                                     e.Graphics.DrawLine(activePen, pts[0], pts[pts.Length - 1]);//preserve
 
                                 loopBack = pts[pts.Length - 1];
@@ -1490,7 +1474,7 @@ namespace ShapeMaker
                             if (!noJoin && pts.Length > 1)
                             {
                                 e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
-                                if (j == -1 || j == LineList.SelectedIndex)
+                                if (j == LineList.SelectedIndex)
                                     e.Graphics.DrawLine(activePen, pts[pts.Length - 1], loopBack);
 
                                 loopBack = pts[pts.Length - 1];
@@ -1498,10 +1482,12 @@ namespace ShapeMaker
                         }
                     }
                     #endregion
-                    Oldxy = pts[pts.Length - 1];
+
+                    if (pts.Length > 0)
+                        Oldxy = pts[pts.Length - 1];
                 }
             }
-            catch { }//(Exception ex) { label7.Text = ex.Message; }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private PointF ThirdPoint(PointF p1, PointF p2, bool flip, float curve)
