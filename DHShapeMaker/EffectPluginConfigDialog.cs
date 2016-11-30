@@ -1196,6 +1196,8 @@ namespace ShapeMaker
                         revSweep = itemPath.RevSweep;
                     }
 
+                    if (pPoints.Length == 0) continue;
+
                     PointF[] pts = new PointF[pPoints.Length];
                     for (int i = 0; i < pPoints.Length; i++)
                     {
@@ -1235,7 +1237,7 @@ namespace ShapeMaker
                     #endregion
 
                     bool islinked = true;
-                    if (pts.Length > 0 && !Oldxy.Equals(pts[0]))
+                    if (!Oldxy.Equals(pts[0]))
                     {
                         loopBack = new PointF(pts[0].X, pts[0].Y);
                         islinked = false;
@@ -1247,7 +1249,7 @@ namespace ShapeMaker
                     if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
                     {
                         #region draw handles
-                        if (j == LineList.SelectedIndex && pPoints.Length >= 1) //buffer draw
+                        if (j == LineList.SelectedIndex) //buffer draw
                         {
 
                             if ((isClosed || mpMode) && pts.Length > 1)
@@ -1425,7 +1427,7 @@ namespace ShapeMaker
                                         if (j == LineList.SelectedIndex)
                                             e.Graphics.DrawPath(activePen, gp);
                                     }
-                                    if (j == -1 && pPoints.Length >= 1)
+                                    if (j == -1)
                                     {
                                         if (!MacroCircle.Checked || LineList.SelectedIndex != -1)
                                         {
@@ -1483,8 +1485,7 @@ namespace ShapeMaker
                     }
                     #endregion
 
-                    if (pts.Length > 0)
-                        Oldxy = pts[pts.Length - 1];
+                    Oldxy = pts[pts.Length - 1];
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
