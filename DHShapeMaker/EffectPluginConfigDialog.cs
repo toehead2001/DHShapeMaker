@@ -1237,7 +1237,7 @@ namespace ShapeMaker
                     #endregion
 
                     bool islinked = true;
-                    if (!Oldxy.Equals(pts[0]) || (j == -1 && Loop.Checked))
+                    if (!Oldxy.Equals(pts[0]) || (j == LineList.SelectedIndex && Loop.Checked))
                     {
                         loopBack = new PointF(pts[0].X, pts[0].Y);
                         islinked = false;
