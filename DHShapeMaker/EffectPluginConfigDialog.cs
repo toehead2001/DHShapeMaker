@@ -1150,7 +1150,7 @@ namespace ShapeMaker
             mx.Matrix33 = (1001f - opaque.Value) / 1000f;
             attr.SetColorMatrix(mx);
             using (TextureBrush texture =
-                new TextureBrush(gridImg, new Rectangle(0, 0, gridImg.Width, gridImg.Height), attr))
+                new TextureBrush(gridImg, new Rectangle(Point.Empty, gridImg.Size), attr))
             {
                 texture.WrapMode = WrapMode.Tile;
                 e.Graphics.FillRectangle(texture, e.ClipRectangle);
@@ -2102,8 +2102,8 @@ namespace ShapeMaker
             for (int i = 0; i < strPath.Length; i++)
             {
                 string mychar = strPath.Substring(i, 1);
-                int isnumber = number.IndexOf(mychar);
-                int iscommand = command.IndexOf(mychar);
+                int isnumber = number.IndexOf(mychar, StringComparison.Ordinal);
+                int iscommand = command.IndexOf(mychar, StringComparison.Ordinal);
 
 
                 if (TMP.Equals(string.Empty))
@@ -2177,7 +2177,7 @@ namespace ShapeMaker
                 {
 
                     strMode = str[i];
-                    int tmpline = match.IndexOf(strMode);
+                    int tmpline = match.IndexOf(strMode, StringComparison.Ordinal);
                     tmpline = (tmpline > 7) ? 0 : (tmpline > 1) ? tmpline - 2 : -1;
                     if (tmpline != -1)
                     {
@@ -3282,7 +3282,7 @@ namespace ShapeMaker
                     float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                     if ((int)h == 0 || (int)l == 0)
                     {
-                        PointF[] nullLine = new PointF[] { pts[0], pts[4] };
+                        PointF[] nullLine = { pts[0], pts[4] };
                         PGP[j].AddLines(nullLine);
                     }
                     else
@@ -3307,7 +3307,7 @@ namespace ShapeMaker
                 {
                     if (ctype && pts.Length > 1)
                     {
-                        PointF[] points = new PointF[] { pts[0], pts[pts.Length - 1] };
+                        PointF[] points = { pts[0], pts[pts.Length - 1] };
                         PGP[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
@@ -3316,7 +3316,7 @@ namespace ShapeMaker
                 {
                     if (pts.Length > 1)
                     {
-                        PointF[] points = new PointF[] { loopBack, pts[pts.Length - 1] };
+                        PointF[] points = { loopBack, pts[pts.Length - 1] };
                         PGP[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
