@@ -156,7 +156,8 @@
             // AboutBox1
             // 
             this.AcceptButton = this.okButton;
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.okButton;
             this.ClientSize = new System.Drawing.Size(435, 341);
             this.Controls.Add(this.tableLayoutPanel);
