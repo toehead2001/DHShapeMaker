@@ -746,7 +746,7 @@
             this.FitBG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FitBG.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FitBG.ForeColor = System.Drawing.Color.Black;
-            this.FitBG.Location = new System.Drawing.Point(528, 515);
+            this.FitBG.Location = new System.Drawing.Point(540, 515);
             this.FitBG.MaximumSize = new System.Drawing.Size(80, 45);
             this.FitBG.MinimumSize = new System.Drawing.Size(80, 45);
             this.FitBG.Name = "FitBG";
@@ -970,7 +970,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(550, 450);
+            this.label1.Location = new System.Drawing.Point(550, 460);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 13);
@@ -1119,12 +1119,12 @@
             // 
             // scaleSlider
             // 
-            this.scaleSlider.Location = new System.Drawing.Point(686, 200);
+            this.scaleSlider.Location = new System.Drawing.Point(695, 200);
             this.scaleSlider.Margin = new System.Windows.Forms.Padding(0);
             this.scaleSlider.maxValue = 2F;
             this.scaleSlider.minValue = 0.5F;
             this.scaleSlider.Name = "scaleSlider";
-            this.scaleSlider.Size = new System.Drawing.Size(159, 28);
+            this.scaleSlider.Size = new System.Drawing.Size(140, 28);
             this.scaleSlider.TabIndex = 52;
             this.scaleSlider.Value = 1F;
             this.scaleSlider.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.scaleSlider_ValueChanged);
@@ -1134,14 +1134,12 @@
             // opaque
             // 
             this.opaque.AutoSize = true;
-            this.opaque.Location = new System.Drawing.Point(532, 472);
-            this.opaque.Margin = new System.Windows.Forms.Padding(4);
-            this.opaque.MaximumSize = new System.Drawing.Size(156, 37);
+            this.opaque.Location = new System.Drawing.Point(541, 480);
+            this.opaque.Margin = new System.Windows.Forms.Padding(0);
             this.opaque.maxValue = 1000F;
-            this.opaque.MinimumSize = new System.Drawing.Size(156, 37);
             this.opaque.minValue = 0F;
             this.opaque.Name = "opaque";
-            this.opaque.Size = new System.Drawing.Size(156, 37);
+            this.opaque.Size = new System.Drawing.Size(140, 28);
             this.opaque.TabIndex = 29;
             this.opaque.Tag = "0";
             this.toolTip1.SetToolTip(this.opaque, "Fade Background Image");
