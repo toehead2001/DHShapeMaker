@@ -63,7 +63,7 @@ namespace ShapeMaker
 
         protected void OnValueChanged(float e)
         {
-            if (this.ValueChanged != null) this.ValueChanged(this, e);
+            this.ValueChanged?.Invoke(this, e);
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {

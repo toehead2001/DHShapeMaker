@@ -910,7 +910,7 @@ namespace ShapeMaker
                                     break;
                             }
                         }//move first point
-                        else if (canvasPoints.Length != 0 && i == 0 && i < canvasPoints.Length)
+                        else if (canvasPoints.Length != 0 && i == 0)
                         {
                             StatusBarNubLocation(eX, eY);
 
@@ -1311,7 +1311,7 @@ namespace ShapeMaker
                                         break;
                                     case (int)LineTypes.Cubic:
                                     case (int)LineTypes.SmoothCubic:
-                                        if (getNubType(i) == 1 & !MacroCubic.Checked)
+                                        if (getNubType(i) == 1 && !MacroCubic.Checked)
                                         {
                                             if (i != 1 || pType == (int)LineTypes.Cubic)
                                                 e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
@@ -1320,7 +1320,7 @@ namespace ShapeMaker
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
                                             e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
                                         }
-                                        else if (getNubType(i) == 3 & MacroCubic.Checked)
+                                        else if (getNubType(i) == 3 && MacroCubic.Checked)
                                         {
                                             e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                         }
@@ -2812,7 +2812,7 @@ namespace ShapeMaker
             {
                 KeyTrak = true;
             }
-            else if (KeyTrak && Control.ModifierKeys != Keys.Control)
+            else if (KeyTrak)
             {
                 KeyTrak = false;
                 canvas.Refresh();
@@ -3543,7 +3543,7 @@ namespace ShapeMaker
             Size sz = ShapeMaker.Properties.Resources.APPTESTUP.Size;
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.APPTESTUP,
                s.ClientRectangle,
-                new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -3560,7 +3560,7 @@ namespace ShapeMaker
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.DESLCTUP,
                 s.ClientRectangle,
-                new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -3573,7 +3573,7 @@ namespace ShapeMaker
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.UpList,
                 s.ClientRectangle,
-                new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -3585,7 +3585,7 @@ namespace ShapeMaker
             Size sz = ShapeMaker.Properties.Resources.DnList.Size;
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.DnList,
-                s.ClientRectangle, new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                s.ClientRectangle, new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -3597,7 +3597,7 @@ namespace ShapeMaker
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.OKTESTUP,
                 s.ClientRectangle,
-                new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 
@@ -3616,7 +3616,7 @@ namespace ShapeMaker
             e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.Fit_background_ss,
                s.ClientRectangle,
-               new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+               new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
 
         }
@@ -3630,7 +3630,7 @@ namespace ShapeMaker
             Size sz = ShapeMaker.Properties.Resources.Draw_on_canvas_ss.Size;
             e.Graphics.DrawImage(ShapeMaker.Properties.Resources.Draw_on_canvas_ss,
                 s.ClientRectangle,
-                new RectangleF(z * sz.Width / 3, 0, sz.Width / 3,
+                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
                    sz.Height), GraphicsUnit.Pixel);
         }
 

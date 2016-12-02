@@ -117,7 +117,7 @@ namespace Controlz
 
         protected void OnValueChanged(float e)
         {
-            if (this.ValueChanged != null) this.ValueChanged(this, e);
+            this.ValueChanged?.Invoke(this, e);
         }
 
         private void BigKnobs_MouseDown(object sender, MouseEventArgs e)
