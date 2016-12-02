@@ -89,7 +89,6 @@ namespace ShapeMaker
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
         float DPI = 1;
-        int baseSize = 500;
         bool DrawPosBars = false;
         Control hadFocus;
         bool isNewPath = true;
@@ -151,7 +150,6 @@ namespace ShapeMaker
         {
             using (Graphics g = this.CreateGraphics())
                 DPI = g.DpiX / 96;
-            baseSize = (int)(baseSize * DPI);
 
             canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
@@ -3873,7 +3871,7 @@ namespace ShapeMaker
             if (oldZoomFactor == zoomFactor)
                 return;
 
-            int newDimension = baseSize * zoomFactor;
+            int newDimension = ZoomMaster.ClientSize.Width * zoomFactor;
             int maxmove = newDimension - ZoomMaster.ClientSize.Width;
             canvas.Location = new Point(0, 0);
             Zoomed = new Point(
@@ -3945,8 +3943,8 @@ namespace ShapeMaker
                 Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
                                    (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Width + mousePosition.Y);
 
-                Zoomed.X = Clamp(Zoomed.X, baseSize - newDimension, 0);
-                Zoomed.Y = Clamp(Zoomed.Y, baseSize - newDimension, 0);
+                Zoomed.X = Clamp(Zoomed.X, ZoomMaster.ClientSize.Width - newDimension, 0);
+                Zoomed.Y = Clamp(Zoomed.Y, ZoomMaster.ClientSize.Width - newDimension, 0);
             }
 
             // to avoid flicker, the order of execution is important
