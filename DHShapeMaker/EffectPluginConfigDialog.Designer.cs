@@ -794,8 +794,8 @@
             this.ApplyBtn.TabIndex = 2;
             this.ApplyBtn.TabStop = false;
             this.ApplyBtn.Tag = "0";
-            this.ApplyBtn.Text = "Apply Edit";
-            this.toolTip1.SetToolTip(this.ApplyBtn, "Apply Edit (Enter)");
+            this.ApplyBtn.Text = "Add Path";
+            this.toolTip1.SetToolTip(this.ApplyBtn, "Add Path (Enter)");
             this.ApplyBtn.UseVisualStyleBackColor = false;
             this.ApplyBtn.Click += new System.EventHandler(this.ApplyBtn_Click);
             this.ApplyBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ApplyBtn_Paint);
