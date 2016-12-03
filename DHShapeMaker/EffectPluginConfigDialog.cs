@@ -2620,6 +2620,14 @@ namespace ShapeMaker
                 }
                 if (Ellipse.Checked) Sweep.Checked = !Sweep.Checked;
                 canvasPoints = tmp;
+
+                // If modifying an existing Path, save the change
+                if (LineList.SelectedIndex != -1)
+                {
+                    Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
+                        Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+                    LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
+                }
             }
             canvas.Refresh();
 
