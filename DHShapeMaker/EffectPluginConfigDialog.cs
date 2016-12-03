@@ -980,7 +980,7 @@ namespace ShapeMaker
                             int tx = 10 * (mpx - msx);
                             int ty = 10 * (mpy - msy);
 
-                            int maxmove = canvas.Width - ZoomMaster.ClientSize.Width;
+                            int maxmove = canvas.Width - viewport.ClientSize.Width;
 
                             Zoomed = new Point(
                                 (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
@@ -1007,7 +1007,7 @@ namespace ShapeMaker
                     int tx = 10 * (mpx - msx);
                     int ty = 10 * (mpy - msy);
 
-                    int maxmove = canvas.Width - ZoomMaster.ClientSize.Width;
+                    int maxmove = canvas.Width - viewport.ClientSize.Width;
 
                     Zoomed = new Point(
                         (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
@@ -1027,7 +1027,7 @@ namespace ShapeMaker
 
         private void StatusBarNubLocation(int x, int y)
         {
-            int zoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
+            int zoomFactor = canvas.Width / viewport.ClientSize.Width;
             statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(x / (float)zoomFactor / DPI), Math.Round(y / (float)zoomFactor / DPI));
             statusStrip1.Refresh();
         }
@@ -3875,12 +3875,12 @@ namespace ShapeMaker
 
         private void ZoomToFactor(int zoomFactor)
         {
-            int oldZoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / viewport.ClientSize.Width;
             if (oldZoomFactor == zoomFactor)
                 return;
 
-            int newDimension = ZoomMaster.ClientSize.Width * zoomFactor;
-            int maxmove = newDimension - ZoomMaster.ClientSize.Width;
+            int newDimension = viewport.ClientSize.Width * zoomFactor;
+            int maxmove = newDimension - viewport.ClientSize.Width;
             canvas.Location = new Point(0, 0);
             Zoomed = new Point(
                 (canvas.Location.X < -maxmove) ? -maxmove : (canvas.Location.X > 0) ? 0 : -maxmove / 2,
@@ -3935,24 +3935,24 @@ namespace ShapeMaker
                 return;
 
             int delta = Math.Sign(e.Delta);
-            int oldZoomFactor = canvas.Width / ZoomMaster.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / viewport.ClientSize.Width;
             if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
                 return;
 
             int newDimension = (delta > 0) ? canvas.Width * 2 : canvas.Width / 2;
-            int zoomFactor = newDimension / ZoomMaster.ClientSize.Width;
+            int zoomFactor = newDimension / viewport.ClientSize.Width;
 
             if (zoomFactor == 1)
                 Zoomed = new Point(0, 0);
             else
             {
-                Point mousePosition = new Point(e.X - ZoomMaster.Location.X, e.Y - ZoomMaster.Location.Y);
+                Point mousePosition = new Point(e.X - viewport.Location.X, e.Y - viewport.Location.Y);
 
                 Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
                                    (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Width + mousePosition.Y);
 
-                Zoomed.X = Clamp(Zoomed.X, ZoomMaster.ClientSize.Width - newDimension, 0);
-                Zoomed.Y = Clamp(Zoomed.Y, ZoomMaster.ClientSize.Width - newDimension, 0);
+                Zoomed.X = Clamp(Zoomed.X, viewport.ClientSize.Width - newDimension, 0);
+                Zoomed.Y = Clamp(Zoomed.Y, viewport.ClientSize.Width - newDimension, 0);
             }
 
             // to avoid flicker, the order of execution is important
@@ -3991,9 +3991,9 @@ namespace ShapeMaker
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = ZoomMaster.ClientSize.Height / (canvas.Height / ZoomMaster.ClientSize.Height);
-                int maxPos = ZoomMaster.ClientSize.Height - length;
-                float pos = Math.Abs(canvas.Location.Y) / (float)(canvas.Height - ZoomMaster.ClientSize.Height) * maxPos;
+                int length = viewport.ClientSize.Height / (canvas.Height / viewport.ClientSize.Height);
+                int maxPos = viewport.ClientSize.Height - length;
+                float pos = Math.Abs(canvas.Location.Y) / (float)(canvas.Height - viewport.ClientSize.Height) * maxPos;
                 RectangleF verBar = new RectangleF(1, pos, 3, length);
                 e.Graphics.FillRectangle(Brushes.Gray, verBar);
             }
@@ -4003,9 +4003,9 @@ namespace ShapeMaker
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = ZoomMaster.ClientSize.Width / (canvas.Width / ZoomMaster.ClientSize.Width);
-                int maxPos = ZoomMaster.ClientSize.Width - length;
-                float pos = Math.Abs(canvas.Location.X) / (float)(canvas.Width - ZoomMaster.ClientSize.Width) * maxPos;
+                int length = viewport.ClientSize.Width / (canvas.Width / viewport.ClientSize.Width);
+                int maxPos = viewport.ClientSize.Width - length;
+                float pos = Math.Abs(canvas.Location.X) / (float)(canvas.Width - viewport.ClientSize.Width) * maxPos;
                 RectangleF horBar = new RectangleF(pos, 1, length, 3);
                 e.Graphics.FillRectangle(Brushes.Gray, horBar);
             }

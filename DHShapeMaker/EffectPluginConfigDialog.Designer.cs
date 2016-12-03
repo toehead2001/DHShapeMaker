@@ -96,7 +96,7 @@
             this.DNList = new System.Windows.Forms.Button();
             this.opaque = new ShapeMaker.dhScroll();
             this.SpinLine = new Controlz.BigKnobs();
-            this.ZoomMaster = new System.Windows.Forms.Panel();
+            this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -119,7 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
-            this.ZoomMaster.SuspendLayout();
+            this.viewport.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -975,15 +975,15 @@
             this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
             this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
             // 
-            // ZoomMaster
+            // viewport
             // 
-            this.ZoomMaster.BackColor = System.Drawing.Color.Transparent;
-            this.ZoomMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ZoomMaster.Controls.Add(this.canvas);
-            this.ZoomMaster.Location = new System.Drawing.Point(7, 58);
-            this.ZoomMaster.Name = "ZoomMaster";
-            this.ZoomMaster.Size = new System.Drawing.Size(502, 502);
-            this.ZoomMaster.TabIndex = 41;
+            this.viewport.BackColor = System.Drawing.Color.Transparent;
+            this.viewport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.viewport.Controls.Add(this.canvas);
+            this.viewport.Location = new System.Drawing.Point(7, 58);
+            this.viewport.Name = "viewport";
+            this.viewport.Size = new System.Drawing.Size(502, 502);
+            this.viewport.TabIndex = 41;
             // 
             // label4
             // 
@@ -1197,7 +1197,7 @@
             this.Controls.Add(this.upList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DrawOnCanvas);
-            this.Controls.Add(this.ZoomMaster);
+            this.Controls.Add(this.viewport);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.LineList);
             this.Controls.Add(this.buttonOK);
@@ -1214,7 +1214,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
-            this.ZoomMaster.ResumeLayout(false);
+            this.viewport.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1261,7 +1261,7 @@
         private System.Windows.Forms.ToolStripMenuItem blank4;
         private System.Windows.Forms.ToolStripMenuItem blank5;
         private System.Windows.Forms.ToolStripMenuItem HelpMenu;
-        private System.Windows.Forms.Panel ZoomMaster;
+        private System.Windows.Forms.Panel viewport;
         private System.Windows.Forms.ToolStripMenuItem usersManualToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem keyboardShortcutsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
