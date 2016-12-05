@@ -2384,7 +2384,7 @@ namespace ShapeMaker
             }
             if (!errorflagx || !errorflagy || lineType < 0)
             {
-                MessageBox.Show("No Line Type or Bad Format" + Environment.NewLine + " Error Number " + errornum.ToString(),
+                MessageBox.Show("No Line Type, or is not in the StreamGeometry Format",// + Environment.NewLine + "Error Number " + errornum.ToString(),
                     "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
