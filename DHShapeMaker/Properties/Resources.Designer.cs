@@ -155,7 +155,8 @@ namespace ShapeMaker.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {\rtf1\ansi\deff3\adeflang1025
-        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\fswiss\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Calibri;}{\f6\froman\fprq2\fcharset0 Arial;}{\f7\fnil\fprq2\fcharset0 Microsoft YaHei;}{\f8\fnil\fprq2\fcharset0 Times New Roman;}{\f9\fnil\fprq2\fcharset0 Mangal;}{\f10\fnil\fprq0\fcharset128 Man [rest of string was truncated]&quot;;.
+        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\froman\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Calibri;}{\f6\froman\fprq2\fcharset0 Arial;}{\f7\fnil\fprq2\fcharset0 Arial;}{\f8\fnil\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}}
+        ///{\colortbl;\red0\green0\blue0;\red0\green0\blue [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Keyboard {
             get {
@@ -185,7 +186,8 @@ namespace ShapeMaker.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {\rtf1\ansi\deff3\adeflang1025
-        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\froman\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Calibri;}{\f6\froman\fprq2\fcharset0 Arial;}{\f7\fnil\fprq2\fcharset0 Mangal;}{\f8\fnil\fprq2\fcharset0 Calibri;}{\f9\fnil\fprq2\fcharset0 Arial;}{\f10\fnil\fprq2\fcharset0 Liberation Serif{\*\fal [rest of string was truncated]&quot;;.
+        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\froman\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Calibri;}{\f6\froman\fprq2\fcharset0 Arial;}{\f7\fnil\fprq2\fcharset0 Arial;}{\f8\fnil\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}}
+        ///{\colortbl;\red0\green0\blue0;\red0\green0\blue [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Misc {
             get {
