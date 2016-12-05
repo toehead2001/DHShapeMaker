@@ -3088,6 +3088,14 @@ namespace ShapeMaker
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             canvas.Refresh();
+
+            // If modifying an existing Path, save the change
+            if (LineList.SelectedIndex != -1)
+            {
+                Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
+                    Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+                LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
+            }
         }
 
         private void MacroRect_Click(object sender, EventArgs e)
