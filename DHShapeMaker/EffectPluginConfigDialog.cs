@@ -3156,7 +3156,7 @@ namespace ShapeMaker
             {
                 e.Graphics.DrawImage(SpriteSheet(z, 2), 0, 0);
             }
-            else if (z == MDown || (sender as ToolStripMenuItem).Checked)
+            else if ((z == MDown && sender != Big && sender != Sweep) || (sender as ToolStripMenuItem).Checked)
             {
                 e.Graphics.DrawImage(SpriteSheet(z, 1), 0, 0);
 
