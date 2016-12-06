@@ -159,7 +159,12 @@ namespace Controlz
 
         private float adjustment()
         {
-            return rtate * (maxvalue - minvalue) / span + minvalue;
+            float angle = rtate * (maxvalue - minvalue) / span + minvalue;
+
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                angle = (float)(Math.Round(angle / 15) * 15);
+
+            return angle;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -189,7 +194,12 @@ namespace Controlz
 
                         
                         g.TranslateTransform(rotsize.Width / 2f, rotsize.Height / 2f);
-                        g.RotateTransform(rtate + offset);
+
+                        float angle = rtate;
+                        if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                            angle = (float)(Math.Round(angle / 15) * 15);
+                        g.RotateTransform(angle + offset);
+
                         g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
 
                         g.DrawImage(MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
