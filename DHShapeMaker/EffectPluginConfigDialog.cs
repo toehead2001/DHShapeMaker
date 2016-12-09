@@ -1620,7 +1620,7 @@ namespace ShapeMaker
                 return;
 
             SpinLine.Value = 180;
-            toolTip1.SetToolTip(SpinLine, "0\u00B0");
+            toolTip1.SetToolTip(SpinLine, "0.0\u00B0");
 
             if (Lines.Count < 100)
             {
