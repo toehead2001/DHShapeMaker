@@ -82,6 +82,9 @@ namespace ShapeMaker
             e.Graphics.FillRectangle(new SolidBrush(basecolor), this.ClientRectangle);
             float z = realVal;
 
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                z = (float)(Math.Round(z * 20) / 20);
+
             int span = (int)(z * blip);
             Rectangle preSpan = new Rectangle(off + span, 0, hrct.Width, hrct.Height);
             if (gState == 0)
@@ -171,7 +174,12 @@ namespace ShapeMaker
         }
         private float adjustment()
         {
-            return realVal * (maxvalue - minvalue) + minvalue;
+            float value = realVal * (maxvalue - minvalue) + minvalue;
+
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                value = (float)(Math.Round(value * 20) / 20);
+
+            return value;
         }
         private float readjustment(float value)
         {
