@@ -956,7 +956,7 @@
             this.SpinLine.BackColor = System.Drawing.Color.Transparent;
             this.SpinLine.KnobBase = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobBase")));
             this.SpinLine.KnobDial = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobDial")));
-            this.SpinLine.KnobTop = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobTop")));
+            this.SpinLine.KnobTop = null;
             this.SpinLine.Location = new System.Drawing.Point(720, 73);
             this.SpinLine.Margin = new System.Windows.Forms.Padding(4);
             this.SpinLine.MaximumSize = new System.Drawing.Size(95, 95);
