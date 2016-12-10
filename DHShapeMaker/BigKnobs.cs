@@ -149,7 +149,7 @@ namespace Controlz
                 travel *= spinrate;
                 rtate += travel;
 
-                rtate = (rtate > span) ? span : (rtate < 0) ? 0 : rtate;
+                rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
 
                 touchpoint = movepoint;
                 OnValueChanged(adjustment());
