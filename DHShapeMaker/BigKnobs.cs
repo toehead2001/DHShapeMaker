@@ -143,6 +143,13 @@ namespace Controlz
             {
                 float movepoint = (float)Math.Atan2(e.Y - (float)this.ClientRectangle.Height / 2f,
                     e.X - (float)this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
+
+                if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                {
+                    movepoint = (float)(Math.Round(movepoint / 15) * 15);
+                    rtate = (float)(Math.Round(rtate / 15) * 15);
+                }
+
                 float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
 
                 travel = (travel > 180) ? travel - 360f : travel;
@@ -159,12 +166,7 @@ namespace Controlz
 
         private float adjustment()
         {
-            float angle = rtate * (maxvalue - minvalue) / span + minvalue;
-
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                angle = (float)(Math.Round(angle / 15) * 15);
-
-            return angle;
+            return rtate * (maxvalue - minvalue) / span + minvalue;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -192,14 +194,8 @@ namespace Controlz
                             g.FillRectangle(new SolidBrush(this.BackColor), this.ClientRectangle);
                         }
 
-                        
                         g.TranslateTransform(rotsize.Width / 2f, rotsize.Height / 2f);
-
-                        float angle = rtate;
-                        if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                            angle = (float)(Math.Round(angle / 15) * 15);
-                        g.RotateTransform(angle + offset);
-
+                        g.RotateTransform(rtate + offset);
                         g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
 
                         g.DrawImage(MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
