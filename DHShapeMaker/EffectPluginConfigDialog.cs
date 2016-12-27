@@ -62,6 +62,7 @@ namespace ShapeMaker
         private const double twoPI = Math.PI * 2;
 
         bool countflag = false;
+        const int maxPaths = 100;
         const int maxpoint = 255;
         const int minpoint = 0;
         const int basepoint = 0;
@@ -211,6 +212,8 @@ namespace ShapeMaker
             statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
             statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
             statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
+
+            statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
         }
 
         private void PosBarsTimer_Tick(object sender, EventArgs e)
@@ -1622,7 +1625,7 @@ namespace ShapeMaker
             SpinLine.Value = 180;
             toolTip1.SetToolTip(SpinLine, "0.0\u00B0");
 
-            if (Lines.Count < 100)
+            if (Lines.Count < maxPaths)
             {
                 setUndo(sender == LineList);
                 if (MacroCircle.Checked && getPathType() == (int)LineTypes.Ellipse)
@@ -1670,7 +1673,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show("Too Many Paths in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Too Many Paths in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             resetRotation();
 
@@ -1718,7 +1721,7 @@ namespace ShapeMaker
             if (LineList.SelectedIndex > -1 && canvasPoints.Length > 0)
             {
 
-                if (Lines.Count < 100)
+                if (Lines.Count < maxPaths)
                 {
                     setUndo();
                     PointF[] tmp = new PointF[canvasPoints.Length];
@@ -1730,7 +1733,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Too Many Lines in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
             }
@@ -2180,7 +2183,7 @@ namespace ShapeMaker
                     if (tmpline != -1)
                     {
 
-                        if (pts.Length > 1 && LineList.Items.Count < 100) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
+                        if (pts.Length > 1 && LineList.Items.Count < maxPaths) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
 
                         Array.Resize(ref pts, 1);
                         pts[0] = LastPos;
@@ -2388,7 +2391,7 @@ namespace ShapeMaker
                     "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (pts.Length > 1 && LineList.Items.Count < 100) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
+            if (pts.Length > 1 && LineList.Items.Count < maxPaths) addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
             canvas.Refresh();
         }
 
@@ -2409,7 +2412,7 @@ namespace ShapeMaker
 
         private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
         {
-            if (Lines.Count < 100)
+            if (Lines.Count < maxPaths)
             {
                 Lines.Add(new PData(pbpoint, closedType, lineType, islarge, revsweep, "", mpmtype));
                 LineList.Items.Add(LineNames[lineType]);
@@ -2417,7 +2420,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show("Too Many Lines in List (Max 100)", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Too Many Lines in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
         }
@@ -2480,7 +2483,7 @@ namespace ShapeMaker
             if (LineList.Items.Count == 0) return;
             Lines.Clear();
             LineList.Items.Clear();
-            statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
+            statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
 
             canvas.Refresh();
         }
@@ -2824,7 +2827,7 @@ namespace ShapeMaker
             if (countflag || canvasPoints.Length > 0 || LineList.Items.Count > 0)
             {
                 statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
-                statusLabelPathsUsed.Text = string.Format("{0}/100 Paths used", LineList.Items.Count);
+                statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
             }
 
             if (LineList.SelectedIndex == -1) isNewPath = true;
