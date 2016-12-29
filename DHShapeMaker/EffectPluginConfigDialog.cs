@@ -149,8 +149,7 @@ namespace ShapeMaker
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
-            using (Graphics g = this.CreateGraphics())
-                DPI = g.DpiX / 96;
+            DPI = this.AutoScaleDimensions.Width / 96f;
 
             canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
