@@ -740,6 +740,7 @@
             // 
             // FitBG
             // 
+            this.FitBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FitBG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.FitBG.Checked = true;
             this.FitBG.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -762,6 +763,7 @@
             // 
             // DrawOnCanvas
             // 
+            this.DrawOnCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DrawOnCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.DrawOnCanvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.DrawOnCanvas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -781,6 +783,7 @@
             // 
             // ApplyBtn
             // 
+            this.ApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ApplyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.ApplyBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.ApplyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -804,6 +807,7 @@
             // 
             // FigureName
             // 
+            this.FigureName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FigureName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FigureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FigureName.Location = new System.Drawing.Point(723, 368);
@@ -817,6 +821,7 @@
             // 
             // ClearBtn
             // 
+            this.ClearBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.ClearBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.ClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -840,6 +845,7 @@
             // 
             // OutputScale
             // 
+            this.OutputScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.OutputScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OutputScale.Location = new System.Drawing.Point(724, 421);
             this.OutputScale.Maximum = new decimal(new int[] {
@@ -865,6 +871,7 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -885,6 +892,7 @@
             // 
             // LineList
             // 
+            this.LineList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LineList.BackColor = System.Drawing.Color.White;
             this.LineList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.LineList.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -903,6 +911,7 @@
             // 
             // upList
             // 
+            this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.upList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.upList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upList.Location = new System.Drawing.Point(539, 396);
@@ -920,6 +929,7 @@
             // 
             // DNList
             // 
+            this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DNList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.DNList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DNList.Location = new System.Drawing.Point(643, 396);
@@ -937,6 +947,7 @@
             // 
             // opaque
             // 
+            this.opaque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.opaque.AutoSize = true;
             this.opaque.Location = new System.Drawing.Point(541, 480);
             this.opaque.Margin = new System.Windows.Forms.Padding(0);
@@ -952,6 +963,7 @@
             // 
             // SpinLine
             // 
+            this.SpinLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SpinLine.AutoSize = true;
             this.SpinLine.BackColor = System.Drawing.Color.Transparent;
             this.SpinLine.KnobBase = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobBase")));
@@ -987,6 +999,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(732, 350);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
@@ -998,6 +1011,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(724, 403);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
@@ -1009,6 +1023,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(550, 460);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
@@ -1020,6 +1035,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(586, 396);
             this.label6.Name = "label6";
@@ -1030,6 +1046,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(746, 56);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
@@ -1080,6 +1097,7 @@
             // 
             // splitButtonZoom
             // 
+            this.splitButtonZoom.AutoToolTip = false;
             this.splitButtonZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.splitButtonZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xToolStripMenuZoom8x,
@@ -1141,6 +1159,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(584, 56);
             this.label3.Name = "label3";
@@ -1150,6 +1169,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(750, 182);
             this.label7.Name = "label7";
@@ -1159,6 +1179,7 @@
             // 
             // scaleSlider
             // 
+            this.scaleSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scaleSlider.Location = new System.Drawing.Point(695, 200);
             this.scaleSlider.Margin = new System.Windows.Forms.Padding(0);
             this.scaleSlider.maxValue = 2F;
@@ -1204,12 +1225,15 @@
             this.Controls.Add(this.FitBG);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MinimumSize = new System.Drawing.Size(850, 580);
+            this.MaximizeBox = true;
+            this.MinimumSize = new System.Drawing.Size(866, 635);
             this.Name = "EffectPluginConfigDialog";
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
+            this.Resize += new System.EventHandler(this.EffectPluginConfigDialog_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

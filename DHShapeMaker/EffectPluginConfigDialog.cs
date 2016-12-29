@@ -93,6 +93,7 @@ namespace ShapeMaker
         bool DrawPosBars = false;
         Control hadFocus;
         bool isNewPath = true;
+        int canvasBaseSize;
 
         public EffectPluginConfigDialog()
         {
@@ -150,6 +151,7 @@ namespace ShapeMaker
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
             DPI = this.AutoScaleDimensions.Width / 96f;
+            canvasBaseSize = this.canvas.Width;
 
             canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
@@ -973,7 +975,7 @@ namespace ShapeMaker
                             }
 
                         }//Pan zoomed
-                        else if (PanFlag && IsZoomed)
+                        else if (PanFlag)
                         {
                             int mpx = (int)(mapPoint.X * 100);
                             int msx = (int)(MoveStart.X * 100);
@@ -982,11 +984,13 @@ namespace ShapeMaker
                             int tx = 10 * (mpx - msx);
                             int ty = 10 * (mpy - msy);
 
-                            int maxmove = canvas.Width - viewport.ClientSize.Width;
+                            int maxMoveX = canvas.Width - viewport.ClientSize.Width;
+                            int maxMoveY = canvas.Height - viewport.ClientSize.Height;
 
-                            Zoomed = new Point(
-                                (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
-                                (canvas.Location.Y + ty < -maxmove) ? -maxmove : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty);
+                            if (canvas.Width > viewport.ClientSize.Width)
+                                Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
+                            if (canvas.Height > viewport.ClientSize.Height)
+                                Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
 
                             canvas.Location = Zoomed;
 
@@ -1000,7 +1004,7 @@ namespace ShapeMaker
 
                     canvas.Refresh();
                 }
-                else if (e.Button == MouseButtons.Middle && IsZoomed)
+                else if (e.Button == MouseButtons.Middle)
                 {
                     int mpx = (int)(mapPoint.X * 100);
                     int msx = (int)(MoveStart.X * 100);
@@ -1009,11 +1013,13 @@ namespace ShapeMaker
                     int tx = 10 * (mpx - msx);
                     int ty = 10 * (mpy - msy);
 
-                    int maxmove = canvas.Width - viewport.ClientSize.Width;
+                    int maxMoveX = canvas.Width - viewport.ClientSize.Width;
+                    int maxMoveY = canvas.Height - viewport.ClientSize.Height;
 
-                    Zoomed = new Point(
-                        (canvas.Location.X + tx < -maxmove) ? -maxmove : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx,
-                        (canvas.Location.Y + ty < -maxmove) ? -maxmove : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty);
+                    if (canvas.Width > viewport.ClientSize.Width)
+                        Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
+                    if (canvas.Height > viewport.ClientSize.Height)
+                        Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
 
                     canvas.Location = Zoomed;
 
@@ -1029,7 +1035,7 @@ namespace ShapeMaker
 
         private void StatusBarNubLocation(int x, int y)
         {
-            int zoomFactor = canvas.Width / viewport.ClientSize.Width;
+            int zoomFactor = canvas.Width / canvasBaseSize;
             statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(x / (float)zoomFactor / DPI), Math.Round(y / (float)zoomFactor / DPI));
             statusStrip1.Refresh();
         }
@@ -3876,16 +3882,17 @@ namespace ShapeMaker
 
         private void ZoomToFactor(int zoomFactor)
         {
-            int oldZoomFactor = canvas.Width / viewport.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / canvasBaseSize;
             if (oldZoomFactor == zoomFactor)
                 return;
 
-            int newDimension = viewport.ClientSize.Width * zoomFactor;
-            int maxmove = newDimension - viewport.ClientSize.Width;
+            int newDimension = canvasBaseSize * zoomFactor;
+            int maxMoveX = newDimension - viewport.ClientSize.Width;
+            int maxMoveY = newDimension - viewport.ClientSize.Height;
+
             canvas.Location = new Point(0, 0);
-            Zoomed = new Point(
-                (canvas.Location.X < -maxmove) ? -maxmove : (canvas.Location.X > 0) ? 0 : -maxmove / 2,
-                (canvas.Location.Y < -maxmove) ? -maxmove : (canvas.Location.Y > 0) ? 0 : -maxmove / 2);
+            Zoomed.X = (maxMoveX > 0) ? -maxMoveX / 2 : maxMoveX / -2;
+            Zoomed.Y = (maxMoveY > 0) ? -maxMoveY / 2 : maxMoveY / -2;
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
@@ -3936,25 +3943,27 @@ namespace ShapeMaker
                 return;
 
             int delta = Math.Sign(e.Delta);
-            int oldZoomFactor = canvas.Width / viewport.ClientSize.Width;
+            int oldZoomFactor = canvas.Width / canvasBaseSize;
             if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
                 return;
 
             int newDimension = (delta > 0) ? canvas.Width * 2 : canvas.Width / 2;
-            int zoomFactor = newDimension / viewport.ClientSize.Width;
+            int zoomFactor = newDimension / canvasBaseSize;
 
-            if (zoomFactor == 1)
-                Zoomed = new Point(0, 0);
-            else
-            {
-                Point mousePosition = new Point(e.X - viewport.Location.X, e.Y - viewport.Location.Y);
+            Point mousePosition = new Point(e.X - viewport.Location.X, e.Y - viewport.Location.Y);
 
-                Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
-                                   (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Width + mousePosition.Y);
+            Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
+                                (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Height + mousePosition.Y);
 
-                Zoomed.X = Clamp(Zoomed.X, viewport.ClientSize.Width - newDimension, 0);
-                Zoomed.Y = Clamp(Zoomed.Y, viewport.ClientSize.Width - newDimension, 0);
-            }
+            // Clamp the canvas location; we're not overscrolling... yet
+            int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
+            int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
+            Zoomed.X = Clamp(Zoomed.X, minX, maxX);
+
+            int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
+            int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
+            Zoomed.Y = Clamp(Zoomed.Y, minY, maxY);
+
 
             // to avoid flicker, the order of execution is important
             if (delta > 0) // Zooming In
@@ -3992,8 +4001,11 @@ namespace ShapeMaker
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = viewport.ClientSize.Height / (canvas.Height / viewport.ClientSize.Height);
-                int maxPos = viewport.ClientSize.Height - length;
+                if (canvas.Height <= viewport.ClientRectangle.Height)
+                    return;
+
+                float length = viewport.ClientSize.Height / (canvas.Height / (float)viewport.ClientSize.Height);
+                float maxPos = viewport.ClientSize.Height - length;
                 float pos = Math.Abs(canvas.Location.Y) / (float)(canvas.Height - viewport.ClientSize.Height) * maxPos;
                 RectangleF verBar = new RectangleF(1, pos, 3, length);
                 e.Graphics.FillRectangle(Brushes.Gray, verBar);
@@ -4004,8 +4016,11 @@ namespace ShapeMaker
         {
             if (IsZoomed && DrawPosBars)
             {
-                int length = viewport.ClientSize.Width / (canvas.Width / viewport.ClientSize.Width);
-                int maxPos = viewport.ClientSize.Width - length;
+                if (canvas.Width <= viewport.ClientSize.Width)
+                    return;
+
+                float length = viewport.ClientSize.Width / (canvas.Width / (float)viewport.ClientSize.Width);
+                float maxPos = viewport.ClientSize.Width - length;
                 float pos = Math.Abs(canvas.Location.X) / (float)(canvas.Width - viewport.ClientSize.Width) * maxPos;
                 RectangleF horBar = new RectangleF(pos, 1, length, 3);
                 e.Graphics.FillRectangle(Brushes.Gray, horBar);
@@ -4101,6 +4116,24 @@ namespace ShapeMaker
         {
             if (FigureName.Text == string.Empty)
                 FigureName.Text = "Untitled";
+        }
+
+        private void EffectPluginConfigDialog_Resize(object sender, EventArgs e)
+        {
+            viewport.Width = LineList.Left - viewport.Left - 30;
+            viewport.Height = statusStrip1.Top - viewport.Top - 15;
+
+            horPosBar.Top = viewport.Bottom;
+            horPosBar.Width = viewport.Width;
+
+            verPosBar.Left = viewport.Right;
+            verPosBar.Height = viewport.Height;
+
+            if (canvas.Width < viewport.ClientSize.Width || canvas.Location.X > 0)
+                Zoomed.X = (viewport.ClientSize.Width - canvas.Width) / 2;
+            if (canvas.Height < viewport.ClientSize.Height || canvas.Location.Y > 0)
+                Zoomed.Y = (viewport.ClientSize.Height - canvas.Height) / 2;
+            canvas.Location = Zoomed;
         }
     }
 }
