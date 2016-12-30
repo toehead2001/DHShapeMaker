@@ -556,12 +556,16 @@ namespace ShapeMaker
                 }
                 else if (e.Button == MouseButtons.Middle)
                 {
+                    PanFlag = true;
+
                     if (canvas.Width > viewport.ClientRectangle.Width && canvas.Height > viewport.ClientRectangle.Height)
                         canvas.Cursor = Cursors.NoMove2D;
                     else if (canvas.Width > viewport.ClientRectangle.Width)
                         canvas.Cursor = Cursors.NoMoveHoriz;
                     else if (canvas.Height > viewport.ClientRectangle.Height)
                         canvas.Cursor = Cursors.NoMoveVert;
+                    else
+                        PanFlag = false;
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -1025,7 +1029,7 @@ namespace ShapeMaker
 
                     canvas.Refresh();
                 }
-                else if (e.Button == MouseButtons.Middle)
+                else if (e.Button == MouseButtons.Middle && PanFlag)
                 {
                     int mpx = (int)(mapPoint.X * 100);
                     int msx = (int)(MoveStart.X * 100);
