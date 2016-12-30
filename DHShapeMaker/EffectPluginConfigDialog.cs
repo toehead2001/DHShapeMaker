@@ -86,7 +86,6 @@ namespace ShapeMaker
         ArrayList Lines = new ArrayList();
         Size SuperSize = new Size();
         bool PanFlag = false;
-        bool IsZoomed = false;
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
         float DPI = 1;
@@ -3866,7 +3865,7 @@ namespace ShapeMaker
         {
             PanFlag = false;
 
-            if (IsZoomed)
+            if (canvas.Width > canvasBaseSize)
             {
                 ZoomToFactor(1);
             }
@@ -3934,12 +3933,11 @@ namespace ShapeMaker
             canvas.Refresh();
 
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
-            IsZoomed = (zoomFactor > 1);
 
             // Update Position Bars
             posBarsTimer.Stop();
             posBarsTimer.Start();
-            DrawPosBars = (zoomFactor > 1);
+            DrawPosBars = true;
             verPosBar.Refresh();
             horPosBar.Refresh();
         }
@@ -4005,7 +4003,6 @@ namespace ShapeMaker
             canvas.Refresh();
 
             splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
-            IsZoomed = (zoomFactor > 1);
 
             posBarsTimer.Stop();
             posBarsTimer.Start();
@@ -4023,7 +4020,7 @@ namespace ShapeMaker
 
         private void verPosBar_Paint(object sender, PaintEventArgs e)
         {
-            if (IsZoomed && DrawPosBars)
+            if (DrawPosBars)
             {
                 if (canvas.Height <= viewport.ClientRectangle.Height)
                     return;
@@ -4038,7 +4035,7 @@ namespace ShapeMaker
 
         private void horPosBar_Paint(object sender, PaintEventArgs e)
         {
-            if (IsZoomed && DrawPosBars)
+            if (DrawPosBars)
             {
                 if (canvas.Width <= viewport.ClientSize.Width)
                     return;
