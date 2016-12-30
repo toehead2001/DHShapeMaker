@@ -284,8 +284,16 @@ namespace ShapeMaker
                 {
                     if (clickedNub == -1)
                     {
-                        if (IsZoomed)
-                            PanFlag = true;
+                        PanFlag = true;
+
+                        if (canvas.Width > viewport.ClientRectangle.Width && canvas.Height > viewport.ClientRectangle.Height)
+                            canvas.Cursor = Cursors.NoMove2D;
+                        else if (canvas.Width > viewport.ClientRectangle.Width)
+                            canvas.Cursor = Cursors.NoMoveHoriz;
+                        else if (canvas.Height > viewport.ClientRectangle.Height)
+                            canvas.Cursor = Cursors.NoMoveVert;
+                        else
+                            PanFlag = false;
                     }
                     else
                     {
@@ -523,11 +531,15 @@ namespace ShapeMaker
                     if (canvasPoints.Length != 0)
                     {
                         if (clickedNub != -1)
+                        {
                             setUndo();
+                            canvas.Cursor = Cursors.SizeAll;
+                        }
                     }
                     else
                     {
                         setUndo();
+                        canvas.Cursor = Cursors.SizeAll;
                     }
                 }
                 else if (e.Button == MouseButtons.Left)
@@ -542,6 +554,15 @@ namespace ShapeMaker
                     {
                         setUndo();
                     }
+                }
+                else if (e.Button == MouseButtons.Middle)
+                {
+                    if (canvas.Width > viewport.ClientRectangle.Width && canvas.Height > viewport.ClientRectangle.Height)
+                        canvas.Cursor = Cursors.NoMove2D;
+                    else if (canvas.Width > viewport.ClientRectangle.Width)
+                        canvas.Cursor = Cursors.NoMoveHoriz;
+                    else if (canvas.Height > viewport.ClientRectangle.Height)
+                        canvas.Cursor = Cursors.NoMoveVert;
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -682,6 +703,7 @@ namespace ShapeMaker
             PanFlag = false;
             clickedNub = -1;
             canvas.Refresh();
+            canvas.Cursor = Cursors.Default;
             posBarsTimer.Start();
         }
 
