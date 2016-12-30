@@ -938,6 +938,7 @@
             // 
             // removePathButton
             // 
+            this.removePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.removePathButton.Location = new System.Drawing.Point(651, 396);
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
@@ -948,6 +949,7 @@
             // 
             // clonePathButton
             // 
+            this.clonePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clonePathButton.Location = new System.Drawing.Point(613, 396);
             this.clonePathButton.Name = "clonePathButton";
             this.clonePathButton.Size = new System.Drawing.Size(32, 36);
