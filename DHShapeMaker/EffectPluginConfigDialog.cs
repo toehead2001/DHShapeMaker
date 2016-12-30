@@ -2804,6 +2804,8 @@ namespace ShapeMaker
             if (!Cubic.Checked) MacroCubic.Checked = false;
 
             ToggleUpDownButtons();
+            clonePathButton.Enabled = (LineList.SelectedIndex > -1);
+            removePathButton.Enabled = (LineList.SelectedIndex > -1);
             MacroCircle.Enabled = (LineList.SelectedIndex == -1);
             MacroRect.Enabled = (LineList.SelectedIndex == -1);
             MacroCubic.Enabled = (LineList.SelectedIndex == -1);

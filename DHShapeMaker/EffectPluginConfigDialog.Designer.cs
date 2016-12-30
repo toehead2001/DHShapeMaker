@@ -94,13 +94,14 @@
             this.LineList = new System.Windows.Forms.ListBox();
             this.upList = new System.Windows.Forms.Button();
             this.DNList = new System.Windows.Forms.Button();
+            this.removePathButton = new System.Windows.Forms.Button();
+            this.clonePathButton = new System.Windows.Forms.Button();
             this.opaque = new ShapeMaker.dhScroll();
             this.SpinLine = new Controlz.BigKnobs();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
@@ -912,16 +913,11 @@
             // upList
             // 
             this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.upList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.upList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.upList.Location = new System.Drawing.Point(539, 396);
-            this.upList.MaximumSize = new System.Drawing.Size(40, 45);
-            this.upList.MinimumSize = new System.Drawing.Size(40, 45);
             this.upList.Name = "upList";
-            this.upList.Size = new System.Drawing.Size(40, 45);
+            this.upList.Size = new System.Drawing.Size(32, 36);
             this.upList.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.upList, "Move Selection Up");
-            this.upList.UseVisualStyleBackColor = false;
+            this.toolTip1.SetToolTip(this.upList, "Move Path Up");
             this.upList.Click += new System.EventHandler(this.upList_Click);
             this.upList.Paint += new System.Windows.Forms.PaintEventHandler(this.upList_Paint);
             this.upList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
@@ -930,20 +926,35 @@
             // DNList
             // 
             this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DNList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.DNList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DNList.Location = new System.Drawing.Point(643, 396);
-            this.DNList.MaximumSize = new System.Drawing.Size(40, 45);
-            this.DNList.MinimumSize = new System.Drawing.Size(40, 45);
+            this.DNList.Location = new System.Drawing.Point(575, 396);
             this.DNList.Name = "DNList";
-            this.DNList.Size = new System.Drawing.Size(40, 45);
+            this.DNList.Size = new System.Drawing.Size(32, 36);
             this.DNList.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.DNList, "Move Selection Down");
-            this.DNList.UseVisualStyleBackColor = false;
+            this.toolTip1.SetToolTip(this.DNList, "Move Path Down");
             this.DNList.Click += new System.EventHandler(this.DNList_Click);
             this.DNList.Paint += new System.Windows.Forms.PaintEventHandler(this.DNList_Paint);
             this.DNList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
             this.DNList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
+            // 
+            // removePathButton
+            // 
+            this.removePathButton.Location = new System.Drawing.Point(651, 396);
+            this.removePathButton.Name = "removePathButton";
+            this.removePathButton.Size = new System.Drawing.Size(32, 36);
+            this.removePathButton.TabIndex = 54;
+            this.removePathButton.Text = "Remove";
+            this.toolTip1.SetToolTip(this.removePathButton, "Remove Path");
+            this.removePathButton.Click += new System.EventHandler(this.removebtn_Click);
+            // 
+            // clonePathButton
+            // 
+            this.clonePathButton.Location = new System.Drawing.Point(613, 396);
+            this.clonePathButton.Name = "clonePathButton";
+            this.clonePathButton.Size = new System.Drawing.Size(32, 36);
+            this.clonePathButton.TabIndex = 55;
+            this.clonePathButton.Text = "Clone";
+            this.toolTip1.SetToolTip(this.clonePathButton, "Clone Path");
+            this.clonePathButton.Click += new System.EventHandler(this.Clonebtn_Click);
             // 
             // opaque
             // 
@@ -1032,17 +1043,6 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Image Tracing Opacity";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(586, 396);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 39);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Move\r\nSelected\r\nPath";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
@@ -1198,6 +1198,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.clonePathButton);
+            this.Controls.Add(this.removePathButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.label3);
@@ -1209,7 +1211,6 @@
             this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.SpinLine);
             this.Controls.Add(this.FigureName);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.ApplyBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.DNList);
@@ -1305,7 +1306,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button upList;
         private System.Windows.Forms.Button DNList;
-        private System.Windows.Forms.Label label6;
         private dhScroll opaque;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem openProject;
@@ -1335,5 +1335,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private dhScroll scaleSlider;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button removePathButton;
+        private System.Windows.Forms.Button clonePathButton;
     }
 }
