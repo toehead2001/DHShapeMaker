@@ -3770,47 +3770,41 @@ namespace ShapeMaker
 
         private void saveProject_Click(object sender, EventArgs e)
         {
-            UnicodeEncoding uniEncoding = new UnicodeEncoding();
-            if (Lines.Count > 0)
+            if (Lines.Count == 0)
             {
-                string TMP = string.Empty;
-                bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
-                if (r)
-                {
-                    //string output = ShapeMaker.Properties.Resources.BaseString;
-                    string figure = FigureName.Text;
-                    Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    figure = rgx.Replace(figure, string.Empty);
-                    figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
-                    //output = output.Replace("~1", figure);
-                    //output = output.Replace("~2", TMP);
-                    using (SaveFileDialog sfd = new SaveFileDialog())
-                    {
-                        sfd.FileName = figure;
-                        sfd.InitialDirectory = getMyProjectFolder();
-                        sfd.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
-                        sfd.FilterIndex = 1;
-                        sfd.AddExtension = true;
-
-                        if (sfd.ShowDialog() == DialogResult.OK)
-                        {
-                            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                            (Lines[Lines.Count - 1] as PData).Meta = FigureName.Text;
-                            (Lines[Lines.Count - 1] as PData).SolidFill = SolidFillMenuItem.Checked;
-                            using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
-                            {
-
-                                ser.Serialize(stream, Lines);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else { MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+            string TMP = string.Empty;
+            bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            if (!r)
+            {
+                MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string figure = FigureName.Text;
+            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+            figure = rgx.Replace(figure, string.Empty);
+            figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.FileName = figure;
+                sfd.InitialDirectory = getMyProjectFolder();
+                sfd.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
+                sfd.FilterIndex = 1;
+                sfd.AddExtension = true;
+
+                if (sfd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+                (Lines[Lines.Count - 1] as PData).Meta = FigureName.Text;
+                (Lines[Lines.Count - 1] as PData).SolidFill = SolidFillMenuItem.Checked;
+                using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
+                    ser.Serialize(stream, Lines);
+            }
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
