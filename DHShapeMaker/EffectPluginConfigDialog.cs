@@ -1749,29 +1749,25 @@ namespace ShapeMaker
 
         private void Clonebtn_Click(object sender, EventArgs e)
         {
-            if (LineList.SelectedIndex == -1) return;
+            if (LineList.SelectedIndex == -1 || canvasPoints.Length == 0)
+                return;
 
-            if (LineList.SelectedIndex > -1 && canvasPoints.Length > 0)
+            if (Lines.Count < maxPaths)
             {
+                setUndo();
+                PointF[] tmp = new PointF[canvasPoints.Length];
+                Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
-                if (Lines.Count < maxPaths)
-                {
-                    setUndo();
-                    PointF[] tmp = new PointF[canvasPoints.Length];
-                    Array.Copy(canvasPoints, tmp, canvasPoints.Length);
+                Lines.Add(new PData(tmp, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
+                LineList.Items.Add(LineNames[getPathType()]);
+                LineList.SelectedIndex = LineList.Items.Count - 1;
 
-                    Lines.Add(new PData(tmp, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
-                    LineList.Items.Add(LineNames[getPathType()]);
-                    LineList.SelectedIndex = LineList.Items.Count - 1;
-                }
-                else
-                {
-                    MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                }
+                canvas.Refresh();
             }
-            LineList.SelectedIndex = LineList.Items.Count - 1;
-            canvas.Refresh();
+            else
+            {
+                MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void LineList_SelectedValueChanged(object sender, EventArgs e)
