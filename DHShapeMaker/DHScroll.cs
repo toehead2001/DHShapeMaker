@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ShapeMaker
 {
     public partial class dhScroll : UserControl
     {
-
         float realVal = .5f;
         float minvalue = 0;
         float maxvalue = 10;
         bool scrolling = false;
         int gState = 0;
-
-        Color basecolor = Color.FromArgb(189, 189, 189);
-        Color shadowcolor = Color.SlateGray;
 
         public delegate void ValueChangedEventHandler(object sender, float e);
         public event ValueChangedEventHandler ValueChanged;
@@ -33,7 +24,10 @@ namespace ShapeMaker
 
         public float Value
         {
-            get { return adjustment(); }
+            get
+            {
+                return adjustment();
+            }
             set
             {
                 float v = (value > maxvalue) ? maxvalue : (value < minvalue) ? minvalue : value;
@@ -43,7 +37,10 @@ namespace ShapeMaker
         }
         public float minValue
         {
-            get { return minvalue; }
+            get
+            {
+                return minvalue;
+            }
             set
             {
                 minvalue = (value < maxvalue) ? value : maxvalue - .1f;
@@ -52,7 +49,10 @@ namespace ShapeMaker
         }
         public float maxValue
         {
-            get { return maxvalue; }
+            get
+            {
+                return maxvalue;
+            }
             set
             {
                 maxvalue = (value > minvalue) ? value : minvalue + .1f;
@@ -60,26 +60,19 @@ namespace ShapeMaker
             }
         }
 
-
         protected void OnValueChanged(float e)
         {
             this.ValueChanged?.Invoke(this, e);
         }
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            //base.OnPaintBackground(e);
-        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             GraphicsUnit gu = GraphicsUnit.Pixel;
 
             int off = (int)(25f * this.ClientRectangle.Width / 156);
             int blip = (int)(96f * this.ClientRectangle.Width / 156);
-            Rectangle rct = new Rectangle(0, 0, this.ClientRectangle.Width,
-                this.ClientRectangle.Height);
-            Rectangle hrct = new Rectangle(0, 0, (int)(11f * this.ClientRectangle.Width / 156),
-                (int)(this.ClientRectangle.Height));
-            e.Graphics.FillRectangle(new SolidBrush(basecolor), this.ClientRectangle);
+            Rectangle rct = new Rectangle(Point.Empty, this.ClientRectangle.Size);
+            Rectangle hrct = new Rectangle(0, 0, (int)(11f * this.ClientRectangle.Width / 156), this.ClientRectangle.Height);
             float z = realVal;
 
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
@@ -116,8 +109,6 @@ namespace ShapeMaker
                 e.Graphics.DrawImage(Properties.Resources.sliderHandleLit, preSpan,
                     Properties.Resources.sliderHandleLit.GetBounds(ref gu), GraphicsUnit.Pixel); ;
             }
-
-            //base.OnPaint(e);
         }
 
         private void dhScroll_MouseDown(object sender, MouseEventArgs e)
@@ -158,7 +149,9 @@ namespace ShapeMaker
 
         private void dhScroll_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!scrolling) return;
+            if (!scrolling)
+                return;
+
             gState = 3;
             float off = this.ClientSize.Width * .15f;
             float blip = this.ClientSize.Width * .1f;
@@ -172,6 +165,7 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
+
         private float adjustment()
         {
             float value = realVal * (maxvalue - minvalue) + minvalue;
@@ -181,11 +175,11 @@ namespace ShapeMaker
 
             return value;
         }
+
         private float readjustment(float value)
         {
             float v = (value > maxvalue) ? maxvalue : (value < minvalue) ? minvalue : value;
             return (v - minvalue) / (maxvalue - minvalue);
         }
     }
-
 }
