@@ -2,9 +2,6 @@
 {
     partial class BigKnobs
     {
-       ///
-       ///  Hey Nonny Nonny - EER was here!
-       /// 
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -41,7 +38,6 @@
             this.MinimumSize = new System.Drawing.Size(100, 100);
             this.Name = "BigKnobs";
             this.Size = new System.Drawing.Size(100, 100);
-            this.Load += new System.EventHandler(this.UserControl1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseUp);

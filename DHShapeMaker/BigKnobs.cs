@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace Controlz
 {
@@ -16,6 +11,7 @@ namespace Controlz
         {
             InitializeComponent();
         }
+
         float rtate = 0;
         float minvalue = 0;
         float maxvalue = 10;
@@ -28,7 +24,10 @@ namespace Controlz
 
         public float Value
         {
-            get { return adjustment(); }
+            get
+            {
+                return adjustment();
+            }
             set
             {
                 rtate = (value - minvalue) * span / (maxvalue - minvalue);
@@ -37,7 +36,10 @@ namespace Controlz
         }
         public float minValue
         {
-            get { return minvalue; }
+            get
+            {
+                return minvalue;
+            }
             set
             {
                 minvalue = (value < maxvalue) ? value : maxvalue - .1f;
@@ -46,17 +48,22 @@ namespace Controlz
         }
         public float maxValue
         {
-            get { return maxvalue; }
+            get
+            {
+                return maxvalue;
+            }
             set
             {
                 maxvalue = (value > minvalue) ? value : minvalue + .1f;
                 this.Refresh();
             }
         }
-
         public float Offset
         {
-            get { return offset; }
+            get
+            {
+                return offset;
+            }
             set
             {
                 offset = (value >= -10f) ? value : 0f;
@@ -65,37 +72,46 @@ namespace Controlz
         }
         public float Span
         {
-            get { return span; }
+            get
+            {
+                return span;
+            }
             set
             {
                 span = (value < 360) ? value : 359f;
                 this.Refresh();
             }
         }
-
         public float SpinRate
         {
-            get { return spinrate; }
+            get
+            {
+                return spinrate;
+            }
             set
             {
                 spinrate = (value < .3f) ? .3f : (value > 2f) ? 2f : value;
                 this.Refresh();
             }
         }
-
         public Image KnobBase
         {
-            get { return this.BottomImage; }
+            get
+            {
+                return this.BottomImage;
+            }
             set
             {
                 this.BottomImage = value;
                 this.Refresh();
             }
         }
-
         public Image KnobDial
         {
-            get { return this.MidImage; }
+            get
+            {
+                return this.MidImage;
+            }
             set
             {
                 this.MidImage = value;
@@ -104,7 +120,10 @@ namespace Controlz
         }
         public Image KnobTop
         {
-            get { return this.TopImage; }
+            get
+            {
+                return this.TopImage;
+            }
             set
             {
                 this.TopImage = value;
@@ -123,45 +142,43 @@ namespace Controlz
         private void BigKnobs_MouseDown(object sender, MouseEventArgs e)
         {
             rtating = true;
-            touchpoint = (float)Math.Atan2(e.Y - (float)this.ClientRectangle.Height / 2f,
-                    e.X - (float)this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
+            touchpoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
         }
 
         private void BigKnobs_MouseUp(object sender, MouseEventArgs e)
         {
-            if (rtating)
-            {
-                rtating = false;
-                OnValueChanged(adjustment());
-                this.Refresh();
-            }
+            if (!rtating)
+                return;
+
+            rtating = false;
+            OnValueChanged(adjustment());
+            this.Refresh();
         }
 
         private void BigKnobs_MouseMove(object sender, MouseEventArgs e)
         {
-            if (rtating)
+            if (!rtating)
+                return;
+
+            float movepoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
+
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                float movepoint = (float)Math.Atan2(e.Y - (float)this.ClientRectangle.Height / 2f,
-                    e.X - (float)this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
-
-                if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                {
-                    movepoint = (float)(Math.Round(movepoint / 15) * 15);
-                    rtate = (float)(Math.Round(rtate / 15) * 15);
-                }
-
-                float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
-
-                travel = (travel > 180) ? travel - 360f : travel;
-                travel *= spinrate;
-                rtate += travel;
-
-                rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
-
-                touchpoint = movepoint;
-                OnValueChanged(adjustment());
-                this.Refresh();
+                movepoint = (float)(Math.Round(movepoint / 15) * 15);
+                rtate = (float)(Math.Round(rtate / 15) * 15);
             }
+
+            float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
+
+            travel = (travel > 180) ? travel - 360f : travel;
+            travel *= spinrate;
+            rtate += travel;
+
+            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+
+            touchpoint = movepoint;
+            OnValueChanged(adjustment());
+            this.Refresh();
         }
 
         private float adjustment()
@@ -171,61 +188,50 @@ namespace Controlz
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (MidImage != null)
+            if (MidImage == null)
+                return;
+
+            using (Bitmap bmp = new Bitmap(this.ClientRectangle.Width, this.ClientRectangle.Height))
             {
-                using (Bitmap bmp = new Bitmap((int)((float)this.ClientRectangle.Width),
-                    (int)((float)this.ClientRectangle.Height)))
+                using (Graphics g = Graphics.FromImage(bmp))
                 {
-
-                    using (Graphics g = Graphics.FromImage(bmp))
+                    SizeF rotsize = new SizeF(this.ClientRectangle.Size);
+                    RectangleF rct = new RectangleF(0, 0, this.ClientRectangle.Width * this.AutoScaleFactor.Width, this.ClientRectangle.Height);
+                    GraphicsUnit gu = GraphicsUnit.Pixel;
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    if (this.BottomImage != null)
                     {
-                        SizeF rotsize = new SizeF(this.ClientRectangle.Width ,
-                            this.ClientRectangle.Height);
-                        RectangleF rct = new RectangleF(0, 0, this.ClientRectangle.Width * this.AutoScaleFactor.Width,
-                            this.ClientRectangle.Height);
-                        GraphicsUnit gu = GraphicsUnit.Pixel;
-                        g.CompositingMode = CompositingMode.SourceOver;
-                        if (this.BottomImage != null)
-                        {
-                            g.DrawImage(this.BottomImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
-                        }
-                        else
-                        {
-                            g.FillRectangle(new SolidBrush(this.BackColor), this.ClientRectangle);
-                        }
-
-                        g.TranslateTransform(rotsize.Width / 2f, rotsize.Height / 2f);
-                        g.RotateTransform(rtate + offset);
-                        g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
-
-                        g.DrawImage(MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
-                        g.ResetTransform();
-
-                        if (TopImage != null) g.DrawImage(TopImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
-
+                        g.DrawImage(this.BottomImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
+                    }
+                    else
+                    {
+                        g.FillRectangle(new SolidBrush(this.BackColor), this.ClientRectangle);
                     }
 
-                    e.Graphics.DrawImage(bmp, 0, 0);
+                    g.TranslateTransform(rotsize.Width / 2f, rotsize.Height / 2f);
+                    g.RotateTransform(rtate + offset);
+                    g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
+
+                    g.DrawImage(MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
+                    g.ResetTransform();
+
+                    if (TopImage != null)
+                        g.DrawImage(TopImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
                 }
+                e.Graphics.DrawImage(bmp, 0, 0);
             }
-            //base.OnPaint(e);
+
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             if (this.MidImage == null)
             {
-
                 e.Graphics.FillRectangle(new SolidBrush(Color.Ivory), this.ClientRectangle);
             }
             else
             {
                 base.OnPaintBackground(e);
             }
-
-        }
-
-        private void UserControl1_Load(object sender, EventArgs e)
-        {
         }
     }
 }
