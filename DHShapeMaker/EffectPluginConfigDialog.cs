@@ -3710,78 +3710,62 @@ namespace ShapeMaker
 
         private void openProject_Click(object sender, EventArgs e)
         {
-            UnicodeEncoding uniEncoding = new UnicodeEncoding();
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
-                string fp = getMyProjectFolder();
-                bool loadConfirm = false;
-                OFD.InitialDirectory = fp;
+                OFD.InitialDirectory = getMyProjectFolder();
                 OFD.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
-                if (OFD.ShowDialog() == DialogResult.OK)
+
+                if (OFD.ShowDialog() != DialogResult.OK)
+                    return;
+
+                if (!File.Exists(OFD.FileName))
                 {
+                    MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    if (File.Exists(OFD.FileName))
+                saveMyProjectFolder(OFD.FileName);
+
+                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+                try
+                {
+                    using (FileStream stream = File.OpenRead(OFD.FileName))
                     {
-                        saveMyProjectFolder(OFD.FileName);
+                        ArrayList projectPaths = (ArrayList)ser.Deserialize(stream);
 
-                        XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                        try
-                        {
-
-                            Array.Resize(ref canvasPoints, 0);
-                            Lines.Clear();
-                            using (FileStream stream = File.OpenRead(OFD.FileName))
-                            {
-
-                                Lines = (ArrayList)ser.Deserialize(stream);
-                            }
-                            FigureName.Text = (Lines[Lines.Count - 1] as PData).Meta;
-                            SolidFillMenuItem.Checked = (Lines[Lines.Count - 1] as PData).SolidFill;
-                            LineList.Items.Clear();
-                            if (Lines.Count != 0)
-                            {
-                                for (int i = 0; i < Lines.Count; i++)
-                                {
-                                    LineList.Items.Add(LineNames[(Lines[i] as PData).LineType]);
-
-                                }
-                                loadConfirm = true;
-                            }
-                            else
-                            {
-                                loadConfirm = false;
-                            }
-
-                        }
-                        catch (Exception myE)
-                        {
-                            MessageBox.Show("Incorrect Format\r\n" + myE.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        if (loadConfirm)
-                        {
-                            UDCount = 0;
-                            UDPointer = 0;
-                            undoToolStripMenuItem.Enabled = false;
-                            resetRotation();
-                            ZoomToFactor(1);
-                        }
-                        else
+                        if (projectPaths.Count == 0)
                         {
                             MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
 
+                        Array.Resize(ref canvasPoints, 0);
+
+                        Lines.Clear();
+                        Lines = projectPaths;
+
+                        LineList.Items.Clear();
+                        for (int i = 0; i < Lines.Count; i++)
+                            LineList.Items.Add(LineNames[(Lines[i] as PData).LineType]);
+
+                        FigureName.Text = (Lines[Lines.Count - 1] as PData).Meta;
+                        SolidFillMenuItem.Checked = (Lines[Lines.Count - 1] as PData).SolidFill;
+
+                        UDCount = 0;
+                        UDPointer = 0;
+                        undoToolStripMenuItem.Enabled = false;
+                        resetRotation();
+                        ZoomToFactor(1);
+                        canvas.Refresh();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            canvas.Refresh();
         }
 
         private void saveProject_Click(object sender, EventArgs e)
