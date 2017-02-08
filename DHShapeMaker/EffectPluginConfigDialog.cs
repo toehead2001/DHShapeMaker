@@ -213,7 +213,7 @@ namespace ShapeMaker
             statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
             statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
 
-            statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
+            statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
         }
 
         private void PosBarsTimer_Tick(object sender, EventArgs e)
@@ -1061,7 +1061,7 @@ namespace ShapeMaker
         private void StatusBarNubLocation(int x, int y)
         {
             int zoomFactor = canvas.Width / canvasBaseSize;
-            statusLabelLocation.Text = string.Format("{0}, {1}", Math.Round(x / (float)zoomFactor / DPI), Math.Round(y / (float)zoomFactor / DPI));
+            statusLabelLocation.Text = $"{Math.Round(x / (float)zoomFactor / DPI)}, {Math.Round(y / (float)zoomFactor / DPI)}";
             statusStrip1.Refresh();
         }
 
@@ -1706,7 +1706,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show("Too Many Paths in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             resetRotation();
 
@@ -1766,7 +1766,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Too Many Lines in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
             }
@@ -1846,9 +1846,9 @@ namespace ShapeMaker
                 {
                     if (index > 0) strPath += " ";
                     strPath += "M ";
-                    strPath += string.Format("{0:0.##}", x);
+                    strPath += $"{x:0.##}";
                     strPath += ",";
-                    strPath += string.Format("{0:0.##}", y); //((int)y).ToString();
+                    strPath += $"{y:0.##}";
                 }
                 switch (lt)
                 {
@@ -1858,9 +1858,9 @@ namespace ShapeMaker
                         {
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            strPath += string.Format("{0:0.##}", x);
+                            strPath += $"{x:0.##}";
                             strPath += ",";
-                            strPath += string.Format("{0:0.##}", y); //((int)y).ToString();
+                            strPath += $"{y:0.##}";
                             if (i < line.Length - 1) strPath += ",";
 
                         }
@@ -1881,20 +1881,21 @@ namespace ShapeMaker
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
-                        strPath += string.Format("{0:0.##}", l);
+                        strPath += $"{l:0.##}";
                         strPath += ",";
-                        strPath += string.Format("{0:0.##}", h);
+                        strPath += $"{h:0.##}";
                         strPath += ",";
-                        strPath += string.Format("{0:0.##}", a);
+                        strPath += $"{a:0.##}";
                         strPath += ",";
-                        strPath += string.Format("{0:0}", b);
+                        strPath += $"{b:0}";
                         strPath += ",";
-                        strPath += string.Format("{0:0}", s);
+                        strPath += $"{s:0}";
                         strPath += ",";
-                        strPath += string.Format("{0:0.##}", pts[4].X);
+                        strPath += $"{pts[4].X:0.##}";
                         strPath += ",";
-                        strPath += string.Format("{0:0.##}", pts[4].Y);
-                        oldx = pts[4].X; oldy = pts[4].Y;
+                        strPath += $"{pts[4].Y:0.##}";
+                        oldx = pts[4].X;
+                        oldy = pts[4].Y;
                         break;
                     case (int)LineTypes.Cubic:
                         strPath += " C ";
@@ -1902,9 +1903,9 @@ namespace ShapeMaker
                         {
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            strPath += string.Format("{0:0.##}", x);
+                            strPath += $"{x:0.##}";
                             strPath += ",";
-                            strPath += string.Format("{0:0.##}", y);
+                            strPath += $"{y:0.##}";
                             if (i < line.Length - 1) strPath += ",";
                             oldx = x; oldy = y;
                         }
@@ -1918,9 +1919,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += string.Format("{0:0.##}", x);
+                                strPath += $"{x:0.##}";
                                 strPath += ",";
-                                strPath += string.Format("{0:0.##}", y);
+                                strPath += $"{y:0.##}";
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -1935,9 +1936,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += string.Format("{0:0.##}", x);
+                                strPath += $"{x:0.##}";
                                 strPath += ",";
-                                strPath += string.Format("{0:0.##}", y);
+                                strPath += $"{y:0.##}";
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -1951,9 +1952,9 @@ namespace ShapeMaker
                             {
                                 x = Width * line[i].X;
                                 y = Height * line[i].Y;
-                                strPath += string.Format("{0:0.##}", x);
+                                strPath += $"{x:0.##}";
                                 strPath += ",";
-                                strPath += string.Format("{0:0.##}", y);
+                                strPath += $"{y:0.##}";
                                 if (i < line.Length - 1) strPath += ",";
                                 oldx = x; oldy = y;
                             }
@@ -2010,16 +2011,15 @@ namespace ShapeMaker
                 //if (oldLt != lt || (x != oldx || y != oldy))
                 if (index == 0)
                 {
-
-                    strPath += "\t\t\t\t" + ShapeMaker.Properties.Resources.PGMove + "\r\n";
-                    strPath = strPath.Replace("~1", string.Format("{0:0.##},{1:0.##}", x, y));
+                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
+                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
                 else if (currentPath.ClosedType || (x != oldx || y != oldy))//mod 091515
                 {
                     strPath = strPath.Replace("~0", "False");
                     strPath += "\t\t\t\t</PathFigure>\r\n";
-                    strPath += "\t\t\t\t" + ShapeMaker.Properties.Resources.PGMove + "\r\n";
-                    strPath = strPath.Replace("~1", string.Format("{0:0.##},{1:0.##}", x, y));
+                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
+                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
                 switch (lt)
                 {
@@ -2028,10 +2028,10 @@ namespace ShapeMaker
                         tmpstr = string.Empty;
                         for (int i = 1; i < line.Length; i++)
                         {
-                            strPath += "\t\t\t\t\t" + ShapeMaker.Properties.Resources.PGLine + "\r\n";
+                            strPath += $"\t\t\t\t\t{Properties.Resources.PGLine}\r\n";
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = $"{x:0.##},{y:0.##}";
 
                             strPath = strPath.Replace("~1", tmpstr);
                         }
@@ -2039,7 +2039,7 @@ namespace ShapeMaker
                         oldx = x; oldy = y;
                         break;
                     case (int)LineTypes.Ellipse:
-                        strPath += "\t\t\t\t\t" + ShapeMaker.Properties.Resources.PGEllipse + "\r\n";
+                        strPath += $"\t\t\t\t\t{Properties.Resources.PGEllipse}\r\n";
                         PointF[] pts = new PointF[line.Length];
                         for (int i = 0; i < line.Length; i++)
                         {
@@ -2054,15 +2054,15 @@ namespace ShapeMaker
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
 
-                        tmpstr = string.Format("{0:0.##}", l);
+                        tmpstr = $"{l:0.##}";
                         tmpstr += ",";
-                        tmpstr += string.Format("{0:0.##}", h);
+                        tmpstr += $"{h:0.##}";
                         strPath = strPath.Replace("~1", tmpstr);
-                        strPath = strPath.Replace("~2", string.Format("{0:0.##}", a));
+                        strPath = strPath.Replace("~2", $"{a:0.##}");
                         strPath = strPath.Replace("~3", (b == 1) ? "True" : "False");
                         strPath = strPath.Replace("~4", (s == 1) ? "Clockwise" : "CounterClockwise");
 
-                        tmpstr = string.Format("{0:0.##},{1:0.##}", pts[4].X, pts[4].Y);
+                        tmpstr = $"{pts[4].X:0.##},{pts[4].Y:0.##}";
                         strPath = strPath.Replace("~5", tmpstr);
                         oldx = pts[4].X; oldy = pts[4].Y;
                         break;
@@ -2072,12 +2072,12 @@ namespace ShapeMaker
                         for (int i = 1; i < line.Length - 1; i += 3)
                         {
 
-                            strPath += "\t\t\t\t\t" + ShapeMaker.Properties.Resources.PGBezier + "\r\n";
+                            strPath += $"\t\t\t\t\t{Properties.Resources.PGBezier}\r\n";
                             for (int j = 0; j < 3; j++)
                             {
                                 x = Width * line[j + i].X;
                                 y = Height * line[j + i].Y;
-                                tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
+                                tmpstr = $"{x:0.##},{y:0.##}";
                                 strPath = strPath.Replace(repstr[j], tmpstr);
                             }
                         }
@@ -2089,15 +2089,15 @@ namespace ShapeMaker
 
                         for (int i = 1; i < line.Length - 1; i += 3)
                         {
-                            strPath += "\t\t\t\t\t" + ShapeMaker.Properties.Resources.PQQuad + "\r\n";
+                            strPath += $"\t\t\t\t\t{Properties.Resources.PQQuad}\r\n";
 
                             x = Width * line[i].X;
                             y = Height * line[i].Y;
-                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = $"{x:0.##},{y:0.##}";
                             strPath = strPath.Replace("~1", tmpstr);
                             x = Width * line[i + 2].X;
                             y = Height * line[i + 2].Y;
-                            tmpstr = string.Format("{0:0.##},{1:0.##}", x, y);
+                            tmpstr = $"{x:0.##},{y:0.##}";
                             strPath = strPath.Replace("~2", tmpstr);
 
                         }
@@ -2453,7 +2453,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show("Too Many Lines in List (Max " + maxPaths + ")", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
         }
@@ -2510,13 +2510,13 @@ namespace ShapeMaker
         private void ClearAll()
         {
             Array.Resize(ref canvasPoints, 0);
-            statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
+            statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
             statusLabelLocation.Text = "0, 0";
 
             if (LineList.Items.Count == 0) return;
             Lines.Clear();
             LineList.Items.Clear();
-            statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
+            statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
 
             canvas.Refresh();
         }
@@ -2754,7 +2754,7 @@ namespace ShapeMaker
 
         private void SpinLine_ValueChanged(object sender, float e)
         {
-            toolTip1.SetToolTip((sender as BigKnobs), string.Format("{0:0.0}\u00B0", e - 180f));
+            toolTip1.SetToolTip((sender as BigKnobs), $"{e - 180f:0.0}\u00B0");
 
             double rad = (double)(lastRot - e) * Math.PI / 180;
             lastRot = e;
@@ -2810,7 +2810,7 @@ namespace ShapeMaker
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
         {
             setUndo();
-            toolTip1.Show(string.Format("{0:0.0}\u00B0", SpinLine.Value), (sender as BigKnobs));
+            toolTip1.Show($"{SpinLine.Value:0.0}\u00B0", (sender as BigKnobs));
         }
 
         private void LineLoop_Click(object sender, EventArgs e)
@@ -2861,8 +2861,8 @@ namespace ShapeMaker
 
             if (countflag || canvasPoints.Length > 0 || LineList.Items.Count > 0)
             {
-                statusLabelNubsUsed.Text = string.Format("{0}/{1} Nubs used", canvasPoints.Length, maxpoint);
-                statusLabelPathsUsed.Text = string.Format("{0}/{1} Paths used", LineList.Items.Count, maxPaths);
+                statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
+                statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
             }
 
             if (LineList.SelectedIndex == -1) isNewPath = true;
@@ -3393,7 +3393,6 @@ namespace ShapeMaker
             {
                 if (File.Exists(dest))
                 {
-
                     Process.Start(dest);
                 }
                 else
@@ -3406,7 +3405,7 @@ namespace ShapeMaker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to open the Help Page\r\n" + ex.Message + "\r\n" + dest, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Unable to open the Help Page\r\n{ex.Message}\r\n{dest}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3939,7 +3938,7 @@ namespace ShapeMaker
             }
             canvas.Refresh();
 
-            splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
+            splitButtonZoom.Text = $"Zoom {zoomFactor}x";
 
             // Update Position Bars
             posBarsTimer.Stop();
@@ -4009,7 +4008,7 @@ namespace ShapeMaker
             }
             canvas.Refresh();
 
-            splitButtonZoom.Text = string.Format("Zoom {0}x", zoomFactor);
+            splitButtonZoom.Text = $"Zoom {zoomFactor}x";
 
             posBarsTimer.Stop();
             posBarsTimer.Start();
@@ -4075,7 +4074,7 @@ namespace ShapeMaker
         private void scaleSlider_ValueChanged(object sender, float e)
         {
             float scale = e;
-            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scale));
+            toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
 
             if (scale > 1 && !InView())
                 return;
@@ -4113,14 +4112,14 @@ namespace ShapeMaker
             if (canvasPoints.Length > 1 || LineList.Items.Count > 0)
                 setUndo();
 
-            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scaleSlider.Value));
+            toolTip1.SetToolTip(scaleSlider, $"{scaleSlider.Value:0.00}x");
         }
 
         private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
         {
             scaleSlider.ValueChanged -= scaleSlider_ValueChanged;
             scaleSlider.Value = 1;
-            toolTip1.SetToolTip(scaleSlider, string.Format("{0:0.00}x", scaleSlider.Value));
+            toolTip1.SetToolTip(scaleSlider, $"{scaleSlider.Value:0.00}x");
             scaleSlider.ValueChanged += scaleSlider_ValueChanged;
         }
 
