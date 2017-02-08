@@ -1089,18 +1089,19 @@ namespace ShapeMaker
 
         private PointF movePoint(PointF orig, PointF dest, PointF target)
         {
-            float x3, y3;
-            x3 = target.X + (dest.X - orig.X);
-            y3 = target.Y + (dest.Y - orig.Y);
-            return new PointF(x3, y3);
+            return new PointF
+            {
+                X = target.X + (dest.X - orig.X),
+                Y = target.Y + (dest.Y - orig.Y)
+            };
         }
 
         private int getNubType(int nubIndex)
         {
-            if (nubIndex == 0) return 0;//base
+            if (nubIndex == 0)
+                return 0;//base
 
             return ((nubIndex - 1) % 3) + 1;//1 =ctl1,2=ctl2, 3= end point;
-
         }
 
         private void loadRadio()
@@ -1117,7 +1118,8 @@ namespace ShapeMaker
         {
             for (int i = 0; i < radios.Length; i++)
             {
-                if (radios[i].Checked) return i;
+                if (radios[i].Checked)
+                    return i;
             }
             return 0;
         }
@@ -1564,10 +1566,11 @@ namespace ShapeMaker
 
         private PointF reverseAverage(PointF p1, PointF p2)
         {
-            float x3, y3;
-            x3 = p2.X * 2f - p1.X;
-            y3 = p2.Y * 2f - p1.Y;
-            return new PointF(x3, y3);
+            return new PointF
+            {
+                X = p2.X * 2f - p1.X,
+                Y = p2.Y * 2f - p1.Y
+            };
         }
 
         private PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
@@ -1665,7 +1668,7 @@ namespace ShapeMaker
                     canvasPoints[1] = canvasPoints[0];
                     canvasPoints[2] = canvasPoints[4];
                     canvasPoints[3] = mid;
-                    Lines.Add(new PData(canvasPoints, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
+                    Lines.Add(new PData(canvasPoints, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, false));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
                     PointF[] tmp = new PointF[canvasPoints.Length];
                     //fix
@@ -1675,7 +1678,7 @@ namespace ShapeMaker
                     tmp[1] = tmp[0];
                     tmp[2] = tmp[4];
                     //test below
-                    Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", true));
+                    Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, true));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
 
                 }
@@ -1690,14 +1693,14 @@ namespace ShapeMaker
                         tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
                         tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
                         tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
-                        Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, "", false));
+                        Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, false));
                         LineList.Items.Add(LineNames[getPathType()]);
                     }
 
                 }
                 else
                 {
-                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
+                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
                     LineList.Items.Add(LineNames[getPathType()]);
                 }
             }
@@ -1757,7 +1760,7 @@ namespace ShapeMaker
                     PointF[] tmp = new PointF[canvasPoints.Length];
                     Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
-                    Lines.Add(new PData(tmp, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, "", MPMode.Checked));
+                    Lines.Add(new PData(tmp, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
                     LineList.Items.Add(LineNames[getPathType()]);
                     LineList.SelectedIndex = LineList.Items.Count - 1;
                 }
@@ -2444,7 +2447,7 @@ namespace ShapeMaker
         {
             if (Lines.Count < maxPaths)
             {
-                Lines.Add(new PData(pbpoint, closedType, lineType, islarge, revsweep, "", mpmtype));
+                Lines.Add(new PData(pbpoint, closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
                 LineList.Items.Add(LineNames[lineType]);
 
             }
@@ -2546,14 +2549,14 @@ namespace ShapeMaker
                 if (r)
                 {
                     Clipboard.SetText(TMP);
-                    MessageBox.Show("SVG Copied to Clipboard", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Copy Error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Copy Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else { MessageBox.Show("Nothing to Copy", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            else { MessageBox.Show("Nothing to Copy", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void Undo_Click(object sender, EventArgs e)
@@ -2933,7 +2936,7 @@ namespace ShapeMaker
                     string output = ShapeMaker.Properties.Resources.BaseString;
                     string figure = FigureName.Text;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    figure = rgx.Replace(figure, "");
+                    figure = rgx.Replace(figure, string.Empty);
                     figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
                     output = output.Replace("~1", figure);
                     output = output.Replace("~2", TMP);
@@ -2976,7 +2979,7 @@ namespace ShapeMaker
                     string output = ShapeMaker.Properties.Resources.PGBaseString;
                     string figure = FigureName.Text;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    figure = rgx.Replace(figure, "");
+                    figure = rgx.Replace(figure, string.Empty);
                     figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
                     output = output.Replace("~1", figure);
                     output = output.Replace("~2", TMP);
@@ -3798,7 +3801,7 @@ namespace ShapeMaker
                     //string output = ShapeMaker.Properties.Resources.BaseString;
                     string figure = FigureName.Text;
                     Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    figure = rgx.Replace(figure, "");
+                    figure = rgx.Replace(figure, string.Empty);
                     figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
                     //output = output.Replace("~1", figure);
                     //output = output.Replace("~2", TMP);
@@ -3825,10 +3828,10 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    MessageBox.Show("Save Error", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else { MessageBox.Show("Nothing to Save", "", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            else { MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
