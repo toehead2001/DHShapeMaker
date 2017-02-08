@@ -3960,11 +3960,11 @@ namespace ShapeMaker
             // Clamp the canvas location; we're not overscrolling... yet
             int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
             int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
-            Zoomed.X = Clamp(Zoomed.X, minX, maxX);
+            Zoomed.X.Clamp(minX, maxX);
 
             int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
             int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
-            Zoomed.Y = Clamp(Zoomed.Y, minY, maxY);
+            Zoomed.Y.Clamp(minY, maxY);
 
 
             // to avoid flicker, the order of execution is important
@@ -3991,11 +3991,6 @@ namespace ShapeMaker
             horPosBar.Refresh();
 
             base.OnMouseWheel(e);
-        }
-
-        private static int Clamp(int value, int min, int max)
-        {
-            return (value < min) ? min : (value > max) ? max : value;
         }
 
         private void verPosBar_Paint(object sender, PaintEventArgs e)
