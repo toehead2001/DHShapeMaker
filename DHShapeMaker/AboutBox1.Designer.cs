@@ -135,7 +135,6 @@
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
-            this.okButton.UseVisualStyleBackColor = false;
             // 
             // AboutBox1
             // 
