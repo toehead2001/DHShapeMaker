@@ -2673,37 +2673,36 @@ namespace ShapeMaker
 
         private void FlipLines(int index)
         {
-            int si = index;
-            if (si > -1)
-            {
-                PData pd1 = (Lines[si] as PData);
-                string LineTxt1 = LineList.Items[si].ToString();
-                PointF[] tmp1 = new PointF[pd1.Lines.Length];
-                Array.Copy(pd1.Lines, tmp1, pd1.Lines.Length);
-                int tmpType1 = pd1.LineType;
-                bool tmpClosed1 = pd1.ClosedType;
-                bool tmpIsLarge1 = pd1.IsLarge;
-                bool tmpRevSweep1 = pd1.RevSweep;
-                string tmpAlias1 = pd1.Alias;
+            if (index == -1)
+                return;
 
-                PData pd2 = (Lines[si + 1] as PData);
-                string LineTxt2 = LineList.Items[si + 1].ToString();
-                PointF[] tmp2 = new PointF[pd2.Lines.Length];
-                Array.Copy(pd2.Lines, tmp2, pd2.Lines.Length);
-                int tmpType2 = pd2.LineType;
-                bool tmpClosed2 = pd2.ClosedType;
-                bool tmpIsLarge2 = pd2.IsLarge;
-                bool tmpRevSweep2 = pd2.RevSweep;
-                string tmpAlias2 = pd2.Alias;
-                bool tmpMPMode2 = pd2.LoopBack;
-                LineList.Items[si] = LineTxt2;
+            PData pd1 = (Lines[index] as PData);
+            string LineTxt1 = LineList.Items[index].ToString();
+            PointF[] tmp1 = new PointF[pd1.Lines.Length];
+            Array.Copy(pd1.Lines, tmp1, pd1.Lines.Length);
+            int tmpType1 = pd1.LineType;
+            bool tmpClosed1 = pd1.ClosedType;
+            bool tmpIsLarge1 = pd1.IsLarge;
+            bool tmpRevSweep1 = pd1.RevSweep;
+            string tmpAlias1 = pd1.Alias;
 
-                Lines[si] = new PData(tmp2, tmpClosed2, tmpType2, tmpIsLarge2, tmpRevSweep2, tmpAlias2, tmpMPMode2);
+            PData pd2 = (Lines[index + 1] as PData);
+            string LineTxt2 = LineList.Items[index + 1].ToString();
+            PointF[] tmp2 = new PointF[pd2.Lines.Length];
+            Array.Copy(pd2.Lines, tmp2, pd2.Lines.Length);
+            int tmpType2 = pd2.LineType;
+            bool tmpClosed2 = pd2.ClosedType;
+            bool tmpIsLarge2 = pd2.IsLarge;
+            bool tmpRevSweep2 = pd2.RevSweep;
+            string tmpAlias2 = pd2.Alias;
+            bool tmpMPMode2 = pd2.LoopBack;
+            LineList.Items[index] = LineTxt2;
 
-                LineList.Items[si + 1] = LineTxt1;
+            Lines[index] = new PData(tmp2, tmpClosed2, tmpType2, tmpIsLarge2, tmpRevSweep2, tmpAlias2, tmpMPMode2);
 
-                Lines[si + 1] = new PData(tmp1, tmpClosed1, tmpType1, tmpIsLarge1, tmpRevSweep1, tmpAlias1, tmpMPMode2);
-            }
+            LineList.Items[index + 1] = LineTxt1;
+
+            Lines[index + 1] = new PData(tmp1, tmpClosed1, tmpType1, tmpIsLarge1, tmpRevSweep1, tmpAlias1, tmpMPMode2);
         }
 
         private void DNList_Click(object sender, EventArgs e)
