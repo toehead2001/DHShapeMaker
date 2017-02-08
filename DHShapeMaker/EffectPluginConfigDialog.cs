@@ -3018,56 +3018,57 @@ namespace ShapeMaker
         {
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
-                string fp = getMyFolder();
-                string data;
-                string[] d;
-                bool loadConfirm = false;
-                OFD.InitialDirectory = fp;
+                OFD.InitialDirectory = getMyFolder();
                 OFD.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
-                if (OFD.ShowDialog() == DialogResult.OK)
+
+                if (OFD.ShowDialog() != DialogResult.OK)
+                    return;
+
+                if (!File.Exists(OFD.FileName))
                 {
-
-                    if (File.Exists(OFD.FileName))
-                    {
-                        ZoomToFactor(1);
-                        setUndo();
-                        saveMyFolder(OFD.FileName);
-                        using (StreamReader reader = new StreamReader(OFD.FileName))
-                        {
-                            data = reader.ReadToEnd();
-                            d = data.Split(new char[] { '"' });
-                        }
-                        for (int i = 1; i < d.Length; i++)
-                        {
-                            if (d[i - 1].Contains("DisplayName="))
-                            {
-                                data = d[i];
-                                FigureName.Text = data;
-                            }
-
-                            if (d[i - 1].Contains("Geometry="))
-                            {
-                                data = d[i];
-                                try
-                                {
-                                    parsePathData(data);
-                                    loadConfirm = true;
-                                }
-                                catch { MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-                                break;
-                            }
-                        }
-                        if (!loadConfirm) MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
+                    MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                saveMyFolder(OFD.FileName);
+                ZoomToFactor(1);
+                setUndo();
+
+                string data;
+                string[] d;
+                using (StreamReader reader = new StreamReader(OFD.FileName))
+                {
+                    data = reader.ReadToEnd();
+                    d = data.Split(new char[] { '"' });
+                }
+                bool loadConfirm = false;
+                for (int i = 1; i < d.Length; i++)
+                {
+                    if (d[i - 1].Contains("DisplayName="))
+                    {
+                        data = d[i];
+                        FigureName.Text = data;
+                    }
+
+                    if (d[i - 1].Contains("Geometry="))
+                    {
+                        data = d[i];
+                        try
+                        {
+                            parsePathData(data);
+                            loadConfirm = true;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
+                    }
+                }
+                if (!loadConfirm)
+                    MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
