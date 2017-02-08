@@ -2964,54 +2964,54 @@ namespace ShapeMaker
 
         private void ExportPG_Click(object sender, EventArgs e)
         {
-            if (Lines.Count > 0)
+            if (Lines.Count == 0)
             {
-                string TMP = string.Empty;
-                bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
-                if (r)
-                {
-                    ZoomToFactor(1);
-                    string output = ShapeMaker.Properties.Resources.PGBaseString;
-                    string figure = FigureName.Text;
-                    Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-                    figure = rgx.Replace(figure, string.Empty);
-                    figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
-                    output = output.Replace("~1", figure);
-                    output = output.Replace("~2", TMP);
-                    if (SolidFillMenuItem.Checked)
-                    {
-                        output = output.Replace("~3", "Nonzero");
-                    }
-                    else
-                    {
-                        output = output.Replace("~3", "EvenOdd");
-                    }
-
-                    using (SaveFileDialog sfd = new SaveFileDialog())
-                    {
-                        sfd.FileName = figure;
-                        sfd.InitialDirectory = getMyFolder();
-                        sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
-                        sfd.FilterIndex = 1;
-                        sfd.AddExtension = true;
-
-                        if (sfd.ShowDialog() == DialogResult.OK)
-                        {
-                            using (StreamWriter writer = new StreamWriter(sfd.FileName))
-                            {
-                                writer.Write(output);
-                            }
-                            MessageBox.Show("PathGeometry XAML Saved");
-                            saveMyFolder(sfd.FileName);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Save Error");
-                }
+                MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else { MessageBox.Show("Nothing to Save"); }
+
+            string TMP = string.Empty;
+            bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            if (!r)
+            {
+                MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ZoomToFactor(1);
+            string output = Properties.Resources.PGBaseString;
+            string figure = FigureName.Text;
+            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+            figure = rgx.Replace(figure, string.Empty);
+            figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
+            output = output.Replace("~1", figure);
+            output = output.Replace("~2", TMP);
+            if (SolidFillMenuItem.Checked)
+            {
+                output = output.Replace("~3", "Nonzero");
+            }
+            else
+            {
+                output = output.Replace("~3", "EvenOdd");
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.FileName = figure;
+                sfd.InitialDirectory = getMyFolder();
+                sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
+                sfd.FilterIndex = 1;
+                sfd.AddExtension = true;
+
+                if (sfd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                saveMyFolder(sfd.FileName);
+
+                using (StreamWriter writer = new StreamWriter(sfd.FileName))
+                    writer.Write(output);
+                MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void importPdnShape_Click(object sender, EventArgs e)
