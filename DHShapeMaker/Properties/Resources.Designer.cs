@@ -61,16 +61,6 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap APPTESTUP {
-            get {
-                object obj = ResourceManager.GetObject("APPTESTUP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
         ///                        xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;                 
         ///                        DisplayName=&quot;~1&quot;
@@ -99,46 +89,6 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap blank2 {
             get {
                 object obj = ResourceManager.GetObject("blank2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DESLCTUP {
-            get {
-                object obj = ResourceManager.GetObject("DESLCTUP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DnList {
-            get {
-                object obj = ResourceManager.GetObject("DnList", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Draw_on_canvas_ss {
-            get {
-                object obj = ResourceManager.GetObject("Draw_on_canvas_ss", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Fit_background_ss {
-            get {
-                object obj = ResourceManager.GetObject("Fit_background_ss", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -179,16 +129,6 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap NewUI {
             get {
                 object obj = ResourceManager.GetObject("NewUI", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap OKTESTUP {
-            get {
-                object obj = ResourceManager.GetObject("OKTESTUP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -282,16 +222,6 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap sliderHandleLit {
             get {
                 object obj = ResourceManager.GetObject("sliderHandleLit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap UpList {
-            get {
-                object obj = ResourceManager.GetObject("UpList", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
