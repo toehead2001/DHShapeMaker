@@ -182,21 +182,6 @@ namespace ShapeMaker
                     }
                 }
             }
-            this.BackColor = BackColorConst;
-            foreach (Control c in this.Controls)
-            {
-                PropertyInfo[] p = c.GetType().GetProperties();
-                foreach (PropertyInfo pi in p)
-                {
-                    if (pi.Name.Equals("BackColor"))
-                    {
-                        if (!c.BackColor.Equals(Color.White) &&
-                            !c.BackColor.Equals(Color.Transparent) &&
-                            !c.BackColor.Equals(SystemColors.Window))
-                            c.BackColor = BackColorConst;
-                    }
-                }
-            }
             toolTip1.ReshowDelay = 0;
             toolTip1.AutomaticDelay = 0;
             toolTip1.AutoPopDelay = 0;
@@ -3560,123 +3545,9 @@ namespace ShapeMaker
 
         }
 
-        private void GenericBtn_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right) (sender as Button).PerformClick();
-
-            (sender as Button).Tag = 1;
-            (sender as Button).Refresh();
-        }
-
-        private void GenericBtn_MouseUp(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Tag = 0;
-            (sender as Button).Refresh();
-        }
-
-        private void ApplyBtn_Paint(object sender, PaintEventArgs e)
-        {
-            Button s = (sender as Button);
-            int z = Convert.ToInt32(s.Tag);
-            if (!ApplyBtn.Enabled) z = 2;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            Size sz = ShapeMaker.Properties.Resources.APPTESTUP.Size;
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.APPTESTUP,
-               s.ClientRectangle,
-                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void ClearBtn_Paint(object sender, PaintEventArgs e)
-        {
-            Button s = (sender as Button);
-            int z = Convert.ToInt32(s.Tag);
-            if (!ClearBtn.Enabled)
-            {
-                z = 2;
-                s.Tag = "0";
-            }
-            Size sz = ShapeMaker.Properties.Resources.DESLCTUP.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.DESLCTUP,
-                s.ClientRectangle,
-                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void upList_Paint(object sender, PaintEventArgs e)
-        {
-            Button s = (sender as Button);
-            int z = Convert.ToInt32(s.Tag);
-            if (!upList.Enabled) z = 2;
-            Size sz = ShapeMaker.Properties.Resources.UpList.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.UpList,
-                s.ClientRectangle,
-                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void DNList_Paint(object sender, PaintEventArgs e)
-        {
-            Button s = (sender as Button);
-            int z = Convert.ToInt32(s.Tag);
-            if (!DNList.Enabled) z = 2;
-            Size sz = ShapeMaker.Properties.Resources.DnList.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.DnList,
-                s.ClientRectangle, new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void buttonOK_Paint(object sender, PaintEventArgs e)
-        {
-            Button s = (sender as Button);
-            int z = Convert.ToInt32(s.Tag);
-            Size sz = ShapeMaker.Properties.Resources.OKTESTUP.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.OKTESTUP,
-                s.ClientRectangle,
-                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
         private void opaque_ValueChanged(object sender, float e)
         {
             canvas.Refresh();
-        }
-
-        private void FitBG_Paint(object sender, PaintEventArgs e)
-        {
-            CheckBox s = (sender as CheckBox);
-            CheckBoxRenderer.DrawParentBackground(e.Graphics, s.ClientRectangle, s);
-            int z = 0;
-            if (s.Checked) z = 1;
-            Size sz = ShapeMaker.Properties.Resources.Fit_background_ss.Size;
-            e.Graphics.FillRectangle(new SolidBrush(BackColorConst), this.ClientRectangle);
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.Fit_background_ss,
-               s.ClientRectangle,
-               new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-
-        }
-
-        private void DrawOnCanvas_Paint(object sender, PaintEventArgs e)
-        {
-            CheckBox s = (sender as CheckBox);
-            CheckBoxRenderer.DrawParentBackground(e.Graphics, s.ClientRectangle, s);
-            int z = 0;
-            if (s.Checked) z = 1;
-            Size sz = ShapeMaker.Properties.Resources.Draw_on_canvas_ss.Size;
-            e.Graphics.DrawImage(ShapeMaker.Properties.Resources.Draw_on_canvas_ss,
-                s.ClientRectangle,
-                new Rectangle(z * sz.Width / 3, 0, sz.Width / 3,
-                   sz.Height), GraphicsUnit.Pixel);
-        }
-
-        private void upList_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right) upList_Click(sender, new EventArgs());
         }
 
         private void tool_MouseDown(object sender, MouseEventArgs e)
@@ -3700,12 +3571,6 @@ namespace ShapeMaker
             }
 
             if (e.Button == MouseButtons.Right) (sender as ToolStripMenuItem).PerformClick();
-        }
-
-        private void twoX_MouseDown(object sender, MouseEventArgs e)
-        {
-            CheckBox c = (sender as CheckBox);
-            if (e.Button == MouseButtons.Right) c.Checked = !c.Checked;
         }
 
         private void openProject_Click(object sender, EventArgs e)

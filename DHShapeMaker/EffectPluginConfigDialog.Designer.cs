@@ -742,54 +742,34 @@
             // FitBG
             // 
             this.FitBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FitBG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.FitBG.AutoSize = true;
             this.FitBG.Checked = true;
             this.FitBG.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FitBG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FitBG.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FitBG.ForeColor = System.Drawing.Color.Black;
-            this.FitBG.Location = new System.Drawing.Point(540, 515);
-            this.FitBG.MaximumSize = new System.Drawing.Size(80, 45);
-            this.FitBG.MinimumSize = new System.Drawing.Size(80, 45);
+            this.FitBG.Location = new System.Drawing.Point(541, 515);
             this.FitBG.Name = "FitBG";
-            this.FitBG.Size = new System.Drawing.Size(80, 45);
+            this.FitBG.Size = new System.Drawing.Size(105, 17);
             this.FitBG.TabIndex = 33;
             this.FitBG.Text = "Fit Background";
-            this.FitBG.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.toolTip1.SetToolTip(this.FitBG, "Scale Background Image");
-            this.FitBG.UseVisualStyleBackColor = false;
+            this.FitBG.UseVisualStyleBackColor = true;
             this.FitBG.CheckedChanged += new System.EventHandler(this.FitBG_CheckedChanged);
-            this.FitBG.Paint += new System.Windows.Forms.PaintEventHandler(this.FitBG_Paint);
-            this.FitBG.MouseDown += new System.Windows.Forms.MouseEventHandler(this.twoX_MouseDown);
             // 
             // DrawOnCanvas
             // 
             this.DrawOnCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DrawOnCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
-            this.DrawOnCanvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.DrawOnCanvas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DrawOnCanvas.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DrawOnCanvas.ForeColor = System.Drawing.Color.Black;
-            this.DrawOnCanvas.Location = new System.Drawing.Point(728, 464);
+            this.DrawOnCanvas.AutoSize = true;
+            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 531);
             this.DrawOnCanvas.Name = "DrawOnCanvas";
-            this.DrawOnCanvas.Size = new System.Drawing.Size(80, 45);
+            this.DrawOnCanvas.Size = new System.Drawing.Size(109, 17);
             this.DrawOnCanvas.TabIndex = 33;
             this.DrawOnCanvas.Text = "Draw on Canvas";
-            this.DrawOnCanvas.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.toolTip1.SetToolTip(this.DrawOnCanvas, "Preview on Layer");
-            this.DrawOnCanvas.UseVisualStyleBackColor = false;
-            this.DrawOnCanvas.CheckedChanged += new System.EventHandler(this.FitBG_CheckedChanged);
-            this.DrawOnCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawOnCanvas_Paint);
-            this.DrawOnCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.twoX_MouseDown);
+            this.DrawOnCanvas.UseVisualStyleBackColor = true;
             // 
             // ApplyBtn
             // 
             this.ApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ApplyBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.ApplyBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ApplyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ApplyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplyBtn.ForeColor = System.Drawing.Color.Black;
             this.ApplyBtn.Location = new System.Drawing.Point(724, 238);
             this.ApplyBtn.MaximumSize = new System.Drawing.Size(90, 45);
             this.ApplyBtn.MinimumSize = new System.Drawing.Size(90, 45);
@@ -800,11 +780,8 @@
             this.ApplyBtn.Tag = "0";
             this.ApplyBtn.Text = "Add Path";
             this.toolTip1.SetToolTip(this.ApplyBtn, "Add Path (Enter)");
-            this.ApplyBtn.UseVisualStyleBackColor = false;
+            this.ApplyBtn.UseVisualStyleBackColor = true;
             this.ApplyBtn.Click += new System.EventHandler(this.ApplyBtn_Click);
-            this.ApplyBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ApplyBtn_Paint);
-            this.ApplyBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
-            this.ApplyBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
             // FigureName
             // 
@@ -823,11 +800,7 @@
             // ClearBtn
             // 
             this.ClearBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.ClearBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ClearBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearBtn.ForeColor = System.Drawing.Color.Black;
             this.ClearBtn.Location = new System.Drawing.Point(724, 289);
             this.ClearBtn.MaximumSize = new System.Drawing.Size(90, 45);
             this.ClearBtn.MinimumSize = new System.Drawing.Size(90, 45);
@@ -838,11 +811,8 @@
             this.ClearBtn.Tag = "0";
             this.ClearBtn.Text = "Deselect";
             this.toolTip1.SetToolTip(this.ClearBtn, "Deselect (Esc)");
-            this.ClearBtn.UseVisualStyleBackColor = false;
+            this.ClearBtn.UseVisualStyleBackColor = true;
             this.ClearBtn.Click += new System.EventHandler(this.Deselect_Click);
-            this.ClearBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.ClearBtn_Paint);
-            this.ClearBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
-            this.ClearBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
             // OutputScale
             // 
@@ -873,11 +843,8 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonOK.ForeColor = System.Drawing.Color.Black;
-            this.buttonOK.Location = new System.Drawing.Point(723, 515);
+            this.buttonOK.Location = new System.Drawing.Point(724, 480);
             this.buttonOK.MaximumSize = new System.Drawing.Size(90, 45);
             this.buttonOK.MinimumSize = new System.Drawing.Size(90, 45);
             this.buttonOK.Name = "buttonOK";
@@ -885,11 +852,8 @@
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.toolTip1.SetToolTip(this.buttonOK, "Return to PDN");
-            this.buttonOK.UseVisualStyleBackColor = false;
+            this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            this.buttonOK.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonOK_Paint);
-            this.buttonOK.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
-            this.buttonOK.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
             // LineList
             // 
@@ -917,11 +881,10 @@
             this.upList.Name = "upList";
             this.upList.Size = new System.Drawing.Size(32, 36);
             this.upList.TabIndex = 0;
+            this.upList.Text = "Up";
             this.toolTip1.SetToolTip(this.upList, "Move Path Up");
+            this.upList.UseVisualStyleBackColor = true;
             this.upList.Click += new System.EventHandler(this.upList_Click);
-            this.upList.Paint += new System.Windows.Forms.PaintEventHandler(this.upList_Paint);
-            this.upList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
-            this.upList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
             // DNList
             // 
@@ -930,11 +893,10 @@
             this.DNList.Name = "DNList";
             this.DNList.Size = new System.Drawing.Size(32, 36);
             this.DNList.TabIndex = 0;
+            this.DNList.Text = "Down";
             this.toolTip1.SetToolTip(this.DNList, "Move Path Down");
+            this.DNList.UseVisualStyleBackColor = true;
             this.DNList.Click += new System.EventHandler(this.DNList_Click);
-            this.DNList.Paint += new System.Windows.Forms.PaintEventHandler(this.DNList_Paint);
-            this.DNList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseDown);
-            this.DNList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GenericBtn_MouseUp);
             // 
             // removePathButton
             // 
@@ -945,6 +907,7 @@
             this.removePathButton.TabIndex = 54;
             this.removePathButton.Text = "Remove";
             this.toolTip1.SetToolTip(this.removePathButton, "Remove Path");
+            this.removePathButton.UseVisualStyleBackColor = true;
             this.removePathButton.Click += new System.EventHandler(this.removebtn_Click);
             // 
             // clonePathButton
@@ -956,6 +919,7 @@
             this.clonePathButton.TabIndex = 55;
             this.clonePathButton.Text = "Clone";
             this.toolTip1.SetToolTip(this.clonePathButton, "Clone Path");
+            this.clonePathButton.UseVisualStyleBackColor = true;
             this.clonePathButton.Click += new System.EventHandler(this.Clonebtn_Click);
             // 
             // opaque
@@ -1059,6 +1023,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabelNubsUsed,
             this.statusLabelPathsUsed,
@@ -1198,7 +1163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(850, 597);
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
