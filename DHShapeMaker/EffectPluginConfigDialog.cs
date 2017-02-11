@@ -69,7 +69,6 @@ namespace ShapeMaker
         PointF MoveStart;
         PointF[] canvasPoints = new PointF[basepoint];
         private const int UndoMax = 15;
-        int keylock = 0;
 
         ArrayList[] UDLines = new ArrayList[UndoMax];
         PointF[][] UDPoint = new PointF[UndoMax][];
@@ -1748,11 +1747,8 @@ namespace ShapeMaker
         {
             if (keyData == Keys.Enter)
             {
-                if (keylock == 0 && LineList.SelectedIndex == -1)
-                {
-                    keylock = 10;
+                if (canvasPoints.Length > 1 && LineList.SelectedIndex == -1)
                     ApplyBtn_Click(ApplyBtn, new EventArgs());
-                }
                 return true;
             }
             else if (keyData == Keys.Escape)
@@ -2761,7 +2757,6 @@ namespace ShapeMaker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (keylock > 0) keylock--;
             if (!Ellipse.Checked) MacroCircle.Checked = false;
             if (!StraightLine.Checked) MacroRect.Checked = false;
             if (!Cubic.Checked) MacroCubic.Checked = false;
