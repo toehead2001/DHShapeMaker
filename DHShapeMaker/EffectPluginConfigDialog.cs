@@ -1569,13 +1569,6 @@ namespace ShapeMaker
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
 
-        private float hypot(float c, float a)
-        {
-            double cq = Math.Pow(c, 2);
-            double aq = Math.Pow(a, 2);
-            return (float)(Math.Sqrt(Math.Abs(cq - aq)) * Math.Sign(cq - aq));
-        }
-
         private void style_CheckedChanged(object sender, EventArgs e)
         {
             ToolStripMenuItem s = (ToolStripMenuItem)sender;
