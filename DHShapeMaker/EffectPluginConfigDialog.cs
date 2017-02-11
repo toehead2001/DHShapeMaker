@@ -2538,35 +2538,35 @@ namespace ShapeMaker
 
         private void Undo_Click(object sender, EventArgs e)
         {
-            if (UDCount > 0)
-            {
-                canvasPoints = new PointF[0];
-                setUiForPath(UDtype[UDPointer], false, false, false, false);
-                if (UDPoint[UDPointer].Length != 0)
-                {
-                    canvasPoints = new PointF[UDPoint[UDPointer].Length];
-                    Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
-                }
+            if (UDCount == 0)
+                return;
 
-                //MDown = UDtype[UDPointer];
-                LineList.Items.Clear();
-                Lines = new ArrayList();
-                if (UDLines[UDPointer].Count != 0)
-                {
-                    foreach (PData pd in UDLines[UDPointer])
-                    {
-                        PointF[] tmp = new PointF[pd.Lines.Length];
-                        Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                        Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
-                        LineList.Items.Add(LineNames[pd.LineType]);
-                    }
-                    if (UDSelect[UDPointer] < LineList.Items.Count) LineList.SelectedIndex = UDSelect[UDPointer];
-                }
-                UDCount--;
-                UDCount = (UDCount < 0) ? 0 : UDCount;
-                UDPointer += (UndoMax - 1);
-                UDPointer %= UndoMax;
+            canvasPoints = new PointF[0];
+            setUiForPath(UDtype[UDPointer], false, false, false, false);
+            if (UDPoint[UDPointer].Length != 0)
+            {
+                canvasPoints = new PointF[UDPoint[UDPointer].Length];
+                Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
             }
+
+            //MDown = UDtype[UDPointer];
+            LineList.Items.Clear();
+            Lines = new ArrayList();
+            if (UDLines[UDPointer].Count != 0)
+            {
+                foreach (PData pd in UDLines[UDPointer])
+                {
+                    PointF[] tmp = new PointF[pd.Lines.Length];
+                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                    LineList.Items.Add(LineNames[pd.LineType]);
+                }
+                if (UDSelect[UDPointer] < LineList.Items.Count) LineList.SelectedIndex = UDSelect[UDPointer];
+            }
+            UDCount--;
+            UDCount = (UDCount < 0) ? 0 : UDCount;
+            UDPointer += (UndoMax - 1);
+            UDPointer %= UndoMax;
 
             undoToolStripMenuItem.Enabled = (UDCount != 0);
             resetRotation();
