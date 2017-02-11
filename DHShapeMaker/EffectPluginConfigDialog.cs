@@ -1119,30 +1119,6 @@ namespace ShapeMaker
             return dest;
         }
 
-        private int[] RemoveAtInt(int[] source, int index)
-        {
-            int[] dest = new int[source.Length - 1];
-            if (index > 0)
-                Array.Copy(source, 0, dest, 0, index);
-
-            if (index < source.Length - 1)
-                Array.Copy(source, index + 1, dest, index, source.Length - index - 1);
-
-            return dest;
-        }
-
-        private bool[] RemoveAtBool(bool[] source, int index)
-        {
-            bool[] dest = new bool[source.Length - 1];
-            if (index > 0)
-                Array.Copy(source, 0, dest, 0, index);
-
-            if (index < source.Length - 1)
-                Array.Copy(source, index + 1, dest, index, source.Length - index - 1);
-
-            return dest;
-        }
-
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             Image gridImg = Properties.Resources.bg;
@@ -1502,27 +1478,6 @@ namespace ShapeMaker
             }
             x3 = (x3 - p2.X) * curve + p2.X;
             y3 = (y3 - p2.Y) * curve + p2.Y;
-            return new PointF(x3, y3);
-        }
-
-        private PointF ThirdPointAbs(PointF p1, PointF p2, bool flip, float curve)
-        {
-            float Shift = (float)(1f / Math.Sqrt(3));
-            float x3, y3;
-            if (!flip)
-            {
-                x3 = p2.X + Shift * (p1.Y - p2.Y);
-                y3 = p2.Y + Shift * (p2.X - p1.X);
-            }
-            else
-            {
-                x3 = p2.X + Shift * (p2.Y - p1.Y);
-                y3 = p2.Y + Shift * (p1.X - p2.X);
-            }
-            float dist = curve / pythag(new PointF(x3, y3), p2);
-
-            x3 = (x3 - p2.X) * dist + p2.X;
-            y3 = (y3 - p2.Y) * dist + p2.Y;
             return new PointF(x3, y3);
         }
 
