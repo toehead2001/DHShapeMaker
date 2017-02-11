@@ -2356,12 +2356,11 @@ namespace ShapeMaker
             canvas.Refresh();
         }
 
-        private PointF pointOrbit(PointF c, float r, float d)
+        private PointF pointOrbit(PointF center, float rotation, float distance)
         {
-            float x = (float)Math.Cos(r) * d;
-            float y = (float)Math.Sin(r) * d;
-            PointF results = pbAdjust(c.X + x, c.Y + y);
-            return results;
+            float x = (float)Math.Cos(rotation) * distance;
+            float y = (float)Math.Sin(rotation) * distance;
+            return pbAdjust(center.X + x, center.Y + y);
         }
 
         private PointF pbAdjust(float x, float y)
