@@ -3351,38 +3351,33 @@ namespace ShapeMaker
 
         private void AddPath(GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
-            float RadiusX = Math.Abs(radiusX);
-            float RadiusY = Math.Abs(radiusY);
-            float Angle = angle;
-            int Sweep = sweep;
-            int Size = size;
-
             if (start == end)
-            {
                 return;
-            }
 
-            if (RadiusX == 0.0f && RadiusY == 0.0f)
+            radiusX = Math.Abs(radiusX);
+            radiusY = Math.Abs(radiusY);
+
+            if (radiusX == 0.0f && radiusY == 0.0f)
             {
                 graphicsPath.AddLine(start, end);
                 return;
             }
 
-            double sinPhi = Math.Sin(Angle * RadPerDeg);
-            double cosPhi = Math.Cos(Angle * RadPerDeg);
+            double sinPhi = Math.Sin(angle * RadPerDeg);
+            double cosPhi = Math.Cos(angle * RadPerDeg);
 
             double x1dash = cosPhi * (start.X - end.X) / 2.0 + sinPhi * (start.Y - end.Y) / 2.0;
             double y1dash = -sinPhi * (start.X - end.X) / 2.0 + cosPhi * (start.Y - end.Y) / 2.0;
 
             double root;
-            double numerator = RadiusX * RadiusX * RadiusY * RadiusY - RadiusX * RadiusX * y1dash * y1dash - RadiusY * RadiusY * x1dash * x1dash;
+            double numerator = radiusX * radiusX * radiusY * radiusY - radiusX * radiusX * y1dash * y1dash - radiusY * radiusY * x1dash * x1dash;
 
-            float rx = RadiusX;
-            float ry = RadiusY;
+            float rx = radiusX;
+            float ry = radiusY;
 
             if (numerator < 0.0)
             {
-                float s = (float)Math.Sqrt(1.0 - numerator / (RadiusX * RadiusX * RadiusY * RadiusY));
+                float s = (float)Math.Sqrt(1.0 - numerator / (radiusX * radiusX * radiusY * radiusY));
 
                 rx *= s;
                 ry *= s;
@@ -3390,7 +3385,7 @@ namespace ShapeMaker
             }
             else
             {
-                root = ((Size == 1 && Sweep == 1) || (Size == 0 && Sweep == 0) ? -1.0 : 1.0) * Math.Sqrt(numerator / (RadiusX * RadiusX * y1dash * y1dash + RadiusY * RadiusY * x1dash * x1dash));
+                root = ((size == 1 && sweep == 1) || (size == 0 && sweep == 0) ? -1.0 : 1.0) * Math.Sqrt(numerator / (radiusX * radiusX * y1dash * y1dash + radiusY * radiusY * x1dash * x1dash));
             }
 
             double cxdash = root * rx * y1dash / ry;
@@ -3402,11 +3397,11 @@ namespace ShapeMaker
             double theta1 = VectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
             double dtheta = VectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
 
-            if (Sweep == 0 && dtheta > 0)
+            if (sweep == 0 && dtheta > 0)
             {
                 dtheta -= 2.0 * Math.PI;
             }
-            else if (Sweep == 1 && dtheta < 0)
+            else if (sweep == 1 && dtheta < 0)
             {
                 dtheta += 2.0 * Math.PI;
             }
