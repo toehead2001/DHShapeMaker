@@ -3513,6 +3513,12 @@ namespace ShapeMaker
                             return;
                         }
 
+                        if (projectPaths.Count > maxPaths)
+                        {
+                            MessageBox.Show($"Too Many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
                         Array.Resize(ref canvasPoints, 0);
 
                         Lines.Clear();
