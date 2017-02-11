@@ -206,7 +206,7 @@ namespace ShapeMaker
         private void setUndo(bool addingNewPath)
         {
             // set undo
-            undoToolStripMenuItem.Enabled = true;
+            Undo.Enabled = true;
 
             UDCount++;
             UDCount = (UDCount > UndoMax) ? UndoMax : UDCount;
@@ -2530,7 +2530,7 @@ namespace ShapeMaker
             UDPointer += (UndoMax - 1);
             UDPointer %= UndoMax;
 
-            undoToolStripMenuItem.Enabled = (UDCount != 0);
+            Undo.Enabled = (UDCount != 0);
             resetRotation();
 
             menuStrip1.Refresh();
@@ -3557,7 +3557,7 @@ namespace ShapeMaker
 
                         UDCount = 0;
                         UDPointer = 0;
-                        undoToolStripMenuItem.Enabled = false;
+                        Undo.Enabled = false;
                         resetRotation();
                         ZoomToFactor(1);
                         canvas.Refresh();
@@ -3813,7 +3813,7 @@ namespace ShapeMaker
 
                 UDCount = 0;
                 UDPointer = 0;
-                undoToolStripMenuItem.Enabled = false;
+                Undo.Enabled = false;
             }
         }
 

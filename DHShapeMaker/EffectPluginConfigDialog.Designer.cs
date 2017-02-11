@@ -63,7 +63,7 @@
             this.keyboardShortcutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blank1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Undo = new System.Windows.Forms.ToolStripMenuItem();
             this.blank5 = new System.Windows.Forms.ToolStripMenuItem();
             this.StraightLine = new System.Windows.Forms.ToolStripMenuItem();
             this.MacroRect = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,7 +157,7 @@
             this.editToolStripMenuItem,
             this.HelpMenu,
             this.blank1,
-            this.undoToolStripMenuItem,
+            this.Undo,
             this.blank5,
             this.StraightLine,
             this.MacroRect,
@@ -415,22 +415,22 @@
             this.blank1.Text = "Blank";
             this.blank1.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
-            // undoToolStripMenuItem
+            // Undo
             // 
-            this.undoToolStripMenuItem.AutoSize = false;
-            this.undoToolStripMenuItem.AutoToolTip = true;
-            this.undoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.undoToolStripMenuItem.Enabled = false;
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(32, 39);
-            this.undoToolStripMenuItem.Tag = "0";
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.ToolTipText = "Undo (Ctrl+Z)";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.Undo_Click);
-            this.undoToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseDown);
-            this.undoToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseUp);
-            this.undoToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
+            this.Undo.AutoSize = false;
+            this.Undo.AutoToolTip = true;
+            this.Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.Undo.Enabled = false;
+            this.Undo.Name = "Undo";
+            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.Undo.Size = new System.Drawing.Size(32, 39);
+            this.Undo.Tag = "0";
+            this.Undo.Text = "Undo";
+            this.Undo.ToolTipText = "Undo (Ctrl+Z)";
+            this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            this.Undo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseDown);
+            this.Undo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseUp);
+            this.Undo.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
             // 
             // blank5
             // 
@@ -1245,7 +1245,7 @@
         private System.Windows.Forms.ToolStripMenuItem Snap;
         private System.Windows.Forms.ToolStripMenuItem LinkedL;
         private System.Windows.Forms.ToolStripMenuItem Loop;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Undo;
         private System.Windows.Forms.ToolStripMenuItem blank1;
         private System.Windows.Forms.ToolStripMenuItem blank2;
         private System.Windows.Forms.ToolStripMenuItem blank3;
