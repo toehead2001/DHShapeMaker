@@ -487,13 +487,8 @@ namespace ShapeMaker
                         #endregion //add
                     }
 
-                    // If modifying an existing Path, save the change
                     if (LineList.SelectedIndex != -1 && clickedNub != 0)
-                    {
-                        Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                            Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                        LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-                    }
+                        UpdateExistingPath();
                 }
                 else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
                 {
@@ -2591,13 +2586,8 @@ namespace ShapeMaker
                 if (Ellipse.Checked) Sweep.Checked = !Sweep.Checked;
                 canvasPoints = tmp;
 
-                // If modifying an existing Path, save the change
                 if (LineList.SelectedIndex != -1)
-                {
-                    Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                        Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                    LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-                }
+                    UpdateExistingPath();
             }
             canvas.Refresh();
         }
@@ -2727,13 +2717,8 @@ namespace ShapeMaker
                 }
                 canvasPoints = tmp;
 
-                // If modifying an existing Path, save the change
                 if (LineList.SelectedIndex != -1)
-                {
-                    Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                        Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                    LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-                }
+                    UpdateExistingPath();
             }
 
             canvas.Refresh();
@@ -3037,13 +3022,8 @@ namespace ShapeMaker
             }
             canvas.Refresh();
 
-            // If modifying an existing Path, save the change
             if (LineList.SelectedIndex != -1)
-            {
-                Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                    Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-            }
+                UpdateExistingPath();
         }
 
         private void Property_Click(object sender, EventArgs e)
@@ -3051,13 +3031,8 @@ namespace ShapeMaker
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             canvas.Refresh();
 
-            // If modifying an existing Path, save the change
             if (LineList.SelectedIndex != -1)
-            {
-                Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                    Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
-                LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
-            }
+                UpdateExistingPath();
         }
 
         private void MacroRect_Click(object sender, EventArgs e)
@@ -3902,6 +3877,13 @@ namespace ShapeMaker
             if (canvas.Height < viewport.ClientSize.Height || canvas.Location.Y > 0)
                 Zoomed.Y = (viewport.ClientSize.Height - canvas.Height) / 2;
             canvas.Location = Zoomed;
+        }
+
+        private void UpdateExistingPath()
+        {
+            Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
+                Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+            LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
         }
     }
 }
