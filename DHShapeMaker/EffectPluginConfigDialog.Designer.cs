@@ -413,7 +413,6 @@
             this.blank1.ShowShortcutKeys = false;
             this.blank1.Size = new System.Drawing.Size(32, 39);
             this.blank1.Text = "Blank";
-            this.blank1.Click += new System.EventHandler(this.blankToolStripMenuItem_Click);
             this.blank1.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
             // 
             // undoToolStripMenuItem

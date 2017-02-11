@@ -3179,11 +3179,6 @@ namespace ShapeMaker
 
         }
 
-        private void blankToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void undoToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right) (sender as ToolStripMenuItem).PerformClick();
