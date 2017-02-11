@@ -1640,9 +1640,6 @@ namespace ShapeMaker
             if (canvasPoints.Length <= 1)
                 return;
 
-            SpinLine.Value = 180;
-            toolTip1.SetToolTip(SpinLine, "0.0\u00B0");
-
             if (Lines.Count < maxPaths)
             {
                 setUndo(sender == LineList);
@@ -1665,11 +1662,9 @@ namespace ShapeMaker
                     //test below
                     Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, true));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
-
                 }
                 else if (MacroRect.Checked && getPathType() == (int)LineTypes.Straight)
                 {
-
                     for (int i = 1; i < canvasPoints.Length; i++)
                     {
                         PointF[] tmp = new PointF[5];
@@ -1681,7 +1676,6 @@ namespace ShapeMaker
                         Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, false));
                         LineList.Items.Add(LineNames[getPathType()]);
                     }
-
                 }
                 else
                 {
@@ -1693,6 +1687,7 @@ namespace ShapeMaker
             {
                 MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
             resetRotation();
 
             PointF hold = canvasPoints[canvasPoints.Length - 1];
