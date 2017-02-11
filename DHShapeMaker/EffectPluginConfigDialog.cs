@@ -2517,22 +2517,23 @@ namespace ShapeMaker
 
         private void CopyStream_Click(object sender, EventArgs e)
         {
-            if (Lines.Count > 0)
+            if (Lines.Count == 0)
             {
-                ZoomToFactor(1);
-                string TMP = string.Empty;
-                bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
-                if (r)
-                {
-                    Clipboard.SetText(TMP);
-                    MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Copy Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Nothing to Copy", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else { MessageBox.Show("Nothing to Copy", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+            ZoomToFactor(1);
+            string TMP = string.Empty;
+            bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            if (!r)
+            {
+                MessageBox.Show("Copy Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Clipboard.SetText(TMP);
+            MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Undo_Click(object sender, EventArgs e)
