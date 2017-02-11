@@ -1713,16 +1713,17 @@ namespace ShapeMaker
 
         private void removebtn_Click(object sender, EventArgs e)
         {
-            if (LineList.SelectedIndex == -1) return;
+            if (LineList.SelectedIndex == -1 || LineList.Items.Count == 0 || LineList.SelectedIndex >= Lines.Count)
+                return;
+
             setUndo();
-            if ((LineList.Items.Count > 0) && (LineList.SelectedIndex < Lines.Count))
-            {
-                int spi = LineList.SelectedIndex;
-                Lines.RemoveAt(spi);
-                LineList.Items.RemoveAt(spi);
-                canvasPoints = new PointF[0];
-                LineList.SelectedIndex = -1;
-            }
+
+            int spi = LineList.SelectedIndex;
+            Lines.RemoveAt(spi);
+            LineList.Items.RemoveAt(spi);
+            canvasPoints = new PointF[0];
+            LineList.SelectedIndex = -1;
+
             canvas.Refresh();
         }
 
