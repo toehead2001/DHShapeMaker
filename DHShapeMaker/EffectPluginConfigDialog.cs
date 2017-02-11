@@ -3663,32 +3663,6 @@ namespace ShapeMaker
             }
         }
 
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if ((keyData & Keys.Alt) == Keys.Alt)
-                if ((keyData & Keys.F) == Keys.F)
-                {
-                    return base.ProcessDialogKey(keyData);
-                }
-                else if ((keyData & Keys.E) == Keys.E)
-                {
-                    return base.ProcessDialogKey(keyData);
-                }
-                else if ((keyData & Keys.H) == Keys.H)
-                {
-                    return base.ProcessDialogKey(keyData);
-                }
-                else
-                {
-
-                    return true;
-                }
-            else
-            {
-                return base.ProcessDialogKey(keyData);
-            }
-        }
-
         private void LineList_DoubleClick(object sender, EventArgs e)
         {
             if (LineList.Items.Count == 0 || LineList.SelectedItem == null) return;
