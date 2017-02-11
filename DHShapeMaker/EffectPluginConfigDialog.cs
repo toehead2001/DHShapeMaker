@@ -127,18 +127,12 @@ namespace ShapeMaker
             SolidFillMenuItem.Checked = token.SolidFill;
 
             Lines.Clear();
-            foreach (PData p in token.PathData)
-            {
-                Lines.Add(new PData(p.Lines, p.ClosedType, p.LineType, p.IsLarge, p.RevSweep, p.Alias, p.LoopBack));
-
-            }
-
             LineList.Items.Clear();
             foreach (PData p in token.PathData)
             {
+                Lines.Add(new PData(p.Lines, p.ClosedType, p.LineType, p.IsLarge, p.RevSweep, p.Alias, p.LoopBack));
                 LineList.Items.Add(LineNames[p.LineType]);
             }
-
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
