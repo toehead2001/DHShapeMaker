@@ -1711,10 +1711,9 @@ namespace ShapeMaker
 
         private void resetRotation()
         {
-            SuspendLayout();
             SpinLine.Value = 180;
+            toolTip1.SetToolTip(SpinLine, "0.0\u00B0");
             lastRot = 180;
-            ResumeLayout();
         }
 
         private void removebtn_Click(object sender, EventArgs e)
