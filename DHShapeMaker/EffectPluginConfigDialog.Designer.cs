@@ -62,27 +62,6 @@
             this.QuickStartStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyboardShortcutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blank1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Undo = new System.Windows.Forms.ToolStripMenuItem();
-            this.blank5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.StraightLine = new System.Windows.Forms.ToolStripMenuItem();
-            this.MacroRect = new System.Windows.Forms.ToolStripMenuItem();
-            this.blank3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Cubic = new System.Windows.Forms.ToolStripMenuItem();
-            this.MacroCubic = new System.Windows.Forms.ToolStripMenuItem();
-            this.SCubic = new System.Windows.Forms.ToolStripMenuItem();
-            this.Quadratic = new System.Windows.Forms.ToolStripMenuItem();
-            this.SQuadratic = new System.Windows.Forms.ToolStripMenuItem();
-            this.blank4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Ellipse = new System.Windows.Forms.ToolStripMenuItem();
-            this.Big = new System.Windows.Forms.ToolStripMenuItem();
-            this.Sweep = new System.Windows.Forms.ToolStripMenuItem();
-            this.MacroCircle = new System.Windows.Forms.ToolStripMenuItem();
-            this.blank2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Snap = new System.Windows.Forms.ToolStripMenuItem();
-            this.LinkedL = new System.Windows.Forms.ToolStripMenuItem();
-            this.Loop = new System.Windows.Forms.ToolStripMenuItem();
-            this.MPMode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.FitBG = new System.Windows.Forms.CheckBox();
             this.DrawOnCanvas = new System.Windows.Forms.CheckBox();
@@ -116,12 +95,51 @@
             this.horPosBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.toolStripBlack = new System.Windows.Forms.ToolStrip();
+            this.StraightLine = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroRect = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripBlue = new System.Windows.Forms.ToolStrip();
+            this.Cubic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroCubic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripGreen = new System.Windows.Forms.ToolStrip();
+            this.SCubic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripYellow = new System.Windows.Forms.ToolStrip();
+            this.Quadratic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripPurple = new System.Windows.Forms.ToolStrip();
+            this.SQuadratic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripRed = new System.Windows.Forms.ToolStrip();
+            this.Ellipse = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Big = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Sweep = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroCircle = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripOptions = new System.Windows.Forms.ToolStrip();
+            this.Snap = new ShapeMaker.ToolStripButtonWithKeys();
+            this.LinkedL = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Loop = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MPMode = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripUndo = new System.Windows.Forms.ToolStrip();
+            this.Undo = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.scaleSlider = new ShapeMaker.dhScroll();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
             this.viewport.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.toolStripBlack.SuspendLayout();
+            this.toolStripBlue.SuspendLayout();
+            this.toolStripGreen.SuspendLayout();
+            this.toolStripYellow.SuspendLayout();
+            this.toolStripPurple.SuspendLayout();
+            this.toolStripRed.SuspendLayout();
+            this.toolStripOptions.SuspendLayout();
+            this.toolStripUndo.SuspendLayout();
             this.SuspendLayout();
             // 
             // canvas
@@ -151,36 +169,15 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(209)))), ((int)(((byte)(209)))));
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.HelpMenu,
-            this.blank1,
-            this.Undo,
-            this.blank5,
-            this.StraightLine,
-            this.MacroRect,
-            this.blank3,
-            this.Cubic,
-            this.MacroCubic,
-            this.SCubic,
-            this.Quadratic,
-            this.SQuadratic,
-            this.blank4,
-            this.Ellipse,
-            this.Big,
-            this.Sweep,
-            this.MacroCircle,
-            this.blank2,
-            this.Snap,
-            this.LinkedL,
-            this.Loop,
-            this.MPMode});
+            this.HelpMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(850, 43);
+            this.menuStrip1.Size = new System.Drawing.Size(128, 24);
             this.menuStrip1.TabIndex = 37;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -200,9 +197,8 @@
             this.exportPathGeometryToolStripMenuItem,
             this.toolStripSeparator2,
             this.SolidFillMenuItem});
-            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 39);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newProjectMenuItem
@@ -300,9 +296,8 @@
             this.flipVerticalToolStripMenuItem,
             this.toolStripSeparator5,
             this.clearAllToolStripMenuItem});
-            this.editToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 39);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.DropDownOpening += new System.EventHandler(this.editToolStripMenuItem_DropDownOpening);
             // 
@@ -369,10 +364,9 @@
             this.QuickStartStripMenuItem,
             this.keyboardShortcutsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.HelpMenu.ForeColor = System.Drawing.Color.Black;
             this.HelpMenu.Name = "HelpMenu";
             this.HelpMenu.ShowShortcutKeys = false;
-            this.HelpMenu.Size = new System.Drawing.Size(44, 39);
+            this.HelpMenu.Size = new System.Drawing.Size(44, 20);
             this.HelpMenu.Text = "Help";
             // 
             // usersManualToolStripMenuItem
@@ -402,335 +396,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.aboutToolStripMenuItem.Text = "About ShapeMaker";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutShapeMakerToolStripMenuItem_Click);
-            // 
-            // blank1
-            // 
-            this.blank1.AutoSize = false;
-            this.blank1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.blank1.Enabled = false;
-            this.blank1.Image = ((System.Drawing.Image)(resources.GetObject("blank1.Image")));
-            this.blank1.Name = "blank1";
-            this.blank1.ShowShortcutKeys = false;
-            this.blank1.Size = new System.Drawing.Size(32, 39);
-            this.blank1.Text = "Blank";
-            this.blank1.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
-            // 
-            // Undo
-            // 
-            this.Undo.AutoSize = false;
-            this.Undo.AutoToolTip = true;
-            this.Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Undo.Enabled = false;
-            this.Undo.Name = "Undo";
-            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo.Size = new System.Drawing.Size(32, 39);
-            this.Undo.Tag = "0";
-            this.Undo.Text = "Undo";
-            this.Undo.ToolTipText = "Undo (Ctrl+Z)";
-            this.Undo.Click += new System.EventHandler(this.Undo_Click);
-            this.Undo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseDown);
-            this.Undo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.undoToolStripMenuItem_MouseUp);
-            this.Undo.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // blank5
-            // 
-            this.blank5.AutoSize = false;
-            this.blank5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.blank5.Enabled = false;
-            this.blank5.Image = ((System.Drawing.Image)(resources.GetObject("blank5.Image")));
-            this.blank5.Name = "blank5";
-            this.blank5.ShowShortcutKeys = false;
-            this.blank5.Size = new System.Drawing.Size(32, 39);
-            this.blank5.Text = "Blank";
-            this.blank5.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
-            // 
-            // StraightLine
-            // 
-            this.StraightLine.AutoSize = false;
-            this.StraightLine.AutoToolTip = true;
-            this.StraightLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.StraightLine.Checked = true;
-            this.StraightLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.StraightLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.StraightLine.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.StraightLine.ImageTransparentColor = System.Drawing.Color.Black;
-            this.StraightLine.Name = "StraightLine";
-            this.StraightLine.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.StraightLine.Size = new System.Drawing.Size(32, 39);
-            this.StraightLine.Tag = "1";
-            this.StraightLine.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.StraightLine.ToolTipText = "Straight Lines (Ctrl+L)";
-            this.StraightLine.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.StraightLine.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.StraightLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.StraightLine.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // MacroRect
-            // 
-            this.MacroRect.AutoSize = false;
-            this.MacroRect.AutoToolTip = true;
-            this.MacroRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.MacroRect.Name = "MacroRect";
-            this.MacroRect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.MacroRect.Size = new System.Drawing.Size(32, 39);
-            this.MacroRect.Tag = "2";
-            this.MacroRect.Text = "Rectangle";
-            this.MacroRect.ToolTipText = "Auto Rectangle (Ctrl+R)";
-            this.MacroRect.Click += new System.EventHandler(this.MacroRect_Click);
-            this.MacroRect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.MacroRect.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // blank3
-            // 
-            this.blank3.AutoSize = false;
-            this.blank3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.blank3.Enabled = false;
-            this.blank3.Image = ((System.Drawing.Image)(resources.GetObject("blank3.Image")));
-            this.blank3.Name = "blank3";
-            this.blank3.ShowShortcutKeys = false;
-            this.blank3.Size = new System.Drawing.Size(32, 39);
-            this.blank3.Text = "Blank";
-            this.blank3.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
-            // 
-            // Cubic
-            // 
-            this.Cubic.AutoSize = false;
-            this.Cubic.AutoToolTip = true;
-            this.Cubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Cubic.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Cubic.ImageTransparentColor = System.Drawing.Color.Black;
-            this.Cubic.Name = "Cubic";
-            this.Cubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.Cubic.Size = new System.Drawing.Size(32, 39);
-            this.Cubic.Tag = "7";
-            this.Cubic.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.Cubic.ToolTipText = "Cubic Bezier (Ctrl+B)";
-            this.Cubic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.Cubic.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.Cubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Cubic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // MacroCubic
-            // 
-            this.MacroCubic.AutoSize = false;
-            this.MacroCubic.AutoToolTip = true;
-            this.MacroCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.MacroCubic.Name = "MacroCubic";
-            this.MacroCubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.MacroCubic.Size = new System.Drawing.Size(32, 39);
-            this.MacroCubic.Tag = "14";
-            this.MacroCubic.Text = "MacroCubic";
-            this.MacroCubic.ToolTipText = "Cubic Spline (Ctrl+P)";
-            this.MacroCubic.Click += new System.EventHandler(this.MacroCubic_Click);
-            this.MacroCubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.MacroCubic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // SCubic
-            // 
-            this.SCubic.AutoSize = false;
-            this.SCubic.AutoToolTip = true;
-            this.SCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.SCubic.Name = "SCubic";
-            this.SCubic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.B)));
-            this.SCubic.Size = new System.Drawing.Size(32, 39);
-            this.SCubic.Tag = "8";
-            this.SCubic.Text = "Smooth Cubic Bezier";
-            this.SCubic.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
-            this.SCubic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.SCubic.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.SCubic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.SCubic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // Quadratic
-            // 
-            this.Quadratic.AutoSize = false;
-            this.Quadratic.AutoToolTip = true;
-            this.Quadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Quadratic.Name = "Quadratic";
-            this.Quadratic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.Quadratic.Size = new System.Drawing.Size(32, 39);
-            this.Quadratic.Tag = "9";
-            this.Quadratic.Text = "Quadratic Bezier";
-            this.Quadratic.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
-            this.Quadratic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.Quadratic.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.Quadratic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Quadratic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // SQuadratic
-            // 
-            this.SQuadratic.AutoSize = false;
-            this.SQuadratic.AutoToolTip = true;
-            this.SQuadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.SQuadratic.Name = "SQuadratic";
-            this.SQuadratic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Q)));
-            this.SQuadratic.Size = new System.Drawing.Size(32, 39);
-            this.SQuadratic.Tag = "10";
-            this.SQuadratic.Text = "Smooth Quad Bezier";
-            this.SQuadratic.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
-            this.SQuadratic.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.SQuadratic.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.SQuadratic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.SQuadratic.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // blank4
-            // 
-            this.blank4.AutoSize = false;
-            this.blank4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.blank4.Enabled = false;
-            this.blank4.Image = ((System.Drawing.Image)(resources.GetObject("blank4.Image")));
-            this.blank4.Name = "blank4";
-            this.blank4.ShowShortcutKeys = false;
-            this.blank4.Size = new System.Drawing.Size(32, 39);
-            this.blank4.Text = "Blank";
-            this.blank4.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
-            // 
-            // Ellipse
-            // 
-            this.Ellipse.AutoSize = false;
-            this.Ellipse.AutoToolTip = true;
-            this.Ellipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Ellipse.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Ellipse.ImageTransparentColor = System.Drawing.Color.Black;
-            this.Ellipse.Name = "Ellipse";
-            this.Ellipse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.Ellipse.Size = new System.Drawing.Size(32, 39);
-            this.Ellipse.Tag = "3";
-            this.Ellipse.Text = "Ellipse";
-            this.Ellipse.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.Ellipse.ToolTipText = "Elliptical Arc";
-            this.Ellipse.CheckedChanged += new System.EventHandler(this.style_CheckedChanged);
-            this.Ellipse.Click += new System.EventHandler(this.ToolMenu_Click);
-            this.Ellipse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Ellipse.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // Big
-            // 
-            this.Big.AutoSize = false;
-            this.Big.AutoToolTip = true;
-            this.Big.Checked = true;
-            this.Big.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Big.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Big.Enabled = false;
-            this.Big.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Big.ImageTransparentColor = System.Drawing.Color.Black;
-            this.Big.Name = "Big";
-            this.Big.Size = new System.Drawing.Size(32, 39);
-            this.Big.Tag = "4";
-            this.Big.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.Big.ToolTipText = "Large/Small Arc Selector";
-            this.Big.Click += new System.EventHandler(this.Property_Click);
-            this.Big.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Big.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // Sweep
-            // 
-            this.Sweep.AutoSize = false;
-            this.Sweep.AutoToolTip = true;
-            this.Sweep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Sweep.Enabled = false;
-            this.Sweep.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Sweep.ImageTransparentColor = System.Drawing.Color.Black;
-            this.Sweep.Name = "Sweep";
-            this.Sweep.Size = new System.Drawing.Size(32, 39);
-            this.Sweep.Tag = "5";
-            this.Sweep.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.Sweep.ToolTipText = "Sweep Direction";
-            this.Sweep.Click += new System.EventHandler(this.Property_Click);
-            this.Sweep.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Sweep.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // MacroCircle
-            // 
-            this.MacroCircle.AutoSize = false;
-            this.MacroCircle.AutoToolTip = true;
-            this.MacroCircle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.MacroCircle.Name = "MacroCircle";
-            this.MacroCircle.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.MacroCircle.Size = new System.Drawing.Size(32, 39);
-            this.MacroCircle.Tag = "6";
-            this.MacroCircle.Text = "Circle";
-            this.MacroCircle.ToolTipText = "Auto Circle (Ctrl+I)";
-            this.MacroCircle.Click += new System.EventHandler(this.MacroCircle_Click);
-            this.MacroCircle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.MacroCircle.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // blank2
-            // 
-            this.blank2.AutoSize = false;
-            this.blank2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.blank2.Enabled = false;
-            this.blank2.Image = ((System.Drawing.Image)(resources.GetObject("blank2.Image")));
-            this.blank2.Name = "blank2";
-            this.blank2.ShowShortcutKeys = false;
-            this.blank2.Size = new System.Drawing.Size(32, 39);
-            this.blank2.Text = "Blank";
-            this.blank2.Paint += new System.Windows.Forms.PaintEventHandler(this.blank_Paint);
-            // 
-            // Snap
-            // 
-            this.Snap.AutoSize = false;
-            this.Snap.AutoToolTip = true;
-            this.Snap.Checked = true;
-            this.Snap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Snap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Snap.Name = "Snap";
-            this.Snap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Snap.Size = new System.Drawing.Size(32, 39);
-            this.Snap.Tag = "11";
-            this.Snap.Text = "Snap";
-            this.Snap.ToolTipText = "Snap to Grid (Ctrl+S)";
-            this.Snap.Click += new System.EventHandler(this.Property_Click);
-            this.Snap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Snap.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // LinkedL
-            // 
-            this.LinkedL.AutoSize = false;
-            this.LinkedL.AutoToolTip = true;
-            this.LinkedL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.LinkedL.Name = "LinkedL";
-            this.LinkedL.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.LinkedL.Size = new System.Drawing.Size(32, 39);
-            this.LinkedL.Tag = "12";
-            this.LinkedL.Text = "Linked Lines";
-            this.LinkedL.ToolTipText = "Linked with Previous Line (Ctrl+3)";
-            this.LinkedL.Click += new System.EventHandler(this.Property_Click);
-            this.LinkedL.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.LinkedL.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // Loop
-            // 
-            this.Loop.AutoSize = false;
-            this.Loop.AutoToolTip = true;
-            this.Loop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.Loop.Name = "Loop";
-            this.Loop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.Loop.Size = new System.Drawing.Size(32, 39);
-            this.Loop.Tag = "13";
-            this.Loop.Text = "Closed Path";
-            this.Loop.ToolTipText = "Close Individual Path (Ctrl+2)";
-            this.Loop.Click += new System.EventHandler(this.Loops_Click);
-            this.Loop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.Loop.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
-            // 
-            // MPMode
-            // 
-            this.MPMode.AutoSize = false;
-            this.MPMode.AutoToolTip = true;
-            this.MPMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.MPMode.Name = "MPMode";
-            this.MPMode.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.D2)));
-            this.MPMode.Size = new System.Drawing.Size(32, 39);
-            this.MPMode.Tag = "15";
-            this.MPMode.Text = "Multi-PathMode";
-            this.MPMode.ToolTipText = "Close Contiguous Paths (Ctrl+Shift+2)";
-            this.MPMode.Click += new System.EventHandler(this.Loops_Click);
-            this.MPMode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tool_MouseDown);
-            this.MPMode.Paint += new System.Windows.Forms.PaintEventHandler(this.ToolChecked_Paint);
             // 
             // toolTip1
             // 
@@ -1143,6 +808,370 @@
             this.label7.TabIndex = 53;
             this.label7.Text = "Scale";
             // 
+            // toolStripBlack
+            // 
+            this.toolStripBlack.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripBlack.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripBlack.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripBlack.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StraightLine,
+            this.MacroRect,
+            this.toolStripSeparator12});
+            this.toolStripBlack.Location = new System.Drawing.Point(219, 0);
+            this.toolStripBlack.Name = "toolStripBlack";
+            this.toolStripBlack.Size = new System.Drawing.Size(85, 39);
+            this.toolStripBlack.TabIndex = 0;
+            this.toolStripBlack.Text = "toolStrip1";
+            // 
+            // StraightLine
+            // 
+            this.StraightLine.Checked = true;
+            this.StraightLine.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.StraightLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.StraightLine.Image = global::ShapeMaker.Properties.Resources.Straight;
+            this.StraightLine.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.StraightLine.Name = "StraightLine";
+            this.StraightLine.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.StraightLine.Size = new System.Drawing.Size(36, 36);
+            this.StraightLine.Tag = "0";
+            this.StraightLine.Text = "Straight Lines";
+            this.StraightLine.ToolTipText = "Straight Lines (Ctrl+L)";
+            this.StraightLine.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // MacroRect
+            // 
+            this.MacroRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroRect.Image = global::ShapeMaker.Properties.Resources.RectMacro;
+            this.MacroRect.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroRect.Name = "MacroRect";
+            this.MacroRect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.MacroRect.Size = new System.Drawing.Size(36, 36);
+            this.MacroRect.Text = "Auto Rectangle";
+            this.MacroRect.ToolTipText = "Auto Rectangle (Ctrl+R)";
+            this.MacroRect.Click += new System.EventHandler(this.MacroToggle);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripBlue
+            // 
+            this.toolStripBlue.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripBlue.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripBlue.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripBlue.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Cubic,
+            this.MacroCubic,
+            this.toolStripSeparator13});
+            this.toolStripBlue.Location = new System.Drawing.Point(304, 0);
+            this.toolStripBlue.Name = "toolStripBlue";
+            this.toolStripBlue.Size = new System.Drawing.Size(85, 39);
+            this.toolStripBlue.TabIndex = 1;
+            this.toolStripBlue.Text = "toolStrip2";
+            // 
+            // Cubic
+            // 
+            this.Cubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Cubic.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
+            this.Cubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Cubic.Name = "Cubic";
+            this.Cubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.Cubic.Size = new System.Drawing.Size(36, 36);
+            this.Cubic.Tag = "2";
+            this.Cubic.Text = "Cubic Bezier";
+            this.Cubic.ToolTipText = "Cubic Bezier (Ctrl+B)";
+            this.Cubic.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // MacroCubic
+            // 
+            this.MacroCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroCubic.Image = global::ShapeMaker.Properties.Resources.SplineMacro;
+            this.MacroCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroCubic.Name = "MacroCubic";
+            this.MacroCubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.MacroCubic.Size = new System.Drawing.Size(36, 36);
+            this.MacroCubic.Text = "Cubic Spline";
+            this.MacroCubic.ToolTipText = "Cubic Spline (Ctrl+P)";
+            this.MacroCubic.Click += new System.EventHandler(this.MacroToggle);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripGreen
+            // 
+            this.toolStripGreen.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripGreen.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripGreen.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripGreen.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SCubic,
+            this.toolStripSeparator14});
+            this.toolStripGreen.Location = new System.Drawing.Point(389, 0);
+            this.toolStripGreen.Name = "toolStripGreen";
+            this.toolStripGreen.Size = new System.Drawing.Size(47, 39);
+            this.toolStripGreen.TabIndex = 2;
+            this.toolStripGreen.Text = "toolStrip3";
+            // 
+            // SCubic
+            // 
+            this.SCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SCubic.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
+            this.SCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SCubic.Name = "SCubic";
+            this.SCubic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.B)));
+            this.SCubic.Size = new System.Drawing.Size(36, 36);
+            this.SCubic.Tag = "3";
+            this.SCubic.Text = "Smooth Cubic Bezier";
+            this.SCubic.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
+            this.SCubic.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripYellow
+            // 
+            this.toolStripYellow.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripYellow.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripYellow.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripYellow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Quadratic,
+            this.toolStripSeparator15});
+            this.toolStripYellow.Location = new System.Drawing.Point(436, 0);
+            this.toolStripYellow.Name = "toolStripYellow";
+            this.toolStripYellow.Size = new System.Drawing.Size(47, 39);
+            this.toolStripYellow.TabIndex = 3;
+            this.toolStripYellow.Text = "toolStrip4";
+            // 
+            // Quadratic
+            // 
+            this.Quadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Quadratic.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
+            this.Quadratic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Quadratic.Name = "Quadratic";
+            this.Quadratic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.Quadratic.Size = new System.Drawing.Size(36, 36);
+            this.Quadratic.Tag = "4";
+            this.Quadratic.Text = "Quadratic Bezier";
+            this.Quadratic.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
+            this.Quadratic.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripPurple
+            // 
+            this.toolStripPurple.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripPurple.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripPurple.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripPurple.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SQuadratic,
+            this.toolStripSeparator16});
+            this.toolStripPurple.Location = new System.Drawing.Point(483, 0);
+            this.toolStripPurple.Name = "toolStripPurple";
+            this.toolStripPurple.Size = new System.Drawing.Size(47, 39);
+            this.toolStripPurple.TabIndex = 4;
+            this.toolStripPurple.Text = "toolStrip5";
+            // 
+            // SQuadratic
+            // 
+            this.SQuadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SQuadratic.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
+            this.SQuadratic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SQuadratic.Name = "SQuadratic";
+            this.SQuadratic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Q)));
+            this.SQuadratic.Size = new System.Drawing.Size(36, 36);
+            this.SQuadratic.Tag = "5";
+            this.SQuadratic.Text = "Smooth Quad Bezier";
+            this.SQuadratic.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
+            this.SQuadratic.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripRed
+            // 
+            this.toolStripRed.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripRed.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripRed.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripRed.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Ellipse,
+            this.Big,
+            this.Sweep,
+            this.MacroCircle,
+            this.toolStripSeparator17});
+            this.toolStripRed.Location = new System.Drawing.Point(530, 0);
+            this.toolStripRed.Name = "toolStripRed";
+            this.toolStripRed.Size = new System.Drawing.Size(161, 39);
+            this.toolStripRed.TabIndex = 5;
+            this.toolStripRed.Text = "toolStrip6";
+            // 
+            // Ellipse
+            // 
+            this.Ellipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Ellipse.Image = global::ShapeMaker.Properties.Resources.Elliptical;
+            this.Ellipse.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Ellipse.Name = "Ellipse";
+            this.Ellipse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.Ellipse.Size = new System.Drawing.Size(36, 36);
+            this.Ellipse.Tag = "1";
+            this.Ellipse.Text = "Elliptical Arc";
+            this.Ellipse.ToolTipText = "Elliptical Arc (Ctrl+E)";
+            this.Ellipse.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // Big
+            // 
+            this.Big.Checked = true;
+            this.Big.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Big.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Big.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
+            this.Big.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Big.Name = "Big";
+            this.Big.Size = new System.Drawing.Size(36, 36);
+            this.Big.Text = "Large/Small Arc Selector";
+            this.Big.ToolTipText = "Large/Small Arc Selector";
+            this.Big.Click += new System.EventHandler(this.Property_Click);
+            // 
+            // Sweep
+            // 
+            this.Sweep.Checked = true;
+            this.Sweep.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Sweep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Sweep.Image = global::ShapeMaker.Properties.Resources.SweepLeft;
+            this.Sweep.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Sweep.Name = "Sweep";
+            this.Sweep.Size = new System.Drawing.Size(36, 36);
+            this.Sweep.Text = "Sweep Direction";
+            this.Sweep.ToolTipText = "Sweep Direction";
+            this.Sweep.Click += new System.EventHandler(this.Property_Click);
+            // 
+            // MacroCircle
+            // 
+            this.MacroCircle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroCircle.Image = global::ShapeMaker.Properties.Resources.CircleMacro;
+            this.MacroCircle.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroCircle.Name = "MacroCircle";
+            this.MacroCircle.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.MacroCircle.Size = new System.Drawing.Size(36, 36);
+            this.MacroCircle.Text = "Auto Circle";
+            this.MacroCircle.ToolTipText = "Auto Circle (Ctrl+I)";
+            this.MacroCircle.Click += new System.EventHandler(this.MacroToggle);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripOptions
+            // 
+            this.toolStripOptions.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripOptions.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Snap,
+            this.LinkedL,
+            this.Loop,
+            this.MPMode});
+            this.toolStripOptions.Location = new System.Drawing.Point(691, 0);
+            this.toolStripOptions.Name = "toolStripOptions";
+            this.toolStripOptions.Size = new System.Drawing.Size(155, 39);
+            this.toolStripOptions.TabIndex = 6;
+            this.toolStripOptions.Text = "toolStrip7";
+            // 
+            // Snap
+            // 
+            this.Snap.Checked = true;
+            this.Snap.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Snap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Snap.Image = global::ShapeMaker.Properties.Resources.SnapOn;
+            this.Snap.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Snap.Name = "Snap";
+            this.Snap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.Snap.Size = new System.Drawing.Size(36, 36);
+            this.Snap.Text = "Snap to Grid";
+            this.Snap.ToolTipText = "Snap to Grid (Ctrl+S)";
+            this.Snap.Click += new System.EventHandler(this.OptionToggle);
+            // 
+            // LinkedL
+            // 
+            this.LinkedL.Checked = true;
+            this.LinkedL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LinkedL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LinkedL.Image = global::ShapeMaker.Properties.Resources.LinkOn;
+            this.LinkedL.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.LinkedL.Name = "LinkedL";
+            this.LinkedL.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.LinkedL.Size = new System.Drawing.Size(36, 36);
+            this.LinkedL.Text = "Linked with Previous Line";
+            this.LinkedL.ToolTipText = "Linked with Previous Line (Ctrl+3)";
+            this.LinkedL.Click += new System.EventHandler(this.OptionToggle);
+            // 
+            // Loop
+            // 
+            this.Loop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Loop.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
+            this.Loop.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Loop.Name = "Loop";
+            this.Loop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.Loop.Size = new System.Drawing.Size(36, 36);
+            this.Loop.Text = "Close Individual Path";
+            this.Loop.ToolTipText = "Close Individual Path (Ctrl+2)";
+            this.Loop.Click += new System.EventHandler(this.Loops_Click);
+            // 
+            // MPMode
+            // 
+            this.MPMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MPMode.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
+            this.MPMode.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MPMode.Name = "MPMode";
+            this.MPMode.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D2)));
+            this.MPMode.Size = new System.Drawing.Size(36, 36);
+            this.MPMode.Text = "Close Contiguous Path";
+            this.MPMode.ToolTipText = "Close Contiguous Path (Ctrl+Shift+2)";
+            this.MPMode.Click += new System.EventHandler(this.Loops_Click);
+            // 
+            // toolStripUndo
+            // 
+            this.toolStripUndo.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripUndo.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripUndo.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripUndo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Undo,
+            this.toolStripSeparator11});
+            this.toolStripUndo.Location = new System.Drawing.Point(172, 0);
+            this.toolStripUndo.Name = "toolStripUndo";
+            this.toolStripUndo.Size = new System.Drawing.Size(47, 39);
+            this.toolStripUndo.TabIndex = 7;
+            this.toolStripUndo.Text = "toolStrip8";
+            // 
+            // Undo
+            // 
+            this.Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Undo.Enabled = false;
+            this.Undo.Image = global::ShapeMaker.Properties.Resources.Undo;
+            this.Undo.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Undo.Name = "Undo";
+            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.Undo.Size = new System.Drawing.Size(36, 36);
+            this.Undo.Text = "Undo";
+            this.Undo.ToolTipText = "Undo (Ctrl+Z)";
+            this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 39);
+            // 
             // scaleSlider
             // 
             this.scaleSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1190,6 +1219,14 @@
             this.Controls.Add(this.LineList);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.FitBG);
+            this.Controls.Add(this.toolStripOptions);
+            this.Controls.Add(this.toolStripUndo);
+            this.Controls.Add(this.toolStripRed);
+            this.Controls.Add(this.toolStripPurple);
+            this.Controls.Add(this.toolStripYellow);
+            this.Controls.Add(this.toolStripGreen);
+            this.Controls.Add(this.toolStripBlue);
+            this.Controls.Add(this.toolStripBlack);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
@@ -1208,6 +1245,22 @@
             this.viewport.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStripBlack.ResumeLayout(false);
+            this.toolStripBlack.PerformLayout();
+            this.toolStripBlue.ResumeLayout(false);
+            this.toolStripBlue.PerformLayout();
+            this.toolStripGreen.ResumeLayout(false);
+            this.toolStripGreen.PerformLayout();
+            this.toolStripYellow.ResumeLayout(false);
+            this.toolStripYellow.PerformLayout();
+            this.toolStripPurple.ResumeLayout(false);
+            this.toolStripPurple.PerformLayout();
+            this.toolStripRed.ResumeLayout(false);
+            this.toolStripRed.PerformLayout();
+            this.toolStripOptions.ResumeLayout(false);
+            this.toolStripOptions.PerformLayout();
+            this.toolStripUndo.ResumeLayout(false);
+            this.toolStripUndo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1232,25 +1285,6 @@
         private System.Windows.Forms.ToolStripMenuItem removePathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clonePathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loopPathToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem StraightLine;
-        private System.Windows.Forms.ToolStripMenuItem Cubic;
-        private System.Windows.Forms.ToolStripMenuItem Ellipse;
-        private System.Windows.Forms.ToolStripMenuItem Big;
-        private System.Windows.Forms.ToolStripMenuItem Sweep;
-        private System.Windows.Forms.ToolStripMenuItem Quadratic;
-        private System.Windows.Forms.ToolStripMenuItem SCubic;
-        private System.Windows.Forms.ToolStripMenuItem SQuadratic;
-        private System.Windows.Forms.ToolStripMenuItem MacroRect;
-        private System.Windows.Forms.ToolStripMenuItem MacroCircle;
-        private System.Windows.Forms.ToolStripMenuItem Snap;
-        private System.Windows.Forms.ToolStripMenuItem LinkedL;
-        private System.Windows.Forms.ToolStripMenuItem Loop;
-        private System.Windows.Forms.ToolStripMenuItem Undo;
-        private System.Windows.Forms.ToolStripMenuItem blank1;
-        private System.Windows.Forms.ToolStripMenuItem blank2;
-        private System.Windows.Forms.ToolStripMenuItem blank3;
-        private System.Windows.Forms.ToolStripMenuItem blank4;
-        private System.Windows.Forms.ToolStripMenuItem blank5;
         private System.Windows.Forms.ToolStripMenuItem HelpMenu;
         private System.Windows.Forms.Panel viewport;
         private System.Windows.Forms.ToolStripMenuItem usersManualToolStripMenuItem;
@@ -1280,8 +1314,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SolidFillMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem MacroCubic;
-        private System.Windows.Forms.ToolStripMenuItem MPMode;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSplitButton splitButtonZoom;
         private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom8x;
@@ -1294,7 +1326,6 @@
         private System.Windows.Forms.Panel verPosBar;
         private System.Windows.Forms.Panel horPosBar;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolStripMenuItem[] radios = new System.Windows.Forms.ToolStripMenuItem[6];
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
@@ -1303,5 +1334,36 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button removePathButton;
         private System.Windows.Forms.Button clonePathButton;
+        private System.Windows.Forms.ToolStrip toolStripBlack;
+        private System.Windows.Forms.ToolStrip toolStripBlue;
+        private System.Windows.Forms.ToolStrip toolStripGreen;
+        private System.Windows.Forms.ToolStrip toolStripYellow;
+        private System.Windows.Forms.ToolStrip toolStripPurple;
+        private System.Windows.Forms.ToolStrip toolStripRed;
+        private System.Windows.Forms.ToolStrip toolStripOptions;
+        private System.Windows.Forms.ToolStrip toolStripUndo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private ToolStripButtonWithKeys SCubic;
+        private ToolStripButtonWithKeys Quadratic;
+        private ToolStripButtonWithKeys SQuadratic;
+        private ToolStripButtonWithKeys Big;
+        private ToolStripButtonWithKeys Sweep;
+        private ToolStripButtonWithKeys Snap;
+        private ToolStripButtonWithKeys LinkedL;
+        private ToolStripButtonWithKeys Loop;
+        private ToolStripButtonWithKeys MPMode;
+        private ToolStripButtonWithKeys Undo;
+        private ToolStripButtonWithKeys StraightLine;
+        private ToolStripButtonWithKeys MacroRect;
+        private ToolStripButtonWithKeys Cubic;
+        private ToolStripButtonWithKeys MacroCubic;
+        private ToolStripButtonWithKeys Ellipse;
+        private ToolStripButtonWithKeys MacroCircle;
     }
 }

@@ -95,6 +95,7 @@
     <Compile Include="BigKnobs.designer.cs">
       <DependentUpon>BigKnobs.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomToolbarControls.cs" />
     <Compile Include="DHScroll.cs">
       <SubType>UserControl</SubType>
     </Compile>

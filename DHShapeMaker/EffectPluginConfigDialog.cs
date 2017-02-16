@@ -51,11 +51,8 @@ namespace ShapeMaker
 
         Color AnchorColor = Color.Teal;
 
-        private const int buttonWd = 40;
-        private const int buttonHt = 45;
-        private const int blankWd = 15;
-        private const int blankHt = 45;
-        private Color BackColorConst = Color.FromArgb(189, 189, 189);
+        int activeType;
+        ToolStripButton[] typeButtons = new ToolStripButton[6];
 
         private const double RadPerDeg = Math.PI / 180.0;
         private const double twoPI = Math.PI * 2;
@@ -76,7 +73,6 @@ namespace ShapeMaker
         int[] UDSelect = new int[UndoMax];
         int UDCount = 0;
         int UDPointer = 0;
-        int MDown = -1;
 
         float lastRot = 180;
         bool KeyTrak = false;
@@ -95,6 +91,15 @@ namespace ShapeMaker
         public EffectPluginConfigDialog()
         {
             InitializeComponent();
+
+            this.toolStripUndo.Renderer = new ProRenderer(Color.White, Color.Silver);
+            this.toolStripBlack.Renderer = new ProRenderer(Color.DarkGray, Color.Black);
+            this.toolStripBlue.Renderer = new ProRenderer(Color.LightSkyBlue, Color.Blue);
+            this.toolStripGreen.Renderer = new ProRenderer(Color.PaleGreen, Color.Green);
+            this.toolStripYellow.Renderer = new ProRenderer(Color.Khaki, Color.Goldenrod);
+            this.toolStripPurple.Renderer = new ProRenderer(Color.Plum, Color.Purple);
+            this.toolStripRed.Renderer = new ProRenderer(Color.Pink, Color.Red);
+            this.toolStripOptions.Renderer = new ProRenderer(Color.White, Color.Silver);
         }
 
         protected override void InitialInitToken()
@@ -157,21 +162,17 @@ namespace ShapeMaker
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " v" + version;
-            loadRadio();
-            foreach (ToolStripMenuItem item in menuStrip1.Items)
-            {
-                if (item.DisplayStyle == ToolStripItemDisplayStyle.None)
-                {
-                    if (item.Text.Equals("Blank"))
-                    {
-                        item.Size = new Size((int)(blankWd * DPI), (int)(blankHt * DPI));
-                    }
-                    else
-                    {
-                        item.Size = new Size((int)(buttonWd * DPI), (int)(buttonHt * DPI));
-                    }
-                }
-            }
+
+            Big.Enabled = false;
+            Sweep.Enabled = false;
+
+            typeButtons[0] = StraightLine;
+            typeButtons[1] = Ellipse;
+            typeButtons[2] = Cubic;
+            typeButtons[3] = SCubic;
+            typeButtons[4] = Quadratic;
+            typeButtons[5] = SQuadratic;
+
             toolTip1.ReshowDelay = 0;
             toolTip1.AutomaticDelay = 0;
             toolTip1.AutoPopDelay = 0;
@@ -1071,24 +1072,9 @@ namespace ShapeMaker
             return ((nubIndex - 1) % 3) + 1; //1 =ctl1,2=ctl2, 3= end point;
         }
 
-        private void loadRadio()
-        {
-            radios[0] = StraightLine;
-            radios[1] = Ellipse;
-            radios[2] = Cubic;
-            radios[3] = SCubic;
-            radios[4] = Quadratic;
-            radios[5] = SQuadratic;
-        }
-
         private int getPathType()
         {
-            for (int i = 0; i < radios.Length; i++)
-            {
-                if (radios[i].Checked)
-                    return i;
-            }
-            return 0;
+            return activeType;
         }
 
         private void setUiForPath(int pathType, bool closedPath, bool largeArc, bool revSweep, bool multiClosedPath)
@@ -1097,13 +1083,12 @@ namespace ShapeMaker
             MacroCubic.Checked = false;
             MacroCircle.Checked = false;
             MacroRect.Checked = false;
-            MDown = -1;
-            foreach (ToolStripMenuItem t in radios)
-                t.Checked = (t.Name.Equals(radios[pathType].Name));
+            activeType = pathType;
+            PathTypeToggle();
             Loop.Checked = closedPath;
             MPMode.Checked = multiClosedPath;
-            Big.Checked = largeArc;
-            Sweep.Checked = revSweep;
+            Big.CheckState = largeArc ? CheckState.Checked : CheckState.Unchecked;
+            Sweep.CheckState = revSweep ? CheckState.Checked : CheckState.Unchecked;
             ResumeLayout();
         }
 
@@ -1161,8 +1146,8 @@ namespace ShapeMaker
                         pType = getPathType();
                         isClosed = Loop.Checked;
                         mpMode = MPMode.Checked;
-                        isLarge = Big.Checked;
-                        revSweep = Sweep.Checked;
+                        isLarge = (Big.CheckState == CheckState.Checked);
+                        revSweep = (Sweep.CheckState == CheckState.Checked);
                     }
                     else
                     {
@@ -1530,24 +1515,6 @@ namespace ShapeMaker
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
 
-        private void style_CheckedChanged(object sender, EventArgs e)
-        {
-            ToolStripMenuItem s = (ToolStripMenuItem)sender;
-            Big.Enabled = Ellipse.Checked & !MacroCircle.Checked;
-            Sweep.Enabled = Ellipse.Checked & !MacroCircle.Checked;
-            if ((sender as ToolStripMenuItem).Checked)
-            {
-                if (canvasPoints.Length > 0)
-                {
-                    PointF hold = canvasPoints[0];
-                    Array.Resize(ref canvasPoints, 1);
-                    canvasPoints[0] = hold;
-                }
-                canvas.Refresh();
-            }
-            menuStrip1.Refresh();
-        }
-
         private void Deselect_Click(object sender, EventArgs e)
         {
             if (LineList.SelectedIndex == -1 && canvasPoints.Length > 1)
@@ -1574,7 +1541,7 @@ namespace ShapeMaker
                     canvasPoints[1] = canvasPoints[0];
                     canvasPoints[2] = canvasPoints[4];
                     canvasPoints[3] = mid;
-                    Lines.Add(new PData(canvasPoints, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, false));
+                    Lines.Add(new PData(canvasPoints, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
                     PointF[] tmp = new PointF[canvasPoints.Length];
                     //fix
@@ -1584,7 +1551,7 @@ namespace ShapeMaker
                     tmp[1] = tmp[0];
                     tmp[2] = tmp[4];
                     //test below
-                    Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, true));
+                    Lines.Add(new PData(tmp, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, true));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
                 }
                 else if (MacroRect.Checked && getPathType() == (int)LineTypes.Straight)
@@ -1597,13 +1564,13 @@ namespace ShapeMaker
                         tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
                         tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
                         tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
-                        Lines.Add(new PData(tmp, false, getPathType(), Big.Checked, Sweep.Checked, string.Empty, false));
+                        Lines.Add(new PData(tmp, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
                         LineList.Items.Add(LineNames[getPathType()]);
                     }
                 }
                 else
                 {
-                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
+                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, MPMode.Checked));
                     LineList.Items.Add(LineNames[getPathType()]);
                 }
             }
@@ -1614,9 +1581,9 @@ namespace ShapeMaker
 
             resetRotation();
 
-            PointF hold = canvasPoints[canvasPoints.Length - 1];
-            if (!LinkedL.Checked)
+            if (LinkedL.Checked)
             {
+                PointF hold = canvasPoints[canvasPoints.Length - 1];
                 Array.Resize(ref canvasPoints, 1);
                 canvasPoints[0] = hold;
             }
@@ -1662,7 +1629,7 @@ namespace ShapeMaker
                 PointF[] tmp = new PointF[canvasPoints.Length];
                 Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
-                Lines.Add(new PData(tmp, Loop.Checked, getPathType(), Big.Checked, Sweep.Checked, string.Empty, MPMode.Checked));
+                Lines.Add(new PData(tmp, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, MPMode.Checked));
                 LineList.Items.Add(LineNames[getPathType()]);
                 LineList.SelectedIndex = LineList.Items.Count - 1;
 
@@ -1701,10 +1668,30 @@ namespace ShapeMaker
                     ApplyBtn_Click(ApplyBtn, new EventArgs());
                 return true;
             }
-            else if (keyData == Keys.Escape)
+
+            if (keyData == Keys.Escape)
             {
                 Deselect_Click(ClearBtn, new EventArgs());
                 return true;
+            }
+
+            foreach (var control in this.Controls)
+            {
+                if (!(control is ToolStrip))
+                    continue;
+
+                foreach (var subControl in (control as ToolStrip).Items)
+                {
+                    if (subControl is ToolStripButton)
+                    {
+                        ToolStripButtonWithKeys button = (subControl as ToolStripButtonWithKeys);
+                        if (button.Enabled && keyData == button.ShortcutKeys)
+                        {
+                            button.PerformClick();
+                            return true;
+                        }
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -2545,7 +2532,7 @@ namespace ShapeMaker
                     }
                 }
                 if (Ellipse.Checked)
-                    Sweep.Checked = !Sweep.Checked;
+                    Sweep.CheckState = (Sweep.CheckState == CheckState.Checked) ? CheckState.Indeterminate : CheckState.Checked;
                 canvasPoints = tmp;
 
                 if (LineList.SelectedIndex != -1)
@@ -2973,6 +2960,8 @@ namespace ShapeMaker
                 {
                     MPMode.Checked = false;
                 }
+
+                MPMode.Image = (MPMode.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
             }
             else
             {
@@ -2985,7 +2974,10 @@ namespace ShapeMaker
                 {
                     Loop.Checked = false;
                 }
+
+                Loop.Image = (Loop.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             }
+
             canvas.Refresh();
 
             if (LineList.SelectedIndex != -1)
@@ -2994,102 +2986,22 @@ namespace ShapeMaker
 
         private void Property_Click(object sender, EventArgs e)
         {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
+            (sender as ToolStripButton).CheckState = (sender as ToolStripButton).CheckState == CheckState.Checked ? CheckState.Indeterminate : CheckState.Checked;
+
+            if (sender == Big)
+                Big.Image = (Big.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
+            else if (sender == Sweep)
+                Sweep.Image = (Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
+
             canvas.Refresh();
 
             if (LineList.SelectedIndex != -1)
                 UpdateExistingPath();
         }
 
-        private void MacroRect_Click(object sender, EventArgs e)
-        {
-            MacroRect.Checked = !MacroRect.Checked;
-            if (MacroRect.Checked)
-                ToolMenu_Click(radios[0], e);
-            canvas.Refresh();
-        }
-
-        private void MacroCubic_Click(object sender, EventArgs e)
-        {
-            MacroCubic.Checked = !MacroCubic.Checked;
-            if (MacroCubic.Checked)
-                ToolMenu_Click(radios[2], e);
-            if (MacroCubic.Checked)
-                CubicAdjust();
-            canvas.Refresh();
-        }
-
-        private void MacroCircle_Click(object sender, EventArgs e)
-        {
-            MacroCircle.Checked = !MacroCircle.Checked;
-            Big.Enabled = !MacroCircle.Checked;
-            Sweep.Enabled = !MacroCircle.Checked;
-            if (MacroCircle.Checked)
-                ToolMenu_Click(radios[1], e);
-            canvas.Refresh();
-        }
-
-        private void ToolMenu_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem s = (ToolStripMenuItem)sender;
-            int z = Convert.ToInt32(s.Tag);
-            if (z != MDown)
-                MDown = -1;
-            foreach (ToolStripMenuItem t in radios)
-                t.Checked = (t.Name.Equals(s.Name));
-        }
-
         private void SpinLine_MouseUp(object sender, MouseEventArgs e)
         {
             toolTip1.Hide((sender as BigKnobs));
-        }
-
-        private Bitmap SpriteSheet(int x, int y)
-        {
-            Bitmap bmp = new Bitmap((int)(buttonWd * DPI), (int)(buttonHt * DPI));
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.DrawImage(Properties.Resources.NewUI, new RectangleF(0, 0, (int)(buttonWd * DPI), (int)(buttonHt * DPI)),
-                    new RectangleF(x * buttonWd, y * buttonHt, buttonWd, buttonHt), GraphicsUnit.Pixel);
-            }
-            return bmp;
-        }
-
-        private void ToolChecked_Paint(object sender, PaintEventArgs e)
-        {
-            int z = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-
-            if (!(sender as ToolStripMenuItem).Enabled)
-            {
-                e.Graphics.DrawImage(SpriteSheet(z, 2), 0, 0);
-            }
-            else if ((z == MDown && sender != Big && sender != Sweep) || (sender as ToolStripMenuItem).Checked)
-            {
-                e.Graphics.DrawImage(SpriteSheet(z, 1), 0, 0);
-            }
-            else
-            {
-                e.Graphics.DrawImage(SpriteSheet(z, 0), 0, 0);
-            }
-        }
-
-        private void undoToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-                (sender as ToolStripMenuItem).PerformClick();
-            (sender as ToolStripMenuItem).Checked = true;
-            menuStrip1.Refresh();
-        }
-
-        private void undoToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = false;
-            menuStrip1.Refresh();
-        }
-
-        private void blank_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(Properties.Resources.blank2, 0, 0, (int)(blankWd * DPI), (int)(blankHt * DPI));
         }
 
         private void MakePath()
@@ -3129,8 +3041,8 @@ namespace ShapeMaker
                 PointF[] Qpts = new PointF[line.Length];
                 for (int i = 0; i < line.Length; i++)
                 {
-                    float x = (float)OutputScale.Value * (float)SuperSize.Width / 100f * line[i].X;
-                    float y = (float)OutputScale.Value * (float)SuperSize.Height / 100f * line[i].Y;
+                    float x = (float)OutputScale.Value * SuperSize.Width / 100f * line[i].X;
+                    float y = (float)OutputScale.Value * SuperSize.Height / 100f * line[i].Y;
                     pts[i] = new PointF(x, y);
                 }
                 #region cube to quad
@@ -3418,31 +3330,6 @@ namespace ShapeMaker
         private void opaque_ValueChanged(object sender, float e)
         {
             canvas.Refresh();
-        }
-
-        private void tool_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (canvasPoints.Length > 0)
-                setUndo();
-            int z = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-            if (z > 0 && z < 11)
-            {
-                if (z != 2 && z != 6) //momentary down
-                {
-                    MDown = z;
-                }
-                else
-                {
-                    z = -1;
-                }
-            }
-            else
-            {
-                z = -1;
-            }
-
-            if (e.Button == MouseButtons.Right)
-                (sender as ToolStripMenuItem).PerformClick();
         }
 
         private void openProject_Click(object sender, EventArgs e)
@@ -3851,9 +3738,78 @@ namespace ShapeMaker
 
         private void UpdateExistingPath()
         {
-            Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), Big.Checked,
-                Sweep.Checked, (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+            Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked),
+                (Sweep.CheckState == CheckState.Checked), (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
             LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
+        }
+
+        private void OptionToggle(object sender, EventArgs e)
+        {
+            (sender as ToolStripButton).Checked = !(sender as ToolStripButton).Checked;
+
+            if (sender == Snap)
+                Snap.Image = (Snap.Checked) ? Properties.Resources.SnapOn : Properties.Resources.SnapOff;
+            else if (sender == LinkedL)
+                LinkedL.Image = (LinkedL.Checked) ? Properties.Resources.LinkOn : Properties.Resources.LinkOff;
+        }
+
+        private void PathTypeToggle(object sender, EventArgs e)
+        {
+            if ((sender as ToolStripButton).Checked)
+                return;
+
+            activeType = int.Parse((sender as ToolStripButton).Tag.ToString());
+            PathTypeToggle();
+        }
+
+        private void PathTypeToggle()
+        {
+            foreach (ToolStripButton button in typeButtons)
+            {
+                int buttonTag = int.Parse(button.Tag.ToString());
+                button.Checked = (buttonTag == activeType);
+                if (button.Checked)
+                {
+                    if (canvasPoints.Length > 1)
+                    {
+                        PointF hold = canvasPoints[0];
+                        Array.Resize(ref canvasPoints, 1);
+                        canvasPoints[0] = hold;
+                        canvas.Refresh();
+                    }
+                }
+            }
+
+            Big.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+            Sweep.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+        }
+
+        private void MacroToggle(object sender, EventArgs e)
+        {
+            bool state;
+            if (sender == MacroRect)
+            {
+                state = !MacroRect.Checked;
+                StraightLine.PerformClick();
+                MacroRect.Checked = state;
+            }
+            else if (sender == MacroCubic)
+            {
+                state = !MacroCubic.Checked;
+                Cubic.PerformClick();
+                MacroCubic.Checked = state;
+            }
+            else if (sender == MacroCircle)
+            {
+                state = !MacroCircle.Checked;
+                Ellipse.PerformClick();
+                MacroCircle.Checked = state;
+            }
+
+            Big.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+            Sweep.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+
+            canvas.Refresh();
         }
     }
 }
