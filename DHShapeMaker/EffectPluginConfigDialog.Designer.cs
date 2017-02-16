@@ -541,11 +541,11 @@
             // upList
             // 
             this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.upList.Image = global::ShapeMaker.Properties.Resources.ListUp;
             this.upList.Location = new System.Drawing.Point(539, 396);
             this.upList.Name = "upList";
             this.upList.Size = new System.Drawing.Size(32, 36);
             this.upList.TabIndex = 0;
-            this.upList.Text = "Up";
             this.toolTip1.SetToolTip(this.upList, "Move Path Up");
             this.upList.UseVisualStyleBackColor = true;
             this.upList.Click += new System.EventHandler(this.upList_Click);
@@ -553,11 +553,11 @@
             // DNList
             // 
             this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DNList.Image = global::ShapeMaker.Properties.Resources.ListDown;
             this.DNList.Location = new System.Drawing.Point(575, 396);
             this.DNList.Name = "DNList";
             this.DNList.Size = new System.Drawing.Size(32, 36);
             this.DNList.TabIndex = 0;
-            this.DNList.Text = "Down";
             this.toolTip1.SetToolTip(this.DNList, "Move Path Down");
             this.DNList.UseVisualStyleBackColor = true;
             this.DNList.Click += new System.EventHandler(this.DNList_Click);
