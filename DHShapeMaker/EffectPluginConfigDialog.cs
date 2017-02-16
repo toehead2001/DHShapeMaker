@@ -163,15 +163,15 @@ namespace ShapeMaker
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " v" + version;
 
-            Big.Enabled = false;
+            Arc.Enabled = false;
             Sweep.Enabled = false;
 
             typeButtons[0] = StraightLine;
-            typeButtons[1] = Ellipse;
-            typeButtons[2] = Cubic;
-            typeButtons[3] = SCubic;
-            typeButtons[4] = Quadratic;
-            typeButtons[5] = SQuadratic;
+            typeButtons[1] = Elliptical;
+            typeButtons[2] = CubicBezier;
+            typeButtons[3] = SCubicBezier;
+            typeButtons[4] = QuadBezier;
+            typeButtons[5] = SQuadBezier;
 
             toolTip1.ReshowDelay = 0;
             toolTip1.AutomaticDelay = 0;
@@ -1085,9 +1085,9 @@ namespace ShapeMaker
             MacroRect.Checked = false;
             activeType = pathType;
             PathTypeToggle();
-            Loop.Checked = closedPath;
-            MPMode.Checked = multiClosedPath;
-            Big.CheckState = largeArc ? CheckState.Checked : CheckState.Unchecked;
+            ClosePath.Checked = closedPath;
+            CloseContPaths.Checked = multiClosedPath;
+            Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Unchecked;
             Sweep.CheckState = revSweep ? CheckState.Checked : CheckState.Unchecked;
             ResumeLayout();
         }
@@ -1144,9 +1144,9 @@ namespace ShapeMaker
                     {
                         pPoints = canvasPoints;
                         pType = getPathType();
-                        isClosed = Loop.Checked;
-                        mpMode = MPMode.Checked;
-                        isLarge = (Big.CheckState == CheckState.Checked);
+                        isClosed = ClosePath.Checked;
+                        mpMode = CloseContPaths.Checked;
+                        isLarge = (Arc.CheckState == CheckState.Checked);
                         revSweep = (Sweep.CheckState == CheckState.Checked);
                     }
                     else
@@ -1202,7 +1202,7 @@ namespace ShapeMaker
                     #endregion
 
                     bool islinked = true;
-                    if (!Oldxy.Equals(pts[0]) || (j == LineList.SelectedIndex && Loop.Checked))
+                    if (!Oldxy.Equals(pts[0]) || (j == LineList.SelectedIndex && ClosePath.Checked))
                     {
                         loopBack = new PointF(pts[0].X, pts[0].Y);
                         islinked = false;
@@ -1406,7 +1406,7 @@ namespace ShapeMaker
                         bool noJoin = false;
                         if (j == -1)
                         {
-                            if (MacroCircle.Checked && Ellipse.Checked)
+                            if (MacroCircle.Checked && Elliptical.Checked)
                                 noJoin = true;
                             if (MacroRect.Checked && StraightLine.Checked)
                                 noJoin = true;
@@ -1541,7 +1541,7 @@ namespace ShapeMaker
                     canvasPoints[1] = canvasPoints[0];
                     canvasPoints[2] = canvasPoints[4];
                     canvasPoints[3] = mid;
-                    Lines.Add(new PData(canvasPoints, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                    Lines.Add(new PData(canvasPoints, false, getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
                     PointF[] tmp = new PointF[canvasPoints.Length];
                     //fix
@@ -1551,7 +1551,7 @@ namespace ShapeMaker
                     tmp[1] = tmp[0];
                     tmp[2] = tmp[4];
                     //test below
-                    Lines.Add(new PData(tmp, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, true));
+                    Lines.Add(new PData(tmp, false, getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, true));
                     LineList.Items.Add(LineNames[(int)LineTypes.Ellipse]);
                 }
                 else if (MacroRect.Checked && getPathType() == (int)LineTypes.Straight)
@@ -1564,13 +1564,13 @@ namespace ShapeMaker
                         tmp[2] = new PointF(canvasPoints[i].X, canvasPoints[i].Y);
                         tmp[3] = new PointF(canvasPoints[i - 1].X, canvasPoints[i].Y);
                         tmp[4] = new PointF(canvasPoints[i - 1].X, canvasPoints[i - 1].Y);
-                        Lines.Add(new PData(tmp, false, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                        Lines.Add(new PData(tmp, false, getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, false));
                         LineList.Items.Add(LineNames[getPathType()]);
                     }
                 }
                 else
                 {
-                    Lines.Add(new PData(canvasPoints, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, MPMode.Checked));
+                    Lines.Add(new PData(canvasPoints, ClosePath.Checked, getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
                     LineList.Items.Add(LineNames[getPathType()]);
                 }
             }
@@ -1581,7 +1581,7 @@ namespace ShapeMaker
 
             resetRotation();
 
-            if (LinkedL.Checked)
+            if (LinkedPaths.Checked)
             {
                 PointF hold = canvasPoints[canvasPoints.Length - 1];
                 Array.Resize(ref canvasPoints, 1);
@@ -1629,7 +1629,7 @@ namespace ShapeMaker
                 PointF[] tmp = new PointF[canvasPoints.Length];
                 Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
-                Lines.Add(new PData(tmp, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, MPMode.Checked));
+                Lines.Add(new PData(tmp, ClosePath.Checked, getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
                 LineList.Items.Add(LineNames[getPathType()]);
                 LineList.SelectedIndex = LineList.Items.Count - 1;
 
@@ -2531,7 +2531,7 @@ namespace ShapeMaker
                         tmp[i] = new PointF(tmp[i].X, -(tmp[i].Y - mid.Y) + mid.Y);
                     }
                 }
-                if (Ellipse.Checked)
+                if (Elliptical.Checked)
                     Sweep.CheckState = (Sweep.CheckState == CheckState.Checked) ? CheckState.Indeterminate : CheckState.Checked;
                 canvasPoints = tmp;
 
@@ -2681,7 +2681,7 @@ namespace ShapeMaker
 
         private void LineLoop_Click(object sender, EventArgs e)
         {
-            if (canvasPoints.Length > 2 && !Ellipse.Checked)
+            if (canvasPoints.Length > 2 && !Elliptical.Checked)
             {
                 setUndo();
                 canvasPoints[canvasPoints.Length - 1] = canvasPoints[0];
@@ -2691,11 +2691,11 @@ namespace ShapeMaker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!Ellipse.Checked)
+            if (!Elliptical.Checked)
                 MacroCircle.Checked = false;
             if (!StraightLine.Checked)
                 MacroRect.Checked = false;
-            if (!Cubic.Checked)
+            if (!CubicBezier.Checked)
                 MacroCubic.Checked = false;
 
             ToggleUpDownButtons();
@@ -2704,8 +2704,8 @@ namespace ShapeMaker
             MacroCircle.Enabled = (LineList.SelectedIndex == -1);
             MacroRect.Enabled = (LineList.SelectedIndex == -1);
             MacroCubic.Enabled = (LineList.SelectedIndex == -1);
-            Loop.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
-            MPMode.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
+            ClosePath.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
+            CloseContPaths.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             ClearBtn.Enabled = (canvasPoints.Length != 0);
             ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
 
@@ -2949,33 +2949,33 @@ namespace ShapeMaker
 
         private void Loops_Click(object sender, EventArgs e)
         {
-            if (MPMode.Equals(sender))
+            if (CloseContPaths.Equals(sender))
             {
-                if (!MPMode.Checked)
+                if (!CloseContPaths.Checked)
                 {
-                    Loop.Checked = false;
-                    MPMode.Checked = true;
+                    ClosePath.Checked = false;
+                    CloseContPaths.Checked = true;
                 }
                 else
                 {
-                    MPMode.Checked = false;
+                    CloseContPaths.Checked = false;
                 }
 
-                MPMode.Image = (MPMode.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
+                CloseContPaths.Image = (CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
             }
             else
             {
-                if (!Loop.Checked)
+                if (!ClosePath.Checked)
                 {
-                    Loop.Checked = true;
-                    MPMode.Checked = false;
+                    ClosePath.Checked = true;
+                    CloseContPaths.Checked = false;
                 }
                 else
                 {
-                    Loop.Checked = false;
+                    ClosePath.Checked = false;
                 }
 
-                Loop.Image = (Loop.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
+                ClosePath.Image = (ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             }
 
             canvas.Refresh();
@@ -2988,8 +2988,8 @@ namespace ShapeMaker
         {
             (sender as ToolStripButton).CheckState = (sender as ToolStripButton).CheckState == CheckState.Checked ? CheckState.Indeterminate : CheckState.Checked;
 
-            if (sender == Big)
-                Big.Image = (Big.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
+            if (sender == Arc)
+                Arc.Image = (Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
             else if (sender == Sweep)
                 Sweep.Image = (Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
 
@@ -3738,8 +3738,8 @@ namespace ShapeMaker
 
         private void UpdateExistingPath()
         {
-            Lines[LineList.SelectedIndex] = new PData(canvasPoints, Loop.Checked, getPathType(), (Big.CheckState == CheckState.Checked),
-                (Sweep.CheckState == CheckState.Checked), (Lines[LineList.SelectedIndex] as PData).Alias, MPMode.Checked);
+            Lines[LineList.SelectedIndex] = new PData(canvasPoints, ClosePath.Checked, getPathType(), (Arc.CheckState == CheckState.Checked),
+                (Sweep.CheckState == CheckState.Checked), (Lines[LineList.SelectedIndex] as PData).Alias, CloseContPaths.Checked);
             LineList.Items[LineList.SelectedIndex] = LineNames[getPathType()];
         }
 
@@ -3749,8 +3749,8 @@ namespace ShapeMaker
 
             if (sender == Snap)
                 Snap.Image = (Snap.Checked) ? Properties.Resources.SnapOn : Properties.Resources.SnapOff;
-            else if (sender == LinkedL)
-                LinkedL.Image = (LinkedL.Checked) ? Properties.Resources.LinkOn : Properties.Resources.LinkOff;
+            else if (sender == LinkedPaths)
+                LinkedPaths.Image = (LinkedPaths.Checked) ? Properties.Resources.LinkOn : Properties.Resources.LinkOff;
         }
 
         private void PathTypeToggle(object sender, EventArgs e)
@@ -3780,8 +3780,8 @@ namespace ShapeMaker
                 }
             }
 
-            Big.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
-            Sweep.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+            Arc.Enabled = (Elliptical.Checked && !MacroCircle.Checked);
+            Sweep.Enabled = (Elliptical.Checked && !MacroCircle.Checked);
         }
 
         private void MacroToggle(object sender, EventArgs e)
@@ -3796,18 +3796,18 @@ namespace ShapeMaker
             else if (sender == MacroCubic)
             {
                 state = !MacroCubic.Checked;
-                Cubic.PerformClick();
+                CubicBezier.PerformClick();
                 MacroCubic.Checked = state;
             }
             else if (sender == MacroCircle)
             {
                 state = !MacroCircle.Checked;
-                Ellipse.PerformClick();
+                Elliptical.PerformClick();
                 MacroCircle.Checked = state;
             }
 
-            Big.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
-            Sweep.Enabled = (Ellipse.Checked && !MacroCircle.Checked);
+            Arc.Enabled = (Elliptical.Checked && !MacroCircle.Checked);
+            Sweep.Enabled = (Elliptical.Checked && !MacroCircle.Checked);
 
             canvas.Refresh();
         }

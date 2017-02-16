@@ -100,29 +100,29 @@
             this.MacroRect = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBlue = new System.Windows.Forms.ToolStrip();
-            this.Cubic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.CubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.MacroCubic = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripGreen = new System.Windows.Forms.ToolStrip();
-            this.SCubic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.SCubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripYellow = new System.Windows.Forms.ToolStrip();
-            this.Quadratic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.QuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripPurple = new System.Windows.Forms.ToolStrip();
-            this.SQuadratic = new ShapeMaker.ToolStripButtonWithKeys();
+            this.SQuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripRed = new System.Windows.Forms.ToolStrip();
-            this.Ellipse = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Big = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Elliptical = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Arc = new ShapeMaker.ToolStripButtonWithKeys();
             this.Sweep = new ShapeMaker.ToolStripButtonWithKeys();
             this.MacroCircle = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripOptions = new System.Windows.Forms.ToolStrip();
             this.Snap = new ShapeMaker.ToolStripButtonWithKeys();
-            this.LinkedL = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Loop = new ShapeMaker.ToolStripButtonWithKeys();
-            this.MPMode = new ShapeMaker.ToolStripButtonWithKeys();
+            this.LinkedPaths = new ShapeMaker.ToolStripButtonWithKeys();
+            this.ClosePath = new ShapeMaker.ToolStripButtonWithKeys();
+            this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripUndo = new System.Windows.Forms.ToolStrip();
             this.Undo = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
@@ -861,7 +861,7 @@
             this.toolStripBlue.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripBlue.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripBlue.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Cubic,
+            this.CubicBezier,
             this.MacroCubic,
             this.toolStripSeparator13});
             this.toolStripBlue.Location = new System.Drawing.Point(304, 0);
@@ -870,18 +870,18 @@
             this.toolStripBlue.TabIndex = 1;
             this.toolStripBlue.Text = "toolStrip2";
             // 
-            // Cubic
+            // CubicBezier
             // 
-            this.Cubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Cubic.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
-            this.Cubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Cubic.Name = "Cubic";
-            this.Cubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.Cubic.Size = new System.Drawing.Size(36, 36);
-            this.Cubic.Tag = "2";
-            this.Cubic.Text = "Cubic Bezier";
-            this.Cubic.ToolTipText = "Cubic Bezier (Ctrl+B)";
-            this.Cubic.Click += new System.EventHandler(this.PathTypeToggle);
+            this.CubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CubicBezier.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
+            this.CubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.CubicBezier.Name = "CubicBezier";
+            this.CubicBezier.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.CubicBezier.Size = new System.Drawing.Size(36, 36);
+            this.CubicBezier.Tag = "2";
+            this.CubicBezier.Text = "Cubic Bezier";
+            this.CubicBezier.ToolTipText = "Cubic Bezier (Ctrl+B)";
+            this.CubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // MacroCubic
             // 
@@ -906,7 +906,7 @@
             this.toolStripGreen.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripGreen.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripGreen.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SCubic,
+            this.SCubicBezier,
             this.toolStripSeparator14});
             this.toolStripGreen.Location = new System.Drawing.Point(389, 0);
             this.toolStripGreen.Name = "toolStripGreen";
@@ -914,19 +914,19 @@
             this.toolStripGreen.TabIndex = 2;
             this.toolStripGreen.Text = "toolStrip3";
             // 
-            // SCubic
+            // SCubicBezier
             // 
-            this.SCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SCubic.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
-            this.SCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.SCubic.Name = "SCubic";
-            this.SCubic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.SCubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SCubicBezier.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
+            this.SCubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SCubicBezier.Name = "SCubicBezier";
+            this.SCubicBezier.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.B)));
-            this.SCubic.Size = new System.Drawing.Size(36, 36);
-            this.SCubic.Tag = "3";
-            this.SCubic.Text = "Smooth Cubic Bezier";
-            this.SCubic.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
-            this.SCubic.Click += new System.EventHandler(this.PathTypeToggle);
+            this.SCubicBezier.Size = new System.Drawing.Size(36, 36);
+            this.SCubicBezier.Tag = "3";
+            this.SCubicBezier.Text = "Smooth Cubic Bezier";
+            this.SCubicBezier.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
+            this.SCubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // toolStripSeparator14
             // 
@@ -939,7 +939,7 @@
             this.toolStripYellow.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripYellow.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripYellow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Quadratic,
+            this.QuadBezier,
             this.toolStripSeparator15});
             this.toolStripYellow.Location = new System.Drawing.Point(436, 0);
             this.toolStripYellow.Name = "toolStripYellow";
@@ -947,18 +947,18 @@
             this.toolStripYellow.TabIndex = 3;
             this.toolStripYellow.Text = "toolStrip4";
             // 
-            // Quadratic
+            // QuadBezier
             // 
-            this.Quadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Quadratic.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
-            this.Quadratic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Quadratic.Name = "Quadratic";
-            this.Quadratic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.Quadratic.Size = new System.Drawing.Size(36, 36);
-            this.Quadratic.Tag = "4";
-            this.Quadratic.Text = "Quadratic Bezier";
-            this.Quadratic.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
-            this.Quadratic.Click += new System.EventHandler(this.PathTypeToggle);
+            this.QuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.QuadBezier.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
+            this.QuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.QuadBezier.Name = "QuadBezier";
+            this.QuadBezier.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.QuadBezier.Size = new System.Drawing.Size(36, 36);
+            this.QuadBezier.Tag = "4";
+            this.QuadBezier.Text = "Quadratic Bezier";
+            this.QuadBezier.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
+            this.QuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // toolStripSeparator15
             // 
@@ -971,7 +971,7 @@
             this.toolStripPurple.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripPurple.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripPurple.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SQuadratic,
+            this.SQuadBezier,
             this.toolStripSeparator16});
             this.toolStripPurple.Location = new System.Drawing.Point(483, 0);
             this.toolStripPurple.Name = "toolStripPurple";
@@ -979,19 +979,19 @@
             this.toolStripPurple.TabIndex = 4;
             this.toolStripPurple.Text = "toolStrip5";
             // 
-            // SQuadratic
+            // SQuadBezier
             // 
-            this.SQuadratic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SQuadratic.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
-            this.SQuadratic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.SQuadratic.Name = "SQuadratic";
-            this.SQuadratic.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.SQuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SQuadBezier.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
+            this.SQuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SQuadBezier.Name = "SQuadBezier";
+            this.SQuadBezier.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
-            this.SQuadratic.Size = new System.Drawing.Size(36, 36);
-            this.SQuadratic.Tag = "5";
-            this.SQuadratic.Text = "Smooth Quad Bezier";
-            this.SQuadratic.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
-            this.SQuadratic.Click += new System.EventHandler(this.PathTypeToggle);
+            this.SQuadBezier.Size = new System.Drawing.Size(36, 36);
+            this.SQuadBezier.Tag = "5";
+            this.SQuadBezier.Text = "Smooth Quad Bezier";
+            this.SQuadBezier.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
+            this.SQuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // toolStripSeparator16
             // 
@@ -1004,8 +1004,8 @@
             this.toolStripRed.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripRed.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripRed.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Ellipse,
-            this.Big,
+            this.Elliptical,
+            this.Arc,
             this.Sweep,
             this.MacroCircle,
             this.toolStripSeparator17});
@@ -1015,31 +1015,31 @@
             this.toolStripRed.TabIndex = 5;
             this.toolStripRed.Text = "toolStrip6";
             // 
-            // Ellipse
+            // Elliptical
             // 
-            this.Ellipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Ellipse.Image = global::ShapeMaker.Properties.Resources.Elliptical;
-            this.Ellipse.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Ellipse.Name = "Ellipse";
-            this.Ellipse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.Ellipse.Size = new System.Drawing.Size(36, 36);
-            this.Ellipse.Tag = "1";
-            this.Ellipse.Text = "Elliptical Arc";
-            this.Ellipse.ToolTipText = "Elliptical Arc (Ctrl+E)";
-            this.Ellipse.Click += new System.EventHandler(this.PathTypeToggle);
+            this.Elliptical.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Elliptical.Image = global::ShapeMaker.Properties.Resources.Elliptical;
+            this.Elliptical.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Elliptical.Name = "Elliptical";
+            this.Elliptical.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.Elliptical.Size = new System.Drawing.Size(36, 36);
+            this.Elliptical.Tag = "1";
+            this.Elliptical.Text = "Elliptical Arc";
+            this.Elliptical.ToolTipText = "Elliptical Arc (Ctrl+E)";
+            this.Elliptical.Click += new System.EventHandler(this.PathTypeToggle);
             // 
-            // Big
+            // Arc
             // 
-            this.Big.Checked = true;
-            this.Big.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Big.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Big.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
-            this.Big.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Big.Name = "Big";
-            this.Big.Size = new System.Drawing.Size(36, 36);
-            this.Big.Text = "Large/Small Arc Selector";
-            this.Big.ToolTipText = "Large/Small Arc Selector";
-            this.Big.Click += new System.EventHandler(this.Property_Click);
+            this.Arc.Checked = true;
+            this.Arc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Arc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Arc.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
+            this.Arc.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Arc.Name = "Arc";
+            this.Arc.Size = new System.Drawing.Size(36, 36);
+            this.Arc.Text = "Large/Small Arc Selector";
+            this.Arc.ToolTipText = "Large/Small Arc Selector";
+            this.Arc.Click += new System.EventHandler(this.Property_Click);
             // 
             // Sweep
             // 
@@ -1078,9 +1078,9 @@
             this.toolStripOptions.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Snap,
-            this.LinkedL,
-            this.Loop,
-            this.MPMode});
+            this.LinkedPaths,
+            this.ClosePath,
+            this.CloseContPaths});
             this.toolStripOptions.Location = new System.Drawing.Point(691, 0);
             this.toolStripOptions.Name = "toolStripOptions";
             this.toolStripOptions.Size = new System.Drawing.Size(155, 39);
@@ -1101,44 +1101,44 @@
             this.Snap.ToolTipText = "Snap to Grid (Ctrl+S)";
             this.Snap.Click += new System.EventHandler(this.OptionToggle);
             // 
-            // LinkedL
+            // LinkedPaths
             // 
-            this.LinkedL.Checked = true;
-            this.LinkedL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.LinkedL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LinkedL.Image = global::ShapeMaker.Properties.Resources.LinkOn;
-            this.LinkedL.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.LinkedL.Name = "LinkedL";
-            this.LinkedL.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.LinkedL.Size = new System.Drawing.Size(36, 36);
-            this.LinkedL.Text = "Linked with Previous Line";
-            this.LinkedL.ToolTipText = "Linked with Previous Line (Ctrl+3)";
-            this.LinkedL.Click += new System.EventHandler(this.OptionToggle);
+            this.LinkedPaths.Checked = true;
+            this.LinkedPaths.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LinkedPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LinkedPaths.Image = global::ShapeMaker.Properties.Resources.LinkOn;
+            this.LinkedPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.LinkedPaths.Name = "LinkedPaths";
+            this.LinkedPaths.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.LinkedPaths.Size = new System.Drawing.Size(36, 36);
+            this.LinkedPaths.Text = "Linked with Previous Line";
+            this.LinkedPaths.ToolTipText = "Linked with Previous Line (Ctrl+3)";
+            this.LinkedPaths.Click += new System.EventHandler(this.OptionToggle);
             // 
-            // Loop
+            // ClosePath
             // 
-            this.Loop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Loop.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
-            this.Loop.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Loop.Name = "Loop";
-            this.Loop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.Loop.Size = new System.Drawing.Size(36, 36);
-            this.Loop.Text = "Close Individual Path";
-            this.Loop.ToolTipText = "Close Individual Path (Ctrl+2)";
-            this.Loop.Click += new System.EventHandler(this.Loops_Click);
+            this.ClosePath.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClosePath.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
+            this.ClosePath.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.ClosePath.Name = "ClosePath";
+            this.ClosePath.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.ClosePath.Size = new System.Drawing.Size(36, 36);
+            this.ClosePath.Text = "Close Individual Path";
+            this.ClosePath.ToolTipText = "Close Individual Path (Ctrl+2)";
+            this.ClosePath.Click += new System.EventHandler(this.Loops_Click);
             // 
-            // MPMode
+            // CloseContPaths
             // 
-            this.MPMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MPMode.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
-            this.MPMode.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.MPMode.Name = "MPMode";
-            this.MPMode.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.CloseContPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CloseContPaths.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
+            this.CloseContPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.CloseContPaths.Name = "CloseContPaths";
+            this.CloseContPaths.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D2)));
-            this.MPMode.Size = new System.Drawing.Size(36, 36);
-            this.MPMode.Text = "Close Contiguous Path";
-            this.MPMode.ToolTipText = "Close Contiguous Path (Ctrl+Shift+2)";
-            this.MPMode.Click += new System.EventHandler(this.Loops_Click);
+            this.CloseContPaths.Size = new System.Drawing.Size(36, 36);
+            this.CloseContPaths.Text = "Close Contiguous Path";
+            this.CloseContPaths.ToolTipText = "Close Contiguous Path (Ctrl+Shift+2)";
+            this.CloseContPaths.Click += new System.EventHandler(this.Loops_Click);
             // 
             // toolStripUndo
             // 
@@ -1349,21 +1349,21 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
-        private ToolStripButtonWithKeys SCubic;
-        private ToolStripButtonWithKeys Quadratic;
-        private ToolStripButtonWithKeys SQuadratic;
-        private ToolStripButtonWithKeys Big;
+        private ToolStripButtonWithKeys SCubicBezier;
+        private ToolStripButtonWithKeys QuadBezier;
+        private ToolStripButtonWithKeys SQuadBezier;
+        private ToolStripButtonWithKeys Arc;
         private ToolStripButtonWithKeys Sweep;
         private ToolStripButtonWithKeys Snap;
-        private ToolStripButtonWithKeys LinkedL;
-        private ToolStripButtonWithKeys Loop;
-        private ToolStripButtonWithKeys MPMode;
+        private ToolStripButtonWithKeys LinkedPaths;
+        private ToolStripButtonWithKeys ClosePath;
+        private ToolStripButtonWithKeys CloseContPaths;
         private ToolStripButtonWithKeys Undo;
         private ToolStripButtonWithKeys StraightLine;
         private ToolStripButtonWithKeys MacroRect;
-        private ToolStripButtonWithKeys Cubic;
+        private ToolStripButtonWithKeys CubicBezier;
         private ToolStripButtonWithKeys MacroCubic;
-        private ToolStripButtonWithKeys Ellipse;
+        private ToolStripButtonWithKeys Elliptical;
         private ToolStripButtonWithKeys MacroCircle;
     }
 }
