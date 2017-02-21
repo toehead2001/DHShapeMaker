@@ -1205,7 +1205,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(850, 597);
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
