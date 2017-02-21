@@ -127,7 +127,9 @@
             this.Undo = new ShapeMaker.ToolStripButtonWithKeys();
             this.Redo = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.scaleSlider = new ShapeMaker.dhScroll();
+            this.scaleSlider = new System.Windows.Forms.TrackBar();
+            this.scaleDouble = new System.Windows.Forms.Button();
+            this.scaleHalf = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -142,6 +144,7 @@
             this.toolStripRed.SuspendLayout();
             this.toolStripOptions.SuspendLayout();
             this.toolStripUndo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // canvas
@@ -1188,29 +1191,53 @@
             // 
             // scaleSlider
             // 
-            this.scaleSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleSlider.Location = new System.Drawing.Point(695, 200);
-            this.scaleSlider.Margin = new System.Windows.Forms.Padding(0);
-            this.scaleSlider.maxValue = 2F;
-            this.scaleSlider.minValue = 0.5F;
+            this.scaleSlider.AutoSize = false;
+            this.scaleSlider.LargeChange = 0;
+            this.scaleSlider.Location = new System.Drawing.Point(716, 198);
+            this.scaleSlider.Maximum = 200;
+            this.scaleSlider.Minimum = 50;
             this.scaleSlider.Name = "scaleSlider";
-            this.scaleSlider.Size = new System.Drawing.Size(140, 28);
-            this.scaleSlider.TabIndex = 52;
-            this.scaleSlider.Value = 1F;
-            this.scaleSlider.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.scaleSlider_ValueChanged);
+            this.scaleSlider.Size = new System.Drawing.Size(100, 23);
+            this.scaleSlider.SmallChange = 0;
+            this.scaleSlider.TabIndex = 57;
+            this.scaleSlider.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.scaleSlider.Value = 100;
+            this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
             this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
             this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
+            // 
+            // scaleDouble
+            // 
+            this.scaleDouble.Location = new System.Drawing.Point(810, 198);
+            this.scaleDouble.Name = "scaleDouble";
+            this.scaleDouble.Size = new System.Drawing.Size(30, 23);
+            this.scaleDouble.TabIndex = 58;
+            this.scaleDouble.Text = "2x";
+            this.scaleDouble.UseVisualStyleBackColor = true;
+            this.scaleDouble.Click += new System.EventHandler(this.scaleDouble_Click);
+            // 
+            // scaleHalf
+            // 
+            this.scaleHalf.Location = new System.Drawing.Point(685, 198);
+            this.scaleHalf.Name = "scaleHalf";
+            this.scaleHalf.Size = new System.Drawing.Size(35, 23);
+            this.scaleHalf.TabIndex = 59;
+            this.scaleHalf.Text = "0.5x";
+            this.scaleHalf.UseVisualStyleBackColor = true;
+            this.scaleHalf.Click += new System.EventHandler(this.scaleHalf_Click);
             // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.scaleHalf);
+            this.Controls.Add(this.scaleDouble);
+            this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.opacitySlider);
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.horPosBar);
             this.Controls.Add(this.verPosBar);
@@ -1275,6 +1302,7 @@
             this.toolStripOptions.PerformLayout();
             this.toolStripUndo.ResumeLayout(false);
             this.toolStripUndo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleSlider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1343,7 +1371,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private dhScroll scaleSlider;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button removePathButton;
         private System.Windows.Forms.Button clonePathButton;
@@ -1380,5 +1407,8 @@
         private ToolStripButtonWithKeys MacroCircle;
         private ToolStripButtonWithKeys Redo;
         private System.Windows.Forms.TrackBar opacitySlider;
+        private System.Windows.Forms.TrackBar scaleSlider;
+        private System.Windows.Forms.Button scaleDouble;
+        private System.Windows.Forms.Button scaleHalf;
     }
 }

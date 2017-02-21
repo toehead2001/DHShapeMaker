@@ -3560,9 +3560,9 @@ namespace ShapeMaker
         #endregion
 
         #region Scale Slider functions
-        private void scaleSlider_ValueChanged(object sender, float e)
+        private void scaleSlider_Scroll(object sender, EventArgs e)
         {
-            float scale = e;
+            float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
 
             if (scale > 1 && !InView())
@@ -3598,18 +3598,32 @@ namespace ShapeMaker
 
         private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
         {
-            if (canvasPoints.Length > 1 || LineList.Items.Count > 0)
-                setUndo();
-
-            toolTip1.SetToolTip(scaleSlider, $"{scaleSlider.Value:0.00}x");
+            setUndo();
+            float scale = scaleSlider.Value / 100f;
+            toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
         }
 
         private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
         {
-            scaleSlider.ValueChanged -= scaleSlider_ValueChanged;
-            scaleSlider.Value = 1;
-            toolTip1.SetToolTip(scaleSlider, $"{scaleSlider.Value:0.00}x");
-            scaleSlider.ValueChanged += scaleSlider_ValueChanged;
+            scaleSlider.Value = 100;
+            float scale = scaleSlider.Value / 100f;
+            toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
+        }
+
+        private void scaleHalf_Click(object sender, EventArgs e)
+        {
+            setUndo();
+            scaleSlider.Value = 50;
+            scaleSlider_Scroll(scaleHalf, new EventArgs());
+            scaleSlider.Value = 100;
+        }
+
+        private void scaleDouble_Click(object sender, EventArgs e)
+        {
+            setUndo();
+            scaleSlider.Value = 200;
+            scaleSlider_Scroll(scaleDouble, new EventArgs());
+            scaleSlider.Value = 100;
         }
         #endregion
 
@@ -3860,6 +3874,9 @@ namespace ShapeMaker
             CloseContPaths.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             ClearBtn.Enabled = (canvasPoints.Length != 0);
             ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
+            scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
+            scaleDouble.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
+            scaleHalf.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
 
             //MPMode.Enabled = Loop.Checked;
             //if (!Loop.Checked) MPMode.Checked = false;
