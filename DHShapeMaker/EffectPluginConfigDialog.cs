@@ -371,7 +371,7 @@ namespace ShapeMaker
             Image gridImg = Properties.Resources.bg;
             ImageAttributes attr = new ImageAttributes();
             ColorMatrix mx = new ColorMatrix();
-            mx.Matrix33 = (1001f - opaque.Value) / 1000f;
+            mx.Matrix33 = (1001f - opacitySlider.Value) / 1000f;
             attr.SetColorMatrix(mx);
             using (TextureBrush texture = new TextureBrush(gridImg, new Rectangle(Point.Empty, gridImg.Size), attr))
             {
@@ -2724,7 +2724,7 @@ namespace ShapeMaker
             return true;
         }
 
-        private void opaque_ValueChanged(object sender, float e)
+        private void opacitySlider_Scroll(object sender, EventArgs e)
         {
             canvas.Refresh();
         }

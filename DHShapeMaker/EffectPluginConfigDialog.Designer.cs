@@ -75,7 +75,7 @@
             this.DNList = new System.Windows.Forms.Button();
             this.removePathButton = new System.Windows.Forms.Button();
             this.clonePathButton = new System.Windows.Forms.Button();
-            this.opaque = new ShapeMaker.dhScroll();
+            this.opacitySlider = new System.Windows.Forms.TrackBar();
             this.SpinLine = new Controlz.BigKnobs();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -131,6 +131,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
             this.viewport.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripBlack.SuspendLayout();
@@ -587,21 +588,20 @@
             this.clonePathButton.UseVisualStyleBackColor = true;
             this.clonePathButton.Click += new System.EventHandler(this.Clonebtn_Click);
             // 
-            // opaque
+            // opacitySlider
             // 
-            this.opaque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.opaque.AutoSize = true;
-            this.opaque.Location = new System.Drawing.Point(541, 480);
-            this.opaque.Margin = new System.Windows.Forms.Padding(0);
-            this.opaque.maxValue = 1000F;
-            this.opaque.minValue = 0F;
-            this.opaque.Name = "opaque";
-            this.opaque.Size = new System.Drawing.Size(140, 28);
-            this.opaque.TabIndex = 29;
-            this.opaque.Tag = "0";
-            this.toolTip1.SetToolTip(this.opaque, "Fade Background Image");
-            this.opaque.Value = 250F;
-            this.opaque.ValueChanged += new ShapeMaker.dhScroll.ValueChangedEventHandler(this.opaque_ValueChanged);
+            this.opacitySlider.AutoSize = false;
+            this.opacitySlider.LargeChange = 50;
+            this.opacitySlider.Location = new System.Drawing.Point(539, 476);
+            this.opacitySlider.Maximum = 1000;
+            this.opacitySlider.Name = "opacitySlider";
+            this.opacitySlider.Size = new System.Drawing.Size(144, 23);
+            this.opacitySlider.SmallChange = 10;
+            this.opacitySlider.TabIndex = 56;
+            this.opacitySlider.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.toolTip1.SetToolTip(this.opacitySlider, "Fade Background Image");
+            this.opacitySlider.Value = 250;
+            this.opacitySlider.Scroll += new System.EventHandler(this.opacitySlider_Scroll);
             // 
             // SpinLine
             // 
@@ -1206,6 +1206,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.opacitySlider);
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
             this.Controls.Add(this.label7);
@@ -1215,7 +1216,6 @@
             this.Controls.Add(this.verPosBar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
-            this.Controls.Add(this.opaque);
             this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.SpinLine);
             this.Controls.Add(this.FigureName);
@@ -1255,6 +1255,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).EndInit();
             this.viewport.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1319,7 +1320,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button upList;
         private System.Windows.Forms.Button DNList;
-        private dhScroll opaque;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem openProject;
         private System.Windows.Forms.ToolStripMenuItem saveProject;
@@ -1379,5 +1379,6 @@
         private ToolStripButtonWithKeys Elliptical;
         private ToolStripButtonWithKeys MacroCircle;
         private ToolStripButtonWithKeys Redo;
+        private System.Windows.Forms.TrackBar opacitySlider;
     }
 }
