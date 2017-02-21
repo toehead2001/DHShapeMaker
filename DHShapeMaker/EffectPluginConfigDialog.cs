@@ -60,11 +60,9 @@ namespace ShapeMaker
         bool countflag = false;
         const int maxPaths = 100;
         const int maxpoint = 255;
-        const int minpoint = 0;
-        const int basepoint = 0;
         int clickedNub = -1;
         PointF MoveStart;
-        PointF[] canvasPoints = new PointF[basepoint];
+        PointF[] canvasPoints = new PointF[0];
 
         private const int UndoMax = 16;
         ArrayList[] UDLines = new ArrayList[UndoMax];
