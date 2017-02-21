@@ -22,8 +22,8 @@ namespace ShapeMaker
             BorderColor = borderColor;
         }
 
-        private Color BackColor { get; set; }
-        private Color BorderColor { get; set; }
+        private Color BackColor;
+        private Color BorderColor;
 
         public override Color ButtonCheckedHighlight
         {
