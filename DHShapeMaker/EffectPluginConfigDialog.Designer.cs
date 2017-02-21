@@ -130,6 +130,8 @@
             this.scaleSlider = new System.Windows.Forms.TrackBar();
             this.scaleDouble = new System.Windows.Forms.Button();
             this.scaleHalf = new System.Windows.Forms.Button();
+            this.traceLayer = new System.Windows.Forms.RadioButton();
+            this.traceClipboard = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -1226,11 +1228,36 @@
             this.scaleHalf.UseVisualStyleBackColor = true;
             this.scaleHalf.Click += new System.EventHandler(this.scaleHalf_Click);
             // 
+            // traceLayer
+            // 
+            this.traceLayer.AutoSize = true;
+            this.traceLayer.Checked = true;
+            this.traceLayer.Location = new System.Drawing.Point(541, 538);
+            this.traceLayer.Name = "traceLayer";
+            this.traceLayer.Size = new System.Drawing.Size(76, 17);
+            this.traceLayer.TabIndex = 60;
+            this.traceLayer.TabStop = true;
+            this.traceLayer.Text = "PDN Layer";
+            this.traceLayer.UseVisualStyleBackColor = true;
+            // 
+            // traceClipboard
+            // 
+            this.traceClipboard.AutoSize = true;
+            this.traceClipboard.Enabled = false;
+            this.traceClipboard.Location = new System.Drawing.Point(541, 561);
+            this.traceClipboard.Name = "traceClipboard";
+            this.traceClipboard.Size = new System.Drawing.Size(76, 17);
+            this.traceClipboard.TabIndex = 61;
+            this.traceClipboard.Text = "Clipboard";
+            this.traceClipboard.UseVisualStyleBackColor = true;
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.traceClipboard);
+            this.Controls.Add(this.traceLayer);
             this.Controls.Add(this.scaleHalf);
             this.Controls.Add(this.scaleDouble);
             this.Controls.Add(this.scaleSlider);
@@ -1410,5 +1437,7 @@
         private System.Windows.Forms.TrackBar scaleSlider;
         private System.Windows.Forms.Button scaleDouble;
         private System.Windows.Forms.Button scaleHalf;
+        private System.Windows.Forms.RadioButton traceLayer;
+        private System.Windows.Forms.RadioButton traceClipboard;
     }
 }
