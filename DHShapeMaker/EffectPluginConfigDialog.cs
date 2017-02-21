@@ -3427,11 +3427,9 @@ namespace ShapeMaker
                         FigureName.Text = (Lines[Lines.Count - 1] as PData).Meta;
                         SolidFillMenuItem.Checked = (Lines[Lines.Count - 1] as PData).SolidFill;
 
-                        UDCount = 0;
-                        UDPointer = 0;
-                        Undo.Enabled = false;
-                        resetRotation();
                         ZoomToFactor(1);
+                        resetRotation();
+                        resetHistory();
                         canvas.Refresh();
                     }
                 }
@@ -3681,11 +3679,8 @@ namespace ShapeMaker
 
                 ZoomToFactor(1);
                 resetRotation();
+                resetHistory();
                 FigureName.Text = "Untitled";
-
-                UDCount = 0;
-                UDPointer = 0;
-                Undo.Enabled = false;
             }
         }
 
@@ -3854,6 +3849,15 @@ namespace ShapeMaker
             Sweep.Enabled = (Elliptical.Checked && !MacroCircle.Checked);
 
             canvas.Refresh();
+        }
+
+        private void resetHistory()
+        {
+            UDCount = 0;
+            RDCount = 0;
+            UDPointer = 0;
+            Undo.Enabled = false;
+            Redo.Enabled = false;
         }
     }
 }
