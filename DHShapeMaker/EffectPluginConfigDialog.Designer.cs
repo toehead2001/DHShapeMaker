@@ -595,6 +595,7 @@
             // 
             // opacitySlider
             // 
+            this.opacitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.opacitySlider.AutoSize = false;
             this.opacitySlider.LargeChange = 50;
             this.opacitySlider.Location = new System.Drawing.Point(539, 476);
@@ -1193,6 +1194,7 @@
             // 
             // scaleSlider
             // 
+            this.scaleSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scaleSlider.AutoSize = false;
             this.scaleSlider.LargeChange = 0;
             this.scaleSlider.Location = new System.Drawing.Point(716, 198);
@@ -1210,6 +1212,7 @@
             // 
             // scaleDouble
             // 
+            this.scaleDouble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scaleDouble.Location = new System.Drawing.Point(810, 198);
             this.scaleDouble.Name = "scaleDouble";
             this.scaleDouble.Size = new System.Drawing.Size(30, 23);
@@ -1220,6 +1223,7 @@
             // 
             // scaleHalf
             // 
+            this.scaleHalf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scaleHalf.Location = new System.Drawing.Point(685, 198);
             this.scaleHalf.Name = "scaleHalf";
             this.scaleHalf.Size = new System.Drawing.Size(35, 23);
@@ -1230,6 +1234,7 @@
             // 
             // traceLayer
             // 
+            this.traceLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceLayer.AutoSize = true;
             this.traceLayer.Checked = true;
             this.traceLayer.Location = new System.Drawing.Point(541, 538);
@@ -1242,6 +1247,7 @@
             // 
             // traceClipboard
             // 
+            this.traceClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceClipboard.AutoSize = true;
             this.traceClipboard.Enabled = false;
             this.traceClipboard.Location = new System.Drawing.Point(541, 561);
