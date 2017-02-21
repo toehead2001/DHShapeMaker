@@ -65,13 +65,14 @@ namespace ShapeMaker
         int clickedNub = -1;
         PointF MoveStart;
         PointF[] canvasPoints = new PointF[basepoint];
-        private const int UndoMax = 15;
 
+        private const int UndoMax = 16;
         ArrayList[] UDLines = new ArrayList[UndoMax];
         PointF[][] UDPoint = new PointF[UndoMax][];
         int[] UDtype = new int[UndoMax];
         int[] UDSelect = new int[UndoMax];
         int UDCount = 0;
+        int RDCount = 0;
         int UDPointer = 0;
 
         float lastRot = 180;
@@ -207,11 +208,11 @@ namespace ShapeMaker
         {
             // set undo
             Undo.Enabled = true;
+            Redo.Enabled = false;
 
+            RDCount = 0;
             UDCount++;
             UDCount = (UDCount > UndoMax) ? UndoMax : UDCount;
-            UDPointer++;
-            UDPointer %= UndoMax;
             UDtype[UDPointer] = getPathType();
             UDSelect[UDPointer] = (addingNewPath) ? -1 : LineList.SelectedIndex;
             UDPoint[UDPointer] = new PointF[canvasPoints.Length];
@@ -223,6 +224,8 @@ namespace ShapeMaker
                 Array.Copy(pd.Lines, tmp, pd.Lines.Length);
                 UDLines[UDPointer].Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
             }
+            UDPointer++;
+            UDPointer %= UndoMax;
         }
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
@@ -2436,11 +2439,11 @@ namespace ShapeMaker
             MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void Undo_Click(object sender, EventArgs e)
+        private void Redo_Click(object sender, EventArgs e)
         {
-            if (UDCount == 0)
-                return;
-
+            UDPointer++;
+            UDPointer += (UndoMax);
+            UDPointer %= UndoMax;
             canvasPoints = new PointF[0];
             setUiForPath(UDtype[UDPointer], false, false, false, false);
             if (UDPoint[UDPointer].Length != 0)
@@ -2449,7 +2452,52 @@ namespace ShapeMaker
                 Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
             }
 
-            //MDown = UDtype[UDPointer];
+            LineList.Items.Clear();
+            Lines = new ArrayList();
+            if (UDLines[UDPointer].Count != 0)
+            {
+                foreach (PData pd in UDLines[UDPointer])
+                {
+                    PointF[] tmp = new PointF[pd.Lines.Length];
+                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                    LineList.Items.Add(LineNames[pd.LineType]);
+                }
+                if (UDSelect[UDPointer] < LineList.Items.Count)
+                    LineList.SelectedIndex = UDSelect[UDPointer];
+            }
+            UDCount++;
+            RDCount--;
+
+            Redo.Enabled = (RDCount > 0);
+            Undo.Enabled = true;
+            resetRotation();
+            canvas.Refresh();
+        }
+
+        private void Undo_Click(object sender, EventArgs e)
+        {
+            if (UDCount == 0)
+                return;
+
+            if (RDCount == 0)
+            {
+                setUndo();
+                UDCount--;
+                UDPointer--;
+            }
+
+            UDPointer--;
+            UDPointer += (UndoMax);
+            UDPointer %= UndoMax;
+            canvasPoints = new PointF[0];
+            setUiForPath(UDtype[UDPointer], false, false, false, false);
+            if (UDPoint[UDPointer].Length != 0)
+            {
+                canvasPoints = new PointF[UDPoint[UDPointer].Length];
+                Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
+            }
+
             LineList.Items.Clear();
             Lines = new ArrayList();
             if (UDLines[UDPointer].Count != 0)
@@ -2466,13 +2514,11 @@ namespace ShapeMaker
             }
             UDCount--;
             UDCount = (UDCount < 0) ? 0 : UDCount;
-            UDPointer += (UndoMax - 1);
-            UDPointer %= UndoMax;
+            RDCount++;
 
-            Undo.Enabled = (UDCount != 0);
+            Undo.Enabled = (UDCount > 0);
+            Redo.Enabled = true;
             resetRotation();
-
-            menuStrip1.Refresh();
             canvas.Refresh();
         }
 

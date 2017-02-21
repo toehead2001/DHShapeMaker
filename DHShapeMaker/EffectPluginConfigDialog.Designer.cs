@@ -125,6 +125,7 @@
             this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripUndo = new System.Windows.Forms.ToolStrip();
             this.Undo = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Redo = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.scaleSlider = new ShapeMaker.dhScroll();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
@@ -1147,10 +1148,11 @@
             this.toolStripUndo.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripUndo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Undo,
+            this.Redo,
             this.toolStripSeparator11});
-            this.toolStripUndo.Location = new System.Drawing.Point(172, 0);
+            this.toolStripUndo.Location = new System.Drawing.Point(134, 0);
             this.toolStripUndo.Name = "toolStripUndo";
-            this.toolStripUndo.Size = new System.Drawing.Size(47, 39);
+            this.toolStripUndo.Size = new System.Drawing.Size(85, 39);
             this.toolStripUndo.TabIndex = 7;
             this.toolStripUndo.Text = "toolStrip8";
             // 
@@ -1166,6 +1168,18 @@
             this.Undo.Text = "Undo";
             this.Undo.ToolTipText = "Undo (Ctrl+Z)";
             this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            // 
+            // Redo
+            // 
+            this.Redo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Redo.Enabled = false;
+            this.Redo.Image = global::ShapeMaker.Properties.Resources.Redo;
+            this.Redo.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Redo.Name = "Redo";
+            this.Redo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.Redo.Size = new System.Drawing.Size(36, 36);
+            this.Redo.Text = "Redo (Ctrl+Y)";
+            this.Redo.Click += new System.EventHandler(this.Redo_Click);
             // 
             // toolStripSeparator11
             // 
@@ -1365,5 +1379,6 @@
         private ToolStripButtonWithKeys MacroCubic;
         private ToolStripButtonWithKeys Elliptical;
         private ToolStripButtonWithKeys MacroCircle;
+        private ToolStripButtonWithKeys Redo;
     }
 }
