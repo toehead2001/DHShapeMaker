@@ -96,12 +96,6 @@
       <DependentUpon>BigKnobs.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomToolbarControls.cs" />
-    <Compile Include="DHScroll.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DHScroll.designer.cs">
-      <DependentUpon>DHScroll.cs</DependentUpon>
-    </Compile>
     <Compile Include="ShortcutsFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,9 +127,6 @@
     <EmbeddedResource Include="BigKnobs.resx">
       <DependentUpon>BigKnobs.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DHScroll.resx">
-      <DependentUpon>DHScroll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EffectPluginConfigDialog.resx">
       <SubType>Designer</SubType>

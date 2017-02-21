@@ -186,26 +186,6 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap leftarrow {
-            get {
-                object obj = ResourceManager.GetObject("leftarrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap leftarrowLit {
-            get {
-                object obj = ResourceManager.GetObject("leftarrowLit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap LinkOff {
             get {
                 object obj = ResourceManager.GetObject("LinkOff", resourceCulture);
@@ -339,39 +319,9 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rightarrowLit {
-            get {
-                object obj = ResourceManager.GetObject("rightarrowLit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap SCubicBezier {
             get {
                 object obj = ResourceManager.GetObject("SCubicBezier", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap sliderHandle {
-            get {
-                object obj = ResourceManager.GetObject("sliderHandle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap sliderHandleLit {
-            get {
-                object obj = ResourceManager.GetObject("sliderHandleLit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
