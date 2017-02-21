@@ -3575,10 +3575,11 @@ namespace ShapeMaker
                 for (int k = 0; k < Lines.Count; k++)
                 {
                     PointF[] tmp = (Lines[k] as PData).Lines;
-                    PointF[] tmp2 = (UDLines[UDPointer][k] as PData).Lines;
+                    PointF[] tmp2 = (UDLines[(UDPointer - 1 + UndoMax) % UndoMax][k] as PData).Lines;
                     for (int i = 0; i < tmp.Length; i++)
                     {
-                        tmp[i] = new PointF((tmp2[i].X - pa.X) * scale + pa.X, (tmp2[i].Y - pa.Y) * scale + pa.Y);
+                        tmp[i].X = (tmp2[i].X - pa.X) * scale + pa.X;
+                        tmp[i].Y = (tmp2[i].Y - pa.Y) * scale + pa.Y;
                     }
                 }
             }
@@ -3588,8 +3589,8 @@ namespace ShapeMaker
 
                 for (int idx = 0; idx < canvasPoints.Length; idx++)
                 {
-                    canvasPoints[idx].X = (UDPoint[UDPointer][idx].X - pa.X) * scale + pa.X;
-                    canvasPoints[idx].Y = (UDPoint[UDPointer][idx].Y - pa.Y) * scale + pa.Y;
+                    canvasPoints[idx].X = (UDPoint[(UDPointer - 1 + UndoMax) % UndoMax][idx].X - pa.X) * scale + pa.X;
+                    canvasPoints[idx].Y = (UDPoint[(UDPointer - 1 + UndoMax) % UndoMax][idx].Y - pa.Y) * scale + pa.Y;
                 }
             }
             canvas.Refresh();
