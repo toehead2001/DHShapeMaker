@@ -415,7 +415,7 @@
             this.FitBG.AutoSize = true;
             this.FitBG.Checked = true;
             this.FitBG.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FitBG.Location = new System.Drawing.Point(541, 515);
+            this.FitBG.Location = new System.Drawing.Point(547, 499);
             this.FitBG.Name = "FitBG";
             this.FitBG.Size = new System.Drawing.Size(105, 17);
             this.FitBG.TabIndex = 33;
@@ -428,7 +428,7 @@
             // 
             this.DrawOnCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DrawOnCanvas.AutoSize = true;
-            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 531);
+            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 543);
             this.DrawOnCanvas.Name = "DrawOnCanvas";
             this.DrawOnCanvas.Size = new System.Drawing.Size(109, 17);
             this.DrawOnCanvas.TabIndex = 33;
@@ -514,7 +514,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(724, 480);
+            this.buttonOK.Location = new System.Drawing.Point(724, 492);
             this.buttonOK.MaximumSize = new System.Drawing.Size(90, 45);
             this.buttonOK.MinimumSize = new System.Drawing.Size(90, 45);
             this.buttonOK.Name = "buttonOK";
@@ -597,7 +597,7 @@
             this.opacitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.opacitySlider.AutoSize = false;
             this.opacitySlider.LargeChange = 50;
-            this.opacitySlider.Location = new System.Drawing.Point(539, 476);
+            this.opacitySlider.Location = new System.Drawing.Point(539, 470);
             this.opacitySlider.Maximum = 1000;
             this.opacitySlider.Name = "opacitySlider";
             this.opacitySlider.Size = new System.Drawing.Size(144, 23);
@@ -669,7 +669,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(550, 460);
+            this.label1.Location = new System.Drawing.Point(550, 454);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 13);
@@ -690,7 +690,6 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabelNubsUsed,
             this.statusLabelPathsUsed,
@@ -1233,7 +1232,7 @@
             this.traceLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceLayer.AutoSize = true;
             this.traceLayer.Checked = true;
-            this.traceLayer.Location = new System.Drawing.Point(541, 538);
+            this.traceLayer.Location = new System.Drawing.Point(547, 522);
             this.traceLayer.Name = "traceLayer";
             this.traceLayer.Size = new System.Drawing.Size(76, 17);
             this.traceLayer.TabIndex = 60;
@@ -1246,7 +1245,7 @@
             this.traceClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceClipboard.AutoSize = true;
             this.traceClipboard.Enabled = false;
-            this.traceClipboard.Location = new System.Drawing.Point(541, 561);
+            this.traceClipboard.Location = new System.Drawing.Point(547, 545);
             this.traceClipboard.Name = "traceClipboard";
             this.traceClipboard.Size = new System.Drawing.Size(76, 17);
             this.traceClipboard.TabIndex = 61;
