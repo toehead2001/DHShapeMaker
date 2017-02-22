@@ -3877,6 +3877,7 @@ namespace ShapeMaker
             scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
             scaleDouble.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
             scaleHalf.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
+            SpinLine.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
 
             //MPMode.Enabled = Loop.Checked;
             //if (!Loop.Checked) MPMode.Checked = false;

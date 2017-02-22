@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EffectPluginConfigDialog));
             this.canvas = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.posBarsTimer = new System.Windows.Forms.Timer(this.components);
@@ -612,20 +611,17 @@
             // SpinLine
             // 
             this.SpinLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpinLine.AutoSize = true;
             this.SpinLine.BackColor = System.Drawing.Color.Transparent;
-            this.SpinLine.KnobBase = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobBase")));
-            this.SpinLine.KnobDial = ((System.Drawing.Image)(resources.GetObject("SpinLine.KnobDial")));
-            this.SpinLine.KnobTop = null;
+            this.SpinLine.KnobBase = global::ShapeMaker.Properties.Resources.KnobBase;
+            this.SpinLine.KnobDial = global::ShapeMaker.Properties.Resources.KnobPos;
+            this.SpinLine.KnobDialDisabled = global::ShapeMaker.Properties.Resources.KnobPos2;
             this.SpinLine.Location = new System.Drawing.Point(720, 73);
-            this.SpinLine.Margin = new System.Windows.Forms.Padding(4);
-            this.SpinLine.MaximumSize = new System.Drawing.Size(95, 95);
             this.SpinLine.maxValue = 359F;
-            this.SpinLine.MinimumSize = new System.Drawing.Size(95, 95);
+            this.SpinLine.MinimumSize = new System.Drawing.Size(89, 89);
             this.SpinLine.minValue = 0F;
             this.SpinLine.Name = "SpinLine";
             this.SpinLine.Offset = 0F;
-            this.SpinLine.Size = new System.Drawing.Size(95, 95);
+            this.SpinLine.Size = new System.Drawing.Size(89, 89);
             this.SpinLine.Span = 359F;
             this.SpinLine.SpinRate = 1F;
             this.SpinLine.TabIndex = 1;

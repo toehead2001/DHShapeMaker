@@ -118,7 +118,7 @@ namespace Controlz
                 this.Refresh();
             }
         }
-        public Image KnobTop
+        public Image KnobDialDisabled
         {
             get
             {
@@ -212,11 +212,8 @@ namespace Controlz
                     g.RotateTransform(rtate + offset);
                     g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
 
-                    g.DrawImage(MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
+                    g.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
                     g.ResetTransform();
-
-                    if (TopImage != null)
-                        g.DrawImage(TopImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
                 }
                 e.Graphics.DrawImage(bmp, 0, 0);
             }
