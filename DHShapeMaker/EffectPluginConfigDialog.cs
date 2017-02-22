@@ -1673,8 +1673,11 @@ namespace ShapeMaker
             MacroCubic.Checked = false;
             MacroCircle.Checked = false;
             MacroRect.Checked = false;
-            activeType = pathType;
-            PathTypeToggle();
+            if (pathType != activeType)
+            {
+                activeType = pathType;
+                PathTypeToggle();
+            }
             ClosePath.Checked = closedPath;
             CloseContPaths.Checked = multiClosedPath;
             Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Unchecked;
