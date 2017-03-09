@@ -3611,22 +3611,6 @@ namespace ShapeMaker
             float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
         }
-
-        private void scaleHalf_Click(object sender, EventArgs e)
-        {
-            setUndo();
-            scaleSlider.Value = 50;
-            scaleSlider_Scroll(scaleHalf, new EventArgs());
-            scaleSlider.Value = 100;
-        }
-
-        private void scaleDouble_Click(object sender, EventArgs e)
-        {
-            setUndo();
-            scaleSlider.Value = 200;
-            scaleSlider_Scroll(scaleDouble, new EventArgs());
-            scaleSlider.Value = 100;
-        }
         #endregion
 
         #region Toolbar functions
@@ -3877,8 +3861,6 @@ namespace ShapeMaker
             ClearBtn.Enabled = (canvasPoints.Length != 0);
             ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
             scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
-            scaleDouble.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
-            scaleHalf.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
             SpinLine.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
 
             //MPMode.Enabled = Loop.Checked;

@@ -127,8 +127,6 @@
             this.Redo = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.scaleSlider = new System.Windows.Forms.TrackBar();
-            this.scaleDouble = new System.Windows.Forms.Button();
-            this.scaleHalf = new System.Windows.Forms.Button();
             this.traceLayer = new System.Windows.Forms.RadioButton();
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
@@ -1205,28 +1203,6 @@
             this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
             this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
             // 
-            // scaleDouble
-            // 
-            this.scaleDouble.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleDouble.Location = new System.Drawing.Point(810, 198);
-            this.scaleDouble.Name = "scaleDouble";
-            this.scaleDouble.Size = new System.Drawing.Size(30, 23);
-            this.scaleDouble.TabIndex = 58;
-            this.scaleDouble.Text = "2x";
-            this.scaleDouble.UseVisualStyleBackColor = true;
-            this.scaleDouble.Click += new System.EventHandler(this.scaleDouble_Click);
-            // 
-            // scaleHalf
-            // 
-            this.scaleHalf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleHalf.Location = new System.Drawing.Point(685, 198);
-            this.scaleHalf.Name = "scaleHalf";
-            this.scaleHalf.Size = new System.Drawing.Size(35, 23);
-            this.scaleHalf.TabIndex = 59;
-            this.scaleHalf.Text = "0.5x";
-            this.scaleHalf.UseVisualStyleBackColor = true;
-            this.scaleHalf.Click += new System.EventHandler(this.scaleHalf_Click);
-            // 
             // traceLayer
             // 
             this.traceLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1259,8 +1235,6 @@
             this.ClientSize = new System.Drawing.Size(850, 597);
             this.Controls.Add(this.traceClipboard);
             this.Controls.Add(this.traceLayer);
-            this.Controls.Add(this.scaleHalf);
-            this.Controls.Add(this.scaleDouble);
             this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.opacitySlider);
             this.Controls.Add(this.clonePathButton);
@@ -1436,8 +1410,6 @@
         private ToolStripButtonWithKeys Redo;
         private System.Windows.Forms.TrackBar opacitySlider;
         private System.Windows.Forms.TrackBar scaleSlider;
-        private System.Windows.Forms.Button scaleDouble;
-        private System.Windows.Forms.Button scaleHalf;
         private System.Windows.Forms.RadioButton traceLayer;
         private System.Windows.Forms.RadioButton traceClipboard;
     }
