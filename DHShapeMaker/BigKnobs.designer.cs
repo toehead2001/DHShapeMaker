@@ -1,4 +1,4 @@
-﻿namespace Controlz
+﻿namespace ShapeMaker
 {
     partial class BigKnobs
     {

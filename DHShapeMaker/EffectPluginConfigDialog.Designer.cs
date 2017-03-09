@@ -75,7 +75,7 @@
             this.removePathButton = new System.Windows.Forms.Button();
             this.clonePathButton = new System.Windows.Forms.Button();
             this.opacitySlider = new System.Windows.Forms.TrackBar();
-            this.SpinLine = new Controlz.BigKnobs();
+            this.SpinLine = new ShapeMaker.BigKnobs();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -627,7 +627,7 @@
             this.SpinLine.TabIndex = 1;
             this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all");
             this.SpinLine.Value = 180F;
-            this.SpinLine.ValueChanged += new Controlz.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
+            this.SpinLine.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
             this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
             this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
             // 
@@ -1368,7 +1368,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button ApplyBtn;
         private System.Windows.Forms.TextBox FigureName;
-        private Controlz.BigKnobs SpinLine;
+        private BigKnobs SpinLine;
         private System.Windows.Forms.Button ClearBtn;
         private System.Windows.Forms.NumericUpDown OutputScale;
         private System.Windows.Forms.Button buttonOK;

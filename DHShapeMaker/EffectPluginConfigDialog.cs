@@ -1,5 +1,4 @@
 //Elliptical Arc algorithm from svg.codeplex.com
-using Controlz;
 using Microsoft.Win32;
 using PaintDotNet;
 using PaintDotNet.Effects;
