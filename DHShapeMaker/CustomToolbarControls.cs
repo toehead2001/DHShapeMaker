@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace ShapeMaker
 {
-    class ProRenderer : ToolStripProfessionalRenderer
+    internal class ProRenderer : ToolStripProfessionalRenderer
     {
         internal ProRenderer(Color backColor, Color borderColor) : base(new ProColorTable(backColor, borderColor))
         {
@@ -13,7 +13,7 @@ namespace ShapeMaker
         }
     }
 
-    class ProColorTable : ProfessionalColorTable
+    internal class ProColorTable : ProfessionalColorTable
     {
         internal ProColorTable(Color backColor, Color borderColor)
         {
@@ -22,65 +22,17 @@ namespace ShapeMaker
             BorderColor = borderColor;
         }
 
-        private Color BackColor;
-        private Color BorderColor;
+        private readonly Color BackColor;
+        private readonly Color BorderColor;
 
-        public override Color ButtonCheckedHighlight
-        {
-            get
-            {
-                return BackColor;
-            }
-        }
-        public override Color ButtonPressedHighlight
-        {
-            get
-            {
-                return BackColor;
-            }
-        }
-        public override Color ButtonSelectedHighlight
-        {
-            get
-            {
-                return Color.Transparent;
-            }
-        }
-        public override Color ButtonSelectedBorder
-        {
-            get
-            {
-                return BorderColor;
-            }
-        }
-        public override Color ToolStripBorder
-        {
-            get
-            {
-                return Color.Transparent;
-            }
-        }
-        public override Color ToolStripGradientBegin
-        {
-            get
-            {
-                return Color.Transparent;
-            }
-        }
-        public override Color ToolStripGradientMiddle
-        {
-            get
-            {
-                return Color.Transparent;
-            }
-        }
-        public override Color ToolStripGradientEnd
-        {
-            get
-            {
-                return Color.Transparent;
-            }
-        }
+        public override Color ButtonCheckedHighlight => BackColor;
+        public override Color ButtonPressedHighlight => BackColor;
+        public override Color ButtonSelectedHighlight => Color.Transparent;
+        public override Color ButtonSelectedBorder => BorderColor;
+        public override Color ToolStripBorder => Color.Transparent;
+        public override Color ToolStripGradientBegin => Color.Transparent;
+        public override Color ToolStripGradientMiddle => Color.Transparent;
+        public override Color ToolStripGradientEnd => Color.Transparent;
     }
 
     public class ToolStripButtonWithKeys : ToolStripButton
