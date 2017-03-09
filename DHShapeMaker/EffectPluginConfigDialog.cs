@@ -2930,21 +2930,21 @@ namespace ShapeMaker
         {
             PanFlag = false;
 
-            if (canvas.Width > canvasBaseSize)
+            int zoomFactor = canvas.Width / canvasBaseSize;
+            switch (zoomFactor)
             {
-                ZoomToFactor(1);
-            }
-            else if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
-            {
-                ZoomToFactor(8);
-            }
-            else if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-            {
-                ZoomToFactor(4);
-            }
-            else
-            {
-                ZoomToFactor(2);
+                case 8:
+                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 4 : 1);
+                    break;
+                case 4:
+                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 2 : 8);
+                    break;
+                case 2:
+                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 1 : 4);
+                    break;
+                default:
+                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 8 : 2);
+                    break;
             }
         }
 
