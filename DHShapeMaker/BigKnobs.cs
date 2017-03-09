@@ -212,7 +212,7 @@ namespace ShapeMaker
                     g.RotateTransform(rtate + offset);
                     g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
 
-                    g.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
+                    g.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rct, this.MidImage.GetBounds(ref gu), GraphicsUnit.Pixel);
                     g.ResetTransform();
                 }
                 e.Graphics.DrawImage(bmp, 0, 0);
