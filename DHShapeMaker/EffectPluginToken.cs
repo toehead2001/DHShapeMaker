@@ -4,45 +4,45 @@ using System.Drawing.Drawing2D;
 
 namespace ShapeMaker
 {
-    public class EffectPluginConfigToken : EffectConfigToken
+    internal class EffectPluginConfigToken : EffectConfigToken
     {
-        public GraphicsPath[] GP
+        internal GraphicsPath[] GP
         {
             get;
             set;
         }
-        public ArrayList PathData
+        internal ArrayList PathData
         {
             get;
             set;
         }
-        public bool Draw
+        internal bool Draw
         {
             get;
             set;
         }
-        public decimal Scale
+        internal decimal Scale
         {
             get;
             set;
         }
-        public bool SnapTo
+        internal bool SnapTo
         {
             get;
             set;
         }
-        public string ShapeName
+        internal string ShapeName
         {
             get;
             set;
         }
-        public bool SolidFill
+        internal bool SolidFill
         {
             get;
             set;
         }
-        public EffectPluginConfigToken(GraphicsPath[] gp,ArrayList pathdata , bool draw, decimal scale, bool snap,string shapename,bool solidfill)
-            : base()
+
+        internal EffectPluginConfigToken(GraphicsPath[] gp, ArrayList pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
         {
             GP = gp;
             PathData = pathdata;
@@ -53,8 +53,7 @@ namespace ShapeMaker
             SolidFill = solidfill;
         }
 
-        protected EffectPluginConfigToken(EffectPluginConfigToken copyMe)
-            : base(copyMe)
+        private EffectPluginConfigToken(EffectPluginConfigToken copyMe) : base(copyMe)
         {
             GP = copyMe.GP;
             PathData = copyMe.PathData;
