@@ -81,7 +81,6 @@ namespace ShapeMaker
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
         float DPI = 1;
-        bool DrawPosBars = false;
         Control hadFocus;
         bool isNewPath = true;
         int canvasBaseSize;
@@ -188,19 +187,21 @@ namespace ShapeMaker
         private void EffectPluginConfigDialog_Resize(object sender, EventArgs e)
         {
             viewport.Width = LineList.Left - viewport.Left - 30;
-            viewport.Height = statusStrip1.Top - viewport.Top - 15;
+            viewport.Height = statusStrip1.Top - viewport.Top - 23;
 
-            horPosBar.Top = viewport.Bottom;
-            horPosBar.Width = viewport.Width;
+            horScrollBar.Top = viewport.Bottom;
+            horScrollBar.Width = viewport.ClientSize.Width;
 
-            verPosBar.Left = viewport.Right;
-            verPosBar.Height = viewport.Height;
+            verScrollBar.Left = viewport.Right;
+            verScrollBar.Height = viewport.ClientSize.Height;
 
             if (canvas.Width < viewport.ClientSize.Width || canvas.Location.X > 0)
                 Zoomed.X = (viewport.ClientSize.Width - canvas.Width) / 2;
             if (canvas.Height < viewport.ClientSize.Height || canvas.Location.Y > 0)
                 Zoomed.Y = (viewport.ClientSize.Height - canvas.Height) / 2;
             canvas.Location = Zoomed;
+
+            UpdateScrollBars();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -1032,7 +1033,6 @@ namespace ShapeMaker
             clickedNub = -1;
             canvas.Refresh();
             canvas.Cursor = Cursors.Default;
-            posBarsTimer.Start();
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -1340,10 +1340,7 @@ namespace ShapeMaker
 
                             canvas.Location = Zoomed;
 
-                            posBarsTimer.Stop();
-                            DrawPosBars = true;
-                            verPosBar.Refresh();
-                            horPosBar.Refresh();
+                            UpdateScrollBars();
                         }
                     }
 
@@ -1368,10 +1365,7 @@ namespace ShapeMaker
 
                     canvas.Location = Zoomed;
 
-                    posBarsTimer.Stop();
-                    DrawPosBars = true;
-                    verPosBar.Refresh();
-                    horPosBar.Refresh();
+                    UpdateScrollBars();
                 }
 
             }
@@ -2999,12 +2993,7 @@ namespace ShapeMaker
 
             splitButtonZoom.Text = $"Zoom {zoomFactor}x";
 
-            // Update Position Bars
-            posBarsTimer.Stop();
-            posBarsTimer.Start();
-            DrawPosBars = true;
-            verPosBar.Refresh();
-            horPosBar.Refresh();
+            UpdateScrollBars();
         }
 
         private void canvas_MouseEnter(object sender, EventArgs e)
@@ -3069,53 +3058,40 @@ namespace ShapeMaker
 
             splitButtonZoom.Text = $"Zoom {zoomFactor}x";
 
-            posBarsTimer.Stop();
-            posBarsTimer.Start();
-            DrawPosBars = true;
-            verPosBar.Refresh();
-            horPosBar.Refresh();
+            UpdateScrollBars();
 
             base.OnMouseWheel(e);
         }
         #endregion
 
         #region Position Bar functions
-        private void verPosBar_Paint(object sender, PaintEventArgs e)
+        private void horScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            if (DrawPosBars)
-            {
-                if (canvas.Height <= viewport.ClientRectangle.Height)
-                    return;
-
-                float length = viewport.ClientSize.Height / (canvas.Height / (float)viewport.ClientSize.Height);
-                float maxPos = viewport.ClientSize.Height - length;
-                float pos = Math.Abs(canvas.Location.Y) / (float)(canvas.Height - viewport.ClientSize.Height) * maxPos;
-                RectangleF verBar = new RectangleF(1, pos, 3, length);
-                e.Graphics.FillRectangle(Brushes.Gray, verBar);
-            }
+            canvas.Left = -horScrollBar.Value;
         }
 
-        private void horPosBar_Paint(object sender, PaintEventArgs e)
+        private void verScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            if (DrawPosBars)
-            {
-                if (canvas.Width <= viewport.ClientSize.Width)
-                    return;
-
-                float length = viewport.ClientSize.Width / (canvas.Width / (float)viewport.ClientSize.Width);
-                float maxPos = viewport.ClientSize.Width - length;
-                float pos = Math.Abs(canvas.Location.X) / (float)(canvas.Width - viewport.ClientSize.Width) * maxPos;
-                RectangleF horBar = new RectangleF(pos, 1, length, 3);
-                e.Graphics.FillRectangle(Brushes.Gray, horBar);
-            }
+            canvas.Top = -verScrollBar.Value;
         }
 
-        private void PosBarsTimer_Tick(object sender, EventArgs e)
+        private void UpdateScrollBars()
         {
-            DrawPosBars = false;
-            verPosBar.Refresh();
-            horPosBar.Refresh();
-            posBarsTimer.Stop();
+            horScrollBar.Visible = canvas.Width > viewport.ClientSize.Width;
+            if (horScrollBar.Visible)
+            {
+                horScrollBar.Maximum = canvas.Width;
+                horScrollBar.Value = Math.Abs(canvas.Location.X);
+                horScrollBar.LargeChange = viewport.ClientSize.Width;
+            }
+
+            verScrollBar.Visible = canvas.Height > viewport.ClientSize.Height;
+            if (verScrollBar.Visible)
+            {
+                verScrollBar.Maximum = canvas.Height;
+                verScrollBar.Value = Math.Abs(canvas.Location.Y);
+                verScrollBar.LargeChange = viewport.ClientSize.Height;
+            }
         }
         #endregion
 

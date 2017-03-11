@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.canvas = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.posBarsTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,8 +89,6 @@
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
-            this.verPosBar = new System.Windows.Forms.Panel();
-            this.horPosBar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.toolStripBlack = new System.Windows.Forms.ToolStrip();
@@ -129,6 +126,8 @@
             this.scaleSlider = new System.Windows.Forms.TrackBar();
             this.traceLayer = new System.Windows.Forms.RadioButton();
             this.traceClipboard = new System.Windows.Forms.RadioButton();
+            this.verScrollBar = new System.Windows.Forms.VScrollBar();
+            this.horScrollBar = new System.Windows.Forms.HScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -165,11 +164,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // posBarsTimer
-            // 
-            this.posBarsTimer.Interval = 1000;
-            this.posBarsTimer.Tick += new System.EventHandler(this.PosBarsTimer_Tick);
             // 
             // menuStrip1
             // 
@@ -634,7 +628,7 @@
             this.viewport.BackColor = System.Drawing.Color.Transparent;
             this.viewport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.viewport.Controls.Add(this.canvas);
-            this.viewport.Location = new System.Drawing.Point(7, 58);
+            this.viewport.Location = new System.Drawing.Point(7, 50);
             this.viewport.Name = "viewport";
             this.viewport.Size = new System.Drawing.Size(502, 502);
             this.viewport.TabIndex = 41;
@@ -771,22 +765,6 @@
             this.xToolStripMenuZoom1x.Size = new System.Drawing.Size(85, 22);
             this.xToolStripMenuZoom1x.Text = "1x";
             this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
-            // 
-            // verPosBar
-            // 
-            this.verPosBar.Location = new System.Drawing.Point(509, 59);
-            this.verPosBar.Name = "verPosBar";
-            this.verPosBar.Size = new System.Drawing.Size(5, 500);
-            this.verPosBar.TabIndex = 49;
-            this.verPosBar.Paint += new System.Windows.Forms.PaintEventHandler(this.verPosBar_Paint);
-            // 
-            // horPosBar
-            // 
-            this.horPosBar.Location = new System.Drawing.Point(8, 560);
-            this.horPosBar.Name = "horPosBar";
-            this.horPosBar.Size = new System.Drawing.Size(500, 5);
-            this.horPosBar.TabIndex = 50;
-            this.horPosBar.Paint += new System.Windows.Forms.PaintEventHandler(this.horPosBar_Paint);
             // 
             // label3
             // 
@@ -1228,11 +1206,31 @@
             this.traceClipboard.Text = "Clipboard";
             this.traceClipboard.UseVisualStyleBackColor = true;
             // 
+            // verScrollBar
+            // 
+            this.verScrollBar.Location = new System.Drawing.Point(509, 51);
+            this.verScrollBar.Name = "verScrollBar";
+            this.verScrollBar.Size = new System.Drawing.Size(17, 500);
+            this.verScrollBar.TabIndex = 62;
+            this.verScrollBar.Visible = false;
+            this.verScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.verScrollBar_Scroll);
+            // 
+            // horScrollBar
+            // 
+            this.horScrollBar.Location = new System.Drawing.Point(8, 552);
+            this.horScrollBar.Name = "horScrollBar";
+            this.horScrollBar.Size = new System.Drawing.Size(500, 17);
+            this.horScrollBar.TabIndex = 63;
+            this.horScrollBar.Visible = false;
+            this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.horScrollBar);
+            this.Controls.Add(this.verScrollBar);
             this.Controls.Add(this.traceClipboard);
             this.Controls.Add(this.traceLayer);
             this.Controls.Add(this.scaleSlider);
@@ -1241,8 +1239,6 @@
             this.Controls.Add(this.removePathButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.horPosBar);
-            this.Controls.Add(this.verPosBar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.ClearBtn);
@@ -1314,7 +1310,6 @@
 
         private System.Windows.Forms.PictureBox canvas;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer posBarsTimer;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importPDNShapeToolStripMenuItem;
@@ -1366,8 +1361,6 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelPathsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelLocation;
-        private System.Windows.Forms.Panel verPosBar;
-        private System.Windows.Forms.Panel horPosBar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -1412,5 +1405,7 @@
         private System.Windows.Forms.TrackBar scaleSlider;
         private System.Windows.Forms.RadioButton traceLayer;
         private System.Windows.Forms.RadioButton traceClipboard;
+        private System.Windows.Forms.VScrollBar verScrollBar;
+        private System.Windows.Forms.HScrollBar horScrollBar;
     }
 }
