@@ -588,16 +588,14 @@
             // 
             this.opacitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.opacitySlider.AutoSize = false;
-            this.opacitySlider.LargeChange = 50;
             this.opacitySlider.Location = new System.Drawing.Point(539, 470);
-            this.opacitySlider.Maximum = 1000;
+            this.opacitySlider.Maximum = 100;
             this.opacitySlider.Name = "opacitySlider";
             this.opacitySlider.Size = new System.Drawing.Size(144, 23);
-            this.opacitySlider.SmallChange = 10;
             this.opacitySlider.TabIndex = 56;
             this.opacitySlider.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.toolTip1.SetToolTip(this.opacitySlider, "Fade Background Image");
-            this.opacitySlider.Value = 250;
+            this.toolTip1.SetToolTip(this.opacitySlider, "25%");
+            this.opacitySlider.Value = 25;
             this.opacitySlider.Scroll += new System.EventHandler(this.opacitySlider_Scroll);
             // 
             // SpinLine
