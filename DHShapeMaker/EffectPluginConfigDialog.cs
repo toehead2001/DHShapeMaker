@@ -3276,7 +3276,7 @@ namespace ShapeMaker
 
                 using (StreamWriter writer = new StreamWriter(sfd.FileName))
                     writer.Write(output);
-                MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
