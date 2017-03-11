@@ -2969,12 +2969,9 @@ namespace ShapeMaker
                 return;
 
             int newDimension = canvasBaseSize * zoomFactor;
-            int maxMoveX = newDimension - viewport.ClientSize.Width;
-            int maxMoveY = newDimension - viewport.ClientSize.Height;
 
-            canvas.Location = new Point(0, 0);
-            Zoomed.X = (maxMoveX > 0) ? -maxMoveX / 2 : maxMoveX / -2;
-            Zoomed.Y = (maxMoveY > 0) ? -maxMoveY / 2 : maxMoveY / -2;
+            Zoomed.X = (canvas.Location.X - (viewport.ClientSize.Width / 2)) * newDimension / canvas.Width + (viewport.ClientSize.Width / 2);
+            Zoomed.Y = (canvas.Location.Y - (viewport.ClientSize.Height / 2)) * newDimension / canvas.Height + (viewport.ClientSize.Height / 2);
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
