@@ -2965,14 +2965,29 @@ namespace ShapeMaker
 
         private void ZoomToFactor(int zoomFactor)
         {
+            Point viewportCenter = new Point(viewport.ClientSize.Width / 2, viewport.ClientSize.Height / 2);
+            ZoomToFactor(zoomFactor, viewportCenter);
+        }
+
+        private void ZoomToFactor(int zoomFactor, Point zoomPoint)
+        {
             int oldZoomFactor = canvas.Width / canvasBaseSize;
             if (oldZoomFactor == zoomFactor)
                 return;
 
             int newDimension = canvasBaseSize * zoomFactor;
 
-            Zoomed.X = (canvas.Location.X - (viewport.ClientSize.Width / 2)) * newDimension / canvas.Width + (viewport.ClientSize.Width / 2);
-            Zoomed.Y = (canvas.Location.Y - (viewport.ClientSize.Height / 2)) * newDimension / canvas.Height + (viewport.ClientSize.Height / 2);
+            Zoomed.X = (canvas.Location.X - zoomPoint.X) * newDimension / canvas.Width + zoomPoint.X;
+            Zoomed.Y = (canvas.Location.Y - zoomPoint.Y) * newDimension / canvas.Height + zoomPoint.Y;
+
+            // Clamp the canvas location; we're not overscrolling... yet
+            int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
+            int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
+            Zoomed.X = Zoomed.X.Clamp(minX, maxX);
+
+            int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
+            int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
+            Zoomed.Y = Zoomed.Y.Clamp(minY, maxY);
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
@@ -3013,50 +3028,14 @@ namespace ShapeMaker
             if (!CanScrollZoom)
                 return;
 
-            if (canvas.Height != canvas.Width)
-                return;
-
             int delta = Math.Sign(e.Delta);
             int oldZoomFactor = canvas.Width / canvasBaseSize;
             if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
                 return;
 
-            int newDimension = (delta > 0) ? canvas.Width * 2 : canvas.Width / 2;
-            int zoomFactor = newDimension / canvasBaseSize;
-
+            int zoomFactor = (delta > 0) ? oldZoomFactor * 2 : oldZoomFactor / 2;
             Point mousePosition = new Point(e.X - viewport.Location.X, e.Y - viewport.Location.Y);
-
-            Zoomed = new Point((canvas.Location.X - mousePosition.X) * newDimension / canvas.Width + mousePosition.X,
-                                (canvas.Location.Y - mousePosition.Y) * newDimension / canvas.Height + mousePosition.Y);
-
-            // Clamp the canvas location; we're not overscrolling... yet
-            int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
-            int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
-            Zoomed.X = Zoomed.X.Clamp(minX, maxX);
-
-            int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
-            int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
-            Zoomed.Y = Zoomed.Y.Clamp(minY, maxY);
-
-
-            // to avoid flicker, the order of execution is important
-            if (delta > 0) // Zooming In
-            {
-                canvas.Width = newDimension;
-                canvas.Height = newDimension;
-                canvas.Location = Zoomed;
-            }
-            else // Zooming Out
-            {
-                canvas.Location = Zoomed;
-                canvas.Width = newDimension;
-                canvas.Height = newDimension;
-            }
-            canvas.Refresh();
-
-            splitButtonZoom.Text = $"Zoom {zoomFactor}x";
-
-            UpdateScrollBars();
+            ZoomToFactor(zoomFactor, mousePosition);
 
             base.OnMouseWheel(e);
         }
