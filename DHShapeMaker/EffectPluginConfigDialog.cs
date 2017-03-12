@@ -2721,12 +2721,6 @@ namespace ShapeMaker
             }
             return true;
         }
-
-        private void opacitySlider_Scroll(object sender, EventArgs e)
-        {
-            toolTip1.SetToolTip(opacitySlider, $"{opacitySlider.Value}%");
-            canvas.Refresh();
-        }
         #endregion
 
         #region Path List functions
@@ -3749,6 +3743,18 @@ namespace ShapeMaker
 
             setTraceImage();
         }
+
+        private void opacitySlider_Scroll(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(opacitySlider, $"{opacitySlider.Value}%");
+            canvas.Refresh();
+        }
+
+        private void FitBG_CheckedChanged(object sender, EventArgs e)
+        {
+            canvas.BackgroundImageLayout = (FitBG.Checked) ? ImageLayout.Zoom : ImageLayout.Center;
+            canvas.Refresh();
+        }
         #endregion
 
         #region Misc Form Controls' event functions
@@ -3848,12 +3854,6 @@ namespace ShapeMaker
         {
             if (FigureName.Text == string.Empty)
                 FigureName.Text = "Untitled";
-        }
-
-        private void FitBG_CheckedChanged(object sender, EventArgs e)
-        {
-            canvas.BackgroundImageLayout = (FitBG.Checked) ? ImageLayout.Zoom : ImageLayout.Center;
-            canvas.Refresh();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
