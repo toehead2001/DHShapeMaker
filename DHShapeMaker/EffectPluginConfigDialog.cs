@@ -681,7 +681,6 @@ namespace ShapeMaker
                         }
                         else
                         {
-                            //if (!noJoin && ctype && pts.Length > 1)
                             if (!noJoin && pts.Length > 1)
                             {
                                 e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
@@ -1275,7 +1274,6 @@ namespace ShapeMaker
                                     case (int)LineTypes.Cubic:
                                     case (int)LineTypes.SmoothCubic:
                                         canvasPoints[i] = mapPoint;
-                                        //recent change 8/22/2015
                                         if (canvasPoints.Length > 1)
                                             canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                         break;
@@ -1598,10 +1596,6 @@ namespace ShapeMaker
                 mid3.X = (2 * knots[0].X + knots[1].X) / 3;
                 mid3.Y = (2 * knots[0].Y + knots[1].Y) / 3;
 
-                /*
-                 * P2 = 2P1 – P0
-                 */
-
                 mid4.X = 2 * mid3.X - knots[0].X;
                 mid4.Y = 2 * mid3.Y - knots[0].Y;
                 canvasPoints[1] = mid3;
@@ -1904,7 +1898,6 @@ namespace ShapeMaker
                 return false;
             }
             float oldx = 0, oldy = 0;
-            //int oldLt = -1;
             string[] repstr = { "~1", "~2", "~3" };
             string tmpstr = string.Empty;
             for (int index = 0; index < Lines.Count; index++)
@@ -1926,7 +1919,6 @@ namespace ShapeMaker
                 x = width * line[0].X;
                 y = height * line[0].Y;
 
-                //if (oldLt != lt || (x != oldx || y != oldy))
                 if (index == 0)
                 {
                     strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
@@ -2026,7 +2018,6 @@ namespace ShapeMaker
                 if (currentPath.ClosedType || currentPath.LoopBack)
                 {
                     strPath = strPath.Replace("~0", "True");
-                    //strPath += "\t\t\t\t</PathFigure>\r\n";
                     oldx += 10;
                     oldy += 10;
                 }
@@ -2557,11 +2548,7 @@ namespace ShapeMaker
                         AddPath(PGP[j], pts[0], l, h, a, (islarge) ? 1 : 0, (revsweep) ? 1 : 0, pts[4]);
                     }
                 }
-                //if (ctype && pts.Length > 1)
-                //{
-                //    PointF[] points = new PointF[] { pts[0], pts[pts.Length - 1] };
-                //    PGP[j].AddLines(points);
-                //}
+
                 if (!mpmode)
                 {
                     if (ctype && pts.Length > 1)
@@ -3869,9 +3856,6 @@ namespace ShapeMaker
             ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
             scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
             SpinLine.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
-
-            //MPMode.Enabled = Loop.Checked;
-            //if (!Loop.Checked) MPMode.Checked = false;
 
             if (Control.ModifierKeys == Keys.Control)
             {
