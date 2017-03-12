@@ -3032,11 +3032,11 @@ namespace ShapeMaker
             // Clamp the canvas location; we're not overscrolling... yet
             int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
             int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
-            Zoomed.X.Clamp(minX, maxX);
+            Zoomed.X = Zoomed.X.Clamp(minX, maxX);
 
             int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
             int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
-            Zoomed.Y.Clamp(minY, maxY);
+            Zoomed.Y = Zoomed.Y.Clamp(minY, maxY);
 
 
             // to avoid flicker, the order of execution is important
