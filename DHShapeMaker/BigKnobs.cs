@@ -217,18 +217,6 @@ namespace ShapeMaker
                 }
                 e.Graphics.DrawImage(bmp, 0, 0);
             }
-
-        }
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            if (this.MidImage == null)
-            {
-                e.Graphics.FillRectangle(new SolidBrush(Color.Ivory), this.ClientRectangle);
-            }
-            else
-            {
-                base.OnPaintBackground(e);
-            }
         }
     }
 }
