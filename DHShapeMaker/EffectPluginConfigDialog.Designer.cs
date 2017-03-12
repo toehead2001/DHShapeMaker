@@ -1191,18 +1191,19 @@
             this.traceLayer.TabStop = true;
             this.traceLayer.Text = "PDN Layer";
             this.traceLayer.UseVisualStyleBackColor = true;
+            this.traceLayer.CheckedChanged += new System.EventHandler(this.traceSource_CheckedChanged);
             // 
             // traceClipboard
             // 
             this.traceClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceClipboard.AutoSize = true;
-            this.traceClipboard.Enabled = false;
             this.traceClipboard.Location = new System.Drawing.Point(547, 545);
             this.traceClipboard.Name = "traceClipboard";
             this.traceClipboard.Size = new System.Drawing.Size(76, 17);
             this.traceClipboard.TabIndex = 61;
             this.traceClipboard.Text = "Clipboard";
             this.traceClipboard.UseVisualStyleBackColor = true;
+            this.traceClipboard.CheckedChanged += new System.EventHandler(this.traceSource_CheckedChanged);
             // 
             // verScrollBar
             // 

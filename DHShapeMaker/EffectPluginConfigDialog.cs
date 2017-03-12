@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -84,6 +85,7 @@ namespace ShapeMaker
         Control hadFocus;
         bool isNewPath = true;
         int canvasBaseSize;
+        Bitmap clipboardImage = null;
 
         public EffectPluginConfigDialog()
         {
@@ -142,7 +144,7 @@ namespace ShapeMaker
             DPI = this.AutoScaleDimensions.Width / 96f;
             canvasBaseSize = this.canvas.Width;
 
-            canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap();
+            setTraceImage();
             SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
 
             if (SuperSize.Width >= SuperSize.Height)
@@ -3686,6 +3688,66 @@ namespace ShapeMaker
 
             if (LineList.SelectedIndex != -1)
                 UpdateExistingPath();
+        }
+        #endregion
+
+        #region Image Tracing
+        private void setTraceImage()
+        {
+            if (traceLayer.Checked)
+            {
+                Rectangle selection = Selection.GetBoundsInt();
+                canvas.BackgroundImage = EffectSourceSurface.CreateAliasedBitmap(selection);
+            }
+            else
+            {
+                Thread t = new Thread(new ThreadStart(GetImageFromClipboard));
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+                t.Join();
+
+                if (clipboardImage == null)
+                {
+                    traceLayer.Focus();
+                    MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                canvas.BackgroundImage = clipboardImage;
+            }
+        }
+
+        private void GetImageFromClipboard()
+        {
+            clipboardImage?.Dispose();
+            try
+            {
+                IDataObject clippy = Clipboard.GetDataObject();
+                if (clippy == null)
+                    return;
+
+                if (Clipboard.ContainsData("PNG"))
+                {
+                    Object pngObject = Clipboard.GetData("PNG");
+                    if (pngObject is MemoryStream pngStream)
+                        clipboardImage = (Bitmap)Image.FromStream(pngStream);
+                }
+                else if (clippy.GetDataPresent(DataFormats.Bitmap))
+                {
+                    clipboardImage = (Bitmap)clippy.GetData(typeof(Bitmap));
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void traceSource_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!(sender as RadioButton).Checked)
+                return;
+
+            setTraceImage();
         }
         #endregion
 
