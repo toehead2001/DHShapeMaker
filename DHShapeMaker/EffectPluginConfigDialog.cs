@@ -77,7 +77,7 @@ namespace ShapeMaker
         bool KeyTrak = false;
         GraphicsPath[] PGP = new GraphicsPath[0];
         ArrayList Lines = new ArrayList();
-        Size SuperSize = new Size();
+        Size SuperSize = Size.Empty;
         bool PanFlag = false;
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
@@ -145,16 +145,8 @@ namespace ShapeMaker
             canvasBaseSize = this.canvas.Width;
 
             setTraceImage();
-            SuperSize = EffectSourceSurface.CreateAliasedBitmap().Size;
-
-            if (SuperSize.Width >= SuperSize.Height)
-            {
-                SuperSize.Width = SuperSize.Height;
-            }
-            else if (SuperSize.Width < SuperSize.Height)
-            {
-                SuperSize.Height = SuperSize.Width;
-            }
+            Rectangle selection = Selection.GetBoundsInt();
+            SuperSize.Width = SuperSize.Height = Math.Min(selection.Width, selection.Height);
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " v" + version;
