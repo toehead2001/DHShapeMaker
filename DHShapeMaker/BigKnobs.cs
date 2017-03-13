@@ -188,35 +188,32 @@ namespace ShapeMaker
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (MidImage == null)
-                return;
-
-            using (Bitmap bmp = new Bitmap(this.ClientRectangle.Width, this.ClientRectangle.Height))
+            Rectangle rotRect = e.ClipRectangle;
+            e.Graphics.CompositingMode = CompositingMode.SourceOver;
+            if (this.BottomImage != null)
             {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    SizeF rotsize = new SizeF(this.ClientRectangle.Size);
-                    RectangleF rct = new RectangleF(0, 0, this.ClientRectangle.Width * this.AutoScaleFactor.Width, this.ClientRectangle.Height);
-                    GraphicsUnit gu = GraphicsUnit.Pixel;
-                    g.CompositingMode = CompositingMode.SourceOver;
-                    if (this.BottomImage != null)
-                    {
-                        g.DrawImage(this.BottomImage, rct, this.BottomImage.GetBounds(ref gu), GraphicsUnit.Pixel);
-                    }
-                    else
-                    {
-                        g.FillRectangle(new SolidBrush(this.BackColor), this.ClientRectangle);
-                    }
-
-                    g.TranslateTransform(rotsize.Width / 2f, rotsize.Height / 2f);
-                    g.RotateTransform(rtate + offset);
-                    g.TranslateTransform(rotsize.Width / -2f, rotsize.Height / -2f);
-
-                    g.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rct, this.MidImage.GetBounds(ref gu), GraphicsUnit.Pixel);
-                    g.ResetTransform();
-                }
-                e.Graphics.DrawImage(bmp, 0, 0);
+                e.Graphics.DrawImage(this.BottomImage, rotRect);
             }
+            else
+            {
+                using (SolidBrush backBrush = new SolidBrush(this.BackColor))
+                    e.Graphics.FillRectangle(backBrush, rotRect);
+            }
+
+            if (this.MidImage == null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            e.Graphics.TranslateTransform(rotRect.Width / 2f, rotRect.Height / 2f);
+            e.Graphics.RotateTransform(rtate + offset);
+            e.Graphics.TranslateTransform(rotRect.Width / -2f, rotRect.Height / -2f);
+
+            e.Graphics.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rotRect);
+            e.Graphics.ResetTransform();
+
+            base.OnPaint(e);
         }
     }
 }
