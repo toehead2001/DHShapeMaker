@@ -84,6 +84,7 @@
             this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelPathsUsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelNubPos = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelMousePos = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitButtonZoom = new System.Windows.Forms.ToolStripSplitButton();
             this.xToolStripMenuZoom8x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,7 +129,6 @@
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
-            this.statusLabelMousePos = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -722,6 +722,15 @@
             this.statusLabelNubPos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.statusLabelNubPos.ToolTipText = "Nub Location";
             // 
+            // statusLabelMousePos
+            // 
+            this.statusLabelMousePos.AutoSize = false;
+            this.statusLabelMousePos.Name = "statusLabelMousePos";
+            this.statusLabelMousePos.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelMousePos.Text = "0, 0";
+            this.statusLabelMousePos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.statusLabelMousePos.ToolTipText = "Cursor Location";
+            // 
             // splitButtonZoom
             // 
             this.splitButtonZoom.AutoToolTip = false;
@@ -1226,15 +1235,6 @@
             this.horScrollBar.TabIndex = 63;
             this.horScrollBar.Visible = false;
             this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
-            // 
-            // statusLabelMousePos
-            // 
-            this.statusLabelMousePos.AutoSize = false;
-            this.statusLabelMousePos.Name = "statusLabelMousePos";
-            this.statusLabelMousePos.Size = new System.Drawing.Size(120, 17);
-            this.statusLabelMousePos.Text = "0, 0";
-            this.statusLabelMousePos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.statusLabelMousePos.ToolTipText = "Cursor Location";
             // 
             // EffectPluginConfigDialog
             // 
