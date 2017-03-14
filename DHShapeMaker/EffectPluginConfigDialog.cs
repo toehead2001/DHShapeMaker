@@ -221,9 +221,8 @@ namespace ShapeMaker
 
                 foreach (var subControl in (control as ToolStrip).Items)
                 {
-                    if (subControl is ToolStripButton)
+                    if (subControl is ToolStripButtonWithKeys button)
                     {
-                        ToolStripButtonWithKeys button = (subControl as ToolStripButtonWithKeys);
                         if (button.Enabled && keyData == button.ShortcutKeys)
                         {
                             button.PerformClick();
@@ -316,6 +315,9 @@ namespace ShapeMaker
 
         private void Redo_Click(object sender, EventArgs e)
         {
+            if (RDCount == 0)
+                return;
+
             UDPointer++;
             UDPointer += (UndoMax);
             UDPointer %= UndoMax;
@@ -3384,12 +3386,22 @@ namespace ShapeMaker
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
+            undoMenuItem.Enabled = (UDCount > 0);
+            redoMenuItem.Enabled = (RDCount > 0);
             removePathToolStripMenuItem.Enabled = (LineList.SelectedIndex > -1);
             clonePathToolStripMenuItem.Enabled = (LineList.SelectedIndex > -1);
             loopPathToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
             flipHorizontalToolStripMenuItem.Enabled = (canvasPoints.Length > 1 || LineList.Items.Count > 0);
             flipVerticalToolStripMenuItem.Enabled = (canvasPoints.Length > 1 || LineList.Items.Count > 0);
             clearAllToolStripMenuItem.Enabled = (canvasPoints.Length > 0 || LineList.Items.Count > 0);
+        }
+
+        private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            undoMenuItem.Enabled = true;
+            redoMenuItem.Enabled = true;
+            removePathToolStripMenuItem.Enabled = true;
+            loopPathToolStripMenuItem.Enabled = true;
         }
 
         private void Flip_Click(object sender, EventArgs e)

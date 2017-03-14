@@ -47,6 +47,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.SolidFillMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.removePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clonePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -121,8 +124,8 @@
             this.ClosePath = new ShapeMaker.ToolStripButtonWithKeys();
             this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripUndo = new System.Windows.Forms.ToolStrip();
-            this.Undo = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Redo = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Undo = new System.Windows.Forms.ToolStripButton();
+            this.Redo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.scaleSlider = new System.Windows.Forms.TrackBar();
             this.traceLayer = new System.Windows.Forms.RadioButton();
@@ -287,6 +290,9 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoMenuItem,
+            this.redoMenuItem,
+            this.toolStripSeparator7,
             this.removePathToolStripMenuItem,
             this.clonePathToolStripMenuItem,
             this.toolStripSeparator6,
@@ -298,7 +304,29 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.DropDownClosed += new System.EventHandler(this.editToolStripMenuItem_DropDownClosed);
             this.editToolStripMenuItem.DropDownOpening += new System.EventHandler(this.editToolStripMenuItem_DropDownOpening);
+            // 
+            // undoMenuItem
+            // 
+            this.undoMenuItem.Name = "undoMenuItem";
+            this.undoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.undoMenuItem.Text = "Undo";
+            this.undoMenuItem.Click += new System.EventHandler(this.Undo_Click);
+            // 
+            // redoMenuItem
+            // 
+            this.redoMenuItem.Name = "redoMenuItem";
+            this.redoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.redoMenuItem.Text = "Redo";
+            this.redoMenuItem.Click += new System.EventHandler(this.Redo_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(165, 6);
             // 
             // removePathToolStripMenuItem
             // 
@@ -1151,7 +1179,6 @@
             this.Undo.Image = global::ShapeMaker.Properties.Resources.Undo;
             this.Undo.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Undo.Name = "Undo";
-            this.Undo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.Undo.Size = new System.Drawing.Size(36, 36);
             this.Undo.Text = "Undo";
             this.Undo.ToolTipText = "Undo (Ctrl+Z)";
@@ -1164,7 +1191,6 @@
             this.Redo.Image = global::ShapeMaker.Properties.Resources.Redo;
             this.Redo.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Redo.Name = "Redo";
-            this.Redo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.Redo.Size = new System.Drawing.Size(36, 36);
             this.Redo.Text = "Redo (Ctrl+Y)";
             this.Redo.Click += new System.EventHandler(this.Redo_Click);
@@ -1405,14 +1431,14 @@
         private ToolStripButtonWithKeys LinkedPaths;
         private ToolStripButtonWithKeys ClosePath;
         private ToolStripButtonWithKeys CloseContPaths;
-        private ToolStripButtonWithKeys Undo;
+        private System.Windows.Forms.ToolStripButton Undo;
         private ToolStripButtonWithKeys StraightLine;
         private ToolStripButtonWithKeys MacroRect;
         private ToolStripButtonWithKeys CubicBezier;
         private ToolStripButtonWithKeys MacroCubic;
         private ToolStripButtonWithKeys Elliptical;
         private ToolStripButtonWithKeys MacroCircle;
-        private ToolStripButtonWithKeys Redo;
+        private System.Windows.Forms.ToolStripButton Redo;
         private System.Windows.Forms.TrackBar opacitySlider;
         private System.Windows.Forms.TrackBar scaleSlider;
         private System.Windows.Forms.RadioButton traceLayer;
@@ -1420,5 +1446,8 @@
         private System.Windows.Forms.VScrollBar verScrollBar;
         private System.Windows.Forms.HScrollBar horScrollBar;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelMousePos;
+        private System.Windows.Forms.ToolStripMenuItem undoMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
