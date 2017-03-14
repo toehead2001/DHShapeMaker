@@ -83,7 +83,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelPathsUsed = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLabelLocation = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabelNubPos = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitButtonZoom = new System.Windows.Forms.ToolStripSplitButton();
             this.xToolStripMenuZoom8x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +128,7 @@
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
+            this.statusLabelMousePos = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -683,7 +684,8 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabelNubsUsed,
             this.statusLabelPathsUsed,
-            this.statusLabelLocation,
+            this.statusLabelNubPos,
+            this.statusLabelMousePos,
             this.splitButtonZoom});
             this.statusStrip1.Location = new System.Drawing.Point(0, 575);
             this.statusStrip1.Name = "statusStrip1";
@@ -709,14 +711,14 @@
             this.statusLabelPathsUsed.Text = "0/100 Paths Used";
             this.statusLabelPathsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // statusLabelLocation
+            // statusLabelNubPos
             // 
-            this.statusLabelLocation.AutoSize = false;
-            this.statusLabelLocation.Name = "statusLabelLocation";
-            this.statusLabelLocation.Size = new System.Drawing.Size(120, 17);
-            this.statusLabelLocation.Text = "0, 0";
-            this.statusLabelLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.statusLabelLocation.ToolTipText = "Nub Location";
+            this.statusLabelNubPos.AutoSize = false;
+            this.statusLabelNubPos.Name = "statusLabelNubPos";
+            this.statusLabelNubPos.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelNubPos.Text = "0, 0";
+            this.statusLabelNubPos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.statusLabelNubPos.ToolTipText = "Nub Location";
             // 
             // splitButtonZoom
             // 
@@ -1223,6 +1225,15 @@
             this.horScrollBar.Visible = false;
             this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
             // 
+            // statusLabelMousePos
+            // 
+            this.statusLabelMousePos.AutoSize = false;
+            this.statusLabelMousePos.Name = "statusLabelMousePos";
+            this.statusLabelMousePos.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelMousePos.Text = "0, 0";
+            this.statusLabelMousePos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.statusLabelMousePos.ToolTipText = "Cursor Location";
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1359,7 +1370,7 @@
         private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom1x;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelPathsUsed;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabelLocation;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelNubPos;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -1406,5 +1417,6 @@
         private System.Windows.Forms.RadioButton traceClipboard;
         private System.Windows.Forms.VScrollBar verScrollBar;
         private System.Windows.Forms.HScrollBar horScrollBar;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelMousePos;
     }
 }

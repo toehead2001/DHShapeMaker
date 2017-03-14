@@ -173,7 +173,7 @@ namespace ShapeMaker
             LineList.ItemHeight = (int)(LineList.ItemHeight * DPI);
             statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
             statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
-            statusLabelLocation.Size = new Size((int)(statusLabelLocation.Size.Width * DPI), (int)(statusLabelLocation.Size.Height * DPI));
+            statusLabelNubPos.Size = new Size((int)(statusLabelNubPos.Size.Width * DPI), (int)(statusLabelNubPos.Size.Height * DPI));
 
             statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
         }
@@ -1030,6 +1030,8 @@ namespace ShapeMaker
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            StatusBarMouseLocation(e.X, e.Y);
+
             PictureBox s = (PictureBox)sender;
 
             int i = clickedNub;
@@ -1714,10 +1716,17 @@ namespace ShapeMaker
             return result;
         }
 
+        private void StatusBarMouseLocation(int x, int y)
+        {
+            int zoomFactor = canvas.Width / canvasBaseSize;
+            statusLabelMousePos.Text = $"{Math.Round(x / (float)zoomFactor / DPI)}, {Math.Round(y / (float)zoomFactor / DPI)}";
+            statusStrip1.Refresh();
+        }
+
         private void StatusBarNubLocation(int x, int y)
         {
             int zoomFactor = canvas.Width / canvasBaseSize;
-            statusLabelLocation.Text = $"{Math.Round(x / (float)zoomFactor / DPI)}, {Math.Round(y / (float)zoomFactor / DPI)}";
+            statusLabelNubPos.Text = $"{Math.Round(x / (float)zoomFactor / DPI)}, {Math.Round(y / (float)zoomFactor / DPI)}";
             statusStrip1.Refresh();
         }
 
@@ -2360,7 +2369,7 @@ namespace ShapeMaker
         {
             Array.Resize(ref canvasPoints, 0);
             statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
-            statusLabelLocation.Text = "0, 0";
+            statusLabelNubPos.Text = "0, 0";
 
             if (LineList.Items.Count == 0)
                 return;
