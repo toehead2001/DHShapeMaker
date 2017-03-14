@@ -3650,8 +3650,6 @@ namespace ShapeMaker
                 {
                     CloseContPaths.Checked = false;
                 }
-
-                CloseContPaths.Image = (CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
             }
             else
             {
@@ -3664,9 +3662,10 @@ namespace ShapeMaker
                 {
                     ClosePath.Checked = false;
                 }
-
-                ClosePath.Image = (ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             }
+
+            ClosePath.Image = (ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
+            CloseContPaths.Image = (CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
             canvas.Refresh();
 
