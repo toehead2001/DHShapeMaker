@@ -1082,33 +1082,30 @@ namespace ShapeMaker
                                     break;
                             }
                         }
-                        else
+                        else if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
                         {
-                            if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
-                            {
-                                StatusBarNubLocation(eX, eY);
+                            StatusBarNubLocation(eX, eY);
 
-                                for (int k = 0; k < Lines.Count; k++)
+                            for (int k = 0; k < Lines.Count; k++)
+                            {
+                                int t = (Lines[k] as PData).LineType;
+                                PointF[] pl = (Lines[k] as PData).Lines;
+                                switch (t)
                                 {
-                                    int t = (Lines[k] as PData).LineType;
-                                    PointF[] pl = (Lines[k] as PData).Lines;
-                                    switch (t)
-                                    {
-                                        case (int) LineTypes.Straight:
-                                        case (int) LineTypes.Cubic:
-                                        case (int) LineTypes.Quadratic:
-                                        case (int) LineTypes.SmoothCubic:
-                                        case (int) LineTypes.SmoothQuadratic:
-                                        case (int) LineTypes.Ellipse:
-                                            for (int j = 0; j < pl.Length; j++)
-                                            {
-                                                pl[j] = movePoint(MoveStart, mapPoint, pl[j]);
-                                            }
-                                            break;
-                                    }
+                                    case (int) LineTypes.Straight:
+                                    case (int) LineTypes.Cubic:
+                                    case (int) LineTypes.Quadratic:
+                                    case (int) LineTypes.SmoothCubic:
+                                    case (int) LineTypes.SmoothQuadratic:
+                                    case (int) LineTypes.Ellipse:
+                                        for (int j = 0; j < pl.Length; j++)
+                                        {
+                                            pl[j] = movePoint(MoveStart, mapPoint, pl[j]);
+                                        }
+                                        break;
                                 }
-                                MoveStart = mapPoint;
                             }
+                            MoveStart = mapPoint;
                         }
                     } //no shift movepoint
                     else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
