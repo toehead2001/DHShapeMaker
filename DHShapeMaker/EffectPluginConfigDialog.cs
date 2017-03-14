@@ -1045,6 +1045,11 @@ namespace ShapeMaker
                 eY = (int)(Math.Floor((double)(5 + eY) / 10) * 10);
             }
 
+            if (!s.ClientRectangle.Contains(eX, eY))
+            {
+                eX = eX.Clamp(s.ClientRectangle.Left, s.ClientRectangle.Right);
+                eY = eY.Clamp(s.ClientRectangle.Top, s.ClientRectangle.Bottom);
+            }
 
             PointF mapPoint = new PointF((float)eX / s.ClientSize.Width, (float)eY / s.ClientSize.Height);
             int lt = getPathType();
@@ -1053,289 +1058,300 @@ namespace ShapeMaker
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    if (s.ClientRectangle.Contains(e.Location))
+                    //left shift move line or path
+                    if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                     {
-                        //left shift move line or path
-                        if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                        {
-                            if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
-                            {
-                                StatusBarNubLocation(eX, eY);
-
-                                PointF oldp = canvasPoints[i];
-
-                                switch (lt)
-                                {
-                                    case (int)LineTypes.Straight:
-                                    case (int)LineTypes.Cubic:
-                                    case (int)LineTypes.Quadratic:
-                                    case (int)LineTypes.SmoothCubic:
-                                    case (int)LineTypes.SmoothQuadratic:
-                                    case (int)LineTypes.Ellipse:
-                                        for (int j = 0; j < canvasPoints.Length; j++)
-                                        {
-                                            canvasPoints[j] = movePoint(oldp, mapPoint, canvasPoints[j]);
-                                        }
-
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
-                                {
-                                    StatusBarNubLocation(eX, eY);
-
-                                    for (int k = 0; k < Lines.Count; k++)
-                                    {
-                                        int t = (Lines[k] as PData).LineType;
-                                        PointF[] pl = (Lines[k] as PData).Lines;
-                                        switch (t)
-                                        {
-                                            case (int)LineTypes.Straight:
-                                            case (int)LineTypes.Cubic:
-                                            case (int)LineTypes.Quadratic:
-                                            case (int)LineTypes.SmoothCubic:
-                                            case (int)LineTypes.SmoothQuadratic:
-                                            case (int)LineTypes.Ellipse:
-
-                                                for (int j = 0; j < pl.Length; j++)
-                                                {
-                                                    pl[j] = movePoint(MoveStart, mapPoint, pl[j]);
-                                                }
-                                                break;
-                                        }
-                                    }
-                                    MoveStart = mapPoint;
-                                }
-                            }
-                        }//no shift movepoint
-                        else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
+                        if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                         {
                             StatusBarNubLocation(eX, eY);
 
                             PointF oldp = canvasPoints[i];
+
                             switch (lt)
                             {
-                                case (int)LineTypes.Straight:
-                                    canvasPoints[i] = mapPoint;
+                                case (int) LineTypes.Straight:
+                                case (int) LineTypes.Cubic:
+                                case (int) LineTypes.Quadratic:
+                                case (int) LineTypes.SmoothCubic:
+                                case (int) LineTypes.SmoothQuadratic:
+                                case (int) LineTypes.Ellipse:
+                                    for (int j = 0; j < canvasPoints.Length; j++)
+                                    {
+                                        canvasPoints[j] = movePoint(oldp, mapPoint, canvasPoints[j]);
+                                    }
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
+                            {
+                                StatusBarNubLocation(eX, eY);
 
-                                    break;
-                                case (int)LineTypes.Ellipse:
+                                for (int k = 0; k < Lines.Count; k++)
+                                {
+                                    int t = (Lines[k] as PData).LineType;
+                                    PointF[] pl = (Lines[k] as PData).Lines;
+                                    switch (t)
+                                    {
+                                        case (int) LineTypes.Straight:
+                                        case (int) LineTypes.Cubic:
+                                        case (int) LineTypes.Quadratic:
+                                        case (int) LineTypes.SmoothCubic:
+                                        case (int) LineTypes.SmoothQuadratic:
+                                        case (int) LineTypes.Ellipse:
+                                            for (int j = 0; j < pl.Length; j++)
+                                            {
+                                                pl[j] = movePoint(MoveStart, mapPoint, pl[j]);
+                                            }
+                                            break;
+                                    }
+                                }
+                                MoveStart = mapPoint;
+                            }
+                        }
+                    } //no shift movepoint
+                    else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
+                    {
+                        StatusBarNubLocation(eX, eY);
+
+                        PointF oldp = canvasPoints[i];
+                        switch (lt)
+                        {
+                            case (int) LineTypes.Straight:
+                                canvasPoints[i] = mapPoint;
+                                break;
+                            case (int) LineTypes.Ellipse:
+                                canvasPoints[i] = mapPoint;
+                                break;
+                            case (int) LineTypes.Cubic:
+
+                                #region cubic
+
+                                oldp = canvasPoints[i];
+                                if (ptype == 0)
+                                {
                                     canvasPoints[i] = mapPoint;
-                                    break;
-                                case (int)LineTypes.Cubic:
-                                    #region cubic
-                                    oldp = canvasPoints[i];
-                                    if (ptype == 0)
+                                    if (canvasPoints.Length > 1)
+                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                }
+                                else if (ptype == 1 || ptype == 2)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                }
+                                else if (ptype == 3)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                    if ((i + 1) < canvasPoints.Length)
+                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                }
+                                if (MacroCubic.Checked)
+                                    CubicAdjust();
+
+                                #endregion
+
+                                break;
+                            case (int) LineTypes.Quadratic:
+
+                                #region Quadratic
+
+                                oldp = canvasPoints[i];
+                                if (ptype == 0)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                }
+                                else if (ptype == 1)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    if ((i + 1) < canvasPoints.Length)
+                                        canvasPoints[i + 1] = canvasPoints[i];
+                                }
+                                if (ptype == 2)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    if ((i - 1) > 0)
+                                        canvasPoints[i - 1] = canvasPoints[i];
+                                }
+                                else if (ptype == 3)
+                                {
+                                    if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                     {
-                                        canvasPoints[i] = mapPoint;
-                                        if (canvasPoints.Length > 1)
-                                            canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                    }
-                                    else if (ptype == 1 || ptype == 2)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                    }
-                                    else if (ptype == 3)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
-                                        if ((i + 1) < canvasPoints.Length)
-                                            canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                    }
-                                    if (MacroCubic.Checked)
-                                        CubicAdjust();
-                                    #endregion
-                                    break;
-                                case (int)LineTypes.Quadratic:
-                                    #region Quadratic
-                                    oldp = canvasPoints[i];
-                                    if (ptype == 0)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                    }
-                                    else if (ptype == 1)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        if ((i + 1) < canvasPoints.Length)
-                                            canvasPoints[i + 1] = canvasPoints[i];
-                                    }
-                                    if (ptype == 2)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        if ((i - 1) > 0)
-                                            canvasPoints[i - 1] = canvasPoints[i];
-                                    }
-                                    else if (ptype == 3)
-                                    {
-                                        if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+                                        //online
+                                        if (i == canvasPoints.Length - 1)
                                         {
-                                            //online
-                                            if (i == canvasPoints.Length - 1)
-                                            {
-                                                PointF rtmp = reverseAverage(canvasPoints[i - 1], canvasPoints[i]);
-                                                canvasPoints[i] = onLinePoint(canvasPoints[i - 1], rtmp, mapPoint);
-                                            }
-                                            else
-                                            {
-                                                canvasPoints[i] = onLinePoint(canvasPoints[i - 1], canvasPoints[i + 1], mapPoint);
-                                            }
+                                            PointF rtmp = reverseAverage(canvasPoints[i - 1], canvasPoints[i]);
+                                            canvasPoints[i] = onLinePoint(canvasPoints[i - 1], rtmp, mapPoint);
                                         }
                                         else
+                                        {
+                                            canvasPoints[i] =
+                                                onLinePoint(canvasPoints[i - 1], canvasPoints[i + 1], mapPoint);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        canvasPoints[i] = mapPoint;
+                                    }
+                                }
+
+                                #endregion
+
+                                break;
+                            case (int) LineTypes.SmoothCubic:
+
+                                #region smooth Cubic
+
+                                oldp = canvasPoints[i];
+                                if (ptype == 0)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    if (canvasPoints.Length > 1)
+                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                    canvasPoints[1] = canvasPoints[0];
+                                }
+                                else if (ptype == 1)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    if (i > 1)
+                                    {
+                                        canvasPoints[i - 2] = reverseAverage(canvasPoints[i], canvasPoints[i - 1]);
+                                    }
+                                    else
+                                    {
+                                        canvasPoints[1] = canvasPoints[0];
+                                    }
+                                }
+                                else if (ptype == 2)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    if (i < canvasPoints.Length - 2)
+                                    {
+                                        canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
+                                    }
+                                }
+                                else if (ptype == 3)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                    canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                    if ((i + 1) < canvasPoints.Length)
+                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                }
+
+                                #endregion
+
+                                break;
+                            case (int) LineTypes.SmoothQuadratic:
+
+                                #region Smooth Quadratic
+
+                                oldp = canvasPoints[i];
+                                if (ptype == 0)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                }
+                                if (ptype == 3)
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                }
+                                for (int j = 0; j < canvasPoints.Length; j++)
+                                {
+                                    if (getNubType(j) == 1 && j > 1)
+                                    {
+                                        canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                        canvasPoints[j + 1] = canvasPoints[j];
+                                    }
+                                }
+
+                                #endregion
+
+                                break;
+                        }
+                    } //move first point
+                    else if (canvasPoints.Length != 0 && i == 0)
+                    {
+                        StatusBarNubLocation(eX, eY);
+
+                        PointF oldp = canvasPoints[i];
+
+                        if (ptype == 0) //special quadratic
+                        {
+                            switch (lt)
+                            {
+                                case (int) LineTypes.Straight:
+                                    canvasPoints[i] = mapPoint;
+                                    break;
+                                case (int) LineTypes.Ellipse:
+                                    canvasPoints[i] = mapPoint;
+                                    break;
+                                case (int) LineTypes.Cubic:
+                                case (int) LineTypes.SmoothCubic:
+                                    canvasPoints[i] = mapPoint;
+                                    if (canvasPoints.Length > 1)
+                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                    break;
+                                case (int) LineTypes.Quadratic:
+                                    if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+                                    {
+                                        if (canvasPoints.Length == 1)
                                         {
                                             canvasPoints[i] = mapPoint;
                                         }
-                                    }
-                                    #endregion
-                                    break;
-                                case (int)LineTypes.SmoothCubic:
-                                    #region smooth Cubic
-                                    oldp = canvasPoints[i];
-
-                                    if (ptype == 0)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        if (canvasPoints.Length > 1)
-                                            canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                        canvasPoints[1] = canvasPoints[0];
-                                    }
-                                    else if (ptype == 1)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        if (i > 1)
-                                        {
-                                            canvasPoints[i - 2] = reverseAverage(canvasPoints[i], canvasPoints[i - 1]);
-                                        }
                                         else
                                         {
-                                            canvasPoints[1] = canvasPoints[0];
+                                            PointF rtmp = reverseAverage(canvasPoints[i + 1], canvasPoints[i]);
+                                            canvasPoints[i] = onLinePoint(canvasPoints[i + 1], rtmp, mapPoint);
                                         }
                                     }
-                                    else if (ptype == 2)
+                                    else
                                     {
                                         canvasPoints[i] = mapPoint;
-                                        if (i < canvasPoints.Length - 2)
-                                        {
-                                            canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
-                                        }
                                     }
-                                    else if (ptype == 3)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                        canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
-                                        if ((i + 1) < canvasPoints.Length)
-                                            canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                    }
-                                    #endregion
-
                                     break;
-                                case (int)LineTypes.SmoothQuadratic:
-                                    #region Smooth Quadratic
-                                    oldp = canvasPoints[i];
-                                    if (ptype == 0)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-
-                                    }
-                                    if (ptype == 3)
-                                    {
-                                        canvasPoints[i] = mapPoint;
-
-                                    }
+                                case (int) LineTypes.SmoothQuadratic:
+                                    canvasPoints[0] = mapPoint;
+                                    canvasPoints[1] = mapPoint;
                                     for (int j = 0; j < canvasPoints.Length; j++)
                                     {
                                         if (getNubType(j) == 1 && j > 1)
                                         {
-                                            canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                            canvasPoints[j] =
+                                                reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
                                             canvasPoints[j + 1] = canvasPoints[j];
-
                                         }
                                     }
-                                    #endregion
-
                                     break;
                             }
-                        }//move first point
-                        else if (canvasPoints.Length != 0 && i == 0)
-                        {
-                            StatusBarNubLocation(eX, eY);
-
-                            PointF oldp = canvasPoints[i];
-
-                            if (ptype == 0)//special quadratic
-                            {
-                                switch (lt)
-                                {
-                                    case (int)LineTypes.Straight:
-                                        canvasPoints[i] = mapPoint;
-                                        break;
-                                    case (int)LineTypes.Ellipse:
-                                        canvasPoints[i] = mapPoint;
-                                        break;
-                                    case (int)LineTypes.Cubic:
-                                    case (int)LineTypes.SmoothCubic:
-                                        canvasPoints[i] = mapPoint;
-                                        if (canvasPoints.Length > 1)
-                                            canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                        break;
-                                    case (int)LineTypes.Quadratic:
-                                        if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                                        {
-                                            if (canvasPoints.Length == 1)
-                                            {
-                                                canvasPoints[i] = mapPoint;
-                                            }
-                                            else
-                                            {
-                                                PointF rtmp = reverseAverage(canvasPoints[i + 1], canvasPoints[i]);
-                                                canvasPoints[i] = onLinePoint(canvasPoints[i + 1], rtmp, mapPoint);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            canvasPoints[i] = mapPoint;
-                                        }
-                                        break;
-                                    case (int)LineTypes.SmoothQuadratic:
-
-                                        canvasPoints[0] = mapPoint;
-                                        canvasPoints[1] = mapPoint;
-
-                                        for (int j = 0; j < canvasPoints.Length; j++)
-                                        {
-                                            if (getNubType(j) == 1 && j > 1)
-                                            {
-                                                canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
-                                                canvasPoints[j + 1] = canvasPoints[j];
-                                            }
-                                        }
-                                        break;
-                                }
-                            }
-
-                        }//Pan zoomed
-                        else if (PanFlag)
-                        {
-                            int mpx = (int)(mapPoint.X * 100);
-                            int msx = (int)(MoveStart.X * 100);
-                            int mpy = (int)(mapPoint.Y * 100);
-                            int msy = (int)(MoveStart.Y * 100);
-                            int tx = 10 * (mpx - msx);
-                            int ty = 10 * (mpy - msy);
-
-                            int maxMoveX = canvas.Width - viewport.ClientSize.Width;
-                            int maxMoveY = canvas.Height - viewport.ClientSize.Height;
-
-                            if (canvas.Width > viewport.ClientSize.Width)
-                                Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
-                            if (canvas.Height > viewport.ClientSize.Height)
-                                Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
-
-                            canvas.Location = Zoomed;
-
-                            UpdateScrollBars();
                         }
+                    } //Pan zoomed
+                    else if (PanFlag)
+                    {
+                        int mpx = (int) (mapPoint.X * 100);
+                        int msx = (int) (MoveStart.X * 100);
+                        int mpy = (int) (mapPoint.Y * 100);
+                        int msy = (int) (MoveStart.Y * 100);
+                        int tx = 10 * (mpx - msx);
+                        int ty = 10 * (mpy - msy);
+
+                        int maxMoveX = canvas.Width - viewport.ClientSize.Width;
+                        int maxMoveY = canvas.Height - viewport.ClientSize.Height;
+
+                        if (canvas.Width > viewport.ClientSize.Width)
+                            Zoomed.X = (canvas.Location.X + tx < -maxMoveX)
+                                ? -maxMoveX
+                                : (canvas.Location.X + tx > 0)
+                                    ? 0
+                                    : canvas.Location.X + tx;
+                        if (canvas.Height > viewport.ClientSize.Height)
+                            Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY)
+                                ? -maxMoveY
+                                : (canvas.Location.Y + ty > 0)
+                                    ? 0
+                                    : canvas.Location.Y + ty;
+
+                        canvas.Location = Zoomed;
+
+                        UpdateScrollBars();
                     }
 
                     canvas.Refresh();
