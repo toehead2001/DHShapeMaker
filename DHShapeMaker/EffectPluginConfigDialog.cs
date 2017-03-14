@@ -86,6 +86,7 @@ namespace ShapeMaker
         bool isNewPath = true;
         int canvasBaseSize;
         Bitmap clipboardImage = null;
+        bool MoveFlag = false;
 
         public EffectPluginConfigDialog()
         {
@@ -978,12 +979,14 @@ namespace ShapeMaker
                         if (clickedNub != -1)
                         {
                             setUndo();
+                            MoveFlag = true;
                             canvas.Cursor = Cursors.SizeAll;
                         }
                     }
-                    else
+                    else if (LineList.Items.Count > 0)
                     {
                         setUndo();
+                        MoveFlag = true;
                         canvas.Cursor = Cursors.SizeAll;
                     }
                 }
@@ -1023,6 +1026,7 @@ namespace ShapeMaker
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             PanFlag = false;
+            MoveFlag = false;
             clickedNub = -1;
             canvas.Refresh();
             canvas.Cursor = Cursors.Default;
@@ -1059,7 +1063,7 @@ namespace ShapeMaker
                 if (e.Button == MouseButtons.Left)
                 {
                     //left shift move line or path
-                    if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                    if (MoveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                     {
                         if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                         {
