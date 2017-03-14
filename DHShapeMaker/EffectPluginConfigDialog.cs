@@ -77,7 +77,6 @@ namespace ShapeMaker
         bool KeyTrak = false;
         GraphicsPath[] PGP = new GraphicsPath[0];
         ArrayList Lines = new ArrayList();
-        Size SuperSize = Size.Empty;
         bool PanFlag = false;
         bool CanScrollZoom = false;
         Point Zoomed = new Point(0, 0);
@@ -146,8 +145,6 @@ namespace ShapeMaker
             canvasBaseSize = this.canvas.Width;
 
             setTraceImage();
-            Rectangle selection = Selection.GetBoundsInt();
-            SuperSize.Width = SuperSize.Height = Math.Min(selection.Width, selection.Height);
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " v" + version;
@@ -2492,11 +2489,13 @@ namespace ShapeMaker
 
                 PointF[] pts = new PointF[line.Length];
                 PointF[] Qpts = new PointF[line.Length];
+
+                Rectangle selection = Selection.GetBoundsInt();
+                int selMinDim = Math.Min(selection.Width, selection.Height);
                 for (int i = 0; i < line.Length; i++)
                 {
-                    float x = (float)OutputScale.Value * SuperSize.Width / 100f * line[i].X;
-                    float y = (float)OutputScale.Value * SuperSize.Height / 100f * line[i].Y;
-                    pts[i] = new PointF(x, y);
+                    pts[i].X = (float)OutputScale.Value * selMinDim / 100f * line[i].X + selection.Left;
+                    pts[i].Y = (float)OutputScale.Value * selMinDim / 100f * line[i].Y + selection.Top;
                 }
                 #region cube to quad
                 if (ltype == (int)LineTypes.Quadratic || ltype == (int)LineTypes.SmoothQuadratic)
