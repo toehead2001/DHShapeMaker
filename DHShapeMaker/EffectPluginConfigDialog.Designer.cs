@@ -631,6 +631,8 @@
             this.viewport.Name = "viewport";
             this.viewport.Size = new System.Drawing.Size(502, 502);
             this.viewport.TabIndex = 41;
+            this.viewport.MouseEnter += new System.EventHandler(this.canvas_MouseEnter);
+            this.viewport.MouseLeave += new System.EventHandler(this.canvas_MouseLeave);
             // 
             // label4
             // 
