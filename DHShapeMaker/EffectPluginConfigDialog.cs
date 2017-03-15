@@ -1167,7 +1167,7 @@ namespace ShapeMaker
                                     if ((i + 1) < canvasPoints.Length)
                                         canvasPoints[i + 1] = canvasPoints[i];
                                 }
-                                if (ptype == 2)
+                                else if (ptype == 2)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if ((i - 1) > 0)
@@ -1250,7 +1250,7 @@ namespace ShapeMaker
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
-                                if (ptype == 3)
+                                else if (ptype == 3)
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
