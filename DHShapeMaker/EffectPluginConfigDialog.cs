@@ -559,6 +559,7 @@ namespace ShapeMaker
 
                         activePen.Width = 5f;
                         activePen.Color = Color.FromArgb(51, p.Color);
+                        activePen.LineJoin = LineJoin.Bevel;
 
                         if (pPoints.Length > 3 && (pType == (int)LineTypes.Quadratic || pType == (int)LineTypes.SmoothQuadratic))
                         {
