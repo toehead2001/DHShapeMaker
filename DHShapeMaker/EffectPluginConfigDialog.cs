@@ -1326,62 +1326,42 @@ namespace ShapeMaker
                     } //Pan zoomed
                     else if (PanFlag)
                     {
-                        int mpx = (int) (mapPoint.X * 100);
-                        int msx = (int) (MoveStart.X * 100);
-                        int mpy = (int) (mapPoint.Y * 100);
-                        int msy = (int) (MoveStart.Y * 100);
-                        int tx = 10 * (mpx - msx);
-                        int ty = 10 * (mpy - msy);
-
-                        int maxMoveX = canvas.Width - viewport.ClientSize.Width;
-                        int maxMoveY = canvas.Height - viewport.ClientSize.Height;
-
-                        if (canvas.Width > viewport.ClientSize.Width)
-                            Zoomed.X = (canvas.Location.X + tx < -maxMoveX)
-                                ? -maxMoveX
-                                : (canvas.Location.X + tx > 0)
-                                    ? 0
-                                    : canvas.Location.X + tx;
-                        if (canvas.Height > viewport.ClientSize.Height)
-                            Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY)
-                                ? -maxMoveY
-                                : (canvas.Location.Y + ty > 0)
-                                    ? 0
-                                    : canvas.Location.Y + ty;
-
-                        canvas.Location = Zoomed;
-
-                        UpdateScrollBars();
+                        Pan();
                     }
 
                     canvas.Refresh();
                 }
                 else if (e.Button == MouseButtons.Middle && PanFlag)
                 {
-                    int mpx = (int)(mapPoint.X * 100);
-                    int msx = (int)(MoveStart.X * 100);
-                    int mpy = (int)(mapPoint.Y * 100);
-                    int msy = (int)(MoveStart.Y * 100);
-                    int tx = 10 * (mpx - msx);
-                    int ty = 10 * (mpy - msy);
-
-                    int maxMoveX = canvas.Width - viewport.ClientSize.Width;
-                    int maxMoveY = canvas.Height - viewport.ClientSize.Height;
-
-                    if (canvas.Width > viewport.ClientSize.Width)
-                        Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
-                    if (canvas.Height > viewport.ClientSize.Height)
-                        Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
-
-                    canvas.Location = Zoomed;
-
-                    UpdateScrollBars();
+                    Pan();
                 }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+            void Pan()
+            {
+                int mpx = (int)(mapPoint.X * 100);
+                int msx = (int)(MoveStart.X * 100);
+                int mpy = (int)(mapPoint.Y * 100);
+                int msy = (int)(MoveStart.Y * 100);
+                int tx = 10 * (mpx - msx);
+                int ty = 10 * (mpy - msy);
+
+                int maxMoveX = canvas.Width - viewport.ClientSize.Width;
+                int maxMoveY = canvas.Height - viewport.ClientSize.Height;
+
+                if (canvas.Width > viewport.ClientSize.Width)
+                    Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
+                if (canvas.Height > viewport.ClientSize.Height)
+                    Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
+
+                canvas.Location = Zoomed;
+
+                UpdateScrollBars();
             }
         }
         #endregion
