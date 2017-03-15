@@ -79,7 +79,6 @@ namespace ShapeMaker
         ArrayList Lines = new ArrayList();
         bool PanFlag = false;
         bool CanScrollZoom = false;
-        Point Zoomed = new Point(0, 0);
         float DPI = 1;
         Control hadFocus;
         bool isNewPath = true;
@@ -187,11 +186,12 @@ namespace ShapeMaker
             verScrollBar.Left = viewport.Right;
             verScrollBar.Height = viewport.ClientSize.Height;
 
+            Point newCanvasPos = canvas.Location;
             if (canvas.Width < viewport.ClientSize.Width || canvas.Location.X > 0)
-                Zoomed.X = (viewport.ClientSize.Width - canvas.Width) / 2;
+                newCanvasPos.X = (viewport.ClientSize.Width - canvas.Width) / 2;
             if (canvas.Height < viewport.ClientSize.Height || canvas.Location.Y > 0)
-                Zoomed.Y = (viewport.ClientSize.Height - canvas.Height) / 2;
-            canvas.Location = Zoomed;
+                newCanvasPos.Y = (viewport.ClientSize.Height - canvas.Height) / 2;
+            canvas.Location = newCanvasPos;
 
             UpdateScrollBars();
         }
@@ -1354,12 +1354,12 @@ namespace ShapeMaker
                 int maxMoveX = canvas.Width - viewport.ClientSize.Width;
                 int maxMoveY = canvas.Height - viewport.ClientSize.Height;
 
+                Point pannedCanvasPos = canvas.Location;
                 if (canvas.Width > viewport.ClientSize.Width)
-                    Zoomed.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
+                    pannedCanvasPos.X = (canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (canvas.Location.X + tx > 0) ? 0 : canvas.Location.X + tx;
                 if (canvas.Height > viewport.ClientSize.Height)
-                    Zoomed.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
-
-                canvas.Location = Zoomed;
+                    pannedCanvasPos.Y = (canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (canvas.Location.Y + ty > 0) ? 0 : canvas.Location.Y + ty;
+                canvas.Location = pannedCanvasPos;
 
                 UpdateScrollBars();
             }
@@ -2959,22 +2959,25 @@ namespace ShapeMaker
 
             int newDimension = canvasBaseSize * zoomFactor;
 
-            Zoomed.X = (canvas.Location.X - zoomPoint.X) * newDimension / canvas.Width + zoomPoint.X;
-            Zoomed.Y = (canvas.Location.Y - zoomPoint.Y) * newDimension / canvas.Height + zoomPoint.Y;
+            Point zoomedCanvasPos = new Point
+            {
+                X = (canvas.Location.X - zoomPoint.X) * newDimension / canvas.Width + zoomPoint.X,
+                Y = (canvas.Location.Y - zoomPoint.Y) * newDimension / canvas.Height + zoomPoint.Y
+            };
 
             // Clamp the canvas location; we're not overscrolling... yet
             int minX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : viewport.ClientSize.Width - newDimension;
             int maxX = (viewport.ClientSize.Width > newDimension) ? (viewport.ClientSize.Width - newDimension) / 2 : 0;
-            Zoomed.X = Zoomed.X.Clamp(minX, maxX);
+            zoomedCanvasPos.X = zoomedCanvasPos.X.Clamp(minX, maxX);
 
             int minY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : viewport.ClientSize.Height - newDimension;
             int maxY = (viewport.ClientSize.Height > newDimension) ? (viewport.ClientSize.Height - newDimension) / 2 : 0;
-            Zoomed.Y = Zoomed.Y.Clamp(minY, maxY);
+            zoomedCanvasPos.Y = zoomedCanvasPos.Y.Clamp(minY, maxY);
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
             {
-                canvas.Location = Zoomed;
+                canvas.Location = zoomedCanvasPos;
                 canvas.Width = newDimension;
                 canvas.Height = newDimension;
             }
@@ -2982,7 +2985,7 @@ namespace ShapeMaker
             {
                 canvas.Width = newDimension;
                 canvas.Height = newDimension;
-                canvas.Location = Zoomed;
+                canvas.Location = zoomedCanvasPos;
             }
             canvas.Refresh();
 
