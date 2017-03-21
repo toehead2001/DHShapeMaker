@@ -58,7 +58,7 @@ namespace ShapeMaker
         private const double twoPI = Math.PI * 2;
 
         bool countflag = false;
-        const int maxPaths = 100;
+        const int maxPaths = 200;
         const int maxpoint = 255;
         int clickedNub = -1;
         PointF MoveStart;
