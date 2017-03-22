@@ -450,7 +450,7 @@
             // 
             this.DrawOnCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DrawOnCanvas.AutoSize = true;
-            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 543);
+            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 546);
             this.DrawOnCanvas.Name = "DrawOnCanvas";
             this.DrawOnCanvas.Size = new System.Drawing.Size(109, 17);
             this.DrawOnCanvas.TabIndex = 33;
@@ -461,12 +461,11 @@
             // ApplyBtn
             // 
             this.ApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ApplyBtn.AutoSize = true;
             this.ApplyBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.ApplyBtn.Location = new System.Drawing.Point(724, 238);
-            this.ApplyBtn.MaximumSize = new System.Drawing.Size(90, 45);
-            this.ApplyBtn.MinimumSize = new System.Drawing.Size(90, 45);
             this.ApplyBtn.Name = "ApplyBtn";
-            this.ApplyBtn.Size = new System.Drawing.Size(90, 45);
+            this.ApplyBtn.Size = new System.Drawing.Size(90, 36);
             this.ApplyBtn.TabIndex = 2;
             this.ApplyBtn.TabStop = false;
             this.ApplyBtn.Tag = "0";
@@ -478,9 +477,8 @@
             // FigureName
             // 
             this.FigureName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FigureName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FigureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FigureName.Location = new System.Drawing.Point(723, 368);
+            this.FigureName.Location = new System.Drawing.Point(724, 396);
             this.FigureName.Name = "FigureName";
             this.FigureName.Size = new System.Drawing.Size(93, 18);
             this.FigureName.TabIndex = 36;
@@ -494,10 +492,8 @@
             this.ClearBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ClearBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.ClearBtn.Location = new System.Drawing.Point(724, 289);
-            this.ClearBtn.MaximumSize = new System.Drawing.Size(90, 45);
-            this.ClearBtn.MinimumSize = new System.Drawing.Size(90, 45);
             this.ClearBtn.Name = "ClearBtn";
-            this.ClearBtn.Size = new System.Drawing.Size(90, 45);
+            this.ClearBtn.Size = new System.Drawing.Size(90, 36);
             this.ClearBtn.TabIndex = 2;
             this.ClearBtn.TabStop = false;
             this.ClearBtn.Tag = "0";
@@ -510,7 +506,7 @@
             // 
             this.OutputScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.OutputScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OutputScale.Location = new System.Drawing.Point(724, 421);
+            this.OutputScale.Location = new System.Drawing.Point(725, 449);
             this.OutputScale.Maximum = new decimal(new int[] {
             200,
             0,
@@ -536,11 +532,9 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(724, 492);
-            this.buttonOK.MaximumSize = new System.Drawing.Size(90, 45);
-            this.buttonOK.MinimumSize = new System.Drawing.Size(90, 45);
+            this.buttonOK.Location = new System.Drawing.Point(724, 504);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(90, 45);
+            this.buttonOK.Size = new System.Drawing.Size(90, 36);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.toolTip1.SetToolTip(this.buttonOK, "Return to PDN");
@@ -553,10 +547,7 @@
             this.LineList.BackColor = System.Drawing.Color.White;
             this.LineList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.LineList.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LineList.FormattingEnabled = true;
             this.LineList.Location = new System.Drawing.Point(539, 72);
-            this.LineList.MaximumSize = new System.Drawing.Size(144, 316);
-            this.LineList.MinimumSize = new System.Drawing.Size(144, 316);
             this.LineList.Name = "LineList";
             this.LineList.Size = new System.Drawing.Size(144, 316);
             this.LineList.TabIndex = 25;
@@ -657,7 +648,6 @@
             // 
             // viewport
             // 
-            this.viewport.BackColor = System.Drawing.Color.Transparent;
             this.viewport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.viewport.Controls.Add(this.canvas);
             this.viewport.Location = new System.Drawing.Point(7, 50);
@@ -671,7 +661,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(732, 350);
+            this.label4.Location = new System.Drawing.Point(733, 378);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
@@ -683,7 +673,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(724, 403);
+            this.label5.Location = new System.Drawing.Point(725, 431);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
