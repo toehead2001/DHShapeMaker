@@ -139,14 +139,18 @@ namespace ShapeMaker
             this.ValueChanged?.Invoke(this, e);
         }
 
-        private void BigKnobs_MouseDown(object sender, MouseEventArgs e)
+        protected override void OnMouseDown(MouseEventArgs e)
         {
+            base.OnMouseDown(e);
+
             rtating = true;
             touchpoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
         }
 
-        private void BigKnobs_MouseUp(object sender, MouseEventArgs e)
+        protected override void OnMouseUp(MouseEventArgs e)
         {
+            base.OnMouseUp(e);
+
             if (!rtating)
                 return;
 
@@ -155,8 +159,10 @@ namespace ShapeMaker
             this.Refresh();
         }
 
-        private void BigKnobs_MouseMove(object sender, MouseEventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
+            base.OnMouseMove(e);
+
             if (!rtating)
                 return;
 

@@ -38,9 +38,6 @@
             this.MinimumSize = new System.Drawing.Size(100, 100);
             this.Name = "BigKnobs";
             this.Size = new System.Drawing.Size(100, 100);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BigKnobs_MouseUp);
             this.ResumeLayout(false);
 
         }
