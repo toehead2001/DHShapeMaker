@@ -188,7 +188,7 @@ namespace ShapeMaker
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Rectangle rotRect = e.ClipRectangle;
+            Rectangle rotRect = this.ClientRectangle;
             e.Graphics.CompositingMode = CompositingMode.SourceOver;
             if (this.BottomImage != null)
             {
