@@ -85,6 +85,7 @@ namespace ShapeMaker
         int canvasBaseSize;
         Bitmap clipboardImage = null;
         bool MoveFlag = false;
+        bool WheelScaling = false;
 
         public EffectPluginConfigDialog()
         {
@@ -3559,6 +3560,25 @@ namespace ShapeMaker
             scaleSlider.Value = 100;
             float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
+        }
+
+        private void scaleSlider_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ScaleTimer.Stop();
+
+            if (!WheelScaling)
+            {
+                WheelScaling = true;
+                setUndo();
+            }
+
+            ScaleTimer.Start();
+        }
+
+        private void ScaleTimer_Tick(object sender, EventArgs e)
+        {
+            WheelScaling = false;
+            ScaleTimer.Stop();
         }
         #endregion
 

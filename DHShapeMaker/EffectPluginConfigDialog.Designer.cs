@@ -132,6 +132,7 @@
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
+            this.ScaleTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -1217,6 +1218,7 @@
             this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
             this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
             this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
+            this.scaleSlider.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseWheel);
             // 
             // traceLayer
             // 
@@ -1261,6 +1263,11 @@
             this.horScrollBar.TabIndex = 63;
             this.horScrollBar.Visible = false;
             this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
+            // 
+            // ScaleTimer
+            // 
+            this.ScaleTimer.Interval = 2000;
+            this.ScaleTimer.Tick += new System.EventHandler(this.ScaleTimer_Tick);
             // 
             // EffectPluginConfigDialog
             // 
@@ -1449,5 +1456,6 @@
         private System.Windows.Forms.ToolStripMenuItem undoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.Timer ScaleTimer;
     }
 }
