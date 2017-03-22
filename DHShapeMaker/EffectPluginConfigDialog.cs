@@ -204,13 +204,13 @@ namespace ShapeMaker
             if (keyData == Keys.Enter)
             {
                 if (canvasPoints.Length > 1 && LineList.SelectedIndex == -1)
-                    ApplyBtn_Click(ApplyBtn, new EventArgs());
+                    ApplyBtn_Click(AddBtn, new EventArgs());
                 return true;
             }
 
             if (keyData == Keys.Escape)
             {
-                Deselect_Click(ClearBtn, new EventArgs());
+                Deselect_Click(DeselectBtn, new EventArgs());
                 return true;
             }
 
@@ -3932,8 +3932,9 @@ namespace ShapeMaker
             MacroCubic.Enabled = (LineList.SelectedIndex == -1);
             ClosePath.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
             CloseContPaths.Enabled = !((MacroCircle.Checked && MacroCircle.Enabled) || (MacroRect.Checked && MacroRect.Enabled));
-            ClearBtn.Enabled = (canvasPoints.Length != 0);
-            ApplyBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
+            DeselectBtn.Enabled = (LineList.SelectedIndex != -1 && canvasPoints.Length != 0);
+            AddBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
+            DiscardBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
             scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
             SpinLine.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
 

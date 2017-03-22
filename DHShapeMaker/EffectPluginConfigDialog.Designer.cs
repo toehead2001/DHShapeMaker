@@ -66,9 +66,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.FitBG = new System.Windows.Forms.CheckBox();
             this.DrawOnCanvas = new System.Windows.Forms.CheckBox();
-            this.ApplyBtn = new System.Windows.Forms.Button();
+            this.AddBtn = new System.Windows.Forms.Button();
             this.FigureName = new System.Windows.Forms.TextBox();
-            this.ClearBtn = new System.Windows.Forms.Button();
+            this.DeselectBtn = new System.Windows.Forms.Button();
             this.OutputScale = new System.Windows.Forms.NumericUpDown();
             this.buttonOK = new System.Windows.Forms.Button();
             this.LineList = new System.Windows.Forms.ListBox();
@@ -133,6 +133,7 @@
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.ScaleTimer = new System.Windows.Forms.Timer(this.components);
+            this.DiscardBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -458,21 +459,20 @@
             this.toolTip1.SetToolTip(this.DrawOnCanvas, "Preview on Layer");
             this.DrawOnCanvas.UseVisualStyleBackColor = true;
             // 
-            // ApplyBtn
+            // AddBtn
             // 
-            this.ApplyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ApplyBtn.AutoSize = true;
-            this.ApplyBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ApplyBtn.Location = new System.Drawing.Point(724, 238);
-            this.ApplyBtn.Name = "ApplyBtn";
-            this.ApplyBtn.Size = new System.Drawing.Size(90, 36);
-            this.ApplyBtn.TabIndex = 2;
-            this.ApplyBtn.TabStop = false;
-            this.ApplyBtn.Tag = "0";
-            this.ApplyBtn.Text = "Add Path";
-            this.toolTip1.SetToolTip(this.ApplyBtn, "Add Path (Enter)");
-            this.ApplyBtn.UseVisualStyleBackColor = true;
-            this.ApplyBtn.Click += new System.EventHandler(this.ApplyBtn_Click);
+            this.AddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddBtn.Enabled = false;
+            this.AddBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.AddBtn.Location = new System.Drawing.Point(724, 238);
+            this.AddBtn.Name = "AddBtn";
+            this.AddBtn.Size = new System.Drawing.Size(90, 36);
+            this.AddBtn.TabIndex = 2;
+            this.AddBtn.TabStop = false;
+            this.AddBtn.Text = "Add Path";
+            this.toolTip1.SetToolTip(this.AddBtn, "Add Path (Enter)");
+            this.AddBtn.UseVisualStyleBackColor = true;
+            this.AddBtn.Click += new System.EventHandler(this.ApplyBtn_Click);
             // 
             // FigureName
             // 
@@ -487,20 +487,20 @@
             this.FigureName.Enter += new System.EventHandler(this.FigureName_Enter);
             this.FigureName.Leave += new System.EventHandler(this.FigureName_Leave);
             // 
-            // ClearBtn
+            // DeselectBtn
             // 
-            this.ClearBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ClearBtn.Location = new System.Drawing.Point(724, 289);
-            this.ClearBtn.Name = "ClearBtn";
-            this.ClearBtn.Size = new System.Drawing.Size(90, 36);
-            this.ClearBtn.TabIndex = 2;
-            this.ClearBtn.TabStop = false;
-            this.ClearBtn.Tag = "0";
-            this.ClearBtn.Text = "Deselect";
-            this.toolTip1.SetToolTip(this.ClearBtn, "Deselect (Esc)");
-            this.ClearBtn.UseVisualStyleBackColor = true;
-            this.ClearBtn.Click += new System.EventHandler(this.Deselect_Click);
+            this.DeselectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeselectBtn.Enabled = false;
+            this.DeselectBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DeselectBtn.Location = new System.Drawing.Point(724, 322);
+            this.DeselectBtn.Name = "DeselectBtn";
+            this.DeselectBtn.Size = new System.Drawing.Size(90, 36);
+            this.DeselectBtn.TabIndex = 2;
+            this.DeselectBtn.TabStop = false;
+            this.DeselectBtn.Text = "Deselect";
+            this.toolTip1.SetToolTip(this.DeselectBtn, "Deselect (Esc)");
+            this.DeselectBtn.UseVisualStyleBackColor = true;
+            this.DeselectBtn.Click += new System.EventHandler(this.Deselect_Click);
             // 
             // OutputScale
             // 
@@ -1264,11 +1264,24 @@
             this.ScaleTimer.Interval = 2000;
             this.ScaleTimer.Tick += new System.EventHandler(this.ScaleTimer_Tick);
             // 
+            // DiscardBtn
+            // 
+            this.DiscardBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiscardBtn.Enabled = false;
+            this.DiscardBtn.Location = new System.Drawing.Point(724, 280);
+            this.DiscardBtn.Name = "DiscardBtn";
+            this.DiscardBtn.Size = new System.Drawing.Size(90, 36);
+            this.DiscardBtn.TabIndex = 64;
+            this.DiscardBtn.Text = "Discard Path";
+            this.DiscardBtn.UseVisualStyleBackColor = true;
+            this.DiscardBtn.Click += new System.EventHandler(this.Deselect_Click);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(850, 597);
+            this.Controls.Add(this.DiscardBtn);
             this.Controls.Add(this.horScrollBar);
             this.Controls.Add(this.verScrollBar);
             this.Controls.Add(this.traceClipboard);
@@ -1281,10 +1294,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
-            this.Controls.Add(this.ClearBtn);
+            this.Controls.Add(this.DeselectBtn);
             this.Controls.Add(this.SpinLine);
             this.Controls.Add(this.FigureName);
-            this.Controls.Add(this.ApplyBtn);
+            this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.DNList);
             this.Controls.Add(this.label4);
@@ -1375,10 +1388,10 @@
         private System.Windows.Forms.CheckBox DrawOnCanvas;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button ApplyBtn;
+        private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.TextBox FigureName;
         private BigKnobs SpinLine;
-        private System.Windows.Forms.Button ClearBtn;
+        private System.Windows.Forms.Button DeselectBtn;
         private System.Windows.Forms.NumericUpDown OutputScale;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.ListBox LineList;
@@ -1452,5 +1465,6 @@
         private System.Windows.Forms.ToolStripMenuItem redoMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.Timer ScaleTimer;
+        private System.Windows.Forms.Button DiscardBtn;
     }
 }
