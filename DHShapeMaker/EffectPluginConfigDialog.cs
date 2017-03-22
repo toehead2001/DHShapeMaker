@@ -86,6 +86,8 @@ namespace ShapeMaker
         Bitmap clipboardImage = null;
         bool MoveFlag = false;
         bool WheelScaling = false;
+        bool DrawAverage = false;
+        PointF AveragePoint = new PointF(0.5f, 0.5f);
 
         public EffectPluginConfigDialog()
         {
@@ -700,6 +702,18 @@ namespace ShapeMaker
                     #endregion
 
                     Oldxy = pts[pts.Length - 1];
+
+                    // render average point for when Scaling and Rotation
+                    if (DrawAverage)
+                    {
+                        Point tmpPoint = new Point
+                        {
+                            X = (int)Math.Round(AveragePoint.X * canvas.ClientSize.Width),
+                            Y = (int)Math.Round(AveragePoint.Y * canvas.ClientSize.Height)
+                        };
+                        e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
+                        e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1525,17 +1539,17 @@ namespace ShapeMaker
 
             if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
             {
-                PointF mid = new PointF(.5f, .5f);
+                AveragePoint = new PointF(.5f, .5f);
                 for (int k = 0; k < Lines.Count; k++)
                 {
                     PointF[] tmp = (Lines[k] as PData).Lines;
 
                     for (int i = 0; i < tmp.Length; i++)
                     {
-                        double x = tmp[i].X - mid.X;
-                        double y = tmp[i].Y - mid.Y;
-                        double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + mid.X;
-                        double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + mid.Y;
+                        double x = tmp[i].X - AveragePoint.X;
+                        double y = tmp[i].Y - AveragePoint.Y;
+                        double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + AveragePoint.X;
+                        double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + AveragePoint.Y;
 
                         tmp[i] = new PointF((float)nx, (float)ny);
                     }
@@ -1545,14 +1559,14 @@ namespace ShapeMaker
             {
                 PointF[] tmp = new PointF[canvasPoints.Length];
                 Array.Copy(canvasPoints, tmp, canvasPoints.Length);
-                PointF mid = PathAverage(tmp);
+                AveragePoint = PathAverage(tmp);
 
                 for (int i = 0; i < tmp.Length; i++)
                 {
-                    double x = tmp[i].X - mid.X;
-                    double y = tmp[i].Y - mid.Y;
-                    double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + mid.X;
-                    double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + mid.Y;
+                    double x = tmp[i].X - AveragePoint.X;
+                    double y = tmp[i].Y - AveragePoint.Y;
+                    double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + AveragePoint.X;
+                    double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + AveragePoint.Y;
 
                     tmp[i] = new PointF((float)nx, (float)ny);
                 }
@@ -1567,12 +1581,15 @@ namespace ShapeMaker
 
         private void SpinLine_MouseDown(object sender, MouseEventArgs e)
         {
+            DrawAverage = true;
             setUndo();
             toolTip1.Show($"{SpinLine.Value:0.0}\u00B0", (sender as BigKnobs));
         }
 
         private void SpinLine_MouseUp(object sender, MouseEventArgs e)
         {
+            DrawAverage = false;
+            canvas.Refresh();
             toolTip1.Hide((sender as BigKnobs));
         }
         #endregion
@@ -3526,27 +3543,27 @@ namespace ShapeMaker
 
             if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
             {
-                PointF pa = new PointF(.5f, .5f);
-
+                AveragePoint = new PointF(.5f, .5f);
+                int undoIndex = (UDPointer - 1 + UndoMax) % UndoMax;
                 for (int k = 0; k < Lines.Count; k++)
                 {
                     PointF[] tmp = (Lines[k] as PData).Lines;
-                    PointF[] tmp2 = (UDLines[(UDPointer - 1 + UndoMax) % UndoMax][k] as PData).Lines;
+                    PointF[] tmp2 = (UDLines[undoIndex][k] as PData).Lines;
                     for (int i = 0; i < tmp.Length; i++)
                     {
-                        tmp[i].X = (tmp2[i].X - pa.X) * scale + pa.X;
-                        tmp[i].Y = (tmp2[i].Y - pa.Y) * scale + pa.Y;
+                        tmp[i].X = (tmp2[i].X - AveragePoint.X) * scale + AveragePoint.X;
+                        tmp[i].Y = (tmp2[i].Y - AveragePoint.Y) * scale + AveragePoint.Y;
                     }
                 }
             }
             else if (canvasPoints.Length > 1)
             {
-                PointF pa = PathAverage(canvasPoints);
-
+                AveragePoint = PathAverage(canvasPoints);
+                int undoIndex = (UDPointer - 1 + UndoMax) % UndoMax;
                 for (int idx = 0; idx < canvasPoints.Length; idx++)
                 {
-                    canvasPoints[idx].X = (UDPoint[(UDPointer - 1 + UndoMax) % UndoMax][idx].X - pa.X) * scale + pa.X;
-                    canvasPoints[idx].Y = (UDPoint[(UDPointer - 1 + UndoMax) % UndoMax][idx].Y - pa.Y) * scale + pa.Y;
+                    canvasPoints[idx].X = (UDPoint[undoIndex][idx].X - AveragePoint.X) * scale + AveragePoint.X;
+                    canvasPoints[idx].Y = (UDPoint[undoIndex][idx].Y - AveragePoint.Y) * scale + AveragePoint.Y;
                 }
             }
             canvas.Refresh();
@@ -3554,6 +3571,7 @@ namespace ShapeMaker
 
         private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
         {
+            DrawAverage = true;
             setUndo();
             float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
@@ -3561,9 +3579,11 @@ namespace ShapeMaker
 
         private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
         {
+            DrawAverage = false;
             scaleSlider.Value = 100;
             float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
+            canvas.Refresh();
         }
 
         private void scaleSlider_MouseWheel(object sender, MouseEventArgs e)
@@ -3574,6 +3594,7 @@ namespace ShapeMaker
             {
                 WheelScaling = true;
                 setUndo();
+                DrawAverage = true;
             }
 
             ScaleTimer.Start();
@@ -3583,6 +3604,8 @@ namespace ShapeMaker
         {
             WheelScaling = false;
             ScaleTimer.Stop();
+            DrawAverage = false;
+            canvas.Refresh();
         }
         #endregion
 
