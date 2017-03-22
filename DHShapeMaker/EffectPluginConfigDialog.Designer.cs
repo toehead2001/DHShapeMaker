@@ -569,6 +569,7 @@
             // upList
             // 
             this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.upList.Enabled = false;
             this.upList.Image = global::ShapeMaker.Properties.Resources.ListUp;
             this.upList.Location = new System.Drawing.Point(539, 396);
             this.upList.Name = "upList";
@@ -581,6 +582,7 @@
             // DNList
             // 
             this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DNList.Enabled = false;
             this.DNList.Image = global::ShapeMaker.Properties.Resources.ListDown;
             this.DNList.Location = new System.Drawing.Point(575, 396);
             this.DNList.Name = "DNList";
@@ -593,6 +595,7 @@
             // removePathButton
             // 
             this.removePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.removePathButton.Enabled = false;
             this.removePathButton.Image = global::ShapeMaker.Properties.Resources.RemovePath;
             this.removePathButton.Location = new System.Drawing.Point(651, 396);
             this.removePathButton.Name = "removePathButton";
@@ -605,6 +608,7 @@
             // clonePathButton
             // 
             this.clonePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clonePathButton.Enabled = false;
             this.clonePathButton.Image = global::ShapeMaker.Properties.Resources.Clone;
             this.clonePathButton.Location = new System.Drawing.Point(613, 396);
             this.clonePathButton.Name = "clonePathButton";
