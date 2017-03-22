@@ -3571,6 +3571,7 @@ namespace ShapeMaker
 
         private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
         {
+            ScaleTimer.Stop();
             DrawAverage = true;
             setUndo();
             float scale = scaleSlider.Value / 100f;
@@ -3594,8 +3595,10 @@ namespace ShapeMaker
             {
                 WheelScaling = true;
                 setUndo();
-                DrawAverage = true;
             }
+
+            if (!DrawAverage)
+                DrawAverage = true;
 
             ScaleTimer.Start();
         }
@@ -3607,6 +3610,15 @@ namespace ShapeMaker
             scaleSlider.Value = 100;
             DrawAverage = false;
             canvas.Refresh();
+        }
+
+        private void scaleSlider_Leave(object sender, EventArgs e)
+        {
+            if (DrawAverage)
+            {
+                DrawAverage = false;
+                canvas.Refresh();
+            }
         }
         #endregion
 

@@ -1216,6 +1216,7 @@
             this.scaleSlider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.scaleSlider.Value = 100;
             this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
+            this.scaleSlider.Leave += new System.EventHandler(this.scaleSlider_Leave);
             this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
             this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
             this.scaleSlider.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseWheel);
