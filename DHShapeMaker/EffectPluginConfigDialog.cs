@@ -291,6 +291,7 @@ namespace ShapeMaker
             Lines = new ArrayList();
             if (UDLines[UDPointer].Count != 0)
             {
+                LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
                     PointF[] tmp = new PointF[pd.Lines.Length];
@@ -300,6 +301,7 @@ namespace ShapeMaker
                 }
                 if (UDSelect[UDPointer] < LineList.Items.Count)
                     LineList.SelectedIndex = UDSelect[UDPointer];
+                LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
             UDCount--;
             UDCount = (UDCount < 0) ? 0 : UDCount;
@@ -331,6 +333,7 @@ namespace ShapeMaker
             Lines = new ArrayList();
             if (UDLines[UDPointer].Count != 0)
             {
+                LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
                     PointF[] tmp = new PointF[pd.Lines.Length];
@@ -340,6 +343,7 @@ namespace ShapeMaker
                 }
                 if (UDSelect[UDPointer] < LineList.Items.Count)
                     LineList.SelectedIndex = UDSelect[UDPointer];
+                LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
             UDCount++;
             RDCount--;
