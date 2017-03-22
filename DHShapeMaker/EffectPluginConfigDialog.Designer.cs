@@ -441,7 +441,7 @@
             this.FitBG.Location = new System.Drawing.Point(547, 499);
             this.FitBG.Name = "FitBG";
             this.FitBG.Size = new System.Drawing.Size(105, 17);
-            this.FitBG.TabIndex = 33;
+            this.FitBG.TabIndex = 6;
             this.FitBG.Text = "Fit Background";
             this.toolTip1.SetToolTip(this.FitBG, "Scale Background Image");
             this.FitBG.UseVisualStyleBackColor = true;
@@ -454,7 +454,7 @@
             this.DrawOnCanvas.Location = new System.Drawing.Point(724, 546);
             this.DrawOnCanvas.Name = "DrawOnCanvas";
             this.DrawOnCanvas.Size = new System.Drawing.Size(109, 17);
-            this.DrawOnCanvas.TabIndex = 33;
+            this.DrawOnCanvas.TabIndex = 13;
             this.DrawOnCanvas.Text = "Draw on Canvas";
             this.toolTip1.SetToolTip(this.DrawOnCanvas, "Preview on Layer");
             this.DrawOnCanvas.UseVisualStyleBackColor = true;
@@ -467,7 +467,7 @@
             this.AddBtn.Location = new System.Drawing.Point(724, 238);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(90, 36);
-            this.AddBtn.TabIndex = 2;
+            this.AddBtn.TabIndex = 14;
             this.AddBtn.TabStop = false;
             this.AddBtn.Text = "Add Path";
             this.toolTip1.SetToolTip(this.AddBtn, "Add Path (Enter)");
@@ -481,7 +481,7 @@
             this.FigureName.Location = new System.Drawing.Point(724, 396);
             this.FigureName.Name = "FigureName";
             this.FigureName.Size = new System.Drawing.Size(93, 18);
-            this.FigureName.TabIndex = 36;
+            this.FigureName.TabIndex = 10;
             this.FigureName.Text = "Untitled";
             this.toolTip1.SetToolTip(this.FigureName, "Enter Shape Name");
             this.FigureName.Enter += new System.EventHandler(this.FigureName_Enter);
@@ -495,7 +495,7 @@
             this.DeselectBtn.Location = new System.Drawing.Point(724, 322);
             this.DeselectBtn.Name = "DeselectBtn";
             this.DeselectBtn.Size = new System.Drawing.Size(90, 36);
-            this.DeselectBtn.TabIndex = 2;
+            this.DeselectBtn.TabIndex = 16;
             this.DeselectBtn.TabStop = false;
             this.DeselectBtn.Text = "Deselect";
             this.toolTip1.SetToolTip(this.DeselectBtn, "Deselect (Esc)");
@@ -519,7 +519,7 @@
             0});
             this.OutputScale.Name = "OutputScale";
             this.OutputScale.Size = new System.Drawing.Size(88, 18);
-            this.OutputScale.TabIndex = 34;
+            this.OutputScale.TabIndex = 11;
             this.OutputScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.OutputScale, "Scale Preview \r\nand Output ");
             this.OutputScale.Value = new decimal(new int[] {
@@ -535,7 +535,7 @@
             this.buttonOK.Location = new System.Drawing.Point(724, 504);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(90, 36);
-            this.buttonOK.TabIndex = 2;
+            this.buttonOK.TabIndex = 12;
             this.buttonOK.Text = "OK";
             this.toolTip1.SetToolTip(this.buttonOK, "Return to PDN");
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -550,8 +550,7 @@
             this.LineList.Location = new System.Drawing.Point(539, 72);
             this.LineList.Name = "LineList";
             this.LineList.Size = new System.Drawing.Size(144, 316);
-            this.LineList.TabIndex = 25;
-            this.LineList.TabStop = false;
+            this.LineList.TabIndex = 0;
             this.toolTip1.SetToolTip(this.LineList, "Select Shapes\r\nDouble Click to Rename");
             this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
             this.LineList.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedValueChanged);
@@ -565,7 +564,7 @@
             this.upList.Location = new System.Drawing.Point(539, 396);
             this.upList.Name = "upList";
             this.upList.Size = new System.Drawing.Size(32, 36);
-            this.upList.TabIndex = 0;
+            this.upList.TabIndex = 1;
             this.toolTip1.SetToolTip(this.upList, "Move Path Up");
             this.upList.UseVisualStyleBackColor = true;
             this.upList.Click += new System.EventHandler(this.upList_Click);
@@ -578,7 +577,7 @@
             this.DNList.Location = new System.Drawing.Point(575, 396);
             this.DNList.Name = "DNList";
             this.DNList.Size = new System.Drawing.Size(32, 36);
-            this.DNList.TabIndex = 0;
+            this.DNList.TabIndex = 2;
             this.toolTip1.SetToolTip(this.DNList, "Move Path Down");
             this.DNList.UseVisualStyleBackColor = true;
             this.DNList.Click += new System.EventHandler(this.DNList_Click);
@@ -591,7 +590,7 @@
             this.removePathButton.Location = new System.Drawing.Point(651, 396);
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
-            this.removePathButton.TabIndex = 54;
+            this.removePathButton.TabIndex = 4;
             this.toolTip1.SetToolTip(this.removePathButton, "Remove Path");
             this.removePathButton.UseVisualStyleBackColor = true;
             this.removePathButton.Click += new System.EventHandler(this.removebtn_Click);
@@ -604,7 +603,7 @@
             this.clonePathButton.Location = new System.Drawing.Point(613, 396);
             this.clonePathButton.Name = "clonePathButton";
             this.clonePathButton.Size = new System.Drawing.Size(32, 36);
-            this.clonePathButton.TabIndex = 55;
+            this.clonePathButton.TabIndex = 3;
             this.toolTip1.SetToolTip(this.clonePathButton, "Clone Path");
             this.clonePathButton.UseVisualStyleBackColor = true;
             this.clonePathButton.Click += new System.EventHandler(this.Clonebtn_Click);
@@ -617,7 +616,7 @@
             this.opacitySlider.Maximum = 100;
             this.opacitySlider.Name = "opacitySlider";
             this.opacitySlider.Size = new System.Drawing.Size(144, 23);
-            this.opacitySlider.TabIndex = 56;
+            this.opacitySlider.TabIndex = 5;
             this.opacitySlider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.toolTip1.SetToolTip(this.opacitySlider, "25%");
             this.opacitySlider.Value = 25;
@@ -639,7 +638,8 @@
             this.SpinLine.Size = new System.Drawing.Size(89, 89);
             this.SpinLine.Span = 359F;
             this.SpinLine.SpinRate = 1F;
-            this.SpinLine.TabIndex = 1;
+            this.SpinLine.TabIndex = 8;
+            this.SpinLine.TabStop = false;
             this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all");
             this.SpinLine.Value = 180F;
             this.SpinLine.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
@@ -807,7 +807,7 @@
             this.label3.Location = new System.Drawing.Point(584, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 51;
+            this.label3.TabIndex = 3;
             this.label3.Text = "Path List";
             // 
             // label7
@@ -1206,7 +1206,7 @@
             this.scaleSlider.Name = "scaleSlider";
             this.scaleSlider.Size = new System.Drawing.Size(100, 23);
             this.scaleSlider.SmallChange = 0;
-            this.scaleSlider.TabIndex = 57;
+            this.scaleSlider.TabIndex = 9;
             this.scaleSlider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.scaleSlider.Value = 100;
             this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
@@ -1223,7 +1223,7 @@
             this.traceLayer.Location = new System.Drawing.Point(547, 522);
             this.traceLayer.Name = "traceLayer";
             this.traceLayer.Size = new System.Drawing.Size(76, 17);
-            this.traceLayer.TabIndex = 60;
+            this.traceLayer.TabIndex = 7;
             this.traceLayer.TabStop = true;
             this.traceLayer.Text = "PDN Layer";
             this.traceLayer.UseVisualStyleBackColor = true;
@@ -1236,7 +1236,7 @@
             this.traceClipboard.Location = new System.Drawing.Point(547, 545);
             this.traceClipboard.Name = "traceClipboard";
             this.traceClipboard.Size = new System.Drawing.Size(76, 17);
-            this.traceClipboard.TabIndex = 61;
+            this.traceClipboard.TabIndex = 7;
             this.traceClipboard.Text = "Clipboard";
             this.traceClipboard.UseVisualStyleBackColor = true;
             this.traceClipboard.CheckedChanged += new System.EventHandler(this.traceSource_CheckedChanged);
@@ -1271,7 +1271,8 @@
             this.DiscardBtn.Location = new System.Drawing.Point(724, 280);
             this.DiscardBtn.Name = "DiscardBtn";
             this.DiscardBtn.Size = new System.Drawing.Size(90, 36);
-            this.DiscardBtn.TabIndex = 64;
+            this.DiscardBtn.TabIndex = 15;
+            this.DiscardBtn.TabStop = false;
             this.DiscardBtn.Text = "Discard Path";
             this.DiscardBtn.UseVisualStyleBackColor = true;
             this.DiscardBtn.Click += new System.EventHandler(this.Deselect_Click);
