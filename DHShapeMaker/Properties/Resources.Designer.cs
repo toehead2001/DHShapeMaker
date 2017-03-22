@@ -116,6 +116,16 @@ namespace ShapeMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Clone {
+            get {
+                object obj = ResourceManager.GetObject("Clone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ClosePathOff {
             get {
                 object obj = ResourceManager.GetObject("ClosePathOff", resourceCulture);
@@ -342,6 +352,16 @@ namespace ShapeMaker.Properties {
         internal static System.Drawing.Bitmap Redo {
             get {
                 object obj = ResourceManager.GetObject("Redo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemovePath {
+            get {
+                object obj = ResourceManager.GetObject("RemovePath", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

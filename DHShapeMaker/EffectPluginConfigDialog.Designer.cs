@@ -593,11 +593,11 @@
             // removePathButton
             // 
             this.removePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.removePathButton.Image = global::ShapeMaker.Properties.Resources.RemovePath;
             this.removePathButton.Location = new System.Drawing.Point(651, 396);
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
             this.removePathButton.TabIndex = 54;
-            this.removePathButton.Text = "Remove";
             this.toolTip1.SetToolTip(this.removePathButton, "Remove Path");
             this.removePathButton.UseVisualStyleBackColor = true;
             this.removePathButton.Click += new System.EventHandler(this.removebtn_Click);
@@ -605,11 +605,11 @@
             // clonePathButton
             // 
             this.clonePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.clonePathButton.Image = global::ShapeMaker.Properties.Resources.Clone;
             this.clonePathButton.Location = new System.Drawing.Point(613, 396);
             this.clonePathButton.Name = "clonePathButton";
             this.clonePathButton.Size = new System.Drawing.Size(32, 36);
             this.clonePathButton.TabIndex = 55;
-            this.clonePathButton.Text = "Clone";
             this.toolTip1.SetToolTip(this.clonePathButton, "Clone Path");
             this.clonePathButton.UseVisualStyleBackColor = true;
             this.clonePathButton.Click += new System.EventHandler(this.Clonebtn_Click);
