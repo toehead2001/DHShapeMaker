@@ -3604,6 +3604,7 @@ namespace ShapeMaker
         {
             WheelScaling = false;
             ScaleTimer.Stop();
+            scaleSlider.Value = 100;
             DrawAverage = false;
             canvas.Refresh();
         }
