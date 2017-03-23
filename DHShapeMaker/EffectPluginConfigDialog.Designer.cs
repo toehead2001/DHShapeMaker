@@ -121,6 +121,7 @@
             this.toolStripOptions = new System.Windows.Forms.ToolStrip();
             this.Snap = new ShapeMaker.ToolStripButtonWithKeys();
             this.LinkedPaths = new ShapeMaker.ToolStripButtonWithKeys();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ClosePath = new ShapeMaker.ToolStripButtonWithKeys();
             this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripUndo = new System.Windows.Forms.ToolStrip();
@@ -829,7 +830,7 @@
             this.StraightLine,
             this.MacroRect,
             this.toolStripSeparator12});
-            this.toolStripBlack.Location = new System.Drawing.Point(219, 0);
+            this.toolStripBlack.Location = new System.Drawing.Point(217, 1);
             this.toolStripBlack.Name = "toolStripBlack";
             this.toolStripBlack.Size = new System.Drawing.Size(85, 39);
             this.toolStripBlack.TabIndex = 0;
@@ -876,7 +877,7 @@
             this.CubicBezier,
             this.MacroCubic,
             this.toolStripSeparator13});
-            this.toolStripBlue.Location = new System.Drawing.Point(304, 0);
+            this.toolStripBlue.Location = new System.Drawing.Point(302, 1);
             this.toolStripBlue.Name = "toolStripBlue";
             this.toolStripBlue.Size = new System.Drawing.Size(85, 39);
             this.toolStripBlue.TabIndex = 1;
@@ -920,7 +921,7 @@
             this.toolStripGreen.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SCubicBezier,
             this.toolStripSeparator14});
-            this.toolStripGreen.Location = new System.Drawing.Point(389, 0);
+            this.toolStripGreen.Location = new System.Drawing.Point(387, 1);
             this.toolStripGreen.Name = "toolStripGreen";
             this.toolStripGreen.Size = new System.Drawing.Size(47, 39);
             this.toolStripGreen.TabIndex = 2;
@@ -953,7 +954,7 @@
             this.toolStripYellow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.QuadBezier,
             this.toolStripSeparator15});
-            this.toolStripYellow.Location = new System.Drawing.Point(436, 0);
+            this.toolStripYellow.Location = new System.Drawing.Point(434, 1);
             this.toolStripYellow.Name = "toolStripYellow";
             this.toolStripYellow.Size = new System.Drawing.Size(47, 39);
             this.toolStripYellow.TabIndex = 3;
@@ -985,7 +986,7 @@
             this.toolStripPurple.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SQuadBezier,
             this.toolStripSeparator16});
-            this.toolStripPurple.Location = new System.Drawing.Point(483, 0);
+            this.toolStripPurple.Location = new System.Drawing.Point(481, 1);
             this.toolStripPurple.Name = "toolStripPurple";
             this.toolStripPurple.Size = new System.Drawing.Size(47, 39);
             this.toolStripPurple.TabIndex = 4;
@@ -1021,7 +1022,7 @@
             this.Sweep,
             this.MacroCircle,
             this.toolStripSeparator17});
-            this.toolStripRed.Location = new System.Drawing.Point(530, 0);
+            this.toolStripRed.Location = new System.Drawing.Point(528, 1);
             this.toolStripRed.Name = "toolStripRed";
             this.toolStripRed.Size = new System.Drawing.Size(161, 39);
             this.toolStripRed.TabIndex = 5;
@@ -1091,11 +1092,12 @@
             this.toolStripOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Snap,
             this.LinkedPaths,
+            this.toolStripSeparator8,
             this.ClosePath,
             this.CloseContPaths});
-            this.toolStripOptions.Location = new System.Drawing.Point(691, 0);
+            this.toolStripOptions.Location = new System.Drawing.Point(689, 1);
             this.toolStripOptions.Name = "toolStripOptions";
-            this.toolStripOptions.Size = new System.Drawing.Size(155, 39);
+            this.toolStripOptions.Size = new System.Drawing.Size(163, 39);
             this.toolStripOptions.TabIndex = 6;
             this.toolStripOptions.Text = "toolStrip7";
             // 
@@ -1126,6 +1128,12 @@
             this.LinkedPaths.Text = "Linked with Previous Line";
             this.LinkedPaths.ToolTipText = "Linked with Previous Line (Ctrl+3)";
             this.LinkedPaths.Click += new System.EventHandler(this.OptionToggle);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 39);
             // 
             // ClosePath
             // 
@@ -1161,7 +1169,7 @@
             this.Undo,
             this.Redo,
             this.toolStripSeparator11});
-            this.toolStripUndo.Location = new System.Drawing.Point(134, 0);
+            this.toolStripUndo.Location = new System.Drawing.Point(132, 1);
             this.toolStripUndo.Name = "toolStripUndo";
             this.toolStripUndo.Size = new System.Drawing.Size(85, 39);
             this.toolStripUndo.TabIndex = 7;
@@ -1467,5 +1475,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.Timer ScaleTimer;
         private System.Windows.Forms.Button DiscardBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
