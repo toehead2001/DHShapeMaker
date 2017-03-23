@@ -281,8 +281,8 @@ namespace ShapeMaker
             UDPointer--;
             UDPointer += (UndoMax);
             UDPointer %= UndoMax;
+
             canvasPoints = new PointF[0];
-            setUiForPath(UDtype[UDPointer], false, false, false, false);
             if (UDPoint[UDPointer].Length != 0)
             {
                 canvasPoints = new PointF[UDPoint[UDPointer].Length];
@@ -305,6 +305,17 @@ namespace ShapeMaker
                     LineList.SelectedIndex = UDSelect[UDPointer];
                 LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
+
+            if (LineList.SelectedIndex != -1)
+            {
+                PData selectedPath = (Lines[LineList.SelectedIndex] as PData);
+                setUiForPath(selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+            }
+            else
+            {
+                setUiForPath(UDtype[UDPointer], false, false, false, false);
+            }
+
             UDCount--;
             UDCount = (UDCount < 0) ? 0 : UDCount;
             RDCount++;
@@ -323,8 +334,8 @@ namespace ShapeMaker
             UDPointer++;
             UDPointer += (UndoMax);
             UDPointer %= UndoMax;
+
             canvasPoints = new PointF[0];
-            setUiForPath(UDtype[UDPointer], false, false, false, false);
             if (UDPoint[UDPointer].Length != 0)
             {
                 canvasPoints = new PointF[UDPoint[UDPointer].Length];
@@ -347,6 +358,17 @@ namespace ShapeMaker
                     LineList.SelectedIndex = UDSelect[UDPointer];
                 LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
+
+            if (LineList.SelectedIndex != -1)
+            {
+                PData selectedPath = (Lines[LineList.SelectedIndex] as PData);
+                setUiForPath(selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+            }
+            else
+            {
+                setUiForPath(UDtype[UDPointer], false, false, false, false);
+            }
+
             UDCount++;
             RDCount--;
 
@@ -1681,9 +1703,17 @@ namespace ShapeMaker
                 PathTypeToggle();
             }
             ClosePath.Checked = closedPath;
+            ClosePath.Image = (ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             CloseContPaths.Checked = multiClosedPath;
-            Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Unchecked;
-            Sweep.CheckState = revSweep ? CheckState.Checked : CheckState.Unchecked;
+            CloseContPaths.Image = (CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
+            if (pathType == 1)
+            {
+                Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Indeterminate;
+                Arc.Image = (Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
+
+                Sweep.CheckState = revSweep ? CheckState.Checked : CheckState.Indeterminate;
+                Sweep.Image = (Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
+            }
             ResumeLayout();
         }
 
@@ -3694,6 +3724,8 @@ namespace ShapeMaker
 
         private void Loops_Click(object sender, EventArgs e)
         {
+            setUndo();
+
             if (CloseContPaths.Equals(sender))
             {
                 if (!CloseContPaths.Checked)
@@ -3730,6 +3762,8 @@ namespace ShapeMaker
 
         private void Property_Click(object sender, EventArgs e)
         {
+            setUndo();
+
             (sender as ToolStripButton).CheckState = (sender as ToolStripButton).CheckState == CheckState.Checked ? CheckState.Indeterminate : CheckState.Checked;
 
             if (sender == Arc)
