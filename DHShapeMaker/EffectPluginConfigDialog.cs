@@ -94,12 +94,12 @@ namespace ShapeMaker
             InitializeComponent();
 
             this.toolStripUndo.Renderer = new ProRenderer(Color.White, Color.Silver);
-            this.toolStripBlack.Renderer = new ProRenderer(Color.DarkGray, Color.Black);
-            this.toolStripBlue.Renderer = new ProRenderer(Color.LightSkyBlue, Color.Blue);
-            this.toolStripGreen.Renderer = new ProRenderer(Color.PaleGreen, Color.Green);
-            this.toolStripYellow.Renderer = new ProRenderer(Color.Khaki, Color.Goldenrod);
-            this.toolStripPurple.Renderer = new ProRenderer(Color.Plum, Color.Purple);
-            this.toolStripRed.Renderer = new ProRenderer(Color.Pink, Color.Red);
+            this.toolStripBlack.Renderer = new ProRenderer(Color.FromArgb(204, 204, 204), Color.Black);
+            this.toolStripBlue.Renderer = new ProRenderer(Color.FromArgb(204, 204, 255), Color.Blue);
+            this.toolStripGreen.Renderer = new ProRenderer(Color.FromArgb(204, 230, 204), Color.Green);
+            this.toolStripYellow.Renderer = new ProRenderer(Color.FromArgb(241, 231, 206), Color.Goldenrod);
+            this.toolStripPurple.Renderer = new ProRenderer(Color.FromArgb(230, 204, 230), Color.Purple);
+            this.toolStripRed.Renderer = new ProRenderer(Color.FromArgb(255, 204, 204), Color.Red);
             this.toolStripOptions.Renderer = new ProRenderer(Color.White, Color.Silver);
         }
 
