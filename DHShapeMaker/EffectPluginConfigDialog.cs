@@ -3598,10 +3598,13 @@ namespace ShapeMaker
 
         private void aboutShapeMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (AboutBox1 box = new AboutBox1())
-            {
-                box.ShowDialog(this);
-            }
+            MessageBox.Show(this.Text + "\nCopyright \u00A9 2017, The Dwarf Horde\n\n" +
+                "Rob Tauler (TechnoRobbo)\n- Code Lead (up to v1.2.3), Design\n\n" +
+                "Jason Wendt (toe_head2001)\n- Code Lead (v1.3 onward), Design\n\n" +
+                "John Robbins (Red Ochre)\n- Graphics Lead, Design\n\n" +
+                "Scott Stringer (Ego Eram Reputo)\n- Documentation Lead, Design\n\n" +
+                "David Issel (BoltBait)\n- Beta Testing, Design",
+                "About ShapeMaker", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
