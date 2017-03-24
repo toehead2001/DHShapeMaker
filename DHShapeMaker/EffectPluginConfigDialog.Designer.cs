@@ -726,7 +726,7 @@
             this.statusLabelNubsUsed.Margin = new System.Windows.Forms.Padding(6, 3, 0, 2);
             this.statusLabelNubsUsed.Name = "statusLabelNubsUsed";
             this.statusLabelNubsUsed.Size = new System.Drawing.Size(160, 17);
-            this.statusLabelNubsUsed.Text = "0/255 Nubs Used";
+            this.statusLabelNubsUsed.Text = "0/255 Nubs used";
             this.statusLabelNubsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusLabelPathsUsed
@@ -734,7 +734,7 @@
             this.statusLabelPathsUsed.AutoSize = false;
             this.statusLabelPathsUsed.Name = "statusLabelPathsUsed";
             this.statusLabelPathsUsed.Size = new System.Drawing.Size(160, 17);
-            this.statusLabelPathsUsed.Text = "0/100 Paths Used";
+            this.statusLabelPathsUsed.Text = "0/100 Paths used";
             this.statusLabelPathsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusLabelNubPos

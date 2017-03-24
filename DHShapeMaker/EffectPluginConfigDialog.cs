@@ -1751,7 +1751,7 @@ namespace ShapeMaker
             ClosePath.Image = (ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             CloseContPaths.Checked = multiClosedPath;
             CloseContPaths.Image = (CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
-            if (pathType == 1)
+            if (pathType == (int)LineTypes.Ellipse)
             {
                 Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Indeterminate;
                 Arc.Image = (Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
