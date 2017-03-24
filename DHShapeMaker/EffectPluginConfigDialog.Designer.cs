@@ -439,7 +439,7 @@
             this.FitBG.AutoSize = true;
             this.FitBG.Checked = true;
             this.FitBG.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FitBG.Location = new System.Drawing.Point(547, 499);
+            this.FitBG.Location = new System.Drawing.Point(549, 496);
             this.FitBG.Name = "FitBG";
             this.FitBG.Size = new System.Drawing.Size(105, 17);
             this.FitBG.TabIndex = 6;
@@ -452,7 +452,7 @@
             // 
             this.DrawOnCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DrawOnCanvas.AutoSize = true;
-            this.DrawOnCanvas.Location = new System.Drawing.Point(724, 546);
+            this.DrawOnCanvas.Location = new System.Drawing.Point(726, 543);
             this.DrawOnCanvas.Name = "DrawOnCanvas";
             this.DrawOnCanvas.Size = new System.Drawing.Size(109, 17);
             this.DrawOnCanvas.TabIndex = 13;
@@ -465,7 +465,7 @@
             this.AddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AddBtn.Enabled = false;
             this.AddBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.AddBtn.Location = new System.Drawing.Point(724, 238);
+            this.AddBtn.Location = new System.Drawing.Point(726, 236);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(90, 36);
             this.AddBtn.TabIndex = 14;
@@ -479,9 +479,9 @@
             // 
             this.FigureName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FigureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FigureName.Location = new System.Drawing.Point(724, 396);
+            this.FigureName.Location = new System.Drawing.Point(726, 402);
             this.FigureName.Name = "FigureName";
-            this.FigureName.Size = new System.Drawing.Size(93, 18);
+            this.FigureName.Size = new System.Drawing.Size(90, 18);
             this.FigureName.TabIndex = 10;
             this.FigureName.Text = "Untitled";
             this.toolTip1.SetToolTip(this.FigureName, "Enter Shape Name");
@@ -493,7 +493,7 @@
             this.DeselectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DeselectBtn.Enabled = false;
             this.DeselectBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.DeselectBtn.Location = new System.Drawing.Point(724, 322);
+            this.DeselectBtn.Location = new System.Drawing.Point(726, 320);
             this.DeselectBtn.Name = "DeselectBtn";
             this.DeselectBtn.Size = new System.Drawing.Size(90, 36);
             this.DeselectBtn.TabIndex = 16;
@@ -507,7 +507,7 @@
             // 
             this.OutputScale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.OutputScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OutputScale.Location = new System.Drawing.Point(725, 449);
+            this.OutputScale.Location = new System.Drawing.Point(726, 444);
             this.OutputScale.Maximum = new decimal(new int[] {
             200,
             0,
@@ -519,7 +519,7 @@
             0,
             0});
             this.OutputScale.Name = "OutputScale";
-            this.OutputScale.Size = new System.Drawing.Size(88, 18);
+            this.OutputScale.Size = new System.Drawing.Size(90, 18);
             this.OutputScale.TabIndex = 11;
             this.OutputScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.OutputScale, "Scale Preview \r\nand Output ");
@@ -533,7 +533,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(724, 504);
+            this.buttonOK.Location = new System.Drawing.Point(726, 501);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(90, 36);
             this.buttonOK.TabIndex = 12;
@@ -548,9 +548,9 @@
             this.LineList.BackColor = System.Drawing.Color.White;
             this.LineList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.LineList.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LineList.Location = new System.Drawing.Point(539, 72);
+            this.LineList.Location = new System.Drawing.Point(541, 66);
             this.LineList.Name = "LineList";
-            this.LineList.Size = new System.Drawing.Size(144, 316);
+            this.LineList.Size = new System.Drawing.Size(146, 316);
             this.LineList.TabIndex = 0;
             this.toolTip1.SetToolTip(this.LineList, "Select Shapes\r\nDouble Click to Rename");
             this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
@@ -562,7 +562,7 @@
             this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.upList.Enabled = false;
             this.upList.Image = global::ShapeMaker.Properties.Resources.ListUp;
-            this.upList.Location = new System.Drawing.Point(539, 396);
+            this.upList.Location = new System.Drawing.Point(541, 388);
             this.upList.Name = "upList";
             this.upList.Size = new System.Drawing.Size(32, 36);
             this.upList.TabIndex = 1;
@@ -575,7 +575,7 @@
             this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DNList.Enabled = false;
             this.DNList.Image = global::ShapeMaker.Properties.Resources.ListDown;
-            this.DNList.Location = new System.Drawing.Point(575, 396);
+            this.DNList.Location = new System.Drawing.Point(579, 388);
             this.DNList.Name = "DNList";
             this.DNList.Size = new System.Drawing.Size(32, 36);
             this.DNList.TabIndex = 2;
@@ -588,7 +588,7 @@
             this.removePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.removePathButton.Enabled = false;
             this.removePathButton.Image = global::ShapeMaker.Properties.Resources.RemovePath;
-            this.removePathButton.Location = new System.Drawing.Point(651, 396);
+            this.removePathButton.Location = new System.Drawing.Point(655, 388);
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
             this.removePathButton.TabIndex = 4;
@@ -601,7 +601,7 @@
             this.clonePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clonePathButton.Enabled = false;
             this.clonePathButton.Image = global::ShapeMaker.Properties.Resources.Clone;
-            this.clonePathButton.Location = new System.Drawing.Point(613, 396);
+            this.clonePathButton.Location = new System.Drawing.Point(617, 388);
             this.clonePathButton.Name = "clonePathButton";
             this.clonePathButton.Size = new System.Drawing.Size(32, 36);
             this.clonePathButton.TabIndex = 3;
@@ -613,10 +613,10 @@
             // 
             this.opacitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.opacitySlider.AutoSize = false;
-            this.opacitySlider.Location = new System.Drawing.Point(539, 470);
+            this.opacitySlider.Location = new System.Drawing.Point(541, 467);
             this.opacitySlider.Maximum = 100;
             this.opacitySlider.Name = "opacitySlider";
-            this.opacitySlider.Size = new System.Drawing.Size(144, 23);
+            this.opacitySlider.Size = new System.Drawing.Size(146, 23);
             this.opacitySlider.TabIndex = 5;
             this.opacitySlider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.toolTip1.SetToolTip(this.opacitySlider, "25%");
@@ -630,7 +630,7 @@
             this.SpinLine.KnobBase = global::ShapeMaker.Properties.Resources.KnobBase;
             this.SpinLine.KnobDial = global::ShapeMaker.Properties.Resources.KnobPos;
             this.SpinLine.KnobDialDisabled = global::ShapeMaker.Properties.Resources.KnobPos2;
-            this.SpinLine.Location = new System.Drawing.Point(720, 73);
+            this.SpinLine.Location = new System.Drawing.Point(726, 66);
             this.SpinLine.maxValue = 359F;
             this.SpinLine.MinimumSize = new System.Drawing.Size(89, 89);
             this.SpinLine.minValue = 0F;
@@ -651,7 +651,7 @@
             // 
             this.viewport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.viewport.Controls.Add(this.canvas);
-            this.viewport.Location = new System.Drawing.Point(7, 50);
+            this.viewport.Location = new System.Drawing.Point(7, 46);
             this.viewport.Name = "viewport";
             this.viewport.Size = new System.Drawing.Size(502, 502);
             this.viewport.TabIndex = 41;
@@ -662,7 +662,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(733, 378);
+            this.label4.Location = new System.Drawing.Point(735, 384);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
@@ -674,7 +674,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(725, 431);
+            this.label5.Location = new System.Drawing.Point(726, 428);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
@@ -686,7 +686,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(550, 454);
+            this.label1.Location = new System.Drawing.Point(552, 451);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 13);
@@ -698,7 +698,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(746, 56);
+            this.label2.Location = new System.Drawing.Point(748, 50);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
@@ -713,7 +713,7 @@
             this.statusLabelNubPos,
             this.statusLabelMousePos,
             this.splitButtonZoom});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 575);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 568);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
             this.statusStrip1.Size = new System.Drawing.Size(850, 22);
@@ -725,7 +725,7 @@
             this.statusLabelNubsUsed.AutoSize = false;
             this.statusLabelNubsUsed.Margin = new System.Windows.Forms.Padding(6, 3, 0, 2);
             this.statusLabelNubsUsed.Name = "statusLabelNubsUsed";
-            this.statusLabelNubsUsed.Size = new System.Drawing.Size(156, 17);
+            this.statusLabelNubsUsed.Size = new System.Drawing.Size(160, 17);
             this.statusLabelNubsUsed.Text = "0/255 Nubs Used";
             this.statusLabelNubsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -733,7 +733,7 @@
             // 
             this.statusLabelPathsUsed.AutoSize = false;
             this.statusLabelPathsUsed.Name = "statusLabelPathsUsed";
-            this.statusLabelPathsUsed.Size = new System.Drawing.Size(156, 17);
+            this.statusLabelPathsUsed.Size = new System.Drawing.Size(160, 17);
             this.statusLabelPathsUsed.Text = "0/100 Paths Used";
             this.statusLabelPathsUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -741,7 +741,7 @@
             // 
             this.statusLabelNubPos.AutoSize = false;
             this.statusLabelNubPos.Name = "statusLabelNubPos";
-            this.statusLabelNubPos.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelNubPos.Size = new System.Drawing.Size(110, 17);
             this.statusLabelNubPos.Text = "0, 0";
             this.statusLabelNubPos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.statusLabelNubPos.ToolTipText = "Nub Location";
@@ -750,7 +750,7 @@
             // 
             this.statusLabelMousePos.AutoSize = false;
             this.statusLabelMousePos.Name = "statusLabelMousePos";
-            this.statusLabelMousePos.Size = new System.Drawing.Size(120, 17);
+            this.statusLabelMousePos.Size = new System.Drawing.Size(110, 17);
             this.statusLabelMousePos.Text = "0, 0";
             this.statusLabelMousePos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.statusLabelMousePos.ToolTipText = "Cursor Location";
@@ -805,7 +805,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(584, 56);
+            this.label3.Location = new System.Drawing.Point(586, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 3;
@@ -815,7 +815,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(750, 182);
+            this.label7.Location = new System.Drawing.Point(752, 177);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 13);
             this.label7.TabIndex = 53;
@@ -1208,7 +1208,7 @@
             this.scaleSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scaleSlider.AutoSize = false;
             this.scaleSlider.LargeChange = 0;
-            this.scaleSlider.Location = new System.Drawing.Point(716, 198);
+            this.scaleSlider.Location = new System.Drawing.Point(718, 193);
             this.scaleSlider.Maximum = 200;
             this.scaleSlider.Minimum = 50;
             this.scaleSlider.Name = "scaleSlider";
@@ -1228,7 +1228,7 @@
             this.traceLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceLayer.AutoSize = true;
             this.traceLayer.Checked = true;
-            this.traceLayer.Location = new System.Drawing.Point(547, 522);
+            this.traceLayer.Location = new System.Drawing.Point(549, 519);
             this.traceLayer.Name = "traceLayer";
             this.traceLayer.Size = new System.Drawing.Size(76, 17);
             this.traceLayer.TabIndex = 7;
@@ -1241,7 +1241,7 @@
             // 
             this.traceClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.traceClipboard.AutoSize = true;
-            this.traceClipboard.Location = new System.Drawing.Point(547, 545);
+            this.traceClipboard.Location = new System.Drawing.Point(549, 542);
             this.traceClipboard.Name = "traceClipboard";
             this.traceClipboard.Size = new System.Drawing.Size(76, 17);
             this.traceClipboard.TabIndex = 7;
@@ -1251,18 +1251,18 @@
             // 
             // verScrollBar
             // 
-            this.verScrollBar.Location = new System.Drawing.Point(509, 51);
+            this.verScrollBar.Location = new System.Drawing.Point(509, 46);
             this.verScrollBar.Name = "verScrollBar";
-            this.verScrollBar.Size = new System.Drawing.Size(17, 500);
+            this.verScrollBar.Size = new System.Drawing.Size(17, 502);
             this.verScrollBar.TabIndex = 62;
             this.verScrollBar.Visible = false;
             this.verScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.verScrollBar_Scroll);
             // 
             // horScrollBar
             // 
-            this.horScrollBar.Location = new System.Drawing.Point(8, 552);
+            this.horScrollBar.Location = new System.Drawing.Point(7, 548);
             this.horScrollBar.Name = "horScrollBar";
-            this.horScrollBar.Size = new System.Drawing.Size(500, 17);
+            this.horScrollBar.Size = new System.Drawing.Size(502, 17);
             this.horScrollBar.TabIndex = 63;
             this.horScrollBar.Visible = false;
             this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
@@ -1276,7 +1276,7 @@
             // 
             this.DiscardBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DiscardBtn.Enabled = false;
-            this.DiscardBtn.Location = new System.Drawing.Point(724, 280);
+            this.DiscardBtn.Location = new System.Drawing.Point(726, 278);
             this.DiscardBtn.Name = "DiscardBtn";
             this.DiscardBtn.Size = new System.Drawing.Size(90, 36);
             this.DiscardBtn.TabIndex = 15;
@@ -1289,7 +1289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(850, 597);
+            this.ClientSize = new System.Drawing.Size(850, 590);
             this.Controls.Add(this.DiscardBtn);
             this.Controls.Add(this.horScrollBar);
             this.Controls.Add(this.verScrollBar);
@@ -1334,7 +1334,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = true;
-            this.MinimumSize = new System.Drawing.Size(866, 635);
+            this.MinimumSize = new System.Drawing.Size(866, 628);
             this.Name = "EffectPluginConfigDialog";
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             this.Resize += new System.EventHandler(this.EffectPluginConfigDialog_Resize);

@@ -170,24 +170,69 @@ namespace ShapeMaker
 
             timer1.Enabled = true;
 
-            LineList.ItemHeight = (int)(LineList.ItemHeight * DPI);
-            statusLabelNubsUsed.Size = new Size((int)(statusLabelNubsUsed.Size.Width * DPI), (int)(statusLabelNubsUsed.Size.Height * DPI));
-            statusLabelPathsUsed.Size = new Size((int)(statusLabelPathsUsed.Size.Width * DPI), (int)(statusLabelPathsUsed.Size.Height * DPI));
-            statusLabelNubPos.Size = new Size((int)(statusLabelNubPos.Size.Width * DPI), (int)(statusLabelNubPos.Size.Height * DPI));
+            #region DPI fixes
+            MinimumSize = Size;
+            LineList.ItemHeight = getDpiSize(LineList.ItemHeight);
+            LineList.Height = upList.Top - LineList.Top;
+            statusLabelNubsUsed.Width = getDpiSize(statusLabelNubsUsed.Width);
+            statusLabelPathsUsed.Width = getDpiSize(statusLabelPathsUsed.Width);
+            statusLabelNubPos.Width = getDpiSize(statusLabelNubPos.Width);
+            statusLabelMousePos.Width = getDpiSize(statusLabelMousePos.Width);
+            horScrollBar.Height = getDpiSize(horScrollBar.Height);
+            verScrollBar.Width = getDpiSize(verScrollBar.Width);
+            traceLayer.Left = traceClipboard.Left;
+
+            toolStripUndo.AutoSize = toolStripBlack.AutoSize = toolStripBlue.AutoSize = toolStripGreen.AutoSize =
+                toolStripYellow.AutoSize = toolStripPurple.AutoSize = toolStripRed.AutoSize = toolStripOptions.AutoSize = false;
+            toolStripUndo.ImageScalingSize = toolStripBlack.ImageScalingSize = toolStripBlue.ImageScalingSize = 
+                toolStripGreen.ImageScalingSize = toolStripYellow.ImageScalingSize = toolStripPurple.ImageScalingSize = 
+                toolStripRed.ImageScalingSize = toolStripOptions.ImageScalingSize = getDpiSize(toolStripOptions.ImageScalingSize);
+            toolStripUndo.AutoSize = toolStripBlack.AutoSize = toolStripBlue.AutoSize = toolStripGreen.AutoSize =
+                toolStripYellow.AutoSize = toolStripPurple.AutoSize = toolStripRed.AutoSize = toolStripOptions.AutoSize = true;
+
+            toolStripBlack.Left = toolStripUndo.Right;
+            toolStripBlue.Left = toolStripBlack.Right;
+            toolStripGreen.Left = toolStripBlue.Right;
+            toolStripYellow.Left = toolStripGreen.Right;
+            toolStripPurple.Left = toolStripYellow.Right;
+            toolStripRed.Left = toolStripPurple.Right;
+            toolStripOptions.Left = toolStripRed.Right;
+            #endregion
+
+            adjustForWindowSize();
 
             statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
         }
 
+        private Size getDpiSize(Size size)
+        {
+            return new Size
+            {
+                Width = (int)Math.Round(size.Width * DPI),
+                Height = (int)Math.Round(size.Height * DPI)
+            };
+        }
+
+        private int getDpiSize(int dimension)
+        {
+            return (int)Math.Round(dimension * DPI);
+        }
+
         private void EffectPluginConfigDialog_Resize(object sender, EventArgs e)
         {
-            viewport.Width = LineList.Left - viewport.Left - 30;
-            viewport.Height = statusStrip1.Top - viewport.Top - 23;
+            adjustForWindowSize();
+        }
+
+        private void adjustForWindowSize()
+        {
+            viewport.Width = LineList.Left - viewport.Left - (int)Math.Round(32 * DPI);
+            viewport.Height = statusStrip1.Top - viewport.Top - (int)Math.Round(20 * DPI);
 
             horScrollBar.Top = viewport.Bottom;
-            horScrollBar.Width = viewport.ClientSize.Width;
+            horScrollBar.Width = viewport.Width;
 
             verScrollBar.Left = viewport.Right;
-            verScrollBar.Height = viewport.ClientSize.Height;
+            verScrollBar.Height = viewport.Height;
 
             Point newCanvasPos = canvas.Location;
             if (canvas.Width < viewport.ClientSize.Width || canvas.Location.X > 0)
