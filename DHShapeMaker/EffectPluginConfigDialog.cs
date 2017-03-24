@@ -3850,6 +3850,7 @@ namespace ShapeMaker
         private void GetImageFromClipboard()
         {
             clipboardImage?.Dispose();
+            clipboardImage = null;
             try
             {
                 IDataObject clippy = Clipboard.GetDataObject();
