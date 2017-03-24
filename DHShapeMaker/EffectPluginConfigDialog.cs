@@ -2799,12 +2799,10 @@ namespace ShapeMaker
             int itemIndex = e.Index;
             if (itemIndex >= 0 && itemIndex < LineList.Items.Count)
             {
-                Graphics g = e.Graphics;
-
                 if (isItemSelected)
                 {
                     using (SolidBrush backgroundColorBrush = new SolidBrush(Color.LightGray))
-                        g.FillRectangle(backgroundColorBrush, e.Bounds);
+                        e.Graphics.FillRectangle(backgroundColorBrush, e.Bounds);
                 }
 
                 PData itemPath = (Lines[itemIndex] as PData);
@@ -2833,7 +2831,7 @@ namespace ShapeMaker
                 }
 
                 using (SolidBrush itemTextColorBrush = new SolidBrush(LineColors[itemPath.LineType]))
-                    g.DrawString(itemText, e.Font, itemTextColorBrush, LineList.GetItemRectangle(itemIndex).Location);
+                    e.Graphics.DrawString(itemText, e.Font, itemTextColorBrush, e.Bounds);
             }
 
             e.DrawFocusRectangle();
