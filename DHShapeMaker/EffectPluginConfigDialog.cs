@@ -1082,11 +1082,25 @@ namespace ShapeMaker
                     {
                         int clickedPath = getNearestPath(bhit);
                         if (clickedPath != -1)
+                        {
                             LineList.SelectedIndex = clickedPath;
+
+                            for (int i = 0; i < canvasPoints.Length; i++)
+                            {
+                                PointF nub = new PointF(canvasPoints[i].X * s.ClientSize.Width, canvasPoints[i].Y * s.ClientSize.Height);
+                                if (bhit.Contains(nub))
+                                {
+                                    StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else
                     {
                         setUndo();
+                        PointF nub = new PointF(canvasPoints[clickedNub].X * s.ClientSize.Width, canvasPoints[clickedNub].Y * s.ClientSize.Height);
+                        StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
                     }
                 }
                 else if (e.Button == MouseButtons.Middle)
