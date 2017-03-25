@@ -2473,14 +2473,12 @@ namespace ShapeMaker
             }
         }
 
-        private void ClearAll()
+        private void ClearAllPaths()
         {
             Array.Resize(ref canvasPoints, 0);
             statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
             statusLabelNubPos.Text = "0, 0";
 
-            if (LineList.Items.Count == 0)
-                return;
             Lines.Clear();
             LineList.Items.Clear();
             statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
@@ -3173,7 +3171,7 @@ namespace ShapeMaker
             DialogResult confirm = MessageBox.Show("Clear the current Shape Project, and start over?", "New Shape", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
-                ClearAll();
+                ClearAllPaths();
 
                 ZoomToFactor(1);
                 resetRotation();
@@ -3221,12 +3219,9 @@ namespace ShapeMaker
                             return;
                         }
 
-                        Array.Resize(ref canvasPoints, 0);
+                        ClearAllPaths();
 
-                        Lines.Clear();
                         Lines = projectPaths;
-
-                        LineList.Items.Clear();
                         for (int i = 0; i < Lines.Count; i++)
                             LineList.Items.Add(LineNames[(Lines[i] as PData).LineType]);
 
@@ -3443,7 +3438,7 @@ namespace ShapeMaker
             if (MessageBox.Show("Delete All Paths?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 setUndo();
-                ClearAll();
+                ClearAllPaths();
             }
         }
 
