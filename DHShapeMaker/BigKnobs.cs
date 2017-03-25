@@ -187,6 +187,26 @@ namespace ShapeMaker
             this.Refresh();
         }
 
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+            {
+                rtate += Math.Sign(e.Delta) * 15;
+                rtate = (float)(Math.Round(rtate / 15) * 15);
+            }
+            else
+            {
+                rtate += Math.Sign(e.Delta) * 5;
+            }
+
+            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+
+            OnValueChanged(adjustment());
+            this.Refresh();
+        }
+
         private float adjustment()
         {
             return rtate * (maxvalue - minvalue) / span + minvalue;

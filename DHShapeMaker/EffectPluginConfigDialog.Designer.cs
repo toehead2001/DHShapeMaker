@@ -133,7 +133,7 @@
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
-            this.ScaleTimer = new System.Windows.Forms.Timer(this.components);
+            this.WheelTimer = new System.Windows.Forms.Timer(this.components);
             this.DiscardBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -644,8 +644,10 @@
             this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all");
             this.SpinLine.Value = 180F;
             this.SpinLine.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
+            this.SpinLine.Leave += new System.EventHandler(this.EndWheeling);
             this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
             this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
+            this.SpinLine.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
             // 
             // viewport
             // 
@@ -1218,10 +1220,10 @@
             this.scaleSlider.TickStyle = System.Windows.Forms.TickStyle.None;
             this.scaleSlider.Value = 100;
             this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
-            this.scaleSlider.Leave += new System.EventHandler(this.scaleSlider_Leave);
+            this.scaleSlider.Leave += new System.EventHandler(this.EndWheeling);
             this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
             this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
-            this.scaleSlider.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseWheel);
+            this.scaleSlider.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
             // 
             // traceLayer
             // 
@@ -1267,10 +1269,10 @@
             this.horScrollBar.Visible = false;
             this.horScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.horScrollBar_Scroll);
             // 
-            // ScaleTimer
+            // WheelTimer
             // 
-            this.ScaleTimer.Interval = 2000;
-            this.ScaleTimer.Tick += new System.EventHandler(this.ScaleTimer_Tick);
+            this.WheelTimer.Interval = 2000;
+            this.WheelTimer.Tick += new System.EventHandler(this.EndWheeling);
             // 
             // DiscardBtn
             // 
@@ -1473,7 +1475,7 @@
         private System.Windows.Forms.ToolStripMenuItem undoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.Timer ScaleTimer;
+        private System.Windows.Forms.Timer WheelTimer;
         private System.Windows.Forms.Button DiscardBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }

@@ -85,7 +85,7 @@ namespace ShapeMaker
         int canvasBaseSize;
         Bitmap clipboardImage = null;
         bool MoveFlag = false;
-        bool WheelScaling = false;
+        bool WheelScaleOrRotate = false;
         bool DrawAverage = false;
         PointF AveragePoint = new PointF(0.5f, 0.5f);
 
@@ -3647,7 +3647,7 @@ namespace ShapeMaker
 
         private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
         {
-            ScaleTimer.Stop();
+            WheelTimer.Stop();
             DrawAverage = true;
             setUndo();
             float scale = scaleSlider.Value / 100f;
@@ -3661,40 +3661,6 @@ namespace ShapeMaker
             float scale = scaleSlider.Value / 100f;
             toolTip1.SetToolTip(scaleSlider, $"{scale:0.00}x");
             canvas.Refresh();
-        }
-
-        private void scaleSlider_MouseWheel(object sender, MouseEventArgs e)
-        {
-            ScaleTimer.Stop();
-
-            if (!WheelScaling)
-            {
-                WheelScaling = true;
-                setUndo();
-            }
-
-            if (!DrawAverage)
-                DrawAverage = true;
-
-            ScaleTimer.Start();
-        }
-
-        private void ScaleTimer_Tick(object sender, EventArgs e)
-        {
-            WheelScaling = false;
-            ScaleTimer.Stop();
-            scaleSlider.Value = 100;
-            DrawAverage = false;
-            canvas.Refresh();
-        }
-
-        private void scaleSlider_Leave(object sender, EventArgs e)
-        {
-            if (DrawAverage)
-            {
-                DrawAverage = false;
-                canvas.Refresh();
-            }
         }
         #endregion
 
@@ -4041,6 +4007,37 @@ namespace ShapeMaker
 
             if (LineList.SelectedIndex == -1)
                 isNewPath = true;
+        }
+
+        private void generic_MouseWheel(object sender, MouseEventArgs e)
+        {
+            WheelTimer.Stop();
+
+            if (!WheelScaleOrRotate)
+            {
+                WheelScaleOrRotate = true;
+                setUndo();
+            }
+
+            if (!DrawAverage)
+                DrawAverage = true;
+
+            WheelTimer.Start();
+        }
+
+        private void EndWheeling(object sender, EventArgs e)
+        {
+            WheelTimer.Stop();
+            WheelScaleOrRotate = false;
+
+            if (scaleSlider.Value != 100)
+                scaleSlider.Value = 100;
+
+            if (DrawAverage)
+            {
+                DrawAverage = false;
+                canvas.Refresh();
+            }
         }
         #endregion
     }
