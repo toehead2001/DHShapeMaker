@@ -547,10 +547,11 @@
             this.LineList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LineList.BackColor = System.Drawing.Color.White;
             this.LineList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.LineList.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LineList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LineList.ItemHeight = 14;
             this.LineList.Location = new System.Drawing.Point(541, 66);
             this.LineList.Name = "LineList";
-            this.LineList.Size = new System.Drawing.Size(146, 316);
+            this.LineList.Size = new System.Drawing.Size(146, 326);
             this.LineList.TabIndex = 0;
             this.toolTip1.SetToolTip(this.LineList, "Select Shapes\r\nDouble Click to Rename");
             this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
@@ -562,7 +563,7 @@
             this.upList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.upList.Enabled = false;
             this.upList.Image = global::ShapeMaker.Properties.Resources.ListUp;
-            this.upList.Location = new System.Drawing.Point(541, 388);
+            this.upList.Location = new System.Drawing.Point(541, 398);
             this.upList.Name = "upList";
             this.upList.Size = new System.Drawing.Size(32, 36);
             this.upList.TabIndex = 1;
@@ -575,7 +576,7 @@
             this.DNList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DNList.Enabled = false;
             this.DNList.Image = global::ShapeMaker.Properties.Resources.ListDown;
-            this.DNList.Location = new System.Drawing.Point(579, 388);
+            this.DNList.Location = new System.Drawing.Point(579, 398);
             this.DNList.Name = "DNList";
             this.DNList.Size = new System.Drawing.Size(32, 36);
             this.DNList.TabIndex = 2;
@@ -588,7 +589,7 @@
             this.removePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.removePathButton.Enabled = false;
             this.removePathButton.Image = global::ShapeMaker.Properties.Resources.RemovePath;
-            this.removePathButton.Location = new System.Drawing.Point(655, 388);
+            this.removePathButton.Location = new System.Drawing.Point(655, 398);
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
             this.removePathButton.TabIndex = 4;
@@ -601,7 +602,7 @@
             this.clonePathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clonePathButton.Enabled = false;
             this.clonePathButton.Image = global::ShapeMaker.Properties.Resources.Clone;
-            this.clonePathButton.Location = new System.Drawing.Point(617, 388);
+            this.clonePathButton.Location = new System.Drawing.Point(617, 398);
             this.clonePathButton.Name = "clonePathButton";
             this.clonePathButton.Size = new System.Drawing.Size(32, 36);
             this.clonePathButton.TabIndex = 3;
