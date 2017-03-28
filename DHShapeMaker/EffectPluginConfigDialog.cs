@@ -29,7 +29,7 @@ namespace ShapeMaker
             SmoothQuadratic
         }
 
-        string[] LineNames =
+        readonly string[] LineNames =
         {
             "Straight Lines",
             "Ellipse",
@@ -39,7 +39,7 @@ namespace ShapeMaker
             "Smooth Quadratic Beziers"
         };
 
-        Color[] LineColors =
+        readonly Color[] LineColors =
         {
             Color.Black,
             Color.Red,
@@ -49,13 +49,13 @@ namespace ShapeMaker
             Color.Purple
         };
 
-        Color AnchorColor = Color.Teal;
+        readonly Color AnchorColor = Color.Teal;
 
         int activeType;
-        ToolStripButton[] typeButtons = new ToolStripButton[6];
+        readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
 
-        private const double RadPerDeg = Math.PI / 180.0;
-        private const double twoPI = Math.PI * 2;
+        const double RadPerDeg = Math.PI / 180.0;
+        const double twoPI = Math.PI * 2;
 
         bool countflag = false;
         const int maxPaths = 200;
@@ -64,7 +64,7 @@ namespace ShapeMaker
         PointF MoveStart;
         PointF[] canvasPoints = new PointF[0];
 
-        private const int UndoMax = 16;
+        const int UndoMax = 16;
         ArrayList[] UDLines = new ArrayList[UndoMax];
         PointF[][] UDPoint = new PointF[UndoMax][];
         int[] UDtype = new int[UndoMax];
@@ -184,8 +184,8 @@ namespace ShapeMaker
 
             toolStripUndo.AutoSize = toolStripBlack.AutoSize = toolStripBlue.AutoSize = toolStripGreen.AutoSize =
                 toolStripYellow.AutoSize = toolStripPurple.AutoSize = toolStripRed.AutoSize = toolStripOptions.AutoSize = false;
-            toolStripUndo.ImageScalingSize = toolStripBlack.ImageScalingSize = toolStripBlue.ImageScalingSize = 
-                toolStripGreen.ImageScalingSize = toolStripYellow.ImageScalingSize = toolStripPurple.ImageScalingSize = 
+            toolStripUndo.ImageScalingSize = toolStripBlack.ImageScalingSize = toolStripBlue.ImageScalingSize =
+                toolStripGreen.ImageScalingSize = toolStripYellow.ImageScalingSize = toolStripPurple.ImageScalingSize =
                 toolStripRed.ImageScalingSize = toolStripOptions.ImageScalingSize = getDpiSize(toolStripOptions.ImageScalingSize);
             toolStripUndo.AutoSize = toolStripBlack.AutoSize = toolStripBlue.AutoSize = toolStripGreen.AutoSize =
                 toolStripYellow.AutoSize = toolStripPurple.AutoSize = toolStripRed.AutoSize = toolStripOptions.AutoSize = true;
@@ -1173,12 +1173,12 @@ namespace ShapeMaker
 
                             switch (lt)
                             {
-                                case (int) LineTypes.Straight:
-                                case (int) LineTypes.Cubic:
-                                case (int) LineTypes.Quadratic:
-                                case (int) LineTypes.SmoothCubic:
-                                case (int) LineTypes.SmoothQuadratic:
-                                case (int) LineTypes.Ellipse:
+                                case (int)LineTypes.Straight:
+                                case (int)LineTypes.Cubic:
+                                case (int)LineTypes.Quadratic:
+                                case (int)LineTypes.SmoothCubic:
+                                case (int)LineTypes.SmoothQuadratic:
+                                case (int)LineTypes.Ellipse:
                                     for (int j = 0; j < canvasPoints.Length; j++)
                                     {
                                         canvasPoints[j] = movePoint(oldp, mapPoint, canvasPoints[j]);
@@ -1196,12 +1196,12 @@ namespace ShapeMaker
                                 PointF[] pl = (Lines[k] as PData).Lines;
                                 switch (t)
                                 {
-                                    case (int) LineTypes.Straight:
-                                    case (int) LineTypes.Cubic:
-                                    case (int) LineTypes.Quadratic:
-                                    case (int) LineTypes.SmoothCubic:
-                                    case (int) LineTypes.SmoothQuadratic:
-                                    case (int) LineTypes.Ellipse:
+                                    case (int)LineTypes.Straight:
+                                    case (int)LineTypes.Cubic:
+                                    case (int)LineTypes.Quadratic:
+                                    case (int)LineTypes.SmoothCubic:
+                                    case (int)LineTypes.SmoothQuadratic:
+                                    case (int)LineTypes.Ellipse:
                                         for (int j = 0; j < pl.Length; j++)
                                         {
                                             pl[j] = movePoint(MoveStart, mapPoint, pl[j]);
@@ -1219,13 +1219,13 @@ namespace ShapeMaker
                         PointF oldp = canvasPoints[i];
                         switch (lt)
                         {
-                            case (int) LineTypes.Straight:
+                            case (int)LineTypes.Straight:
                                 canvasPoints[i] = mapPoint;
                                 break;
-                            case (int) LineTypes.Ellipse:
+                            case (int)LineTypes.Ellipse:
                                 canvasPoints[i] = mapPoint;
                                 break;
-                            case (int) LineTypes.Cubic:
+                            case (int)LineTypes.Cubic:
 
                                 #region cubic
 
@@ -1253,7 +1253,7 @@ namespace ShapeMaker
                                 #endregion
 
                                 break;
-                            case (int) LineTypes.Quadratic:
+                            case (int)LineTypes.Quadratic:
 
                                 #region Quadratic
 
@@ -1299,7 +1299,7 @@ namespace ShapeMaker
                                 #endregion
 
                                 break;
-                            case (int) LineTypes.SmoothCubic:
+                            case (int)LineTypes.SmoothCubic:
 
                                 #region smooth Cubic
 
@@ -1342,7 +1342,7 @@ namespace ShapeMaker
                                 #endregion
 
                                 break;
-                            case (int) LineTypes.SmoothQuadratic:
+                            case (int)LineTypes.SmoothQuadratic:
 
                                 #region Smooth Quadratic
 
@@ -1379,19 +1379,19 @@ namespace ShapeMaker
                         {
                             switch (lt)
                             {
-                                case (int) LineTypes.Straight:
+                                case (int)LineTypes.Straight:
                                     canvasPoints[i] = mapPoint;
                                     break;
-                                case (int) LineTypes.Ellipse:
+                                case (int)LineTypes.Ellipse:
                                     canvasPoints[i] = mapPoint;
                                     break;
-                                case (int) LineTypes.Cubic:
-                                case (int) LineTypes.SmoothCubic:
+                                case (int)LineTypes.Cubic:
+                                case (int)LineTypes.SmoothCubic:
                                     canvasPoints[i] = mapPoint;
                                     if (canvasPoints.Length > 1)
                                         canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                     break;
-                                case (int) LineTypes.Quadratic:
+                                case (int)LineTypes.Quadratic:
                                     if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                     {
                                         if (canvasPoints.Length == 1)
@@ -1409,7 +1409,7 @@ namespace ShapeMaker
                                         canvasPoints[i] = mapPoint;
                                     }
                                     break;
-                                case (int) LineTypes.SmoothQuadratic:
+                                case (int)LineTypes.SmoothQuadratic:
                                     canvasPoints[0] = mapPoint;
                                     canvasPoints[1] = mapPoint;
                                     for (int j = 0; j < canvasPoints.Length; j++)
