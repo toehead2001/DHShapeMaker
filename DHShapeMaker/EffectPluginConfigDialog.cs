@@ -49,6 +49,16 @@ namespace ShapeMaker
             Color.Purple
         };
 
+        readonly Color[] LineColorsLight =
+        {
+            Color.FromArgb(204, 204, 204),
+            Color.FromArgb(255, 204, 204),
+            Color.FromArgb(204, 204, 255),
+            Color.FromArgb(204, 230, 204),
+            Color.FromArgb(241, 231, 206),
+            Color.FromArgb(230, 204, 230)
+        };
+
         readonly Color AnchorColor = Color.Teal;
 
         int activeType;
@@ -94,12 +104,12 @@ namespace ShapeMaker
             InitializeComponent();
 
             this.toolStripUndo.Renderer = new ProRenderer(Color.White, Color.Silver);
-            this.toolStripBlack.Renderer = new ProRenderer(Color.FromArgb(204, 204, 204), Color.Black);
-            this.toolStripBlue.Renderer = new ProRenderer(Color.FromArgb(204, 204, 255), Color.Blue);
-            this.toolStripGreen.Renderer = new ProRenderer(Color.FromArgb(204, 230, 204), Color.Green);
-            this.toolStripYellow.Renderer = new ProRenderer(Color.FromArgb(241, 231, 206), Color.Goldenrod);
-            this.toolStripPurple.Renderer = new ProRenderer(Color.FromArgb(230, 204, 230), Color.Purple);
-            this.toolStripRed.Renderer = new ProRenderer(Color.FromArgb(255, 204, 204), Color.Red);
+            this.toolStripBlack.Renderer = new ProRenderer(LineColorsLight[0], LineColors[0]);
+            this.toolStripBlue.Renderer = new ProRenderer(LineColorsLight[2], LineColors[2]);
+            this.toolStripGreen.Renderer = new ProRenderer(LineColorsLight[3], LineColors[3]);
+            this.toolStripYellow.Renderer = new ProRenderer(LineColorsLight[4], LineColors[4]);
+            this.toolStripPurple.Renderer = new ProRenderer(LineColorsLight[5], LineColors[5]);
+            this.toolStripRed.Renderer = new ProRenderer(LineColorsLight[1], LineColors[1]);
             this.toolStripOptions.Renderer = new ProRenderer(Color.White, Color.Silver);
         }
 
