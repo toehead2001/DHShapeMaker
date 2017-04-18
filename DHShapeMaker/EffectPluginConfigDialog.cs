@@ -3886,6 +3886,8 @@ namespace ShapeMaker
         #region Misc Form Controls' event functions
         private void buttonOK_Click(object sender, EventArgs e)
         {
+            if (canvasPoints.Length > 1 && LineList.SelectedIndex == -1)
+                ApplyBtn_Click(AddBtn, new EventArgs());
             MakePath();
             FinishTokenUpdate();
         }
