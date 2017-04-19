@@ -297,7 +297,7 @@ namespace ShapeMaker
             setUndo(false);
         }
 
-        private void setUndo(bool addingNewPath)
+        private void setUndo(bool deSelected)
         {
             // set undo
             Undo.Enabled = true;
@@ -307,7 +307,7 @@ namespace ShapeMaker
             UDCount++;
             UDCount = (UDCount > UndoMax) ? UndoMax : UDCount;
             UDtype[UDPointer] = getPathType();
-            UDSelect[UDPointer] = (addingNewPath) ? -1 : LineList.SelectedIndex;
+            UDSelect[UDPointer] = (deSelected) ? -1 : LineList.SelectedIndex;
             UDPoint[UDPointer] = new PointF[canvasPoints.Length];
             Array.Copy(canvasPoints, UDPoint[UDPointer], canvasPoints.Length);
             UDLines[UDPointer] = new ArrayList();
@@ -720,7 +720,7 @@ namespace ShapeMaker
                                 {
                                     using (GraphicsPath gp = new GraphicsPath())
                                     {
-                                        AddPath(gp, pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
+                                        AddToGraphicsPath(gp, pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
                                         e.Graphics.DrawPath(p, gp);
                                         if (j == LineList.SelectedIndex)
                                             e.Graphics.DrawPath(activePen, gp);
@@ -731,7 +731,7 @@ namespace ShapeMaker
                                         {
                                             using (GraphicsPath gp = new GraphicsPath())
                                             {
-                                                AddPath(gp, pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
+                                                AddToGraphicsPath(gp, pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
                                                 using (Pen p2 = new Pen(Color.LightGray))
                                                 {
                                                     p2.DashStyle = DashStyle.Dash;
@@ -2672,7 +2672,7 @@ namespace ShapeMaker
                     }
                     else
                     {
-                        AddPath(PGP[j], pts[0], l, h, a, (islarge) ? 1 : 0, (revsweep) ? 1 : 0, pts[4]);
+                        AddToGraphicsPath(PGP[j], pts[0], l, h, a, (islarge) ? 1 : 0, (revsweep) ? 1 : 0, pts[4]);
                     }
                 }
 
@@ -2712,7 +2712,7 @@ namespace ShapeMaker
             return twoPI - (ta - tb);
         }
 
-        private void AddPath(GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
+        private void AddToGraphicsPath(GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
             if (start == end)
                 return;
@@ -2948,7 +2948,7 @@ namespace ShapeMaker
         {
             if (LineList.SelectedIndex > -1 && LineList.SelectedIndex < LineList.Items.Count - 1)
             {
-                FlipLines(LineList.SelectedIndex);
+                ReOrderPath(LineList.SelectedIndex);
                 LineList.SelectedIndex++;
             }
         }
@@ -2957,12 +2957,12 @@ namespace ShapeMaker
         {
             if (LineList.SelectedIndex > 0)
             {
-                FlipLines(LineList.SelectedIndex - 1);
+                ReOrderPath(LineList.SelectedIndex - 1);
                 LineList.SelectedIndex--;
             }
         }
 
-        private void FlipLines(int index)
+        private void ReOrderPath(int index)
         {
             if (index == -1)
                 return;
