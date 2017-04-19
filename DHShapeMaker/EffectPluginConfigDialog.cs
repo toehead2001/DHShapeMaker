@@ -1478,7 +1478,7 @@ namespace ShapeMaker
         #endregion
 
         #region Utility functions
-        private PointF[] GetFirstControlPoints(PointF[] rhs)
+        private static PointF[] GetFirstControlPoints(PointF[] rhs)
         {
             int n = rhs.Length;
             PointF[] x = new PointF[n]; // Solution vector.
@@ -1502,7 +1502,7 @@ namespace ShapeMaker
             return x;
         }
 
-        private PointF onLinePoint(PointF sp, PointF ep, PointF mt)
+        private static PointF onLinePoint(PointF sp, PointF ep, PointF mt)
         {
             PointF xy = new PointF(sp.X, sp.Y);
             float dist = 9999;
@@ -1522,7 +1522,7 @@ namespace ShapeMaker
             return xy;
         }
 
-        private PointF movePoint(PointF orig, PointF dest, PointF target)
+        private static PointF movePoint(PointF orig, PointF dest, PointF target)
         {
             return new PointF
             {
@@ -1531,7 +1531,7 @@ namespace ShapeMaker
             };
         }
 
-        private PointF[] RemoveAt(PointF[] source, int index)
+        private static PointF[] RemoveAt(PointF[] source, int index)
         {
             PointF[] dest = new PointF[source.Length - 1];
             if (index > 0)
@@ -1543,7 +1543,7 @@ namespace ShapeMaker
             return dest;
         }
 
-        private PointF ThirdPoint(PointF p1, PointF p2, bool flip, float curve)
+        private static PointF ThirdPoint(PointF p1, PointF p2, bool flip, float curve)
         {
             float Shift = (float)(1f / Math.Sqrt(3));
             float x3, y3;
@@ -1562,7 +1562,7 @@ namespace ShapeMaker
             return new PointF(x3, y3);
         }
 
-        private PointF reverseAverage(PointF p1, PointF p2)
+        private static PointF reverseAverage(PointF p1, PointF p2)
         {
             return new PointF
             {
@@ -1571,7 +1571,7 @@ namespace ShapeMaker
             };
         }
 
-        private PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
+        private static PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
         {
             PointF tmp = reverseAverage(c1, p1);
             float py1 = pythag(p0, p1);
@@ -1582,7 +1582,7 @@ namespace ShapeMaker
             return tmp;
         }
 
-        private PointF pointAverage(PointF p1, PointF p2)
+        private static PointF pointAverage(PointF p1, PointF p2)
         {
             return new PointF
             {
@@ -1591,7 +1591,7 @@ namespace ShapeMaker
             };
         }
 
-        private PointF PathAverage(PointF[] p)
+        private static PointF PathAverage(PointF[] p)
         {
             float x = 0, y = 0;
             if (p.Length != 0)
@@ -1606,7 +1606,7 @@ namespace ShapeMaker
             return new PointF(0, 0);
         }
 
-        private float pythag(PointF p1, PointF p2)
+        private static float pythag(PointF p1, PointF p2)
         {
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
