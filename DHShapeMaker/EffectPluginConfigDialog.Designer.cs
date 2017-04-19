@@ -336,7 +336,7 @@
             this.removePathToolStripMenuItem.Name = "removePathToolStripMenuItem";
             this.removePathToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.removePathToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.removePathToolStripMenuItem.Text = "Remove Path";
+            this.removePathToolStripMenuItem.Text = "Delete Path";
             this.removePathToolStripMenuItem.Click += new System.EventHandler(this.removebtn_Click);
             // 
             // clonePathToolStripMenuItem
@@ -593,7 +593,7 @@
             this.removePathButton.Name = "removePathButton";
             this.removePathButton.Size = new System.Drawing.Size(32, 36);
             this.removePathButton.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.removePathButton, "Remove Path");
+            this.toolTip1.SetToolTip(this.removePathButton, "Delete Path");
             this.removePathButton.UseVisualStyleBackColor = true;
             this.removePathButton.Click += new System.EventHandler(this.removebtn_Click);
             // 
