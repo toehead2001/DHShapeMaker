@@ -1421,7 +1421,8 @@ namespace ShapeMaker
                                     break;
                                 case (int)LineTypes.SmoothQuadratic:
                                     canvasPoints[0] = mapPoint;
-                                    canvasPoints[1] = mapPoint;
+                                    if (canvasPoints.Length > 1)
+                                        canvasPoints[1] = mapPoint;
                                     for (int j = 0; j < canvasPoints.Length; j++)
                                     {
                                         if (getNubType(j) == 1 && j > 1)
