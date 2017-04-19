@@ -1593,17 +1593,16 @@ namespace ShapeMaker
 
         private static PointF PathAverage(PointF[] p)
         {
+            if (p.Length == 0)
+                return Point.Empty;
+
             float x = 0, y = 0;
-            if (p.Length != 0)
+            foreach (PointF pt in p)
             {
-                foreach (PointF pt in p)
-                {
-                    x += pt.X;
-                    y += pt.Y;
-                }
-                return new PointF(x / p.Length, y / p.Length);
+                x += pt.X;
+                y += pt.Y;
             }
-            return new PointF(0, 0);
+            return new PointF(x / p.Length, y / p.Length);
         }
 
         private static float pythag(PointF p1, PointF p2)
