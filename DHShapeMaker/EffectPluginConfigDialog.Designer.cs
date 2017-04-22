@@ -372,7 +372,7 @@
             this.flipVerticalToolStripMenuItem.Name = "flipVerticalToolStripMenuItem";
             this.flipVerticalToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.flipVerticalToolStripMenuItem.Tag = "V";
-            this.flipVerticalToolStripMenuItem.Text = "Flip vertical";
+            this.flipVerticalToolStripMenuItem.Text = "Flip Vertical";
             this.flipVerticalToolStripMenuItem.Click += new System.EventHandler(this.Flip_Click);
             // 
             // toolStripSeparator5
