@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("xaml|vector|svg|shapes|line editor")]
 [assembly: AssemblyCompany("The Dwarf Horde")]
 [assembly: AssemblyProduct("Shape Maker")]
-[assembly: AssemblyCopyright("©2016 The Dwarf Horde")]
+[assembly: AssemblyCopyright("©2017 The Dwarf Horde")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyVersion("1.4.0.0")]
 
