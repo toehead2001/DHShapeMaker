@@ -6,41 +6,13 @@ namespace ShapeMaker
 {
     internal class EffectPluginConfigToken : EffectConfigToken
     {
-        internal GraphicsPath[] GP
-        {
-            get;
-            set;
-        }
-        internal ArrayList PathData
-        {
-            get;
-            set;
-        }
-        internal bool Draw
-        {
-            get;
-            set;
-        }
-        internal decimal Scale
-        {
-            get;
-            set;
-        }
-        internal bool SnapTo
-        {
-            get;
-            set;
-        }
-        internal string ShapeName
-        {
-            get;
-            set;
-        }
-        internal bool SolidFill
-        {
-            get;
-            set;
-        }
+        internal GraphicsPath[] GP { get; set; }
+        internal ArrayList PathData { get; set; }
+        internal bool Draw { get; set; }
+        internal decimal Scale { get; set; }
+        internal bool SnapTo { get; set; }
+        internal string ShapeName { get; set; }
+        internal bool SolidFill { get; set; }
 
         internal EffectPluginConfigToken(GraphicsPath[] gp, ArrayList pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
         {

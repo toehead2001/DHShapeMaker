@@ -8,26 +8,9 @@ namespace ShapeMaker
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "ShapeMaker")]
     public class EffectPlugin : Effect
     {
-        public static string StaticName
-        {
-            get
-            {
-                return "ShapeMaker";
-            }
-        }
-
-        public static Bitmap StaticImage
-        {
-            get { return ShapeMaker.Properties.Resources.icon; }
-        }
-
-        public static string StaticSubMenuName
-        {
-            get
-            {
-                return "Advanced";
-            }
-        }
+        internal const string StaticName= "ShapeMaker - Test";
+        private static readonly Bitmap StaticImage = Properties.Resources.icon;
+        private const string StaticSubMenuName ="Advanced";
 
         public EffectPlugin()
             : base(EffectPlugin.StaticName, EffectPlugin.StaticImage, EffectPlugin.StaticSubMenuName, EffectFlags.Configurable)
