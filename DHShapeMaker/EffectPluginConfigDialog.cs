@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 
 namespace ShapeMaker
 {
-    public partial class EffectPluginConfigDialog : EffectConfigDialog
+    internal partial class EffectPluginConfigDialog : EffectConfigDialog
     {
         enum LineTypes
         {
@@ -75,10 +75,10 @@ namespace ShapeMaker
         PointF[] canvasPoints = new PointF[0];
 
         const int UndoMax = 16;
-        ArrayList[] UDLines = new ArrayList[UndoMax];
-        PointF[][] UDPoint = new PointF[UndoMax][];
-        int[] UDtype = new int[UndoMax];
-        int[] UDSelect = new int[UndoMax];
+        readonly ArrayList[] UDLines = new ArrayList[UndoMax];
+        readonly PointF[][] UDPoint = new PointF[UndoMax][];
+        readonly int[] UDtype = new int[UndoMax];
+        readonly int[] UDSelect = new int[UndoMax];
         int UDCount = 0;
         int RDCount = 0;
         int UDPointer = 0;
@@ -99,7 +99,7 @@ namespace ShapeMaker
         bool DrawAverage = false;
         PointF AveragePoint = new PointF(0.5f, 0.5f);
 
-        public EffectPluginConfigDialog()
+        internal EffectPluginConfigDialog()
         {
             InitializeComponent();
 

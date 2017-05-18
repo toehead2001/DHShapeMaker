@@ -12,16 +12,15 @@ namespace ShapeMaker
         private static readonly Bitmap StaticImage = Properties.Resources.icon;
         private const string StaticSubMenuName ="Advanced";
 
-        public EffectPlugin()
-            : base(EffectPlugin.StaticName, EffectPlugin.StaticImage, EffectPlugin.StaticSubMenuName, EffectFlags.Configurable)
+        public EffectPlugin() : base(StaticName, StaticImage, StaticSubMenuName, EffectFlags.Configurable)
         {
-
         }
 
         public override EffectConfigDialog CreateConfigDialog()
         {
             return new EffectPluginConfigDialog();
         }
+
         protected override void OnSetRenderInfo(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs)
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)parameters;
