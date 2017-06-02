@@ -1713,7 +1713,7 @@ namespace ShapeMaker
                     Lines.Add(new PData(tmp, false, (int)getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, true));
                     LineList.Items.Add(LineNames[(int)PathType.Ellipse]);
                 }
-                else if (MacroRect.Checked && getPathType() == (int)PathType.Straight)
+                else if (MacroRect.Checked && getPathType() == PathType.Straight)
                 {
                     for (int i = 1; i < canvasPoints.Length; i++)
                     {
