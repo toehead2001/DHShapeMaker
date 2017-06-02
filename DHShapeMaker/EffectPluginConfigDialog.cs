@@ -1606,14 +1606,14 @@ namespace ShapeMaker
         #region Rotation Knob functions
         private void resetRotation()
         {
-            SpinLine.Value = 180;
-            toolTip1.SetToolTip(SpinLine, "0.0\u00B0");
+            RotationKnob.Value = 180;
+            toolTip1.SetToolTip(RotationKnob, "0.0\u00B0");
             lastRot = 180;
         }
 
-        private void SpinLine_ValueChanged(object sender, float e)
+        private void RotationKnob_ValueChanged(object sender, float e)
         {
-            toolTip1.SetToolTip((sender as BigKnobs), $"{e - 180f:0.0}\u00B0");
+            toolTip1.SetToolTip(RotationKnob, $"{e - 180f:0.0}\u00B0");
 
             double rad = (lastRot - e) * Math.PI / 180;
             lastRot = e;
@@ -1661,18 +1661,18 @@ namespace ShapeMaker
             canvas.Refresh();
         }
 
-        private void SpinLine_MouseDown(object sender, MouseEventArgs e)
+        private void RotationKnob_MouseDown(object sender, MouseEventArgs e)
         {
             DrawAverage = true;
             setUndo();
-            toolTip1.Show($"{SpinLine.Value:0.0}\u00B0", (sender as BigKnobs));
+            toolTip1.Show($"{RotationKnob.Value:0.0}\u00B0", RotationKnob);
         }
 
-        private void SpinLine_MouseUp(object sender, MouseEventArgs e)
+        private void RotationKnob_MouseUp(object sender, MouseEventArgs e)
         {
             DrawAverage = false;
             canvas.Refresh();
-            toolTip1.Hide((sender as BigKnobs));
+            toolTip1.Hide(RotationKnob);
         }
         #endregion
 
@@ -4000,7 +4000,7 @@ namespace ShapeMaker
             AddBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
             DiscardBtn.Enabled = (LineList.SelectedIndex == -1 && canvasPoints.Length > 1);
             scaleSlider.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
-            SpinLine.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
+            RotationKnob.Enabled = (canvasPoints.Length > 1 || (canvasPoints.Length == 0 && LineList.Items.Count > 0));
 
             if (Control.ModifierKeys == Keys.Control)
             {

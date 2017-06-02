@@ -77,7 +77,7 @@
             this.removePathButton = new System.Windows.Forms.Button();
             this.clonePathButton = new System.Windows.Forms.Button();
             this.opacitySlider = new System.Windows.Forms.TrackBar();
-            this.SpinLine = new ShapeMaker.BigKnobs();
+            this.RotationKnob = new ShapeMaker.BigKnobs();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -624,31 +624,31 @@
             this.opacitySlider.Value = 25;
             this.opacitySlider.Scroll += new System.EventHandler(this.opacitySlider_Scroll);
             // 
-            // SpinLine
+            // RotationKnob
             // 
-            this.SpinLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpinLine.BackColor = System.Drawing.Color.Transparent;
-            this.SpinLine.KnobBase = global::ShapeMaker.Properties.Resources.KnobBase;
-            this.SpinLine.KnobDial = global::ShapeMaker.Properties.Resources.KnobPos;
-            this.SpinLine.KnobDialDisabled = global::ShapeMaker.Properties.Resources.KnobPos2;
-            this.SpinLine.Location = new System.Drawing.Point(726, 66);
-            this.SpinLine.maxValue = 359F;
-            this.SpinLine.MinimumSize = new System.Drawing.Size(89, 89);
-            this.SpinLine.minValue = 0F;
-            this.SpinLine.Name = "SpinLine";
-            this.SpinLine.Offset = 0F;
-            this.SpinLine.Size = new System.Drawing.Size(89, 89);
-            this.SpinLine.Span = 359F;
-            this.SpinLine.SpinRate = 1F;
-            this.SpinLine.TabIndex = 8;
-            this.SpinLine.TabStop = false;
-            this.toolTip1.SetToolTip(this.SpinLine, "Rotate Selected\r\nDeselect to Rotate all");
-            this.SpinLine.Value = 180F;
-            this.SpinLine.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.SpinLine_ValueChanged);
-            this.SpinLine.Leave += new System.EventHandler(this.EndWheeling);
-            this.SpinLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseDown);
-            this.SpinLine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpinLine_MouseUp);
-            this.SpinLine.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
+            this.RotationKnob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RotationKnob.BackColor = System.Drawing.Color.Transparent;
+            this.RotationKnob.KnobBase = global::ShapeMaker.Properties.Resources.KnobBase;
+            this.RotationKnob.KnobDial = global::ShapeMaker.Properties.Resources.KnobPos;
+            this.RotationKnob.KnobDialDisabled = global::ShapeMaker.Properties.Resources.KnobPos2;
+            this.RotationKnob.Location = new System.Drawing.Point(726, 66);
+            this.RotationKnob.maxValue = 359F;
+            this.RotationKnob.MinimumSize = new System.Drawing.Size(89, 89);
+            this.RotationKnob.minValue = 0F;
+            this.RotationKnob.Name = "RotationKnob";
+            this.RotationKnob.Offset = 0F;
+            this.RotationKnob.Size = new System.Drawing.Size(89, 89);
+            this.RotationKnob.Span = 359F;
+            this.RotationKnob.SpinRate = 1F;
+            this.RotationKnob.TabIndex = 8;
+            this.RotationKnob.TabStop = false;
+            this.toolTip1.SetToolTip(this.RotationKnob, "Rotate Selected\r\nDeselect to Rotate all");
+            this.RotationKnob.Value = 180F;
+            this.RotationKnob.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.RotationKnob_ValueChanged);
+            this.RotationKnob.Leave += new System.EventHandler(this.EndWheeling);
+            this.RotationKnob.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseDown);
+            this.RotationKnob.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseUp);
+            this.RotationKnob.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
             // 
             // viewport
             // 
@@ -1307,7 +1307,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.DeselectBtn);
-            this.Controls.Add(this.SpinLine);
+            this.Controls.Add(this.RotationKnob);
             this.Controls.Add(this.FigureName);
             this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.label5);
@@ -1402,7 +1402,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.TextBox FigureName;
-        private BigKnobs SpinLine;
+        private BigKnobs RotationKnob;
         private System.Windows.Forms.Button DeselectBtn;
         private System.Windows.Forms.NumericUpDown OutputScale;
         private System.Windows.Forms.Button buttonOK;
