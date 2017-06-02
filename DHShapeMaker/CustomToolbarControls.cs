@@ -59,6 +59,9 @@ namespace ShapeMaker
             base.OnEnabledChanged(e);
         }
 
+        [DefaultValue(PathType.None)]
+        public PathType PathType { get; set; }
+
         [Localizable(true), DefaultValue(Keys.None)]
         public Keys ShortcutKeys { get; set; }
     }

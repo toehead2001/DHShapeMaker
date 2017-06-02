@@ -847,9 +847,9 @@
             this.StraightLine.Image = global::ShapeMaker.Properties.Resources.Straight;
             this.StraightLine.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.StraightLine.Name = "StraightLine";
+            this.StraightLine.PathType = ShapeMaker.PathType.Straight;
             this.StraightLine.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
             this.StraightLine.Size = new System.Drawing.Size(36, 36);
-            this.StraightLine.Tag = "0";
             this.StraightLine.Text = "Straight Lines";
             this.StraightLine.ToolTipText = "Straight Lines (Ctrl+L)";
             this.StraightLine.Click += new System.EventHandler(this.PathTypeToggle);
@@ -892,9 +892,9 @@
             this.CubicBezier.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
             this.CubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.CubicBezier.Name = "CubicBezier";
+            this.CubicBezier.PathType = ShapeMaker.PathType.Cubic;
             this.CubicBezier.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.CubicBezier.Size = new System.Drawing.Size(36, 36);
-            this.CubicBezier.Tag = "2";
             this.CubicBezier.Text = "Cubic Bezier";
             this.CubicBezier.ToolTipText = "Cubic Bezier (Ctrl+B)";
             this.CubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
@@ -936,10 +936,10 @@
             this.SCubicBezier.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
             this.SCubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.SCubicBezier.Name = "SCubicBezier";
+            this.SCubicBezier.PathType = ShapeMaker.PathType.SmoothCubic;
             this.SCubicBezier.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.B)));
             this.SCubicBezier.Size = new System.Drawing.Size(36, 36);
-            this.SCubicBezier.Tag = "3";
             this.SCubicBezier.Text = "Smooth Cubic Bezier";
             this.SCubicBezier.ToolTipText = "Smooth Cubic Bezier (Ctrl+Shift+B)";
             this.SCubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
@@ -969,9 +969,9 @@
             this.QuadBezier.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
             this.QuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.QuadBezier.Name = "QuadBezier";
+            this.QuadBezier.PathType = ShapeMaker.PathType.Quadratic;
             this.QuadBezier.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.QuadBezier.Size = new System.Drawing.Size(36, 36);
-            this.QuadBezier.Tag = "4";
             this.QuadBezier.Text = "Quadratic Bezier";
             this.QuadBezier.ToolTipText = "Quadratic Bezier (Ctrl+Q)";
             this.QuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
@@ -1001,10 +1001,10 @@
             this.SQuadBezier.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
             this.SQuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.SQuadBezier.Name = "SQuadBezier";
+            this.SQuadBezier.PathType = ShapeMaker.PathType.SmoothQuadratic;
             this.SQuadBezier.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
             this.SQuadBezier.Size = new System.Drawing.Size(36, 36);
-            this.SQuadBezier.Tag = "5";
             this.SQuadBezier.Text = "Smooth Quad Bezier";
             this.SQuadBezier.ToolTipText = "Smooth Quad Bezier (Ctrl+Shift+Q)";
             this.SQuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
@@ -1037,9 +1037,9 @@
             this.Elliptical.Image = global::ShapeMaker.Properties.Resources.Elliptical;
             this.Elliptical.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Elliptical.Name = "Elliptical";
+            this.Elliptical.PathType = ShapeMaker.PathType.Ellipse;
             this.Elliptical.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.Elliptical.Size = new System.Drawing.Size(36, 36);
-            this.Elliptical.Tag = "1";
             this.Elliptical.Text = "Elliptical Arc";
             this.Elliptical.ToolTipText = "Elliptical Arc (Ctrl+E)";
             this.Elliptical.Click += new System.EventHandler(this.PathTypeToggle);
