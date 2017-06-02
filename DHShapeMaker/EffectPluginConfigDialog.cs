@@ -2560,13 +2560,13 @@ namespace ShapeMaker
         private string getMyFolder()
         {
             string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("PDNDwarves");
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software")?.OpenSubKey("PdnDwarves")?.OpenSubKey("ShapeMaker");
 
             if (rk != null)
             {
                 try
                 {
-                    fp = rk.GetValue("ShapeMaker").ToString();
+                    fp = rk.GetValue("PdnShapeDir").ToString();
                     if (!Directory.Exists(fp))
                         fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 }
@@ -2581,13 +2581,13 @@ namespace ShapeMaker
         private string getMyProjectFolder()
         {
             string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("PDNDwarves");
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software")?.OpenSubKey("PdnDwarves")?.OpenSubKey("ShapeMaker");
 
             if (rk != null)
             {
                 try
                 {
-                    fp = rk.GetValue("ShapeMakerPrj").ToString();
+                    fp = rk.GetValue("ProjectDir").ToString();
                     if (!Directory.Exists(fp))
                         fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 }
@@ -2602,16 +2602,16 @@ namespace ShapeMaker
         private void saveMyFolder(string filePath)
         {
             RegistryKey key;
-            key = Registry.CurrentUser.CreateSubKey("PDNDwarves");
-            key.SetValue("ShapeMaker", Path.GetDirectoryName(filePath));
+            key = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("PdnDwarves").CreateSubKey("ShapeMaker");
+            key.SetValue("PdnShapeDir", Path.GetDirectoryName(filePath));
             key.Close();
         }
 
         private void saveMyProjectFolder(string filePath)
         {
             RegistryKey key;
-            key = Registry.CurrentUser.CreateSubKey("PDNDwarves");
-            key.SetValue("ShapeMakerPrj", Path.GetDirectoryName(filePath));
+            key = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("PdnDwarves").CreateSubKey("ShapeMaker");
+            key.SetValue("ProjectDir", Path.GetDirectoryName(filePath));
             key.Close();
         }
 
