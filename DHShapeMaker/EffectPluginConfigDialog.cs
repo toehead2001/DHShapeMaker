@@ -792,6 +792,13 @@ namespace ShapeMaker
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
+            if (LineList.SelectedIndex != -1)
+            {
+                int bottomIndex = Math.Min(LineList.TopIndex + (LineList.Height / LineList.ItemHeight) - 1, LineList.Items.Count - 1);
+                if (LineList.SelectedIndex < LineList.TopIndex || LineList.SelectedIndex > bottomIndex)
+                    LineList.TopIndex = LineList.SelectedIndex;
+            }
+
             PictureBox s = (PictureBox)sender;
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
             RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
