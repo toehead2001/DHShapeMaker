@@ -143,6 +143,7 @@ namespace ShapeMaker
         {
             base.OnMouseDown(e);
 
+            if (!Focused) Focus();
             rtating = true;
             touchpoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
         }
@@ -251,5 +252,36 @@ namespace ShapeMaker
 
             base.OnPaint(e);
         }
+
+        protected override bool IsInputKey(Keys keyData)
+        {
+            if (keyData == Keys.Left || keyData == Keys.Right)
+                return true;
+
+            return base.IsInputKey(keyData);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.KeyCode == Keys.Left)
+            {
+                rtate--;
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                rtate++;
+            }
+            else
+            {
+                return;
+            }
+
+            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+            OnValueChanged(adjustment());
+            this.Refresh();
+        }
+
     }
 }
