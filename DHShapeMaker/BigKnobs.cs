@@ -13,11 +13,11 @@ namespace ShapeMaker
             InitializeComponent();
         }
 
-        float rtate = 0;
+        float rtate = 180;
         float minvalue = 0;
-        float maxvalue = 10;
-        float span = 270;
-        float spinrate = 1;
+        float maxvalue = 359f;
+        float span = 359f;
+        float spinrate = 1f;
         float touchpoint = 0;
         bool rtating = false;
         Image BottomImage, MidImage, TopImage;
