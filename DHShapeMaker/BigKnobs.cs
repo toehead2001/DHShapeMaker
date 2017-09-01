@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -21,6 +22,8 @@ namespace ShapeMaker
         bool rtating = false;
         Image BottomImage, MidImage, TopImage;
 
+        [Category("Behavior")]
+        [DefaultValue(180F)]
         public float Value
         {
             get
@@ -33,7 +36,9 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
-        public float minValue
+        [Category("Behavior")]
+        [DefaultValue(0F)]
+        public float Minimum
         {
             get
             {
@@ -45,7 +50,9 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
-        public float maxValue
+        [Category("Behavior")]
+        [DefaultValue(359F)]
+        public float Maximum
         {
             get
             {
@@ -57,6 +64,8 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
+        [Category("Behavior")]
+        [DefaultValue(359F)]
         public float Span
         {
             get
@@ -69,6 +78,8 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
+        [Category("Behavior")]
+        [DefaultValue(1F)]
         public float SpinRate
         {
             get
@@ -81,7 +92,8 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
-        public Image KnobBase
+        [Category("Appearance")]
+        public Image BaseImage
         {
             get
             {
@@ -93,7 +105,8 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
-        public Image KnobDial
+        [Category("Appearance")]
+        public Image DialImage
         {
             get
             {
@@ -105,7 +118,8 @@ namespace ShapeMaker
                 this.Refresh();
             }
         }
-        public Image KnobDialDisabled
+        [Category("Appearance")]
+        public Image DisabledDialImage
         {
             get
             {
