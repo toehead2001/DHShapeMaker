@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace ShapeMaker
 {
+    [DefaultEvent("ValueChanged")]
     public partial class BigKnobs : Control
     {
         public BigKnobs()
@@ -151,6 +152,7 @@ namespace ShapeMaker
         #endregion
 
         public delegate void ValueChangedEventHandler(object sender, float e);
+        [Category("Action")]
         public event ValueChangedEventHandler ValueChanged;
 
         protected void OnValueChanged(float e)
