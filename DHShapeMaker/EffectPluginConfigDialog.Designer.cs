@@ -635,7 +635,6 @@
             this.RotationKnob.MinimumSize = new System.Drawing.Size(89, 89);
             this.RotationKnob.minValue = 0F;
             this.RotationKnob.Name = "RotationKnob";
-            this.RotationKnob.Offset = 0F;
             this.RotationKnob.Size = new System.Drawing.Size(89, 89);
             this.RotationKnob.Span = 359F;
             this.RotationKnob.SpinRate = 1F;

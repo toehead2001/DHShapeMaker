@@ -15,7 +15,6 @@ namespace ShapeMaker
         float rtate = 0;
         float minvalue = 0;
         float maxvalue = 10;
-        float offset = 0;
         float span = 270;
         float spinrate = 1;
         float touchpoint = 0;
@@ -55,18 +54,6 @@ namespace ShapeMaker
             set
             {
                 maxvalue = (value > minvalue) ? value : minvalue + .1f;
-                this.Refresh();
-            }
-        }
-        public float Offset
-        {
-            get
-            {
-                return offset;
-            }
-            set
-            {
-                offset = (value >= -10f) ? value : 0f;
                 this.Refresh();
             }
         }
@@ -244,7 +231,7 @@ namespace ShapeMaker
             }
 
             e.Graphics.TranslateTransform(rotRect.Width / 2f, rotRect.Height / 2f);
-            e.Graphics.RotateTransform(rtate + offset);
+            e.Graphics.RotateTransform(rtate);
             e.Graphics.TranslateTransform(rotRect.Width / -2f, rotRect.Height / -2f);
 
             e.Graphics.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rotRect);
