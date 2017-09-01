@@ -173,6 +173,11 @@ namespace ShapeMaker
                 movepoint = (float)(Math.Round(movepoint / 15) * 15);
                 rtate = (float)(Math.Round(rtate / 15) * 15);
             }
+            else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+            {
+                movepoint = (float)(Math.Round(movepoint / 5) * 5);
+                rtate = (float)(Math.Round(rtate / 5) * 5);
+            }
 
             float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
 
@@ -195,6 +200,11 @@ namespace ShapeMaker
             {
                 rtate += Math.Sign(e.Delta) * 15;
                 rtate = (float)(Math.Round(rtate / 15) * 15);
+            }
+            else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+            {
+                rtate += Math.Sign(e.Delta) * 5;
+                rtate = (float)(Math.Round(rtate / 5) * 5);
             }
             else
             {
