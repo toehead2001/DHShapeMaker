@@ -32,11 +32,7 @@
             // 
             // BigKnobs
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(100, 100);
-            this.Name = "BigKnobs";
             this.Size = new System.Drawing.Size(100, 100);
             this.ResumeLayout(false);
 

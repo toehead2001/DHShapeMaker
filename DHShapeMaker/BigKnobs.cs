@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace ShapeMaker
 {
-    public partial class BigKnobs : UserControl
+    public partial class BigKnobs : Control
     {
         public BigKnobs()
         {

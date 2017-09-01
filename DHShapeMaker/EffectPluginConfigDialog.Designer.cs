@@ -627,7 +627,6 @@
             // RotationKnob
             // 
             this.RotationKnob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RotationKnob.BackColor = System.Drawing.Color.Transparent;
             this.RotationKnob.KnobBase = global::ShapeMaker.Properties.Resources.KnobBase;
             this.RotationKnob.KnobDial = global::ShapeMaker.Properties.Resources.KnobPos;
             this.RotationKnob.KnobDialDisabled = global::ShapeMaker.Properties.Resources.KnobPos2;
@@ -641,7 +640,6 @@
             this.RotationKnob.Span = 359F;
             this.RotationKnob.SpinRate = 1F;
             this.RotationKnob.TabIndex = 8;
-            this.RotationKnob.TabStop = false;
             this.toolTip1.SetToolTip(this.RotationKnob, "Rotate Selected\r\nDeselect to Rotate all");
             this.RotationKnob.Value = 180F;
             this.RotationKnob.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.RotationKnob_ValueChanged);
