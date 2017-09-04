@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -1881,9 +1882,9 @@ namespace ShapeMaker
                     if (index > 0)
                         strPath += " ";
                     strPath += "M ";
-                    strPath += $"{x:0.##}";
+                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                     strPath += ",";
-                    strPath += $"{y:0.##}";
+                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                 }
                 switch (lt)
                 {
@@ -1893,9 +1894,9 @@ namespace ShapeMaker
                         {
                             x = width * line[i].X;
                             y = height * line[i].Y;
-                            strPath += $"{x:0.##}";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                             strPath += ",";
-                            strPath += $"{y:0.##}";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                             if (i < line.Length - 1)
                                 strPath += ",";
                         }
@@ -1916,19 +1917,19 @@ namespace ShapeMaker
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
-                        strPath += $"{l:0.##}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", l);
                         strPath += ",";
-                        strPath += $"{h:0.##}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", h);
                         strPath += ",";
-                        strPath += $"{a:0.##}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
                         strPath += ",";
-                        strPath += $"{b:0}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", b);
                         strPath += ",";
-                        strPath += $"{s:0}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", s);
                         strPath += ",";
-                        strPath += $"{pts[4].X:0.##}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].X);
                         strPath += ",";
-                        strPath += $"{pts[4].Y:0.##}";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].Y);
                         oldx = pts[4].X;
                         oldy = pts[4].Y;
                         break;
@@ -1938,9 +1939,9 @@ namespace ShapeMaker
                         {
                             x = width * line[i].X;
                             y = height * line[i].Y;
-                            strPath += $"{x:0.##}";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                             strPath += ",";
-                            strPath += $"{y:0.##}";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                             if (i < line.Length - 1)
                                 strPath += ",";
                             oldx = x; oldy = y;
@@ -1955,9 +1956,9 @@ namespace ShapeMaker
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += $"{x:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                                 strPath += ",";
-                                strPath += $"{y:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                                 if (i < line.Length - 1)
                                     strPath += ",";
                                 oldx = x; oldy = y;
@@ -1973,9 +1974,9 @@ namespace ShapeMaker
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += $"{x:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                                 strPath += ",";
-                                strPath += $"{y:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                                 if (i < line.Length - 1)
                                     strPath += ",";
                                 oldx = x; oldy = y;
@@ -1990,9 +1991,9 @@ namespace ShapeMaker
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += $"{x:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
                                 strPath += ",";
-                                strPath += $"{y:0.##}";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                                 if (i < line.Length - 1)
                                     strPath += ",";
                                 oldx = x; oldy = y;
