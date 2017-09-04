@@ -2342,7 +2342,7 @@ namespace ShapeMaker
                     case "f":
                         //ignore F0 and F1
                         errornum = 12;
-                        errorflagx = float.TryParse(str[i], out x);
+                        errorflagx = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
                         SolidFillMenuItem.Checked = false;
                         if (x == 1)
@@ -2356,9 +2356,9 @@ namespace ShapeMaker
                         break;
                     case "m":
                         errornum = 1;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         HomePos = LastPos;
@@ -2368,18 +2368,18 @@ namespace ShapeMaker
                     case "l":
                         Array.Resize(ref pts, pts.Length + 1);
                         errornum = 2;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
                     case "s":
                         errornum = 9;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         len = pts.Length;
@@ -2409,9 +2409,9 @@ namespace ShapeMaker
                         break;
                     case "t":
                         errornum = 10;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         len = pts.Length;
@@ -2431,9 +2431,9 @@ namespace ShapeMaker
                     case "q":
                         Array.Resize(ref pts, pts.Length + 1);
                         errornum = 11;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         pts[pts.Length - 1] = LastPos;
@@ -2450,7 +2450,7 @@ namespace ShapeMaker
                         Array.Resize(ref pts, pts.Length + 1);
                         y = LastPos.Y;
                         errornum = 3;
-                        errorflagx = float.TryParse(str[i++], out x);
+                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
                         x = x / canvas.ClientRectangle.Height;
                         LastPos = pbAdjust(x, y);
@@ -2460,7 +2460,7 @@ namespace ShapeMaker
                         Array.Resize(ref pts, pts.Length + 1);
                         x = LastPos.X;
                         errornum = 4;
-                        errorflagy = float.TryParse(str[i], out y);
+                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         y = y / canvas.ClientRectangle.Height;
                         LastPos = pbAdjust(x, y);
@@ -2471,9 +2471,9 @@ namespace ShapeMaker
                         Array.Resize(ref pts, pts.Length + 4);
                         //to
                         errornum = 5;
-                        errorflagx = float.TryParse(str[i + 5], out x);
+                        errorflagx = float.TryParse(str[i + 5], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i + 6], out y);
+                        errorflagy = float.TryParse(str[i + 6], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         LastPos = pbAdjust(x, y);
                         pts[ptbase + 4] = LastPos; //ENDPOINT
@@ -2489,23 +2489,23 @@ namespace ShapeMaker
 
                         float dist, dist2;
                         errornum = 6;
-                        errorflagx = float.TryParse(str[i], out dist); //W
+                        errorflagx = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //W
                         if (!errorflagx) break;
                         pts[ptbase + 1] = pointOrbit(mid, atan - (float)Math.PI / 4f, dist);
 
-                        errorflagx = float.TryParse(str[i + 1], out dist); //H
+                        errorflagx = float.TryParse(str[i + 1], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //H
                         if (!errorflagx) break;
                         pts[ptbase + 2] = pointOrbit(mid, atan + (float)Math.PI / 4f, dist);
 
                         errornum = 7;
-                        errorflagx = float.TryParse(str[i + 2], out dist);
+                        errorflagx = float.TryParse(str[i + 2], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
                         float rot = dist * (float)Math.PI / 180f; //ROT
                         pts[ptbase + 3] = pointOrbit(mid, rot, far);
 
                         errornum = 8;
-                        errorflagx = float.TryParse(str[i + 3], out dist);
+                        errorflagx = float.TryParse(str[i + 3], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
                         if (!errorflagx) break;
-                        errorflagy = float.TryParse(str[i + 4], out dist2);
+                        errorflagy = float.TryParse(str[i + 4], NumberStyles.Float, CultureInfo.InvariantCulture, out dist2);
                         if (!errorflagy) break;
                         islarge = Convert.ToBoolean(dist);
                         revsweep = Convert.ToBoolean(dist2);
