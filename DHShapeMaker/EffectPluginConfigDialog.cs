@@ -2344,15 +2344,7 @@ namespace ShapeMaker
                         errornum = 12;
                         errorflagx = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        SolidFillMenuItem.Checked = false;
-                        if (x == 1)
-                        {
-                            SolidFillMenuItem.Checked = true;
-                        }
-                        else
-                        {
-                            SolidFillMenuItem.Checked = false;
-                        }
+                        SolidFillMenuItem.Checked = (x == 1);
                         break;
                     case "m":
                         errornum = 1;
