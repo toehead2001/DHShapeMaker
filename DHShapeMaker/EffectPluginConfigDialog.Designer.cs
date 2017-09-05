@@ -852,6 +852,7 @@
             this.MacroRect.Image = global::ShapeMaker.Properties.Resources.RectMacro;
             this.MacroRect.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.MacroRect.Name = "MacroRect";
+            this.MacroRect.PathType = ShapeMaker.PathType.Straight;
             this.MacroRect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.MacroRect.Size = new System.Drawing.Size(36, 36);
             this.MacroRect.Text = "Auto Rectangle";
@@ -897,6 +898,7 @@
             this.MacroCubic.Image = global::ShapeMaker.Properties.Resources.SplineMacro;
             this.MacroCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.MacroCubic.Name = "MacroCubic";
+            this.MacroCubic.PathType = ShapeMaker.PathType.Straight;
             this.MacroCubic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.MacroCubic.Size = new System.Drawing.Size(36, 36);
             this.MacroCubic.Text = "Cubic Spline";
@@ -1044,6 +1046,7 @@
             this.Arc.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
             this.Arc.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Arc.Name = "Arc";
+            this.Arc.PathType = ShapeMaker.PathType.Straight;
             this.Arc.Size = new System.Drawing.Size(36, 36);
             this.Arc.Text = "Large/Small Arc Selector";
             this.Arc.ToolTipText = "Large/Small Arc Selector";
@@ -1057,6 +1060,7 @@
             this.Sweep.Image = global::ShapeMaker.Properties.Resources.SweepLeft;
             this.Sweep.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Sweep.Name = "Sweep";
+            this.Sweep.PathType = ShapeMaker.PathType.Straight;
             this.Sweep.Size = new System.Drawing.Size(36, 36);
             this.Sweep.Text = "Sweep Direction";
             this.Sweep.ToolTipText = "Sweep Direction";
@@ -1068,6 +1072,7 @@
             this.MacroCircle.Image = global::ShapeMaker.Properties.Resources.CircleMacro;
             this.MacroCircle.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.MacroCircle.Name = "MacroCircle";
+            this.MacroCircle.PathType = ShapeMaker.PathType.Straight;
             this.MacroCircle.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.MacroCircle.Size = new System.Drawing.Size(36, 36);
             this.MacroCircle.Text = "Auto Circle";
@@ -1104,6 +1109,7 @@
             this.Snap.Image = global::ShapeMaker.Properties.Resources.SnapOn;
             this.Snap.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Snap.Name = "Snap";
+            this.Snap.PathType = ShapeMaker.PathType.Straight;
             this.Snap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.Snap.Size = new System.Drawing.Size(36, 36);
             this.Snap.Text = "Snap to Grid";
@@ -1118,6 +1124,7 @@
             this.LinkedPaths.Image = global::ShapeMaker.Properties.Resources.LinkOn;
             this.LinkedPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.LinkedPaths.Name = "LinkedPaths";
+            this.LinkedPaths.PathType = ShapeMaker.PathType.Straight;
             this.LinkedPaths.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
             this.LinkedPaths.Size = new System.Drawing.Size(36, 36);
             this.LinkedPaths.Text = "Linked with Previous Line";
@@ -1136,6 +1143,7 @@
             this.ClosePath.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
             this.ClosePath.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.ClosePath.Name = "ClosePath";
+            this.ClosePath.PathType = ShapeMaker.PathType.Straight;
             this.ClosePath.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
             this.ClosePath.Size = new System.Drawing.Size(36, 36);
             this.ClosePath.Text = "Close Individual Path";
@@ -1148,6 +1156,7 @@
             this.CloseContPaths.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
             this.CloseContPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.CloseContPaths.Name = "CloseContPaths";
+            this.CloseContPaths.PathType = ShapeMaker.PathType.Straight;
             this.CloseContPaths.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D2)));
             this.CloseContPaths.Size = new System.Drawing.Size(36, 36);
@@ -1325,7 +1334,6 @@
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = true;
