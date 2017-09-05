@@ -136,19 +136,19 @@ namespace ShapeMaker
         #region Inherited Properties to hide
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImeMode ImeMode { get; set; }
+        public new ImeMode ImeMode { get; set; }
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImeMode RightToLeft { get; set; }
+        public new RightToLeft RightToLeft { get; set; }
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImeMode Text { get; set; }
+        public new string Text { get; set; }
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImeMode Font { get; set; }
+        public new Font Font { get; set; }
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ImeMode ForeColor { get; set; }
+        public new Color ForeColor { get; set; }
         #endregion
 
         public delegate void ValueChangedEventHandler(object sender, float e);
