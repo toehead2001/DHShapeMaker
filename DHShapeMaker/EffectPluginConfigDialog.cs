@@ -61,7 +61,7 @@ namespace ShapeMaker
 
         bool countflag = false;
         const int maxPaths = 200;
-        const int maxpoint = 256;
+        const int maxPoints = 256;
         int clickedNub = -1;
         PointF MoveStart;
         PointF[] canvasPoints = new PointF[0];
@@ -326,7 +326,7 @@ namespace ShapeMaker
             }
 
             UDPointer--;
-            UDPointer += (UndoMax);
+            UDPointer += UndoMax;
             UDPointer %= UndoMax;
 
             canvasPoints = new PointF[0];
@@ -377,7 +377,7 @@ namespace ShapeMaker
                 return;
 
             UDPointer++;
-            UDPointer += (UndoMax);
+            UDPointer += UndoMax;
             UDPointer %= UndoMax;
 
             canvasPoints = new PointF[0];
@@ -800,10 +800,10 @@ namespace ShapeMaker
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
             RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
 
-            //identify node selected
-            clickedNub = -1;
             MoveStart = new PointF((float)e.X / s.ClientSize.Width, (float)e.Y / s.ClientSize.Height);
 
+            //identify node selected
+            clickedNub = -1;
             for (int i = 0; i < canvasPoints.Length; i++)
             {
                 PointF p = new PointF(canvasPoints[i].X * s.ClientSize.Width,
@@ -915,9 +915,9 @@ namespace ShapeMaker
                     {
                         #region add
                         int len = canvasPoints.Length;
-                        if (len >= maxpoint)
+                        if (len >= maxPoints)
                         {
-                            MessageBox.Show($"Too many Nubs in Path (Max is {maxpoint})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -1732,7 +1732,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             resetRotation();
@@ -2529,14 +2529,14 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void ClearAllPaths()
         {
             Array.Resize(ref canvasPoints, 0);
-            statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
+            statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxPoints} Nubs used";
             statusLabelNubPos.Text = "0, 0";
 
             Lines.Clear();
@@ -2989,7 +2989,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -3263,7 +3263,7 @@ namespace ShapeMaker
 
                         if (projectPaths.Count > maxPaths)
                         {
-                            MessageBox.Show($"Too Many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
@@ -3990,7 +3990,7 @@ namespace ShapeMaker
 
             if (countflag || canvasPoints.Length > 0 || LineList.Items.Count > 0)
             {
-                statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxpoint} Nubs used";
+                statusLabelNubsUsed.Text = $"{canvasPoints.Length}/{maxPoints} Nubs used";
                 statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
             }
 
