@@ -137,7 +137,7 @@ namespace ShapeMaker
             LineList.Items.Clear();
             foreach (PData p in token.PathData)
             {
-                Lines.Add(new PData(p.Lines, p.ClosedType, p.LineType, p.IsLarge, p.RevSweep, p.Alias, p.LoopBack));
+                Lines.Add(p);
                 LineList.Items.Add(LineNames[p.LineType]);
             }
         }
@@ -306,9 +306,7 @@ namespace ShapeMaker
             UDLines[UDPointer] = new ArrayList();
             foreach (PData pd in Lines)
             {
-                PointF[] tmp = new PointF[pd.Lines.Length];
-                Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                UDLines[UDPointer].Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                UDLines[UDPointer].Add(pd);
             }
             UDPointer++;
             UDPointer %= UndoMax;
@@ -344,9 +342,7 @@ namespace ShapeMaker
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
-                    PointF[] tmp = new PointF[pd.Lines.Length];
-                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                    Lines.Add(pd);
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
                 if (UDSelect[UDPointer] < LineList.Items.Count)
@@ -397,9 +393,7 @@ namespace ShapeMaker
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
-                    PointF[] tmp = new PointF[pd.Lines.Length];
-                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                    Lines.Add(pd);
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
                 if (UDSelect[UDPointer] < LineList.Items.Count)
@@ -2991,10 +2985,8 @@ namespace ShapeMaker
             if (Lines.Count < maxPaths)
             {
                 setUndo();
-                PointF[] tmp = new PointF[canvasPoints.Length];
-                Array.Copy(canvasPoints, tmp, canvasPoints.Length);
 
-                Lines.Add(new PData(tmp, ClosePath.Checked, (int)getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
+                Lines.Add(new PData(canvasPoints, ClosePath.Checked, (int)getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
                 LineList.Items.Add(LineNames[(int)getPathType()]);
                 LineList.SelectedIndex = LineList.Items.Count - 1;
 
