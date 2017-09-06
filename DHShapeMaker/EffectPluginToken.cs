@@ -1,20 +1,20 @@
-using System.Collections;
 using PaintDotNet.Effects;
 using System.Drawing.Drawing2D;
+using System.Collections.Generic;
 
 namespace ShapeMaker
 {
     internal class EffectPluginConfigToken : EffectConfigToken
     {
         internal GraphicsPath[] GP { get; set; }
-        internal ArrayList PathData { get; set; }
+        internal List<PData> PathData { get; set; }
         internal bool Draw { get; set; }
         internal decimal Scale { get; set; }
         internal bool SnapTo { get; set; }
         internal string ShapeName { get; set; }
         internal bool SolidFill { get; set; }
 
-        internal EffectPluginConfigToken(GraphicsPath[] gp, ArrayList pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
+        internal EffectPluginConfigToken(GraphicsPath[] gp, List<PData> pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
         {
             GP = gp;
             PathData = pathdata;
