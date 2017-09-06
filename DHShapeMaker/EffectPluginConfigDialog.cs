@@ -2986,8 +2986,9 @@ namespace ShapeMaker
             {
                 setUndo();
 
-                Lines.Add(new PData(canvasPoints, ClosePath.Checked, (int)getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
-                LineList.Items.Add(LineNames[(int)getPathType()]);
+                PData pathToClone = Lines[LineList.SelectedIndex];
+                Lines.Add(pathToClone);
+                LineList.Items.Add(LineNames[pathToClone.LineType]);
                 LineList.SelectedIndex = LineList.Items.Count - 1;
 
                 canvas.Refresh();
