@@ -2535,7 +2535,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -2995,7 +2995,7 @@ namespace ShapeMaker
             }
             else
             {
-                MessageBox.Show($"Too Many Lines in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Too Many Paths in List (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
