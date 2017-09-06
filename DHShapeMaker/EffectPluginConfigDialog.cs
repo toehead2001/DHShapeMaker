@@ -3023,31 +3023,15 @@ namespace ShapeMaker
 
             PData pd1 = Lines[index];
             string LineTxt1 = LineList.Items[index].ToString();
-            PointF[] tmp1 = new PointF[pd1.Lines.Length];
-            Array.Copy(pd1.Lines, tmp1, pd1.Lines.Length);
-            int tmpType1 = pd1.LineType;
-            bool tmpClosed1 = pd1.ClosedType;
-            bool tmpIsLarge1 = pd1.IsLarge;
-            bool tmpRevSweep1 = pd1.RevSweep;
-            string tmpAlias1 = pd1.Alias;
 
             PData pd2 = Lines[index + 1];
             string LineTxt2 = LineList.Items[index + 1].ToString();
-            PointF[] tmp2 = new PointF[pd2.Lines.Length];
-            Array.Copy(pd2.Lines, tmp2, pd2.Lines.Length);
-            int tmpType2 = pd2.LineType;
-            bool tmpClosed2 = pd2.ClosedType;
-            bool tmpIsLarge2 = pd2.IsLarge;
-            bool tmpRevSweep2 = pd2.RevSweep;
-            string tmpAlias2 = pd2.Alias;
-            bool tmpMPMode2 = pd2.LoopBack;
+
+            Lines[index] = pd2;
             LineList.Items[index] = LineTxt2;
 
-            Lines[index] = new PData(tmp2, tmpClosed2, tmpType2, tmpIsLarge2, tmpRevSweep2, tmpAlias2, tmpMPMode2);
-
+            Lines[index + 1] = pd1;
             LineList.Items[index + 1] = LineTxt1;
-
-            Lines[index + 1] = new PData(tmp1, tmpClosed1, tmpType1, tmpIsLarge1, tmpRevSweep1, tmpAlias1, tmpMPMode2);
         }
 
         private void ToggleUpDownButtons()
