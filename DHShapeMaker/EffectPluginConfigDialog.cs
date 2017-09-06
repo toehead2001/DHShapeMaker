@@ -841,13 +841,13 @@ namespace ShapeMaker
                 }
                 else if (e.Button == MouseButtons.Right) //process add or delete
                 {
-                    setUndo();
-
                     if (clickedNub > -1) //delete
                     {
                         #region delete
                         if (clickedNub == 0)
                             return; //don't delete moveto 
+
+                        setUndo();
 
                         switch (lt)
                         {
@@ -920,6 +920,8 @@ namespace ShapeMaker
 
                         if (lt == PathType.Ellipse && canvasPoints.Length > 2)
                             return;
+
+                        setUndo();
 
                         int eX = e.X, eY = e.Y;
                         if (Snap.Checked)
