@@ -913,6 +913,14 @@ namespace ShapeMaker
                     }
                     else if (clickedNub == -1) //add new
                     {
+                        #region add
+                        int len = canvasPoints.Length;
+                        if (len >= maxpoint)
+                            return;
+
+                        if (lt == PathType.Ellipse && canvasPoints.Length > 2)
+                            return;
+
                         int eX = e.X, eY = e.Y;
                         if (Snap.Checked)
                         {
@@ -920,13 +928,6 @@ namespace ShapeMaker
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
                         StatusBarNubLocation(eX, eY);
-
-                        #region add
-                        int len = canvasPoints.Length;
-                        if (len >= maxpoint)
-                            return;
-                        if (lt == PathType.Ellipse && canvasPoints.Length > 2)
-                            return;
                         PointF clickedPoint = new PointF((float)eX / s.ClientSize.Width, (float)eY / s.ClientSize.Height);
                         if (len == 0)//first point
                         {
