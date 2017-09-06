@@ -916,7 +916,10 @@ namespace ShapeMaker
                         #region add
                         int len = canvasPoints.Length;
                         if (len >= maxpoint)
+                        {
+                            MessageBox.Show($"Too many Nubs in Path (Max is {maxpoint})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
+                        }
 
                         if (lt == PathType.Ellipse && canvasPoints.Length > 2)
                             return;
