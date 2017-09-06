@@ -4,6 +4,7 @@ using PaintDotNet;
 using PaintDotNet.Effects;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -77,7 +78,7 @@ namespace ShapeMaker
         float lastRot = 180;
         bool KeyTrak = false;
         GraphicsPath[] PGP = new GraphicsPath[0];
-        ArrayList Lines = new ArrayList();
+        readonly List<PData> Lines = new List<PData>();
         bool PanFlag = false;
         bool CanScrollZoom = false;
         float DPI = 1;
@@ -337,7 +338,7 @@ namespace ShapeMaker
             }
 
             LineList.Items.Clear();
-            Lines = new ArrayList();
+            Lines.Clear();
             if (UDLines[UDPointer].Count != 0)
             {
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
@@ -390,7 +391,7 @@ namespace ShapeMaker
             }
 
             LineList.Items.Clear();
-            Lines = new ArrayList();
+            Lines.Clear();
             if (UDLines[UDPointer].Count != 0)
             {
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
@@ -3293,12 +3294,14 @@ namespace ShapeMaker
 
                         ClearAllPaths();
 
-                        Lines = projectPaths;
-                        for (int i = 0; i < Lines.Count; i++)
-                            LineList.Items.Add(LineNames[(Lines[i] as PData).LineType]);
-
-                        FigureName.Text = (Lines[Lines.Count - 1] as PData).Meta;
-                        SolidFillMenuItem.Checked = (Lines[Lines.Count - 1] as PData).SolidFill;
+                        PData documentProps = projectPaths[projectPaths.Count - 1] as PData;
+                        FigureName.Text = documentProps.Meta;
+                        SolidFillMenuItem.Checked = documentProps.SolidFill;
+                        foreach (PData path in projectPaths)
+                        {
+                            Lines.Add(path);
+                            LineList.Items.Add(LineNames[path.LineType]);
+                        }
 
                         ZoomToFactor(1);
                         resetRotation();
@@ -3344,11 +3347,12 @@ namespace ShapeMaker
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
 
+                ArrayList paths = new ArrayList(Lines);
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                (Lines[Lines.Count - 1] as PData).Meta = FigureName.Text;
-                (Lines[Lines.Count - 1] as PData).SolidFill = SolidFillMenuItem.Checked;
+                (paths[paths.Count - 1] as PData).Meta = FigureName.Text;
+                (paths[paths.Count - 1] as PData).SolidFill = SolidFillMenuItem.Checked;
                 using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
-                    ser.Serialize(stream, Lines);
+                    ser.Serialize(stream, paths);
             }
         }
 
