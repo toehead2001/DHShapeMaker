@@ -3002,7 +3002,9 @@ namespace ShapeMaker
         {
             if (LineList.SelectedIndex > -1 && LineList.SelectedIndex < LineList.Items.Count - 1)
             {
+                LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 ReOrderPath(LineList.SelectedIndex);
+                LineList.SelectedValueChanged += LineList_SelectedValueChanged;
                 LineList.SelectedIndex++;
             }
         }
@@ -3011,7 +3013,9 @@ namespace ShapeMaker
         {
             if (LineList.SelectedIndex > 0)
             {
+                LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 ReOrderPath(LineList.SelectedIndex - 1);
+                LineList.SelectedValueChanged += LineList_SelectedValueChanged;
                 LineList.SelectedIndex--;
             }
         }
