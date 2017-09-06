@@ -3389,8 +3389,7 @@ namespace ShapeMaker
 
                 saveMyFolder(sfd.FileName);
 
-                using (StreamWriter writer = new StreamWriter(sfd.FileName))
-                    writer.Write(output);
+                File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -3441,8 +3440,7 @@ namespace ShapeMaker
 
                 saveMyFolder(sfd.FileName);
 
-                using (StreamWriter writer = new StreamWriter(sfd.FileName))
-                    writer.Write(output);
+                File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -3469,13 +3467,8 @@ namespace ShapeMaker
                 ZoomToFactor(1);
                 setUndo();
 
-                string data;
-                string[] d;
-                using (StreamReader reader = new StreamReader(OFD.FileName))
-                {
-                    data = reader.ReadToEnd();
-                    d = data.Split(new char[] { '"' });
-                }
+                string data = File.ReadAllText(OFD.FileName);
+                string[] d = data.Split(new char[] { '"' });
                 bool loadConfirm = false;
                 for (int i = 1; i < d.Length; i++)
                 {
