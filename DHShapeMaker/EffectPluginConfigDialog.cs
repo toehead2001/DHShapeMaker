@@ -927,12 +927,11 @@ namespace ShapeMaker
                             return;
                         if (lt == PathType.Ellipse && canvasPoints.Length > 2)
                             return;
+                        PointF clickedPoint = new PointF((float)eX / s.ClientSize.Width, (float)eY / s.ClientSize.Height);
                         if (len == 0)//first point
                         {
                             Array.Resize(ref canvasPoints, len + 1);
-                            canvasPoints[0] = new PointF(
-                                (float)eX / s.ClientSize.Width,
-                                (float)eY / s.ClientSize.Height);
+                            canvasPoints[0] = clickedPoint;
                             countflag = true;
                         }
                         else//not first point
@@ -941,16 +940,12 @@ namespace ShapeMaker
                             {
                                 case PathType.Straight:
                                     Array.Resize(ref canvasPoints, len + 1);
-                                    canvasPoints[len] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[len] = clickedPoint;
 
                                     break;
                                 case PathType.Ellipse:
                                     Array.Resize(ref canvasPoints, 5);
-                                    canvasPoints[4] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[4] = clickedPoint;
                                     PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
                                     PointF mid2 = ThirdPoint(canvasPoints[0], mid, true, 1f);
                                     canvasPoints[1] = pointAverage(canvasPoints[0], mid2);
@@ -961,9 +956,7 @@ namespace ShapeMaker
                                 case PathType.Cubic:
                                     Array.Resize(ref canvasPoints, len + 3);
 
-                                    canvasPoints[len + 2] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[len + 2] = clickedPoint;
                                     if (MacroCubic.Checked)
                                     {
                                         CubicAdjust();
@@ -988,9 +981,7 @@ namespace ShapeMaker
                                     break;
                                 case PathType.Quadratic:
                                     Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[len + 2] = clickedPoint;
                                     PointF tmp = new PointF();
                                     //add
                                     if (len > 1)
@@ -1010,9 +1001,7 @@ namespace ShapeMaker
 
                                 case PathType.SmoothCubic:
                                     Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[len + 2] = clickedPoint;
                                     //startchange
                                     PointF mid6 = new PointF();
                                     if (len > 1)
@@ -1039,9 +1028,7 @@ namespace ShapeMaker
                                     break;
                                 case PathType.SmoothQuadratic:
                                     Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = new PointF(
-                                        (float)eX / s.ClientSize.Width,
-                                        (float)eY / s.ClientSize.Height);
+                                    canvasPoints[len + 2] = clickedPoint;
                                     if (len > 1)
                                     {
                                         canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
