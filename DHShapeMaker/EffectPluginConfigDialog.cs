@@ -61,7 +61,7 @@ namespace ShapeMaker
 
         bool countflag = false;
         const int maxPaths = 200;
-        const int maxpoint = 255;
+        const int maxpoint = 256;
         int clickedNub = -1;
         PointF MoveStart;
         PointF[] canvasPoints = new PointF[0];
