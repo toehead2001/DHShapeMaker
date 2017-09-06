@@ -303,7 +303,10 @@ namespace ShapeMaker
             UDSelected[UDPointer] = (deSelected) ? -1 : LineList.SelectedIndex;
             UDPoints[UDPointer] = new PointF[canvasPoints.Length];
             Array.Copy(canvasPoints, UDPoints[UDPointer], canvasPoints.Length);
-            UDLines[UDPointer].Clear();
+            if (UDLines[UDPointer] == null)
+                UDLines[UDPointer] = new List<PData>();
+            else
+                UDLines[UDPointer].Clear();
             UDLines[UDPointer].AddRange(Lines);
 
             UDPointer++;
