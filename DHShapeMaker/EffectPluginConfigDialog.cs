@@ -67,7 +67,7 @@ namespace ShapeMaker
         PointF[] canvasPoints = new PointF[0];
 
         const int UndoMax = 16;
-        readonly ArrayList[] UDLines = new ArrayList[UndoMax];
+        readonly List<PData>[] UDLines = new List<PData>[UndoMax];
         readonly PointF[][] UDPoint = new PointF[UndoMax][];
         readonly PathType[] UDtype = new PathType[UndoMax];
         readonly int[] UDSelect = new int[UndoMax];
@@ -303,11 +303,9 @@ namespace ShapeMaker
             UDSelect[UDPointer] = (deSelected) ? -1 : LineList.SelectedIndex;
             UDPoint[UDPointer] = new PointF[canvasPoints.Length];
             Array.Copy(canvasPoints, UDPoint[UDPointer], canvasPoints.Length);
-            UDLines[UDPointer] = new ArrayList();
-            foreach (PData pd in Lines)
-            {
-                UDLines[UDPointer].Add(pd);
-            }
+            UDLines[UDPointer].Clear();
+            UDLines[UDPointer].AddRange(Lines);
+
             UDPointer++;
             UDPointer %= UndoMax;
         }
@@ -3683,7 +3681,7 @@ namespace ShapeMaker
                 for (int k = 0; k < Lines.Count; k++)
                 {
                     PointF[] tmp = Lines[k].Lines;
-                    PointF[] tmp2 = (UDLines[undoIndex][k] as PData).Lines;
+                    PointF[] tmp2 = UDLines[undoIndex][k].Lines;
                     for (int i = 0; i < tmp.Length; i++)
                     {
                         tmp[i].X = (tmp2[i].X - AveragePoint.X) * scale + AveragePoint.X;
