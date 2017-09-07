@@ -68,9 +68,9 @@ namespace ShapeMaker
 
         const int UndoMax = 16;
         readonly List<PData>[] UDLines = new List<PData>[UndoMax];
-        readonly PointF[][] UDPoint = new PointF[UndoMax][];
-        readonly PathType[] UDtype = new PathType[UndoMax];
-        readonly int[] UDSelect = new int[UndoMax];
+        readonly PointF[][] UDPoints = new PointF[UndoMax][];
+        readonly PathType[] UDType = new PathType[UndoMax];
+        readonly int[] UDSelected = new int[UndoMax];
         int UDCount = 0;
         int RDCount = 0;
         int UDPointer = 0;
@@ -299,10 +299,10 @@ namespace ShapeMaker
             RDCount = 0;
             UDCount++;
             UDCount = (UDCount > UndoMax) ? UndoMax : UDCount;
-            UDtype[UDPointer] = getPathType();
-            UDSelect[UDPointer] = (deSelected) ? -1 : LineList.SelectedIndex;
-            UDPoint[UDPointer] = new PointF[canvasPoints.Length];
-            Array.Copy(canvasPoints, UDPoint[UDPointer], canvasPoints.Length);
+            UDType[UDPointer] = getPathType();
+            UDSelected[UDPointer] = (deSelected) ? -1 : LineList.SelectedIndex;
+            UDPoints[UDPointer] = new PointF[canvasPoints.Length];
+            Array.Copy(canvasPoints, UDPoints[UDPointer], canvasPoints.Length);
             UDLines[UDPointer].Clear();
             UDLines[UDPointer].AddRange(Lines);
 
@@ -327,10 +327,10 @@ namespace ShapeMaker
             UDPointer %= UndoMax;
 
             canvasPoints = new PointF[0];
-            if (UDPoint[UDPointer].Length != 0)
+            if (UDPoints[UDPointer].Length != 0)
             {
-                canvasPoints = new PointF[UDPoint[UDPointer].Length];
-                Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
+                canvasPoints = new PointF[UDPoints[UDPointer].Length];
+                Array.Copy(UDPoints[UDPointer], canvasPoints, canvasPoints.Length);
             }
 
             LineList.Items.Clear();
@@ -343,8 +343,8 @@ namespace ShapeMaker
                     Lines.Add(pd);
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
-                if (UDSelect[UDPointer] < LineList.Items.Count)
-                    LineList.SelectedIndex = UDSelect[UDPointer];
+                if (UDSelected[UDPointer] < LineList.Items.Count)
+                    LineList.SelectedIndex = UDSelected[UDPointer];
                 LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
 
@@ -355,7 +355,7 @@ namespace ShapeMaker
             }
             else
             {
-                setUiForPath(UDtype[UDPointer], false, false, false, false);
+                setUiForPath(UDType[UDPointer], false, false, false, false);
             }
 
             UDCount--;
@@ -378,10 +378,10 @@ namespace ShapeMaker
             UDPointer %= UndoMax;
 
             canvasPoints = new PointF[0];
-            if (UDPoint[UDPointer].Length != 0)
+            if (UDPoints[UDPointer].Length != 0)
             {
-                canvasPoints = new PointF[UDPoint[UDPointer].Length];
-                Array.Copy(UDPoint[UDPointer], canvasPoints, canvasPoints.Length);
+                canvasPoints = new PointF[UDPoints[UDPointer].Length];
+                Array.Copy(UDPoints[UDPointer], canvasPoints, canvasPoints.Length);
             }
 
             LineList.Items.Clear();
@@ -394,8 +394,8 @@ namespace ShapeMaker
                     Lines.Add(pd);
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
-                if (UDSelect[UDPointer] < LineList.Items.Count)
-                    LineList.SelectedIndex = UDSelect[UDPointer];
+                if (UDSelected[UDPointer] < LineList.Items.Count)
+                    LineList.SelectedIndex = UDSelected[UDPointer];
                 LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
 
@@ -406,7 +406,7 @@ namespace ShapeMaker
             }
             else
             {
-                setUiForPath(UDtype[UDPointer], false, false, false, false);
+                setUiForPath(UDType[UDPointer], false, false, false, false);
             }
 
             UDCount++;
@@ -3695,8 +3695,8 @@ namespace ShapeMaker
                 int undoIndex = (UDPointer - 1 + UndoMax) % UndoMax;
                 for (int idx = 0; idx < canvasPoints.Length; idx++)
                 {
-                    canvasPoints[idx].X = (UDPoint[undoIndex][idx].X - AveragePoint.X) * scale + AveragePoint.X;
-                    canvasPoints[idx].Y = (UDPoint[undoIndex][idx].Y - AveragePoint.Y) * scale + AveragePoint.Y;
+                    canvasPoints[idx].X = (UDPoints[undoIndex][idx].X - AveragePoint.X) * scale + AveragePoint.X;
+                    canvasPoints[idx].Y = (UDPoints[undoIndex][idx].Y - AveragePoint.Y) * scale + AveragePoint.Y;
                 }
             }
             canvas.Refresh();
