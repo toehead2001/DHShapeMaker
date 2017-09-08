@@ -307,7 +307,12 @@ namespace ShapeMaker
                 UDLines[UDPointer] = new List<PData>();
             else
                 UDLines[UDPointer].Clear();
-            UDLines[UDPointer].AddRange(Lines);
+            foreach (PData pd in Lines)
+            {
+                PointF[] tmp = new PointF[pd.Lines.Length];
+                Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                UDLines[UDPointer].Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+            }
 
             UDPointer++;
             UDPointer %= UndoMax;
@@ -343,7 +348,9 @@ namespace ShapeMaker
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
-                    Lines.Add(pd);
+                    PointF[] tmp = new PointF[pd.Lines.Length];
+                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
                 if (UDSelected[UDPointer] < LineList.Items.Count)
@@ -394,7 +401,9 @@ namespace ShapeMaker
                 LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PData pd in UDLines[UDPointer])
                 {
-                    Lines.Add(pd);
+                    PointF[] tmp = new PointF[pd.Lines.Length];
+                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
+                    Lines.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
                     LineList.Items.Add(LineNames[pd.LineType]);
                 }
                 if (UDSelected[UDPointer] < LineList.Items.Count)
@@ -2980,9 +2989,10 @@ namespace ShapeMaker
             {
                 setUndo();
 
-                PData pathToClone = Lines[LineList.SelectedIndex];
-                Lines.Add(pathToClone);
-                LineList.Items.Add(LineNames[pathToClone.LineType]);
+                PointF[] tmp = new PointF[canvasPoints.Length];
+                Array.Copy(canvasPoints, tmp, canvasPoints.Length);
+                Lines.Add(new PData(tmp, ClosePath.Checked, (int)getPathType(), (Arc.CheckState == CheckState.Checked), (Sweep.CheckState == CheckState.Checked), string.Empty, CloseContPaths.Checked));
+                LineList.Items.Add(LineNames[(int)getPathType()]);
                 LineList.SelectedIndex = LineList.Items.Count - 1;
 
                 canvas.Refresh();
