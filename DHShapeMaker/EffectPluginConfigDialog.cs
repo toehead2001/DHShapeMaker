@@ -2739,7 +2739,7 @@ namespace ShapeMaker
                 {
                     if (ctype && pts.Length > 1)
                     {
-                        PointF[] points = { pts[0], pts[pts.Length - 1] };
+                        PointF[] points = { pts[pts.Length - 1], pts[0] };
                         PGP[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
@@ -2748,7 +2748,7 @@ namespace ShapeMaker
                 {
                     if (pts.Length > 1)
                     {
-                        PointF[] points = { loopBack, pts[pts.Length - 1] };
+                        PointF[] points = { pts[pts.Length - 1], loopBack };
                         PGP[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
