@@ -3349,6 +3349,7 @@ namespace ShapeMaker
                 return;
             }
 
+            ZoomToFactor(1);
             string TMP = string.Empty;
             bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
             if (!r)
@@ -3357,7 +3358,6 @@ namespace ShapeMaker
                 return;
             }
 
-            ZoomToFactor(1);
             string output = Properties.Resources.BaseString;
             string figure = FigureName.Text;
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
