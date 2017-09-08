@@ -36,6 +36,8 @@
             this.newProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.openProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.openRecentProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProject = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,6 +194,7 @@
             this.newProjectMenuItem,
             this.toolStripSeparator4,
             this.openProject,
+            this.openRecentProject,
             this.saveProject,
             this.toolStripSeparator1,
             this.importPDNShapeToolStripMenuItem,
@@ -224,6 +227,22 @@
             this.openProject.Size = new System.Drawing.Size(195, 22);
             this.openProject.Text = "Open Project...";
             this.openProject.Click += new System.EventHandler(this.openProject_Click);
+            // 
+            // openRecentProject
+            // 
+            this.openRecentProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.openRecentProject.Name = "openRecentProject";
+            this.openRecentProject.Size = new System.Drawing.Size(195, 22);
+            this.openRecentProject.Text = "Open Recent Project";
+            this.openRecentProject.DropDownOpening += new System.EventHandler(this.openRecentProject_DropDownOpening);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Enabled = false;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
+            this.toolStripMenuItem1.Text = "No Recent Projects";
             // 
             // saveProject
             // 
@@ -1479,5 +1498,7 @@
         private System.Windows.Forms.Timer WheelTimer;
         private System.Windows.Forms.Button DiscardBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem openRecentProject;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }

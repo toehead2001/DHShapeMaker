@@ -3292,6 +3292,7 @@ namespace ShapeMaker
                         resetRotation();
                         resetHistory();
                         canvas.Refresh();
+                        AddToRecents(OFD.FileName);
                     }
                 }
                 catch (Exception ex)
@@ -3338,6 +3339,8 @@ namespace ShapeMaker
                 (paths[paths.Count - 1] as PData).SolidFill = SolidFillMenuItem.Checked;
                 using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
                     ser.Serialize(stream, paths);
+
+                AddToRecents(sfd.FileName);
             }
         }
 
@@ -4036,6 +4039,183 @@ namespace ShapeMaker
             {
                 DrawAverage = false;
                 canvas.Refresh();
+            }
+        }
+        #endregion
+
+        #region Recent Items functions
+        private void AddToRecents(string filePath)
+        {
+            RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            if (settings == null)
+            {
+                Registry.CurrentUser.CreateSubKey(@"Software\PdnDwarves\ShapeMaker").Flush();
+                settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            }
+            string recents = (string)settings.GetValue("RecentProjects", string.Empty);
+
+            if (recents == string.Empty)
+            {
+                recents = filePath;
+            }
+            else
+            {
+                recents = filePath + "|" + recents;
+
+                var paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                List<string> recentsList = new List<string>();
+                foreach (string itemPath in paths)
+                {
+                    bool contains = false;
+                    foreach (string listItem in recentsList)
+                    {
+                        if (listItem.ToLowerInvariant() == itemPath.ToLowerInvariant())
+                        {
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains)
+                    {
+                        recentsList.Add(itemPath);
+                    }
+                }
+
+                int length = Math.Min(8, recentsList.Count);
+                recents = string.Join("|", recentsList.ToArray(), 0, length);
+            }
+
+            settings.SetValue("RecentProjects", recents);
+            settings.Close();
+        }
+
+        private void openRecentProject_DropDownOpening(object sender, EventArgs e)
+        {
+            this.openRecentProject.DropDownItems.Clear();
+
+            RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            if (settings == null)
+            {
+                Registry.CurrentUser.CreateSubKey(@"Software\PdnDwarves\ShapeMaker").Flush();
+                settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            }
+            string recents = (string)settings.GetValue("RecentProjects", string.Empty);
+            settings.Close();
+
+            List<ToolStripItem> recentsList = new List<ToolStripItem>();
+            string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            int count = 1;
+            foreach (string projectPath in paths)
+            {
+                if (!File.Exists(projectPath))
+                    continue;
+
+                ToolStripMenuItem recentItem = new ToolStripMenuItem();
+
+                string menuText = $"&{count} {Path.GetFileName(projectPath)}";
+                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+                try
+                {
+                    ArrayList projectPaths = (ArrayList)ser.Deserialize(File.OpenRead(projectPath));
+
+                    menuText = $"&{count} {(projectPaths[projectPaths.Count - 1] as PData).Meta} ({Path.GetFileName(projectPath)})";
+                }
+                catch
+                {
+                }
+
+                recentItem.Text = menuText;
+                recentItem.ToolTipText = projectPath;
+                recentItem.Click += RecentItem_Click;
+
+                recentsList.Add(recentItem);
+                count++;
+            }
+
+            if (recentsList.Count > 0)
+            {
+                ToolStripSeparator toolStripSeparator = new ToolStripSeparator();
+                recentsList.Add(toolStripSeparator);
+
+                ToolStripMenuItem clearRecents = new ToolStripMenuItem();
+                clearRecents.Text = "&Clear List";
+                clearRecents.Click += ClearRecents_Click;
+                recentsList.Add(clearRecents);
+
+                this.openRecentProject.DropDownItems.AddRange(recentsList.ToArray());
+            }
+            else
+            {
+                ToolStripMenuItem noRecents = new ToolStripMenuItem();
+                noRecents.Text = "No Recent Projects";
+                noRecents.Enabled = false;
+
+                this.openRecentProject.DropDownItems.Add(noRecents);
+            }
+        }
+
+        private void ClearRecents_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear the Open Recent Project list?", "ShapeMaker", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            using (RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true))
+            {
+                if (settings != null)
+                    settings.SetValue("RecentProjects", string.Empty);
+            }
+        }
+
+        private void RecentItem_Click(object sender, EventArgs e)
+        {
+            string projectPath = (sender as ToolStripMenuItem)?.ToolTipText;
+            if (!File.Exists(projectPath))
+            {
+                MessageBox.Show("File not found.\n" + projectPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            try
+            {
+                using (FileStream stream = File.OpenRead(projectPath))
+                {
+                    ArrayList projectPaths = (ArrayList)ser.Deserialize(stream);
+
+                    if (projectPaths.Count == 0)
+                    {
+                        MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (projectPaths.Count > maxPaths)
+                    {
+                        MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    ClearAllPaths();
+
+                    PData documentProps = projectPaths[projectPaths.Count - 1] as PData;
+                    FigureName.Text = documentProps.Meta;
+                    SolidFillMenuItem.Checked = documentProps.SolidFill;
+                    foreach (PData path in projectPaths)
+                    {
+                        Lines.Add(path);
+                        LineList.Items.Add(LineNames[path.LineType]);
+                    }
+
+                    ZoomToFactor(1);
+                    resetRotation();
+                    resetHistory();
+                    canvas.Refresh();
+                    AddToRecents(projectPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
