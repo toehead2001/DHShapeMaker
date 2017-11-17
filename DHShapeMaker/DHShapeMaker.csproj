@@ -85,9 +85,18 @@
       <DependentUpon>BigKnobs.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="EffectPluginConfigDialog.de.resx">
+      <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EffectPluginConfigDialog.fr.resx">
+      <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EffectPluginConfigDialog.resx">
       <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EffectPluginConfigDialog.ru.resx">
+      <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

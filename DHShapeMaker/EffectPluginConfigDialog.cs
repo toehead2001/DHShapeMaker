@@ -93,7 +93,7 @@ namespace ShapeMaker
 
         internal EffectPluginConfigDialog()
         {
-            Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CurrentUICulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
             this.toolStripUndo.Renderer = new ProRenderer(Color.White, Color.Silver);
