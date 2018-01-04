@@ -96,14 +96,28 @@ namespace ShapeMaker
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
-            this.toolStripUndo.Renderer = new ProRenderer(Color.White, Color.Silver);
-            this.toolStripBlack.Renderer = new ProRenderer(LineColorsLight[0], LineColors[0]);
-            this.toolStripBlue.Renderer = new ProRenderer(LineColorsLight[2], LineColors[2]);
-            this.toolStripGreen.Renderer = new ProRenderer(LineColorsLight[3], LineColors[3]);
-            this.toolStripYellow.Renderer = new ProRenderer(LineColorsLight[4], LineColors[4]);
-            this.toolStripPurple.Renderer = new ProRenderer(LineColorsLight[5], LineColors[5]);
-            this.toolStripRed.Renderer = new ProRenderer(LineColorsLight[1], LineColors[1]);
-            this.toolStripOptions.Renderer = new ProRenderer(Color.White, Color.Silver);
+            // Theming
+            PdnTheme.ForeColor = this.ForeColor;
+            PdnTheme.BackColor = this.BackColor;
+
+            this.menuStrip1.Renderer = PdnTheme.Renderer;
+            this.statusStrip1.Renderer = PdnTheme.Renderer;
+
+            this.toolStripUndo.Renderer = new ThemeRenderer(Color.White, Color.Silver);
+            this.toolStripBlack.Renderer = new ThemeRenderer(LineColorsLight[0], LineColors[0]);
+            this.toolStripBlue.Renderer = new ThemeRenderer(LineColorsLight[2], LineColors[2]);
+            this.toolStripGreen.Renderer = new ThemeRenderer(LineColorsLight[3], LineColors[3]);
+            this.toolStripYellow.Renderer = new ThemeRenderer(LineColorsLight[4], LineColors[4]);
+            this.toolStripPurple.Renderer = new ThemeRenderer(LineColorsLight[5], LineColors[5]);
+            this.toolStripRed.Renderer = new ThemeRenderer(LineColorsLight[1], LineColors[1]);
+            this.toolStripOptions.Renderer = new ThemeRenderer(Color.White, Color.Silver);
+
+            LineList.ForeColor = PdnTheme.ForeColor;
+            LineList.BackColor = PdnTheme.BackColor;
+            FigureName.ForeColor = PdnTheme.ForeColor;
+            FigureName.BackColor = PdnTheme.BackColor;
+            OutputScale.ForeColor = PdnTheme.ForeColor;
+            OutputScale.BackColor = PdnTheme.BackColor;
         }
 
         #region Effect Token functions

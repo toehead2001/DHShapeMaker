@@ -435,6 +435,7 @@
             // 
             resources.ApplyResources(this.AddBtn, "AddBtn");
             this.AddBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.AddBtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.TabStop = false;
             this.toolTip1.SetToolTip(this.AddBtn, resources.GetString("AddBtn.ToolTip"));
@@ -453,6 +454,7 @@
             // 
             resources.ApplyResources(this.DeselectBtn, "DeselectBtn");
             this.DeselectBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.DeselectBtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.DeselectBtn.Name = "DeselectBtn";
             this.DeselectBtn.TabStop = false;
             this.toolTip1.SetToolTip(this.DeselectBtn, resources.GetString("DeselectBtn.ToolTip"));
@@ -484,6 +486,7 @@
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonOK.Name = "buttonOK";
             this.toolTip1.SetToolTip(this.buttonOK, resources.GetString("buttonOK.ToolTip"));
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -1029,6 +1032,7 @@
             // DiscardBtn
             // 
             resources.ApplyResources(this.DiscardBtn, "DiscardBtn");
+            this.DiscardBtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.DiscardBtn.Name = "DiscardBtn";
             this.DiscardBtn.TabStop = false;
             this.DiscardBtn.UseVisualStyleBackColor = true;
@@ -1081,10 +1085,12 @@
             this.Controls.Add(this.toolStripBlue);
             this.Controls.Add(this.toolStripBlack);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = true;
             this.Name = "EffectPluginConfigDialog";
+            this.UseAppThemeColors = true;
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             this.Resize += new System.EventHandler(this.EffectPluginConfigDialog_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
