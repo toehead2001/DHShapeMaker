@@ -1160,7 +1160,7 @@ namespace ShapeMaker
             PictureBox s = (PictureBox)sender;
 
             int i = clickedNub;
-            int ptype = getNubType(clickedNub);
+            int nubType = getNubType(clickedNub);
 
             int eX = e.X,
                 eY = e.Y;
@@ -1251,17 +1251,17 @@ namespace ShapeMaker
                                 #region cubic
 
                                 oldp = canvasPoints[i];
-                                if (ptype == 0)
+                                if (nubType == 0)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if (canvasPoints.Length > 1)
                                         canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                 }
-                                else if (ptype == 1 || ptype == 2)
+                                else if (nubType == 1 || nubType == 2)
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
-                                else if (ptype == 3)
+                                else if (nubType == 3)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
@@ -1279,23 +1279,23 @@ namespace ShapeMaker
                                 #region Quadratic
 
                                 oldp = canvasPoints[i];
-                                if (ptype == 0)
+                                if (nubType == 0)
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
-                                else if (ptype == 1)
+                                else if (nubType == 1)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if ((i + 1) < canvasPoints.Length)
                                         canvasPoints[i + 1] = canvasPoints[i];
                                 }
-                                else if (ptype == 2)
+                                else if (nubType == 2)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if ((i - 1) > 0)
                                         canvasPoints[i - 1] = canvasPoints[i];
                                 }
-                                else if (ptype == 3)
+                                else if (nubType == 3)
                                 {
                                     if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                     {
@@ -1325,14 +1325,14 @@ namespace ShapeMaker
                                 #region smooth Cubic
 
                                 oldp = canvasPoints[i];
-                                if (ptype == 0)
+                                if (nubType == 0)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if (canvasPoints.Length > 1)
                                         canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                     canvasPoints[1] = canvasPoints[0];
                                 }
-                                else if (ptype == 1)
+                                else if (nubType == 1)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if (i > 1)
@@ -1344,7 +1344,7 @@ namespace ShapeMaker
                                         canvasPoints[1] = canvasPoints[0];
                                     }
                                 }
-                                else if (ptype == 2)
+                                else if (nubType == 2)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     if (i < canvasPoints.Length - 2)
@@ -1352,7 +1352,7 @@ namespace ShapeMaker
                                         canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
                                     }
                                 }
-                                else if (ptype == 3)
+                                else if (nubType == 3)
                                 {
                                     canvasPoints[i] = mapPoint;
                                     canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
@@ -1368,11 +1368,11 @@ namespace ShapeMaker
                                 #region Smooth Quadratic
 
                                 oldp = canvasPoints[i];
-                                if (ptype == 0)
+                                if (nubType == 0)
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
-                                else if (ptype == 3)
+                                else if (nubType == 3)
                                 {
                                     canvasPoints[i] = mapPoint;
                                 }
@@ -1396,7 +1396,7 @@ namespace ShapeMaker
 
                         PointF oldp = canvasPoints[i];
 
-                        if (ptype == 0) //special quadratic
+                        if (nubType == 0) //special quadratic
                         {
                             switch (lt)
                             {
