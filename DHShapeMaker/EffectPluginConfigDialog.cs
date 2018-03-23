@@ -846,11 +846,11 @@ namespace ShapeMaker
                     {
                         PanFlag = true;
 
-                        if (canvas.Width > viewport.ClientRectangle.Width && canvas.Height > viewport.ClientRectangle.Height)
+                        if (canvas.Width > viewport.ClientSize.Width && canvas.Height > viewport.ClientSize.Height)
                             canvas.Cursor = Cursors.NoMove2D;
-                        else if (canvas.Width > viewport.ClientRectangle.Width)
+                        else if (canvas.Width > viewport.ClientSize.Width)
                             canvas.Cursor = Cursors.NoMoveHoriz;
-                        else if (canvas.Height > viewport.ClientRectangle.Height)
+                        else if (canvas.Height > viewport.ClientSize.Height)
                             canvas.Cursor = Cursors.NoMoveVert;
                         else
                             PanFlag = false;
@@ -1126,11 +1126,11 @@ namespace ShapeMaker
                 {
                     PanFlag = true;
 
-                    if (canvas.Width > viewport.ClientRectangle.Width && canvas.Height > viewport.ClientRectangle.Height)
+                    if (canvas.Width > viewport.ClientSize.Width && canvas.Height > viewport.ClientSize.Height)
                         canvas.Cursor = Cursors.NoMove2D;
-                    else if (canvas.Width > viewport.ClientRectangle.Width)
+                    else if (canvas.Width > viewport.ClientSize.Width)
                         canvas.Cursor = Cursors.NoMoveHoriz;
-                    else if (canvas.Height > viewport.ClientRectangle.Height)
+                    else if (canvas.Height > viewport.ClientSize.Height)
                         canvas.Cursor = Cursors.NoMoveVert;
                     else
                         PanFlag = false;
@@ -2452,7 +2452,7 @@ namespace ShapeMaker
                         errornum = 3;
                         errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
-                        x = x / canvas.ClientRectangle.Height;
+                        x = x / canvas.ClientSize.Height;
                         LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
@@ -2462,7 +2462,7 @@ namespace ShapeMaker
                         errornum = 4;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        y = y / canvas.ClientRectangle.Height;
+                        y = y / canvas.ClientSize.Height;
                         LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
@@ -3325,7 +3325,7 @@ namespace ShapeMaker
             }
 
             string TMP = string.Empty;
-            bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            bool r = getPathData((int)(OutputScale.Value * canvas.ClientSize.Width / 100), (int)(OutputScale.Value * canvas.ClientSize.Height / 100), out TMP);
             if (!r)
             {
                 MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3368,7 +3368,7 @@ namespace ShapeMaker
 
             ZoomToFactor(1);
             string TMP = string.Empty;
-            bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            bool r = getPathData((int)(OutputScale.Value * canvas.ClientSize.Width / 100), (int)(OutputScale.Value * canvas.ClientSize.Height / 100), out TMP);
             if (!r)
             {
                 MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3409,7 +3409,7 @@ namespace ShapeMaker
             }
 
             string TMP = string.Empty;
-            bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            bool r = getPGPathData((int)(OutputScale.Value * canvas.ClientSize.Width / 100), (int)(OutputScale.Value * canvas.ClientSize.Height / 100), out TMP);
             if (!r)
             {
                 MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3531,7 +3531,7 @@ namespace ShapeMaker
 
             ZoomToFactor(1);
             string TMP = string.Empty;
-            bool r = getPathData((int)(OutputScale.Value * canvas.ClientRectangle.Width / 100), (int)(OutputScale.Value * canvas.ClientRectangle.Height / 100), out TMP);
+            bool r = getPathData((int)(OutputScale.Value * canvas.ClientSize.Width / 100), (int)(OutputScale.Value * canvas.ClientSize.Height / 100), out TMP);
             if (!r)
             {
                 MessageBox.Show("Copy Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
