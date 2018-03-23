@@ -934,7 +934,7 @@ namespace ShapeMaker
                         canvas.Refresh();
                         #endregion //delete
                     }
-                    else if (clickedNub == -1) //add new
+                    else //add new
                     {
                         #region add
                         int len = canvasPoints.Length;
