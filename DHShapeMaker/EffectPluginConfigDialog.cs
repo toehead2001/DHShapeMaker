@@ -2242,21 +2242,20 @@ namespace ShapeMaker
             return true;
         }
 
-        private string scrubNums(string strPath)
+        private static string scrubNums(string strPath)
         {
-            strPath = strPath.ToLower();
-            strPath = strPath.Replace(',', ' ');
-            string command = "fmlacsqthvz";
-            string number = "e.-0123456789";
+            const string command = "fmlacsqthvz";
+            const string number = "e.-0123456789";
             string TMP = string.Empty;
             bool alpha = false;
             bool blank = false;
 
-            for (int i = 0; i < strPath.Length; i++)
+            char[] strChars = strPath.ToLower().Replace(',', ' ').ToCharArray();
+            for (int i = 0; i < strChars.Length; i++)
             {
-                string mychar = strPath.Substring(i, 1);
-                int isnumber = number.IndexOf(mychar, StringComparison.Ordinal);
-                int iscommand = command.IndexOf(mychar, StringComparison.Ordinal);
+                char mychar = strChars[i];
+                bool isNumber = number.IndexOf(mychar) > -1;
+                bool isCommand = command.IndexOf(mychar) > -1;
 
 
                 if (TMP.Equals(string.Empty))
@@ -2265,30 +2264,30 @@ namespace ShapeMaker
                     alpha = true;
                     blank = false;
                 }
-                else if (mychar.Equals(" "))
+                else if (mychar.Equals(' '))
                 {
                     alpha = true;
                     blank = true;
                 }
-                else if (iscommand > -1 && (!alpha || blank))
+                else if (isCommand && (!alpha || blank))
                 {
                     TMP += "," + mychar;
                     alpha = true;
                     blank = false;
                 }
-                else if (iscommand > -1)
+                else if (isCommand)
                 {
                     TMP += mychar;
                     alpha = true;
                     blank = false;
                 }
-                else if (isnumber > -1 && (alpha || blank))
+                else if (isNumber && (alpha || blank))
                 {
                     TMP += "," + mychar;
                     alpha = false;
                     blank = false;
                 }
-                else if (isnumber > -1)
+                else if (isNumber)
                 {
                     TMP += mychar;
                     alpha = false;
