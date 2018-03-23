@@ -4017,10 +4017,6 @@ namespace ShapeMaker
                 KeyTrak = false;
                 canvas.Refresh();
             }
-            else
-            {
-                KeyTrak = false;
-            }
 
             if (countflag || canvasPoints.Length > 0 || LineList.Items.Count > 0)
             {
