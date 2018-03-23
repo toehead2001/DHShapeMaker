@@ -1772,21 +1772,26 @@ namespace ShapeMaker
 
         private void CubicAdjust()
         {
-            PointF mid4 = new PointF();
-            PointF mid3 = new PointF();
-
-            PointF[] knots = new PointF[(int)Math.Ceiling((decimal)canvasPoints.Length / 3)];
-            for (int ri = 0; ri < knots.Length; ri++) knots[ri] = canvasPoints[ri * 3];
+            PointF[] knots = new PointF[(int)Math.Ceiling(canvasPoints.Length / 3f)];
+            for (int ri = 0; ri < knots.Length; ri++)
+                knots[ri] = canvasPoints[ri * 3];
 
             int n = knots.Length - 1;
 
             if (n == 1)
             {
-                mid3.X = (2 * knots[0].X + knots[1].X) / 3;
-                mid3.Y = (2 * knots[0].Y + knots[1].Y) / 3;
+                PointF mid3 = new PointF
+                {
+                    X = (2 * knots[0].X + knots[1].X) / 3,
+                    Y = (2 * knots[0].Y + knots[1].Y) / 3
+                };
 
-                mid4.X = 2 * mid3.X - knots[0].X;
-                mid4.Y = 2 * mid3.Y - knots[0].Y;
+                PointF mid4 = new PointF
+                {
+                    X = 2 * mid3.X - knots[0].X,
+                    Y = 2 * mid3.Y - knots[0].Y
+                };
+
                 canvasPoints[1] = mid3;
                 canvasPoints[2] = mid4;
             }
@@ -1810,15 +1815,19 @@ namespace ShapeMaker
                     canvasPoints[ri * 3 + 1] = xy[ri];
                     if (ri < (n - 1))
                     {
-                        canvasPoints[ri * 3 + 2] =
-                            new PointF(2f * knots[1 + ri].X - xy[1 + ri].X,
-                                2f * knots[1 + ri].Y - xy[1 + ri].Y);
+                        canvasPoints[ri * 3 + 2] = new PointF
+                        {
+                            X = 2f * knots[1 + ri].X - xy[1 + ri].X,
+                            Y = 2f * knots[1 + ri].Y - xy[1 + ri].Y
+                        };
                     }
                     else
                     {
-                        canvasPoints[ri * 3 + 2] =
-                            new PointF((knots[n].X + xy[n - 1].X) / 2,
-                                (knots[n].Y + xy[n - 1].Y) / 2);
+                        canvasPoints[ri * 3 + 2] = new PointF
+                        {
+                            X = (knots[n].X + xy[n - 1].X) / 2,
+                            Y = (knots[n].Y + xy[n - 1].Y) / 2
+                        };
                     }
                 }
             }
