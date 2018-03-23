@@ -1155,8 +1155,6 @@ namespace ShapeMaker
         {
             StatusBarMouseLocation(e.X, e.Y);
 
-            PictureBox s = (PictureBox)sender;
-
             int i = clickedNub;
             int nubType = getNubType(clickedNub);
 
@@ -1168,13 +1166,13 @@ namespace ShapeMaker
                 eY = (int)(Math.Floor((double)(5 + eY) / 10) * 10);
             }
 
-            if (!s.ClientRectangle.Contains(eX, eY))
+            if (!canvas.ClientRectangle.Contains(eX, eY))
             {
-                eX = eX.Clamp(s.ClientRectangle.Left, s.ClientRectangle.Right);
-                eY = eY.Clamp(s.ClientRectangle.Top, s.ClientRectangle.Bottom);
+                eX = eX.Clamp(canvas.ClientRectangle.Left, canvas.ClientRectangle.Right);
+                eY = eY.Clamp(canvas.ClientRectangle.Top, canvas.ClientRectangle.Bottom);
             }
 
-            PointF mapPoint = new PointF((float)eX / s.ClientSize.Width, (float)eY / s.ClientSize.Height);
+            PointF mapPoint = PointToCanvasCoord(eX, eY);
             PathType lt = getPathType();
 
             try
