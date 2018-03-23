@@ -819,18 +819,16 @@ namespace ShapeMaker
                     LineList.TopIndex = LineList.SelectedIndex;
             }
 
-            PictureBox s = (PictureBox)sender;
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
             RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
 
-            MoveStart = new PointF((float)e.X / s.ClientSize.Width, (float)e.Y / s.ClientSize.Height);
+            MoveStart = PointToCanvasCoord(e.X, e.Y);
 
             //identify node selected
             clickedNub = -1;
             for (int i = 0; i < canvasPoints.Length; i++)
             {
-                PointF p = new PointF(canvasPoints[i].X * s.ClientSize.Width,
-                    canvasPoints[i].Y * s.ClientSize.Height);
+                PointF p = CanvasCoordToPoint(canvasPoints[i].X, canvasPoints[i].Y);
                 if (hit.Contains(p))
                 {
                     clickedNub = i;
@@ -956,7 +954,7 @@ namespace ShapeMaker
                             eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                         }
                         StatusBarNubLocation(eX, eY);
-                        PointF clickedPoint = new PointF((float)eX / s.ClientSize.Width, (float)eY / s.ClientSize.Height);
+                        PointF clickedPoint = PointToCanvasCoord(eX, eY);
                         if (len == 0)//first point
                         {
                             Array.Resize(ref canvasPoints, len + 1);
@@ -1108,7 +1106,7 @@ namespace ShapeMaker
 
                             for (int i = 0; i < canvasPoints.Length; i++)
                             {
-                                PointF nub = new PointF(canvasPoints[i].X * s.ClientSize.Width, canvasPoints[i].Y * s.ClientSize.Height);
+                                PointF nub = CanvasCoordToPoint(canvasPoints[i].X, canvasPoints[i].Y);
                                 if (bhit.Contains(nub))
                                 {
                                     StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
@@ -1120,7 +1118,7 @@ namespace ShapeMaker
                     else
                     {
                         setUndo();
-                        PointF nub = new PointF(canvasPoints[clickedNub].X * s.ClientSize.Width, canvasPoints[clickedNub].Y * s.ClientSize.Height);
+                        PointF nub = CanvasCoordToPoint(canvasPoints[clickedNub].X, canvasPoints[clickedNub].Y);
                         StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
                     }
                 }
@@ -1899,9 +1897,7 @@ namespace ShapeMaker
                                 break;
                         }
 
-                        PointF p = new PointF(tmp[j].X * canvas.ClientSize.Width,
-                        tmp[j].Y * canvas.ClientSize.Height);
-
+                        PointF p = CanvasCoordToPoint(tmp[j].X, tmp[j].Y);
                         if (hit.Contains(p))
                         {
                             result = i;
@@ -2364,7 +2360,7 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         HomePos = LastPos;
                         break;
 
@@ -2376,7 +2372,7 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
                     case "s":
@@ -2385,7 +2381,7 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         len = pts.Length;
                         Array.Resize(ref pts, len + 1);
                         ptype = getNubType(len);
@@ -2417,7 +2413,7 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         len = pts.Length;
                         Array.Resize(ref pts, len + 3);
                         pts[len + 2] = LastPos;
@@ -2439,7 +2435,7 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         //
                         ptype = getNubType(pts.Length - 1);
@@ -2457,7 +2453,7 @@ namespace ShapeMaker
                         errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorflagx) break;
                         x = x / canvas.ClientRectangle.Height;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
                     case "v":
@@ -2467,7 +2463,7 @@ namespace ShapeMaker
                         errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
                         y = y / canvas.ClientRectangle.Height;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         break;
                     case "a":
@@ -2479,11 +2475,10 @@ namespace ShapeMaker
                         if (!errorflagx) break;
                         errorflagy = float.TryParse(str[i + 6], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorflagy) break;
-                        LastPos = pbAdjust(x, y);
+                        LastPos = PointToCanvasCoord(x, y);
                         pts[ptbase + 4] = LastPos; //ENDPOINT
 
-                        PointF From = new PointF(pts[ptbase].X * canvas.ClientRectangle.Width,
-                            pts[ptbase].Y * canvas.ClientRectangle.Height);
+                        PointF From = CanvasCoordToPoint(pts[ptbase].X, pts[ptbase].Y);
                         PointF To = new PointF(x, y);
 
                         PointF mid = pointAverage(From, To);
@@ -2535,12 +2530,17 @@ namespace ShapeMaker
         {
             float x = (float)Math.Cos(rotation) * distance;
             float y = (float)Math.Sin(rotation) * distance;
-            return pbAdjust(center.X + x, center.Y + y);
+            return PointToCanvasCoord(center.X + x, center.Y + y);
         }
 
-        private PointF pbAdjust(float x, float y)
+        private PointF PointToCanvasCoord(float x, float y)
         {
             return new PointF(x / canvas.ClientSize.Width, y / canvas.ClientSize.Height);
+        }
+
+        private PointF CanvasCoordToPoint(float x, float y)
+        {
+            return new PointF(x * canvas.ClientSize.Width, y * canvas.ClientSize.Height);
         }
 
         private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
