@@ -153,9 +153,6 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1141, 17</value>
   </metadata>
-  <data name="menuStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
   </data>
@@ -355,7 +352,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 24</value>
+    <value>850, 24</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -388,7 +385,7 @@
     <value>NoControl</value>
   </data>
   <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 496</value>
+    <value>549, 520</value>
   </data>
   <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 17</value>
@@ -424,7 +421,7 @@
     <value>NoControl</value>
   </data>
   <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 543</value>
+    <value>726, 567</value>
   </data>
   <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 17</value>
@@ -460,7 +457,7 @@
     <value>NoControl</value>
   </data>
   <data name="AddBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 236</value>
+    <value>720, 260</value>
   </data>
   <data name="AddBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 36</value>
@@ -493,7 +490,7 @@
     <value>Microsoft Sans Serif, 6.75pt</value>
   </data>
   <data name="FigureName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 402</value>
+    <value>726, 426</value>
   </data>
   <data name="FigureName.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 18</value>
@@ -529,7 +526,7 @@
     <value>NoControl</value>
   </data>
   <data name="DeselectBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 320</value>
+    <value>720, 344</value>
   </data>
   <data name="DeselectBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 36</value>
@@ -562,7 +559,7 @@
     <value>Microsoft Sans Serif, 6.75pt</value>
   </data>
   <data name="OutputScale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 444</value>
+    <value>726, 468</value>
   </data>
   <data name="OutputScale.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 18</value>
@@ -596,7 +593,7 @@ and Output </value>
     <value>NoControl</value>
   </data>
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 501</value>
+    <value>720, 525</value>
   </data>
   <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 36</value>
@@ -632,7 +629,7 @@ and Output </value>
     <value>14</value>
   </data>
   <data name="LineList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 66</value>
+    <value>541, 90</value>
   </data>
   <data name="LineList.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 326</value>
@@ -666,7 +663,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="upList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 398</value>
+    <value>541, 422</value>
   </data>
   <data name="upList.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 36</value>
@@ -699,7 +696,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="DNList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>579, 398</value>
+    <value>579, 422</value>
   </data>
   <data name="DNList.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 36</value>
@@ -732,7 +729,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="removePathButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>655, 398</value>
+    <value>655, 422</value>
   </data>
   <data name="removePathButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 36</value>
@@ -765,7 +762,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="clonePathButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>617, 398</value>
+    <value>617, 422</value>
   </data>
   <data name="clonePathButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 36</value>
@@ -798,7 +795,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="opacitySlider.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 467</value>
+    <value>541, 491</value>
   </data>
   <data name="opacitySlider.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 23</value>
@@ -825,7 +822,7 @@ Double Click to Rename</value>
     <value>Top, Right</value>
   </data>
   <data name="RotationKnob.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 66</value>
+    <value>726, 90</value>
   </data>
   <data name="RotationKnob.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>89, 89</value>
@@ -853,7 +850,7 @@ Deselect to Rotate all</value>
     <value>14</value>
   </data>
   <data name="viewport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 46</value>
+    <value>7, 70</value>
   </data>
   <data name="viewport.Size" type="System.Drawing.Size, System.Drawing">
     <value>502, 502</value>
@@ -883,7 +880,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>735, 384</value>
+    <value>735, 408</value>
   </data>
   <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -922,7 +919,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 428</value>
+    <value>726, 452</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -961,7 +958,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 451</value>
+    <value>552, 475</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -1000,7 +997,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 50</value>
+    <value>748, 74</value>
   </data>
   <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -1114,7 +1111,7 @@ Deselect to Rotate all</value>
     <value>Zoom 1x</value>
   </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 568</value>
+    <value>0, 592</value>
   </data>
   <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>850, 22</value>
@@ -1144,7 +1141,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>586, 50</value>
+    <value>586, 74</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 13</value>
@@ -1177,7 +1174,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>752, 177</value>
+    <value>752, 201</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 13</value>
@@ -1234,7 +1231,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripBlack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 1</value>
+    <value>92, 24</value>
   </data>
   <data name="toolStripBlack.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 39</value>
@@ -1291,7 +1288,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripBlue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 1</value>
+    <value>177, 24</value>
   </data>
   <data name="toolStripBlue.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 39</value>
@@ -1336,7 +1333,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripGreen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>387, 1</value>
+    <value>262, 24</value>
   </data>
   <data name="toolStripGreen.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 39</value>
@@ -1381,7 +1378,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripYellow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>434, 1</value>
+    <value>309, 24</value>
   </data>
   <data name="toolStripYellow.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 39</value>
@@ -1426,7 +1423,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripPurple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 1</value>
+    <value>356, 24</value>
   </data>
   <data name="toolStripPurple.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 39</value>
@@ -1501,7 +1498,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripRed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>528, 1</value>
+    <value>403, 24</value>
   </data>
   <data name="toolStripRed.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 39</value>
@@ -1582,7 +1579,7 @@ Deselect to Rotate all</value>
     <value>Close Contiguous Path (Ctrl+Shift+2)</value>
   </data>
   <data name="toolStripOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>689, 1</value>
+    <value>564, 24</value>
   </data>
   <data name="toolStripOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 39</value>
@@ -1636,7 +1633,7 @@ Deselect to Rotate all</value>
     <value>6, 39</value>
   </data>
   <data name="toolStripUndo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>132, 1</value>
+    <value>7, 24</value>
   </data>
   <data name="toolStripUndo.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 39</value>
@@ -1669,7 +1666,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="scaleSlider.Location" type="System.Drawing.Point, System.Drawing">
-    <value>718, 193</value>
+    <value>718, 217</value>
   </data>
   <data name="scaleSlider.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -1699,7 +1696,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 519</value>
+    <value>549, 543</value>
   </data>
   <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 17</value>
@@ -1732,7 +1729,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 542</value>
+    <value>549, 566</value>
   </data>
   <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 17</value>
@@ -1759,7 +1756,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="verScrollBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>509, 46</value>
+    <value>509, 70</value>
   </data>
   <data name="verScrollBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>17, 502</value>
@@ -1786,7 +1783,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="horScrollBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 548</value>
+    <value>7, 572</value>
   </data>
   <data name="horScrollBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>502, 17</value>
@@ -1819,7 +1816,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="DiscardBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 278</value>
+    <value>720, 302</value>
   </data>
   <data name="DiscardBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 36</value>
@@ -1855,7 +1852,7 @@ Deselect to Rotate all</value>
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>850, 590</value>
+    <value>850, 614</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt</value>
@@ -1867,7 +1864,7 @@ Deselect to Rotate all</value>
     <value>5, 5, 5, 5</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>866, 628</value>
+    <value>866, 652</value>
   </data>
   <data name="&gt;&gt;timer1.Name" xml:space="preserve">
     <value>timer1</value>
