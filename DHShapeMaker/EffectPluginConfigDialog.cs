@@ -87,6 +87,7 @@ namespace ShapeMaker
         bool WheelScaleOrRotate = false;
         bool DrawAverage = false;
         PointF AveragePoint = new PointF(0.5f, 0.5f);
+        Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
         internal EffectPluginConfigDialog()
         {
@@ -216,6 +217,25 @@ namespace ShapeMaker
             adjustForWindowSize();
 
             statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
+
+            // Store hotkeys in a Dictionary
+            foreach (var control in this.Controls)
+            {
+                if (control is ToolStrip toolStrip)
+                {
+                    foreach (var subControl in toolStrip.Items)
+                    {
+                        if (subControl is ToolStripButtonWithKeys button)
+                        {
+                            Keys keys = button.ShortcutKeys;
+                            if (keys != Keys.None && !hotKeys.ContainsKey(keys))
+                            {
+                                hotKeys.Add(keys, button);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private Size getDpiSize(Size size)
@@ -273,22 +293,17 @@ namespace ShapeMaker
                 return true;
             }
 
-            foreach (var control in this.Controls)
+            if (hotKeys.ContainsKey(keyData))
             {
-                if (!(control is ToolStrip))
-                    continue;
+                ToolStripButtonWithKeys button = hotKeys[keyData];
 
-                foreach (var subControl in (control as ToolStrip).Items)
+                if (button.Enabled)
                 {
-                    if (subControl is ToolStripButtonWithKeys button)
-                    {
-                        if (button.Enabled && keyData == button.ShortcutKeys)
-                        {
-                            button.PerformClick();
-                            return true;
-                        }
-                    }
+                    button.PerformClick();
+                    return true;
                 }
+
+                return false;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
