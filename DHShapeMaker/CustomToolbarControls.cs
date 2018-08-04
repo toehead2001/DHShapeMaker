@@ -169,7 +169,7 @@ namespace ShapeMaker
             set
             {
                 foreColor = value;
-                themeRenderer = new ThemeRenderer();
+                themeRenderer = null;
             }
         }
         internal static Color BackColor
@@ -181,13 +181,18 @@ namespace ShapeMaker
             set
             {
                 backColor = value;
-                themeRenderer = new ThemeRenderer();
+                themeRenderer = null;
             }
         }
         internal static ThemeRenderer Renderer
         {
             get
             {
+                if (themeRenderer == null)
+                {
+                    themeRenderer = new ThemeRenderer();
+                }
+
                 return themeRenderer;
             }
         }
