@@ -289,7 +289,7 @@ namespace ShapeMaker
 
             if (keyData == Keys.Escape)
             {
-                Deselect_Click(DeselectBtn, new EventArgs());
+                Deselect();
                 return true;
             }
 
@@ -1753,6 +1753,16 @@ namespace ShapeMaker
                 Array.Resize(ref canvasPoints, 0);
             }
 
+            canvas.Refresh();
+        }
+
+        private void Deselect()
+        {
+            if (LineList.SelectedIndex == -1 && canvasPoints.Length > 1)
+                setUndo();
+
+            canvasPoints = new PointF[0];
+            LineList.SelectedIndex = -1;
             canvas.Refresh();
         }
 
@@ -3842,12 +3852,7 @@ namespace ShapeMaker
 
         private void Deselect_Click(object sender, EventArgs e)
         {
-            if (LineList.SelectedIndex == -1 && canvasPoints.Length > 1)
-                setUndo();
-
-            canvasPoints = new PointF[0];
-            LineList.SelectedIndex = -1;
-            canvas.Refresh();
+            Deselect();
         }
 
         private void ApplyBtn_Click(object sender, EventArgs e)
