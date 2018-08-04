@@ -557,7 +557,7 @@
             this.RotationKnob.DisabledDialImage = global::ShapeMaker.Properties.Resources.KnobPos2;
             this.RotationKnob.Name = "RotationKnob";
             this.toolTip1.SetToolTip(this.RotationKnob, resources.GetString("RotationKnob.ToolTip"));
-            this.RotationKnob.ValueChanged += new ShapeMaker.BigKnobs.ValueChangedEventHandler(this.RotationKnob_ValueChanged);
+            this.RotationKnob.ValueChanged += new System.EventHandler(this.RotationKnob_ValueChanged);
             this.RotationKnob.Leave += new System.EventHandler(this.EndWheeling);
             this.RotationKnob.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseDown);
             this.RotationKnob.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseUp);

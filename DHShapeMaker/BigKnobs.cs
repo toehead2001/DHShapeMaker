@@ -29,7 +29,7 @@ namespace ShapeMaker
         {
             get
             {
-                return adjustment();
+                return rtate * (maxvalue - minvalue) / span + minvalue;
             }
             set
             {
@@ -151,13 +151,11 @@ namespace ShapeMaker
         public new Color ForeColor { get; set; }
         #endregion
 
-        public delegate void ValueChangedEventHandler(object sender, float e);
         [Category("Action")]
-        public event ValueChangedEventHandler ValueChanged;
-
-        protected void OnValueChanged(float e)
+        public event EventHandler ValueChanged;
+        protected void OnValueChanged()
         {
-            this.ValueChanged?.Invoke(this, e);
+            this.ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -177,7 +175,7 @@ namespace ShapeMaker
                 return;
 
             rtating = false;
-            OnValueChanged(adjustment());
+            OnValueChanged();
             this.Refresh();
         }
 
@@ -210,7 +208,7 @@ namespace ShapeMaker
             rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
 
             touchpoint = movepoint;
-            OnValueChanged(adjustment());
+            OnValueChanged();
             this.Refresh();
         }
 
@@ -235,13 +233,8 @@ namespace ShapeMaker
 
             rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
 
-            OnValueChanged(adjustment());
+            OnValueChanged();
             this.Refresh();
-        }
-
-        private float adjustment()
-        {
-            return rtate * (maxvalue - minvalue) / span + minvalue;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -300,7 +293,7 @@ namespace ShapeMaker
             }
 
             rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
-            OnValueChanged(adjustment());
+            OnValueChanged();
             this.Refresh();
         }
 

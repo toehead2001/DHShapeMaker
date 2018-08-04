@@ -1613,12 +1613,12 @@ namespace ShapeMaker
             lastRot = 180;
         }
 
-        private void RotationKnob_ValueChanged(object sender, float e)
+        private void RotationKnob_ValueChanged(object sender, EventArgs e)
         {
-            toolTip1.SetToolTip(RotationKnob, $"{e - 180f:0.0}\u00B0");
+            toolTip1.SetToolTip(RotationKnob, $"{RotationKnob.Value - 180f:0.0}\u00B0");
 
-            double rad = (lastRot - e) * Math.PI / 180;
-            lastRot = e;
+            double rad = (lastRot - RotationKnob.Value) * Math.PI / 180;
+            lastRot = RotationKnob.Value;
 
 
             if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
