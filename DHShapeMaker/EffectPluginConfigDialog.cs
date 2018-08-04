@@ -78,7 +78,7 @@ namespace ShapeMaker
         private readonly List<PData> lines = new List<PData>();
         private bool panFlag = false;
         private bool canScrollZoom = false;
-        private float dpi = 1;
+        private static float dpiScale = 1;
         private Control hadFocus;
         private bool isNewPath = true;
         private int canvasBaseSize;
@@ -158,7 +158,7 @@ namespace ShapeMaker
         #region Form functions
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
-            dpi = this.AutoScaleDimensions.Width / 96f;
+            dpiScale = this.DeviceDpi / 96f;
             canvasBaseSize = this.canvas.Width;
 
             setTraceImage();
@@ -238,18 +238,18 @@ namespace ShapeMaker
             }
         }
 
-        private Size getDpiSize(Size size)
+        private static Size getDpiSize(Size size)
         {
             return new Size
             {
-                Width = (int)Math.Round(size.Width * dpi),
-                Height = (int)Math.Round(size.Height * dpi)
+                Width = (int)Math.Round(size.Width * dpiScale),
+                Height = (int)Math.Round(size.Height * dpiScale)
             };
         }
 
-        private int getDpiSize(int dimension)
+        private static int getDpiSize(int dimension)
         {
-            return (int)Math.Round(dimension * dpi);
+            return (int)Math.Round(dimension * dpiScale);
         }
 
         private void EffectPluginConfigDialog_Resize(object sender, EventArgs e)
@@ -259,8 +259,8 @@ namespace ShapeMaker
 
         private void adjustForWindowSize()
         {
-            viewport.Width = LineList.Left - viewport.Left - (int)Math.Round(32 * dpi);
-            viewport.Height = statusStrip1.Top - viewport.Top - (int)Math.Round(20 * dpi);
+            viewport.Width = LineList.Left - viewport.Left - getDpiSize(32);
+            viewport.Height = statusStrip1.Top - viewport.Top - getDpiSize(20);
 
             horScrollBar.Top = viewport.Bottom;
             horScrollBar.Width = viewport.Width;
@@ -1917,14 +1917,14 @@ namespace ShapeMaker
         private void StatusBarMouseLocation(int x, int y)
         {
             int zoomFactor = canvas.Width / canvasBaseSize;
-            statusLabelMousePos.Text = $"{Math.Round(x / (float)zoomFactor / dpi)}, {Math.Round(y / (float)zoomFactor / dpi)}";
+            statusLabelMousePos.Text = $"{Math.Round(x / (float)zoomFactor / dpiScale)}, {Math.Round(y / (float)zoomFactor / dpiScale)}";
             statusStrip1.Refresh();
         }
 
         private void StatusBarNubLocation(int x, int y)
         {
             int zoomFactor = canvas.Width / canvasBaseSize;
-            statusLabelNubPos.Text = $"{Math.Round(x / (float)zoomFactor / dpi)}, {Math.Round(y / (float)zoomFactor / dpi)}";
+            statusLabelNubPos.Text = $"{Math.Round(x / (float)zoomFactor / dpiScale)}, {Math.Round(y / (float)zoomFactor / dpiScale)}";
             statusStrip1.Refresh();
         }
 
