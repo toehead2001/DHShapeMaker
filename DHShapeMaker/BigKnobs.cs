@@ -14,14 +14,14 @@ namespace ShapeMaker
             InitializeComponent();
         }
 
-        float rtate = 180;
-        float minvalue = 0;
-        float maxvalue = 359f;
-        float span = 359f;
-        float spinrate = 1f;
-        float touchpoint = 0;
-        bool rtating = false;
-        Image BottomImage, MidImage, TopImage;
+        private float rtate = 180;
+        private float minvalue = 0;
+        private float maxvalue = 359f;
+        private float span = 359f;
+        private float spinrate = 1f;
+        private float touchpoint = 0;
+        private bool rtating = false;
+        private Image bottomImage, midImage, topImage;
 
         [Category("Behavior")]
         [DefaultValue(180F)]
@@ -98,11 +98,11 @@ namespace ShapeMaker
         {
             get
             {
-                return this.BottomImage;
+                return this.bottomImage;
             }
             set
             {
-                this.BottomImage = value;
+                this.bottomImage = value;
                 this.Refresh();
             }
         }
@@ -111,11 +111,11 @@ namespace ShapeMaker
         {
             get
             {
-                return this.MidImage;
+                return this.midImage;
             }
             set
             {
-                this.MidImage = value;
+                this.midImage = value;
                 this.Refresh();
             }
         }
@@ -124,11 +124,11 @@ namespace ShapeMaker
         {
             get
             {
-                return this.TopImage;
+                return this.topImage;
             }
             set
             {
-                this.TopImage = value;
+                this.topImage = value;
                 this.Refresh();
             }
         }
@@ -248,9 +248,9 @@ namespace ShapeMaker
         {
             Rectangle rotRect = this.ClientRectangle;
             e.Graphics.CompositingMode = CompositingMode.SourceOver;
-            if (this.BottomImage != null)
+            if (this.bottomImage != null)
             {
-                e.Graphics.DrawImage(this.BottomImage, rotRect);
+                e.Graphics.DrawImage(this.bottomImage, rotRect);
             }
             else
             {
@@ -258,7 +258,7 @@ namespace ShapeMaker
                     e.Graphics.FillRectangle(backBrush, rotRect);
             }
 
-            if (this.MidImage == null)
+            if (this.midImage == null)
             {
                 base.OnPaint(e);
                 return;
@@ -268,7 +268,7 @@ namespace ShapeMaker
             e.Graphics.RotateTransform(rtate);
             e.Graphics.TranslateTransform(rotRect.Width / -2f, rotRect.Height / -2f);
 
-            e.Graphics.DrawImage(this.Enabled ? this.MidImage : this.TopImage ?? this.MidImage, rotRect);
+            e.Graphics.DrawImage(this.Enabled ? this.midImage : this.topImage ?? this.midImage, rotRect);
             e.Graphics.ResetTransform();
 
             base.OnPaint(e);
