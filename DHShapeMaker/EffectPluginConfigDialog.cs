@@ -491,334 +491,316 @@ namespace ShapeMaker
             bool revSweep = false;
             PointF[] pPoints;
 
-            try
+
+            int j;
+            for (int jj = -1; jj < lines.Count; jj++)
             {
-                int j;
-                for (int jj = -1; jj < lines.Count; jj++)
+                j = jj + 1;
+                if (j == lines.Count && LineList.SelectedIndex == -1)
+                    j = -1;
+
+                if (j >= lines.Count)
+                    continue;
+
+                if (j == LineList.SelectedIndex)
                 {
-                    j = jj + 1;
-                    if (j == lines.Count && LineList.SelectedIndex == -1)
-                        j = -1;
+                    pPoints = canvasPoints;
+                    pType = getPathType();
+                    isClosed = ClosePath.Checked;
+                    mpMode = CloseContPaths.Checked;
+                    isLarge = (Arc.CheckState == CheckState.Checked);
+                    revSweep = (Sweep.CheckState == CheckState.Checked);
+                }
+                else
+                {
+                    PData itemPath = lines[j];
+                    pPoints = itemPath.Lines;
+                    pType = (PathType)itemPath.LineType;
+                    isClosed = itemPath.ClosedType;
+                    mpMode = itemPath.LoopBack;
+                    isLarge = itemPath.IsLarge;
+                    revSweep = itemPath.RevSweep;
+                }
 
-                    if (j >= lines.Count)
-                        continue;
+                if (pPoints.Length == 0)
+                    continue;
 
-                    if (j == LineList.SelectedIndex)
-                    {
-                        pPoints = canvasPoints;
-                        pType = getPathType();
-                        isClosed = ClosePath.Checked;
-                        mpMode = CloseContPaths.Checked;
-                        isLarge = (Arc.CheckState == CheckState.Checked);
-                        revSweep = (Sweep.CheckState == CheckState.Checked);
-                    }
-                    else
-                    {
-                        PData itemPath = lines[j];
-                        pPoints = itemPath.Lines;
-                        pType = (PathType)itemPath.LineType;
-                        isClosed = itemPath.ClosedType;
-                        mpMode = itemPath.LoopBack;
-                        isLarge = itemPath.IsLarge;
-                        revSweep = itemPath.RevSweep;
-                    }
+                PointF[] pts = new PointF[pPoints.Length];
+                for (int i = 0; i < pPoints.Length; i++)
+                {
+                    pts[i].X = canvas.ClientSize.Width * pPoints[i].X;
+                    pts[i].Y = canvas.ClientSize.Height * pPoints[i].Y;
+                }
 
-                    if (pPoints.Length == 0)
-                        continue;
-
-                    PointF[] pts = new PointF[pPoints.Length];
+                PointF[] Qpts = new PointF[pPoints.Length];
+                #region cube to quad
+                if (pType == PathType.Quadratic || pType == PathType.SmoothQuadratic)
+                {
                     for (int i = 0; i < pPoints.Length; i++)
                     {
-                        pts[i].X = canvas.ClientSize.Width * pPoints[i].X;
-                        pts[i].Y = canvas.ClientSize.Height * pPoints[i].Y;
-                    }
-
-                    PointF[] Qpts = new PointF[pPoints.Length];
-                    #region cube to quad
-                    if (pType == PathType.Quadratic || pType == PathType.SmoothQuadratic)
-                    {
-                        for (int i = 0; i < pPoints.Length; i++)
+                        int PT = getNubType(i);
+                        if (PT == 0)
                         {
-                            int PT = getNubType(i);
-                            if (PT == 0)
-                            {
-                                Qpts[i] = pts[i];
-                            }
-                            else if (PT == 1)
-                            {
-                                Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
-                                    pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
-                            }
-                            else if (PT == 2)
-                            {
-                                Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
-                                    pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
-                            }
-
-                            else if (PT == 3)
-                            {
-                                Qpts[i] = pts[i];
-                            }
+                            Qpts[i] = pts[i];
+                        }
+                        else if (PT == 1)
+                        {
+                            Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
+                                pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
+                        }
+                        else if (PT == 2)
+                        {
+                            Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
+                                pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
                         }
 
-                    }
-                    #endregion
-
-                    bool islinked = true;
-                    if (!Oldxy.Equals(pts[0]) || (j == LineList.SelectedIndex && ClosePath.Checked))
-                    {
-                        loopBack = new PointF(pts[0].X, pts[0].Y);
-                        islinked = false;
+                        else if (PT == 3)
+                        {
+                            Qpts[i] = pts[i];
+                        }
                     }
 
-                    //render lines
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                }
+                #endregion
 
-                    if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
+                bool islinked = true;
+                if (!Oldxy.Equals(pts[0]) || (j == LineList.SelectedIndex && ClosePath.Checked))
+                {
+                    loopBack = new PointF(pts[0].X, pts[0].Y);
+                    islinked = false;
+                }
+
+                //render lines
+                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
+                {
+                    #region draw handles
+                    if (j == LineList.SelectedIndex) //buffer draw
                     {
-                        #region draw handles
-                        if (j == LineList.SelectedIndex) //buffer draw
+                        if ((isClosed || mpMode) && pts.Length > 1)
                         {
-                            if ((isClosed || mpMode) && pts.Length > 1)
-                            {
-                                e.Graphics.DrawRectangle(new Pen(anchorColor), loopBack.X - 4, loopBack.Y - 4, 6, 6);
-                            }
-                            else if (islinked)
-                            {
-                                PointF[] tri = {new PointF(pts[0].X, pts[0].Y - 4f),
-                                            new PointF(pts[0].X + 3f, pts[0].Y + 3f),
-                                            new PointF(pts[0].X - 4f, pts[0].Y + 3f)};
-                                e.Graphics.DrawPolygon(new Pen(anchorColor), tri);
-                            }
-                            else
-                            {
-                                e.Graphics.DrawEllipse(new Pen(anchorColor), pts[0].X - 4, pts[0].Y - 4, 6, 6);
-                            }
-
-                            for (int i = 1; i < pts.Length; i++)
-                            {
-                                switch (pType)
-                                {
-                                    case PathType.Straight:
-                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
-                                        break;
-                                    case PathType.Ellipse:
-                                        if (i == 4)
-                                        {
-                                            PointF mid = pointAverage(pts[0], pts[4]);
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[4].X - 4, pts[4].Y - 4, 6, 6);
-                                            if (!MacroCircle.Checked || LineList.SelectedIndex != -1)
-                                            {
-                                                e.Graphics.DrawRectangle(Pens.Black, pts[1].X - 4, pts[1].Y - 4, 6, 6);
-                                                e.Graphics.FillEllipse(Brushes.Black, pts[3].X - 4, pts[3].Y - 4, 6, 6);
-                                                e.Graphics.FillRectangle(Brushes.Black, pts[2].X - 4, pts[2].Y - 4, 6, 6);
-
-                                                e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
-                                                e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
-                                                e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
-                                            }
-                                            e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
-                                        }
-                                        break;
-                                    case PathType.Quadratic:
-                                        if (getNubType(i) == 1)
-                                        {
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
-                                            e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
-                                            e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
-                                        }
-                                        break;
-                                    case PathType.SmoothQuadratic:
-                                        if (getNubType(i) == 3)
-                                        {
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
-                                        }
-                                        break;
-                                    case PathType.Cubic:
-                                    case PathType.SmoothCubic:
-                                        if (getNubType(i) == 1 && !MacroCubic.Checked)
-                                        {
-                                            if (i != 1 || pType == PathType.Cubic)
-                                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
-                                            e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
-                                            e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
-                                        }
-                                        else if (getNubType(i) == 3 && MacroCubic.Checked)
-                                        {
-                                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
-                                        }
-                                        break;
-                                }
-                            }
+                            e.Graphics.DrawRectangle(new Pen(anchorColor), loopBack.X - 4, loopBack.Y - 4, 6, 6);
                         }
-                        #endregion
-                    }
-
-                    #region drawlines
-                    using (Pen p = new Pen(lineColors[(int)pType]))
-                    using (Pen activePen = new Pen(lineColors[(int)pType]))
-                    {
-                        p.DashStyle = DashStyle.Solid;
-                        p.Width = 1;
-
-                        activePen.Width = 5f;
-                        activePen.Color = Color.FromArgb(51, p.Color);
-                        activePen.LineJoin = LineJoin.Bevel;
-
-                        if (pPoints.Length > 3 && (pType == PathType.Quadratic || pType == PathType.SmoothQuadratic))
+                        else if (islinked)
                         {
-                            try
-                            {
-                                e.Graphics.DrawBeziers(p, Qpts);
-                                if (j == LineList.SelectedIndex)
-                                    e.Graphics.DrawBeziers(activePen, Qpts);
-                            }
-                            catch
-                            {
-                            }
+                            PointF[] tri = {new PointF(pts[0].X, pts[0].Y - 4f),
+                                        new PointF(pts[0].X + 3f, pts[0].Y + 3f),
+                                        new PointF(pts[0].X - 4f, pts[0].Y + 3f)};
+                            e.Graphics.DrawPolygon(new Pen(anchorColor), tri);
                         }
-                        else if (pPoints.Length > 3 && (pType == PathType.Cubic || pType == PathType.SmoothCubic))
+                        else
                         {
-                            try
-                            {
-                                e.Graphics.DrawBeziers(p, pts);
-                                if (j == LineList.SelectedIndex)
-                                    e.Graphics.DrawBeziers(activePen, pts);
-                            }
-                            catch
-                            {
-                            }
+                            e.Graphics.DrawEllipse(new Pen(anchorColor), pts[0].X - 4, pts[0].Y - 4, 6, 6);
                         }
-                        else if (pPoints.Length > 1 && pType == PathType.Straight)
+
+                        for (int i = 1; i < pts.Length; i++)
                         {
-                            if (MacroRect.Checked && j == -1 && LineList.SelectedIndex == -1)
+                            switch (pType)
                             {
-                                for (int i = 1; i < pts.Length; i++)
-                                {
-                                    PointF[] rectPts =
+                                case PathType.Straight:
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    break;
+                                case PathType.Ellipse:
+                                    if (i == 4)
                                     {
-                                        new PointF(pts[i - 1].X, pts[i - 1].Y),
-                                        new PointF(pts[i].X, pts[i - 1].Y),
-                                        new PointF(pts[i].X, pts[i].Y),
-                                        new PointF(pts[i - 1].X, pts[i].Y),
-                                        new PointF(pts[i - 1].X, pts[i - 1].Y)
-                                    };
-
-                                    e.Graphics.DrawLines(p, rectPts);
-                                    e.Graphics.DrawLines(activePen, rectPts);
-                                }
-                            }
-                            else
-                            {
-                                e.Graphics.DrawLines(p, pts);
-                                if (j == LineList.SelectedIndex)
-                                    e.Graphics.DrawLines(activePen, pts);
-                            }
-                        }
-                        else if (pPoints.Length == 5 && pType == PathType.Ellipse)
-                        {
-                            PointF mid = pointAverage(pts[0], pts[4]);
-                            if (MacroCircle.Checked && j == -1 && LineList.SelectedIndex == -1)
-                            {
-                                float far = pythag(pts[0], pts[4]);
-                                e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
-                                e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
-                            }
-                            else
-                            {
-                                float l = pythag(mid, pts[1]);
-                                float h = pythag(mid, pts[2]);
-                                float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-                                if ((int)h == 0 || (int)l == 0)
-                                {
-                                    PointF[] nullLine = { pts[0], pts[4] };
-                                    e.Graphics.DrawLines(p, nullLine);
-                                    if (j == LineList.SelectedIndex)
-                                        e.Graphics.DrawLines(activePen, nullLine);
-                                }
-                                else
-                                {
-                                    using (GraphicsPath gp = new GraphicsPath())
-                                    {
-                                        gp.Add(pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
-                                        e.Graphics.DrawPath(p, gp);
-                                        if (j == LineList.SelectedIndex)
-                                            e.Graphics.DrawPath(activePen, gp);
-                                    }
-                                    if (j == -1)
-                                    {
+                                        PointF mid = pointAverage(pts[0], pts[4]);
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[4].X - 4, pts[4].Y - 4, 6, 6);
                                         if (!MacroCircle.Checked || LineList.SelectedIndex != -1)
                                         {
-                                            using (GraphicsPath gp = new GraphicsPath())
-                                            {
-                                                gp.Add(pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
-                                                using (Pen p2 = new Pen(Color.LightGray))
-                                                {
-                                                    p2.DashStyle = DashStyle.Dash;
-                                                    e.Graphics.DrawPath(p2, gp);
-                                                }
-                                            }
+                                            e.Graphics.DrawRectangle(Pens.Black, pts[1].X - 4, pts[1].Y - 4, 6, 6);
+                                            e.Graphics.FillEllipse(Brushes.Black, pts[3].X - 4, pts[3].Y - 4, 6, 6);
+                                            e.Graphics.FillRectangle(Brushes.Black, pts[2].X - 4, pts[2].Y - 4, 6, 6);
+
+                                            e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
+                                            e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
+                                            e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
                                         }
+                                        e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
                                     }
-                                }
+                                    break;
+                                case PathType.Quadratic:
+                                    if (getNubType(i) == 1)
+                                    {
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                        e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
+                                        e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
+                                    }
+                                    break;
+                                case PathType.SmoothQuadratic:
+                                    if (getNubType(i) == 3)
+                                    {
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    }
+                                    break;
+                                case PathType.Cubic:
+                                case PathType.SmoothCubic:
+                                    if (getNubType(i) == 1 && !MacroCubic.Checked)
+                                    {
+                                        if (i != 1 || pType == PathType.Cubic)
+                                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                        e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
+                                        e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
+                                    }
+                                    else if (getNubType(i) == 3 && MacroCubic.Checked)
+                                    {
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    }
+                                    break;
                             }
                         }
-                        //join line
-                        bool noJoin = false;
-                        if (j == -1)
-                        {
-                            if (MacroCircle.Checked && Elliptical.Checked)
-                                noJoin = true;
-                            if (MacroRect.Checked && StraightLine.Checked)
-                                noJoin = true;
-                        }
+                    }
+                    #endregion
+                }
 
-                        if (!mpMode)
+                #region drawlines
+                using (Pen p = new Pen(lineColors[(int)pType]))
+                using (Pen activePen = new Pen(lineColors[(int)pType]))
+                {
+                    p.DashStyle = DashStyle.Solid;
+                    p.Width = 1;
+
+                    activePen.Width = 5f;
+                    activePen.Color = Color.FromArgb(51, p.Color);
+                    activePen.LineJoin = LineJoin.Bevel;
+
+                    if (pPoints.Length > 3 && (pType == PathType.Quadratic || pType == PathType.SmoothQuadratic))
+                    {
+                        e.Graphics.DrawBeziers(p, Qpts);
+                        if (j == LineList.SelectedIndex)
+                            e.Graphics.DrawBeziers(activePen, Qpts);
+                    }
+                    else if (pPoints.Length > 3 && (pType == PathType.Cubic || pType == PathType.SmoothCubic))
+                    {
+                        e.Graphics.DrawBeziers(p, pts);
+                        if (j == LineList.SelectedIndex)
+                            e.Graphics.DrawBeziers(activePen, pts);
+                    }
+                    else if (pPoints.Length > 1 && pType == PathType.Straight)
+                    {
+                        if (MacroRect.Checked && j == -1 && LineList.SelectedIndex == -1)
                         {
-                            if (!noJoin && isClosed && pts.Length > 1)
+                            for (int i = 1; i < pts.Length; i++)
                             {
-                                e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]); //preserve
-                                if (j == LineList.SelectedIndex)
-                                    e.Graphics.DrawLine(activePen, pts[0], pts[pts.Length - 1]); //preserve
+                                PointF[] rectPts =
+                                {
+                                    new PointF(pts[i - 1].X, pts[i - 1].Y),
+                                    new PointF(pts[i].X, pts[i - 1].Y),
+                                    new PointF(pts[i].X, pts[i].Y),
+                                    new PointF(pts[i - 1].X, pts[i].Y),
+                                    new PointF(pts[i - 1].X, pts[i - 1].Y)
+                                };
 
-                                loopBack = pts[pts.Length - 1];
+                                e.Graphics.DrawLines(p, rectPts);
+                                e.Graphics.DrawLines(activePen, rectPts);
                             }
                         }
                         else
                         {
-                            if (!noJoin && pts.Length > 1)
+                            e.Graphics.DrawLines(p, pts);
+                            if (j == LineList.SelectedIndex)
+                                e.Graphics.DrawLines(activePen, pts);
+                        }
+                    }
+                    else if (pPoints.Length == 5 && pType == PathType.Ellipse)
+                    {
+                        PointF mid = pointAverage(pts[0], pts[4]);
+                        if (MacroCircle.Checked && j == -1 && LineList.SelectedIndex == -1)
+                        {
+                            float far = pythag(pts[0], pts[4]);
+                            e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                            e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                        }
+                        else
+                        {
+                            float l = pythag(mid, pts[1]);
+                            float h = pythag(mid, pts[2]);
+                            float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
+                            if ((int)h == 0 || (int)l == 0)
                             {
-                                e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
+                                PointF[] nullLine = { pts[0], pts[4] };
+                                e.Graphics.DrawLines(p, nullLine);
                                 if (j == LineList.SelectedIndex)
-                                    e.Graphics.DrawLine(activePen, pts[pts.Length - 1], loopBack);
-
-                                loopBack = pts[pts.Length - 1];
+                                    e.Graphics.DrawLines(activePen, nullLine);
+                            }
+                            else
+                            {
+                                using (GraphicsPath gp = new GraphicsPath())
+                                {
+                                    gp.Add(pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
+                                    e.Graphics.DrawPath(p, gp);
+                                    if (j == LineList.SelectedIndex)
+                                        e.Graphics.DrawPath(activePen, gp);
+                                }
+                                if (j == -1)
+                                {
+                                    if (!MacroCircle.Checked || LineList.SelectedIndex != -1)
+                                    {
+                                        using (GraphicsPath gp = new GraphicsPath())
+                                        {
+                                            gp.Add(pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
+                                            using (Pen p2 = new Pen(Color.LightGray))
+                                            {
+                                                p2.DashStyle = DashStyle.Dash;
+                                                e.Graphics.DrawPath(p2, gp);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                    #endregion
-
-                    Oldxy = pts[pts.Length - 1];
-
-                    // render average point for when Scaling and Rotation
-                    if (drawAverage)
+                    //join line
+                    bool noJoin = false;
+                    if (j == -1)
                     {
-                        Point tmpPoint = new Point
+                        if (MacroCircle.Checked && Elliptical.Checked)
+                            noJoin = true;
+                        if (MacroRect.Checked && StraightLine.Checked)
+                            noJoin = true;
+                    }
+
+                    if (!mpMode)
+                    {
+                        if (!noJoin && isClosed && pts.Length > 1)
                         {
-                            X = (int)Math.Round(averagePoint.X * canvas.ClientSize.Width),
-                            Y = (int)Math.Round(averagePoint.Y * canvas.ClientSize.Height)
-                        };
-                        e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
-                        e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
+                            e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]); //preserve
+                            if (j == LineList.SelectedIndex)
+                                e.Graphics.DrawLine(activePen, pts[0], pts[pts.Length - 1]); //preserve
+
+                            loopBack = pts[pts.Length - 1];
+                        }
+                    }
+                    else
+                    {
+                        if (!noJoin && pts.Length > 1)
+                        {
+                            e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
+                            if (j == LineList.SelectedIndex)
+                                e.Graphics.DrawLine(activePen, pts[pts.Length - 1], loopBack);
+
+                            loopBack = pts[pts.Length - 1];
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                #endregion
+
+                Oldxy = pts[pts.Length - 1];
+
+                // render average point for when Scaling and Rotation
+                if (drawAverage)
+                {
+                    Point tmpPoint = new Point
+                    {
+                        X = (int)Math.Round(averagePoint.X * canvas.ClientSize.Width),
+                        Y = (int)Math.Round(averagePoint.Y * canvas.ClientSize.Height)
+                    };
+                    e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
+                    e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
+                }
             }
         }
 
@@ -847,294 +829,13 @@ namespace ShapeMaker
                     break;
                 }
             }
-            try
+
+            PathType lt = getPathType();
+
+
+            if (Control.ModifierKeys == Keys.Alt)
             {
-                PathType lt = getPathType();
-
-
-                if (Control.ModifierKeys == Keys.Alt)
-                {
-                    if (clickedNub == -1)
-                    {
-                        panFlag = true;
-
-                        if (canvas.Width > viewport.ClientSize.Width && canvas.Height > viewport.ClientSize.Height)
-                            canvas.Cursor = Cursors.NoMove2D;
-                        else if (canvas.Width > viewport.ClientSize.Width)
-                            canvas.Cursor = Cursors.NoMoveHoriz;
-                        else if (canvas.Height > viewport.ClientSize.Height)
-                            canvas.Cursor = Cursors.NoMoveVert;
-                        else
-                            panFlag = false;
-                    }
-                    else
-                    {
-                        setUndo();
-                    }
-                }
-                else if (e.Button == MouseButtons.Right) //process add or delete
-                {
-                    if (clickedNub > -1) //delete
-                    {
-                        #region delete
-                        if (clickedNub == 0)
-                            return; //don't delete moveto 
-
-                        setUndo();
-
-                        switch (lt)
-                        {
-                            case PathType.Straight:
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub);
-                                break;
-                            case PathType.Ellipse:
-                                if (clickedNub != 4)
-                                    return;
-                                Array.Resize(ref canvasPoints, 1);
-                                break;
-                            case PathType.Cubic:
-                                if (getNubType(clickedNub) != 3)
-                                    return;
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub);
-                                //remove control points
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
-                                if (MacroCubic.Checked)
-                                    CubicAdjust();
-                                break;
-                            case PathType.Quadratic:
-                                if (getNubType(clickedNub) != 3)
-                                    return;
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub);
-                                //remove control points
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
-                                break;
-                            case PathType.SmoothCubic:
-                                if (getNubType(clickedNub) != 3)
-                                    return;
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub);
-                                //remove control points
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
-                                for (int i = 1; i < canvasPoints.Length; i++)
-                                {
-                                    if (getNubType(i) == 1 && i > 3)
-                                        canvasPoints[i] = reverseAverage(canvasPoints[i - 2], canvasPoints[i - 1]);
-                                }
-                                break;
-                            case PathType.SmoothQuadratic:
-                                if (getNubType(clickedNub) != 3)
-                                    return;
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub);
-                                //remove control points
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
-                                canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
-                                for (int i = 1; i < canvasPoints.Length; i++)
-                                {
-                                    if (getNubType(i) == 1 && i > 3)
-                                    {
-                                        canvasPoints[i] = reverseAverage(canvasPoints[i - 3], canvasPoints[i - 1]);
-                                        if (i < canvasPoints.Length - 1)
-                                            canvasPoints[i + 1] = canvasPoints[i];
-                                    }
-                                }
-                                break;
-                        }
-                        canvas.Refresh();
-                        #endregion //delete
-                    }
-                    else //add new
-                    {
-                        #region add
-                        int len = canvasPoints.Length;
-                        if (len >= maxPoints)
-                        {
-                            MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-
-                        if (lt == PathType.Ellipse && canvasPoints.Length > 2)
-                            return;
-
-                        setUndo();
-
-                        int eX = e.X, eY = e.Y;
-                        if (Snap.Checked)
-                        {
-                            eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
-                            eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
-                        }
-                        StatusBarNubLocation(eX, eY);
-                        PointF clickedPoint = PointToCanvasCoord(eX, eY);
-                        if (len == 0)//first point
-                        {
-                            Array.Resize(ref canvasPoints, len + 1);
-                            canvasPoints[0] = clickedPoint;
-                            countflag = true;
-                        }
-                        else//not first point
-                        {
-                            switch (lt)
-                            {
-                                case PathType.Straight:
-                                    Array.Resize(ref canvasPoints, len + 1);
-                                    canvasPoints[len] = clickedPoint;
-
-                                    break;
-                                case PathType.Ellipse:
-                                    Array.Resize(ref canvasPoints, 5);
-                                    canvasPoints[4] = clickedPoint;
-                                    PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
-                                    PointF mid2 = ThirdPoint(canvasPoints[0], mid, true, 1f);
-                                    canvasPoints[1] = pointAverage(canvasPoints[0], mid2);
-                                    canvasPoints[2] = pointAverage(canvasPoints[4], mid2);
-                                    canvasPoints[3] = ThirdPoint(canvasPoints[0], mid, false, 1f);
-                                    break;
-
-                                case PathType.Cubic:
-                                    Array.Resize(ref canvasPoints, len + 3);
-
-                                    canvasPoints[len + 2] = clickedPoint;
-                                    if (MacroCubic.Checked)
-                                    {
-                                        CubicAdjust();
-                                    }
-                                    else
-                                    {
-                                        PointF mid4 = new PointF();
-                                        if (len > 1)
-                                        {
-                                            PointF mid3 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
-                                            mid4 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid3);
-                                        }
-                                        else
-                                        {
-                                            PointF mid3 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
-                                            mid4 = ThirdPoint(canvasPoints[len - 1], mid3, true, 1f);
-                                        }
-                                        canvasPoints[len] = pointAverage(canvasPoints[len - 1], mid4);
-                                        canvasPoints[len + 1] = pointAverage(canvasPoints[len + 2], mid4);
-                                    }
-
-                                    break;
-                                case PathType.Quadratic:
-                                    Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = clickedPoint;
-                                    PointF tmp = new PointF();
-                                    //add
-                                    if (len > 1)
-                                    {
-                                        tmp = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], canvasPoints[len - 2]);
-                                    }
-                                    else
-                                    {
-                                        //add end
-                                        canvasPoints[len + 1] = ThirdPoint(canvasPoints[len - 1], canvasPoints[len + 2], true, .5f);
-                                        canvasPoints[len] = ThirdPoint(canvasPoints[len + 2], canvasPoints[len - 1], false, .5f);
-                                        tmp = pointAverage(canvasPoints[len + 1], canvasPoints[len]);
-                                    }
-                                    canvasPoints[len + 1] = tmp;
-                                    canvasPoints[len] = tmp;
-                                    break;
-
-                                case PathType.SmoothCubic:
-                                    Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = clickedPoint;
-                                    //startchange
-                                    PointF mid6 = new PointF();
-                                    if (len > 1)
-                                    {
-                                        PointF mid5 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
-                                        mid6 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid5);
-                                    }
-                                    else
-                                    {
-                                        PointF mid5 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
-                                        mid6 = ThirdPoint(canvasPoints[len - 1], mid5, true, 1f);
-                                    }
-
-                                    canvasPoints[len + 1] = pointAverage(mid6, canvasPoints[len + 2]);
-                                    if (len > 1)
-                                    {
-                                        canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
-                                    }
-                                    else
-                                    {
-                                        canvasPoints[1] = canvasPoints[0];
-                                    }
-
-                                    break;
-                                case PathType.SmoothQuadratic:
-                                    Array.Resize(ref canvasPoints, len + 3);
-                                    canvasPoints[len + 2] = clickedPoint;
-                                    if (len > 1)
-                                    {
-                                        canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
-                                        canvasPoints[len + 1] = canvasPoints[len];
-                                    }
-                                    else
-                                    {
-                                        canvasPoints[1] = canvasPoints[0];
-                                        canvasPoints[2] = canvasPoints[0];
-                                    }
-                                    break;
-                            }
-                        }
-
-                        canvas.Refresh();
-                        #endregion //add
-                    }
-
-                    if (LineList.SelectedIndex != -1 && clickedNub != 0)
-                        UpdateExistingPath();
-                }
-                else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
-                {
-                    if (canvasPoints.Length != 0)
-                    {
-                        if (clickedNub != -1)
-                        {
-                            setUndo();
-                            moveFlag = true;
-                            canvas.Cursor = Cursors.SizeAll;
-                        }
-                    }
-                    else if (LineList.Items.Count > 0)
-                    {
-                        setUndo();
-                        moveFlag = true;
-                        canvas.Cursor = Cursors.SizeAll;
-                    }
-                }
-                else if (e.Button == MouseButtons.Left)
-                {
-                    if (clickedNub == -1)
-                    {
-                        int clickedPath = getNearestPath(bhit);
-                        if (clickedPath != -1)
-                        {
-                            LineList.SelectedIndex = clickedPath;
-
-                            for (int i = 0; i < canvasPoints.Length; i++)
-                            {
-                                PointF nub = CanvasCoordToPoint(canvasPoints[i].X, canvasPoints[i].Y);
-                                if (bhit.Contains(nub))
-                                {
-                                    StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        setUndo();
-                        PointF nub = CanvasCoordToPoint(canvasPoints[clickedNub].X, canvasPoints[clickedNub].Y);
-                        StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
-                    }
-                }
-                else if (e.Button == MouseButtons.Middle)
+                if (clickedNub == -1)
                 {
                     panFlag = true;
 
@@ -1147,10 +848,285 @@ namespace ShapeMaker
                     else
                         panFlag = false;
                 }
+                else
+                {
+                    setUndo();
+                }
             }
-            catch (Exception ex)
+            else if (e.Button == MouseButtons.Right) //process add or delete
             {
-                MessageBox.Show(ex.Message);
+                if (clickedNub > -1) //delete
+                {
+                    #region delete
+                    if (clickedNub == 0)
+                        return; //don't delete moveto 
+
+                    setUndo();
+
+                    switch (lt)
+                    {
+                        case PathType.Straight:
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub);
+                            break;
+                        case PathType.Ellipse:
+                            if (clickedNub != 4)
+                                return;
+                            Array.Resize(ref canvasPoints, 1);
+                            break;
+                        case PathType.Cubic:
+                            if (getNubType(clickedNub) != 3)
+                                return;
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub);
+                            //remove control points
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
+                            if (MacroCubic.Checked)
+                                CubicAdjust();
+                            break;
+                        case PathType.Quadratic:
+                            if (getNubType(clickedNub) != 3)
+                                return;
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub);
+                            //remove control points
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
+                            break;
+                        case PathType.SmoothCubic:
+                            if (getNubType(clickedNub) != 3)
+                                return;
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub);
+                            //remove control points
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
+                            for (int i = 1; i < canvasPoints.Length; i++)
+                            {
+                                if (getNubType(i) == 1 && i > 3)
+                                    canvasPoints[i] = reverseAverage(canvasPoints[i - 2], canvasPoints[i - 1]);
+                            }
+                            break;
+                        case PathType.SmoothQuadratic:
+                            if (getNubType(clickedNub) != 3)
+                                return;
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub);
+                            //remove control points
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 1);
+                            canvasPoints = canvasPoints.RemoveAt(clickedNub - 2);
+                            for (int i = 1; i < canvasPoints.Length; i++)
+                            {
+                                if (getNubType(i) == 1 && i > 3)
+                                {
+                                    canvasPoints[i] = reverseAverage(canvasPoints[i - 3], canvasPoints[i - 1]);
+                                    if (i < canvasPoints.Length - 1)
+                                        canvasPoints[i + 1] = canvasPoints[i];
+                                }
+                            }
+                            break;
+                    }
+                    canvas.Refresh();
+                    #endregion //delete
+                }
+                else //add new
+                {
+                    #region add
+                    int len = canvasPoints.Length;
+                    if (len >= maxPoints)
+                    {
+                        MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (lt == PathType.Ellipse && canvasPoints.Length > 2)
+                        return;
+
+                    setUndo();
+
+                    int eX = e.X, eY = e.Y;
+                    if (Snap.Checked)
+                    {
+                        eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
+                        eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
+                    }
+                    StatusBarNubLocation(eX, eY);
+                    PointF clickedPoint = PointToCanvasCoord(eX, eY);
+                    if (len == 0)//first point
+                    {
+                        Array.Resize(ref canvasPoints, len + 1);
+                        canvasPoints[0] = clickedPoint;
+                        countflag = true;
+                    }
+                    else//not first point
+                    {
+                        switch (lt)
+                        {
+                            case PathType.Straight:
+                                Array.Resize(ref canvasPoints, len + 1);
+                                canvasPoints[len] = clickedPoint;
+
+                                break;
+                            case PathType.Ellipse:
+                                Array.Resize(ref canvasPoints, 5);
+                                canvasPoints[4] = clickedPoint;
+                                PointF mid = pointAverage(canvasPoints[0], canvasPoints[4]);
+                                PointF mid2 = ThirdPoint(canvasPoints[0], mid, true, 1f);
+                                canvasPoints[1] = pointAverage(canvasPoints[0], mid2);
+                                canvasPoints[2] = pointAverage(canvasPoints[4], mid2);
+                                canvasPoints[3] = ThirdPoint(canvasPoints[0], mid, false, 1f);
+                                break;
+
+                            case PathType.Cubic:
+                                Array.Resize(ref canvasPoints, len + 3);
+
+                                canvasPoints[len + 2] = clickedPoint;
+                                if (MacroCubic.Checked)
+                                {
+                                    CubicAdjust();
+                                }
+                                else
+                                {
+                                    PointF mid4 = new PointF();
+                                    if (len > 1)
+                                    {
+                                        PointF mid3 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
+                                        mid4 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid3);
+                                    }
+                                    else
+                                    {
+                                        PointF mid3 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
+                                        mid4 = ThirdPoint(canvasPoints[len - 1], mid3, true, 1f);
+                                    }
+                                    canvasPoints[len] = pointAverage(canvasPoints[len - 1], mid4);
+                                    canvasPoints[len + 1] = pointAverage(canvasPoints[len + 2], mid4);
+                                }
+
+                                break;
+                            case PathType.Quadratic:
+                                Array.Resize(ref canvasPoints, len + 3);
+                                canvasPoints[len + 2] = clickedPoint;
+                                PointF tmp = new PointF();
+                                //add
+                                if (len > 1)
+                                {
+                                    tmp = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], canvasPoints[len - 2]);
+                                }
+                                else
+                                {
+                                    //add end
+                                    canvasPoints[len + 1] = ThirdPoint(canvasPoints[len - 1], canvasPoints[len + 2], true, .5f);
+                                    canvasPoints[len] = ThirdPoint(canvasPoints[len + 2], canvasPoints[len - 1], false, .5f);
+                                    tmp = pointAverage(canvasPoints[len + 1], canvasPoints[len]);
+                                }
+                                canvasPoints[len + 1] = tmp;
+                                canvasPoints[len] = tmp;
+                                break;
+
+                            case PathType.SmoothCubic:
+                                Array.Resize(ref canvasPoints, len + 3);
+                                canvasPoints[len + 2] = clickedPoint;
+                                //startchange
+                                PointF mid6 = new PointF();
+                                if (len > 1)
+                                {
+                                    PointF mid5 = reverseAverage(canvasPoints[len - 1], canvasPoints[len - 2]);
+                                    mid6 = AsymRevAverage(canvasPoints[len - 4], canvasPoints[len - 1], canvasPoints[len + 2], mid5);
+                                }
+                                else
+                                {
+                                    PointF mid5 = pointAverage(canvasPoints[len - 1], canvasPoints[len + 2]);
+                                    mid6 = ThirdPoint(canvasPoints[len - 1], mid5, true, 1f);
+                                }
+
+                                canvasPoints[len + 1] = pointAverage(mid6, canvasPoints[len + 2]);
+                                if (len > 1)
+                                {
+                                    canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
+                                }
+                                else
+                                {
+                                    canvasPoints[1] = canvasPoints[0];
+                                }
+
+                                break;
+                            case PathType.SmoothQuadratic:
+                                Array.Resize(ref canvasPoints, len + 3);
+                                canvasPoints[len + 2] = clickedPoint;
+                                if (len > 1)
+                                {
+                                    canvasPoints[len] = reverseAverage(canvasPoints[len - 2], canvasPoints[len - 1]);
+                                    canvasPoints[len + 1] = canvasPoints[len];
+                                }
+                                else
+                                {
+                                    canvasPoints[1] = canvasPoints[0];
+                                    canvasPoints[2] = canvasPoints[0];
+                                }
+                                break;
+                        }
+                    }
+
+                    canvas.Refresh();
+                    #endregion //add
+                }
+
+                if (LineList.SelectedIndex != -1 && clickedNub != 0)
+                    UpdateExistingPath();
+            }
+            else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
+            {
+                if (canvasPoints.Length != 0)
+                {
+                    if (clickedNub != -1)
+                    {
+                        setUndo();
+                        moveFlag = true;
+                        canvas.Cursor = Cursors.SizeAll;
+                    }
+                }
+                else if (LineList.Items.Count > 0)
+                {
+                    setUndo();
+                    moveFlag = true;
+                    canvas.Cursor = Cursors.SizeAll;
+                }
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                if (clickedNub == -1)
+                {
+                    int clickedPath = getNearestPath(bhit);
+                    if (clickedPath != -1)
+                    {
+                        LineList.SelectedIndex = clickedPath;
+
+                        for (int i = 0; i < canvasPoints.Length; i++)
+                        {
+                            PointF nub = CanvasCoordToPoint(canvasPoints[i].X, canvasPoints[i].Y);
+                            if (bhit.Contains(nub))
+                            {
+                                StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    setUndo();
+                    PointF nub = CanvasCoordToPoint(canvasPoints[clickedNub].X, canvasPoints[clickedNub].Y);
+                    StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
+                }
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                panFlag = true;
+
+                if (canvas.Width > viewport.ClientSize.Width && canvas.Height > viewport.ClientSize.Height)
+                    canvas.Cursor = Cursors.NoMove2D;
+                else if (canvas.Width > viewport.ClientSize.Width)
+                    canvas.Cursor = Cursors.NoMoveHoriz;
+                else if (canvas.Height > viewport.ClientSize.Height)
+                    canvas.Cursor = Cursors.NoMoveVert;
+                else
+                    panFlag = false;
             }
         }
 
@@ -1187,65 +1163,223 @@ namespace ShapeMaker
             PointF mapPoint = PointToCanvasCoord(eX, eY);
             PathType lt = getPathType();
 
-            try
+            if (e.Button == MouseButtons.Left)
             {
-                if (e.Button == MouseButtons.Left)
+                //left shift move line or path
+                if (moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                 {
-                    //left shift move line or path
-                    if (moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
-                    {
-                        if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
-                        {
-                            StatusBarNubLocation(eX, eY);
-
-                            PointF oldp = canvasPoints[i];
-
-                            switch (lt)
-                            {
-                                case PathType.Straight:
-                                case PathType.Cubic:
-                                case PathType.Quadratic:
-                                case PathType.SmoothCubic:
-                                case PathType.SmoothQuadratic:
-                                case PathType.Ellipse:
-                                    for (int j = 0; j < canvasPoints.Length; j++)
-                                    {
-                                        canvasPoints[j] = movePoint(oldp, mapPoint, canvasPoints[j]);
-                                    }
-                                    break;
-                            }
-                        }
-                        else if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
-                        {
-                            StatusBarNubLocation(eX, eY);
-
-                            for (int k = 0; k < lines.Count; k++)
-                            {
-                                int t = lines[k].LineType;
-                                PointF[] pl = lines[k].Lines;
-                                switch (t)
-                                {
-                                    case (int)PathType.Straight:
-                                    case (int)PathType.Cubic:
-                                    case (int)PathType.Quadratic:
-                                    case (int)PathType.SmoothCubic:
-                                    case (int)PathType.SmoothQuadratic:
-                                    case (int)PathType.Ellipse:
-                                        for (int j = 0; j < pl.Length; j++)
-                                        {
-                                            pl[j] = movePoint(moveStart, mapPoint, pl[j]);
-                                        }
-                                        break;
-                                }
-                            }
-                            moveStart = mapPoint;
-                        }
-                    } //no shift movepoint
-                    else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
+                    if (canvasPoints.Length != 0 && i > -1 && i < canvasPoints.Length)
                     {
                         StatusBarNubLocation(eX, eY);
 
                         PointF oldp = canvasPoints[i];
+
+                        switch (lt)
+                        {
+                            case PathType.Straight:
+                            case PathType.Cubic:
+                            case PathType.Quadratic:
+                            case PathType.SmoothCubic:
+                            case PathType.SmoothQuadratic:
+                            case PathType.Ellipse:
+                                for (int j = 0; j < canvasPoints.Length; j++)
+                                {
+                                    canvasPoints[j] = movePoint(oldp, mapPoint, canvasPoints[j]);
+                                }
+                                break;
+                        }
+                    }
+                    else if (canvasPoints.Length == 0 && LineList.Items.Count > 0)
+                    {
+                        StatusBarNubLocation(eX, eY);
+
+                        for (int k = 0; k < lines.Count; k++)
+                        {
+                            int t = lines[k].LineType;
+                            PointF[] pl = lines[k].Lines;
+                            switch (t)
+                            {
+                                case (int)PathType.Straight:
+                                case (int)PathType.Cubic:
+                                case (int)PathType.Quadratic:
+                                case (int)PathType.SmoothCubic:
+                                case (int)PathType.SmoothQuadratic:
+                                case (int)PathType.Ellipse:
+                                    for (int j = 0; j < pl.Length; j++)
+                                    {
+                                        pl[j] = movePoint(moveStart, mapPoint, pl[j]);
+                                    }
+                                    break;
+                            }
+                        }
+                        moveStart = mapPoint;
+                    }
+                } //no shift movepoint
+                else if (canvasPoints.Length != 0 && i > 0 && i < canvasPoints.Length)
+                {
+                    StatusBarNubLocation(eX, eY);
+
+                    PointF oldp = canvasPoints[i];
+                    switch (lt)
+                    {
+                        case PathType.Straight:
+                            canvasPoints[i] = mapPoint;
+                            break;
+                        case PathType.Ellipse:
+                            canvasPoints[i] = mapPoint;
+                            break;
+                        case PathType.Cubic:
+
+                            #region cubic
+
+                            oldp = canvasPoints[i];
+                            if (nubType == 0)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if (canvasPoints.Length > 1)
+                                    canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                            }
+                            else if (nubType == 1 || nubType == 2)
+                            {
+                                canvasPoints[i] = mapPoint;
+                            }
+                            else if (nubType == 3)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                if ((i + 1) < canvasPoints.Length)
+                                    canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                            }
+                            if (MacroCubic.Checked)
+                                CubicAdjust();
+
+                            #endregion
+
+                            break;
+                        case PathType.Quadratic:
+
+                            #region Quadratic
+
+                            oldp = canvasPoints[i];
+                            if (nubType == 0)
+                            {
+                                canvasPoints[i] = mapPoint;
+                            }
+                            else if (nubType == 1)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if ((i + 1) < canvasPoints.Length)
+                                    canvasPoints[i + 1] = canvasPoints[i];
+                            }
+                            else if (nubType == 2)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if ((i - 1) > 0)
+                                    canvasPoints[i - 1] = canvasPoints[i];
+                            }
+                            else if (nubType == 3)
+                            {
+                                if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
+                                {
+                                    //online
+                                    if (i == canvasPoints.Length - 1)
+                                    {
+                                        PointF rtmp = reverseAverage(canvasPoints[i - 1], canvasPoints[i]);
+                                        canvasPoints[i] = onLinePoint(canvasPoints[i - 1], rtmp, mapPoint);
+                                    }
+                                    else
+                                    {
+                                        canvasPoints[i] =
+                                            onLinePoint(canvasPoints[i - 1], canvasPoints[i + 1], mapPoint);
+                                    }
+                                }
+                                else
+                                {
+                                    canvasPoints[i] = mapPoint;
+                                }
+                            }
+
+                            #endregion
+
+                            break;
+                        case PathType.SmoothCubic:
+
+                            #region smooth Cubic
+
+                            oldp = canvasPoints[i];
+                            if (nubType == 0)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if (canvasPoints.Length > 1)
+                                    canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                                canvasPoints[1] = canvasPoints[0];
+                            }
+                            else if (nubType == 1)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if (i > 1)
+                                {
+                                    canvasPoints[i - 2] = reverseAverage(canvasPoints[i], canvasPoints[i - 1]);
+                                }
+                                else
+                                {
+                                    canvasPoints[1] = canvasPoints[0];
+                                }
+                            }
+                            else if (nubType == 2)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                if (i < canvasPoints.Length - 2)
+                                {
+                                    canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
+                                }
+                            }
+                            else if (nubType == 3)
+                            {
+                                canvasPoints[i] = mapPoint;
+                                canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
+                                if ((i + 1) < canvasPoints.Length)
+                                    canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
+                            }
+
+                            #endregion
+
+                            break;
+                        case PathType.SmoothQuadratic:
+
+                            #region Smooth Quadratic
+
+                            oldp = canvasPoints[i];
+                            if (nubType == 0)
+                            {
+                                canvasPoints[i] = mapPoint;
+                            }
+                            else if (nubType == 3)
+                            {
+                                canvasPoints[i] = mapPoint;
+                            }
+                            for (int j = 0; j < canvasPoints.Length; j++)
+                            {
+                                if (getNubType(j) == 1 && j > 1)
+                                {
+                                    canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                    canvasPoints[j + 1] = canvasPoints[j];
+                                }
+                            }
+
+                            #endregion
+
+                            break;
+                    }
+                } //move first point
+                else if (canvasPoints.Length != 0 && i == 0)
+                {
+                    StatusBarNubLocation(eX, eY);
+
+                    PointF oldp = canvasPoints[i];
+
+                    if (nubType == 0) //special quadratic
+                    {
                         switch (lt)
                         {
                             case PathType.Straight:
@@ -1255,222 +1389,56 @@ namespace ShapeMaker
                                 canvasPoints[i] = mapPoint;
                                 break;
                             case PathType.Cubic:
-
-                                #region cubic
-
-                                oldp = canvasPoints[i];
-                                if (nubType == 0)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    if (canvasPoints.Length > 1)
-                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                }
-                                else if (nubType == 1 || nubType == 2)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                }
-                                else if (nubType == 3)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
-                                    if ((i + 1) < canvasPoints.Length)
-                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                }
-                                if (MacroCubic.Checked)
-                                    CubicAdjust();
-
-                                #endregion
-
+                            case PathType.SmoothCubic:
+                                canvasPoints[i] = mapPoint;
+                                if (canvasPoints.Length > 1)
+                                    canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
                                 break;
                             case PathType.Quadratic:
-
-                                #region Quadratic
-
-                                oldp = canvasPoints[i];
-                                if (nubType == 0)
+                                if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                 {
-                                    canvasPoints[i] = mapPoint;
-                                }
-                                else if (nubType == 1)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    if ((i + 1) < canvasPoints.Length)
-                                        canvasPoints[i + 1] = canvasPoints[i];
-                                }
-                                else if (nubType == 2)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    if ((i - 1) > 0)
-                                        canvasPoints[i - 1] = canvasPoints[i];
-                                }
-                                else if (nubType == 3)
-                                {
-                                    if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                                    {
-                                        //online
-                                        if (i == canvasPoints.Length - 1)
-                                        {
-                                            PointF rtmp = reverseAverage(canvasPoints[i - 1], canvasPoints[i]);
-                                            canvasPoints[i] = onLinePoint(canvasPoints[i - 1], rtmp, mapPoint);
-                                        }
-                                        else
-                                        {
-                                            canvasPoints[i] =
-                                                onLinePoint(canvasPoints[i - 1], canvasPoints[i + 1], mapPoint);
-                                        }
-                                    }
-                                    else
+                                    if (canvasPoints.Length == 1)
                                     {
                                         canvasPoints[i] = mapPoint;
                                     }
-                                }
-
-                                #endregion
-
-                                break;
-                            case PathType.SmoothCubic:
-
-                                #region smooth Cubic
-
-                                oldp = canvasPoints[i];
-                                if (nubType == 0)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    if (canvasPoints.Length > 1)
-                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                    canvasPoints[1] = canvasPoints[0];
-                                }
-                                else if (nubType == 1)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    if (i > 1)
-                                    {
-                                        canvasPoints[i - 2] = reverseAverage(canvasPoints[i], canvasPoints[i - 1]);
-                                    }
                                     else
                                     {
-                                        canvasPoints[1] = canvasPoints[0];
+                                        PointF rtmp = reverseAverage(canvasPoints[i + 1], canvasPoints[i]);
+                                        canvasPoints[i] = onLinePoint(canvasPoints[i + 1], rtmp, mapPoint);
                                     }
                                 }
-                                else if (nubType == 2)
+                                else
                                 {
                                     canvasPoints[i] = mapPoint;
-                                    if (i < canvasPoints.Length - 2)
-                                    {
-                                        canvasPoints[i + 2] = reverseAverage(canvasPoints[i], canvasPoints[i + 1]);
-                                    }
                                 }
-                                else if (nubType == 3)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                    canvasPoints[i - 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i - 1]);
-                                    if ((i + 1) < canvasPoints.Length)
-                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                }
-
-                                #endregion
-
                                 break;
                             case PathType.SmoothQuadratic:
-
-                                #region Smooth Quadratic
-
-                                oldp = canvasPoints[i];
-                                if (nubType == 0)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                }
-                                else if (nubType == 3)
-                                {
-                                    canvasPoints[i] = mapPoint;
-                                }
+                                canvasPoints[0] = mapPoint;
+                                if (canvasPoints.Length > 1)
+                                    canvasPoints[1] = mapPoint;
                                 for (int j = 0; j < canvasPoints.Length; j++)
                                 {
                                     if (getNubType(j) == 1 && j > 1)
                                     {
-                                        canvasPoints[j] = reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
+                                        canvasPoints[j] =
+                                            reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
                                         canvasPoints[j + 1] = canvasPoints[j];
                                     }
                                 }
-
-                                #endregion
-
                                 break;
                         }
-                    } //move first point
-                    else if (canvasPoints.Length != 0 && i == 0)
-                    {
-                        StatusBarNubLocation(eX, eY);
-
-                        PointF oldp = canvasPoints[i];
-
-                        if (nubType == 0) //special quadratic
-                        {
-                            switch (lt)
-                            {
-                                case PathType.Straight:
-                                    canvasPoints[i] = mapPoint;
-                                    break;
-                                case PathType.Ellipse:
-                                    canvasPoints[i] = mapPoint;
-                                    break;
-                                case PathType.Cubic:
-                                case PathType.SmoothCubic:
-                                    canvasPoints[i] = mapPoint;
-                                    if (canvasPoints.Length > 1)
-                                        canvasPoints[i + 1] = movePoint(oldp, canvasPoints[i], canvasPoints[i + 1]);
-                                    break;
-                                case PathType.Quadratic:
-                                    if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                                    {
-                                        if (canvasPoints.Length == 1)
-                                        {
-                                            canvasPoints[i] = mapPoint;
-                                        }
-                                        else
-                                        {
-                                            PointF rtmp = reverseAverage(canvasPoints[i + 1], canvasPoints[i]);
-                                            canvasPoints[i] = onLinePoint(canvasPoints[i + 1], rtmp, mapPoint);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        canvasPoints[i] = mapPoint;
-                                    }
-                                    break;
-                                case PathType.SmoothQuadratic:
-                                    canvasPoints[0] = mapPoint;
-                                    if (canvasPoints.Length > 1)
-                                        canvasPoints[1] = mapPoint;
-                                    for (int j = 0; j < canvasPoints.Length; j++)
-                                    {
-                                        if (getNubType(j) == 1 && j > 1)
-                                        {
-                                            canvasPoints[j] =
-                                                reverseAverage(canvasPoints[j - 3], canvasPoints[j - 1]);
-                                            canvasPoints[j + 1] = canvasPoints[j];
-                                        }
-                                    }
-                                    break;
-                            }
-                        }
-                    } //Pan zoomed
-                    else if (panFlag)
-                    {
-                        Pan();
                     }
-
-                    canvas.Refresh();
-                }
-                else if (e.Button == MouseButtons.Middle && panFlag)
+                } //Pan zoomed
+                else if (panFlag)
                 {
                     Pan();
                 }
 
+                canvas.Refresh();
             }
-            catch (Exception ex)
+            else if (e.Button == MouseButtons.Middle && panFlag)
             {
-                MessageBox.Show(ex.Message);
+                Pan();
             }
 
             void Pan()
@@ -2711,23 +2679,11 @@ namespace ShapeMaker
 
                 if (line.Length > 3 && (ltype == (int)PathType.Quadratic || ltype == (int)PathType.SmoothQuadratic))
                 {
-                    try
-                    {
-                        pGP[j].AddBeziers(Qpts);
-                    }
-                    catch
-                    {
-                    }
+                    pGP[j].AddBeziers(Qpts);
                 }
                 else if (line.Length > 3 && (ltype == (int)PathType.Cubic || ltype == (int)PathType.SmoothCubic))
                 {
-                    try
-                    {
-                        pGP[j].AddBeziers(pts);
-                    }
-                    catch
-                    {
-                    }
+                    pGP[j].AddBeziers(pts);
                 }
                 else if (line.Length > 1 && ltype == (int)PathType.Straight)
                 {
@@ -3558,7 +3514,6 @@ namespace ShapeMaker
                 {
                     MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Cursor.Current = Cursors.Default;
-                    return;
                 }
             }
             catch (Exception ex)
