@@ -2755,6 +2755,51 @@ namespace ShapeMaker
             }
             return true;
         }
+
+        private void LoadProjectFile(string projectPath)
+        {
+            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            try
+            {
+                using (FileStream stream = File.OpenRead(projectPath))
+                {
+                    ArrayList projectPaths = (ArrayList)ser.Deserialize(stream);
+
+                    if (projectPaths.Count == 0)
+                    {
+                        MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (projectPaths.Count > maxPaths)
+                    {
+                        MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    ClearAllPaths();
+
+                    PData documentProps = projectPaths[projectPaths.Count - 1] as PData;
+                    FigureName.Text = documentProps.Meta;
+                    SolidFillMenuItem.Checked = documentProps.SolidFill;
+                    foreach (PData path in projectPaths)
+                    {
+                        lines.Add(path);
+                        LineList.Items.Add(lineNames[path.LineType]);
+                    }
+
+                    ZoomToFactor(1);
+                    resetRotation();
+                    resetHistory();
+                    canvas.Refresh();
+                    AddToRecents(projectPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion
 
         #region Path List functions
@@ -3127,47 +3172,7 @@ namespace ShapeMaker
 
                 saveMyProjectFolder(OFD.FileName);
 
-                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                try
-                {
-                    using (FileStream stream = File.OpenRead(OFD.FileName))
-                    {
-                        ArrayList projectPaths = (ArrayList)ser.Deserialize(stream);
-
-                        if (projectPaths.Count == 0)
-                        {
-                            MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        if (projectPaths.Count > maxPaths)
-                        {
-                            MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        ClearAllPaths();
-
-                        PData documentProps = projectPaths[projectPaths.Count - 1] as PData;
-                        FigureName.Text = documentProps.Meta;
-                        SolidFillMenuItem.Checked = documentProps.SolidFill;
-                        foreach (PData path in projectPaths)
-                        {
-                            lines.Add(path);
-                            LineList.Items.Add(lineNames[path.LineType]);
-                        }
-
-                        ZoomToFactor(1);
-                        resetRotation();
-                        resetHistory();
-                        canvas.Refresh();
-                        AddToRecents(OFD.FileName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                LoadProjectFile(OFD.FileName);
             }
         }
 
@@ -4035,47 +4040,7 @@ namespace ShapeMaker
                 return;
             }
 
-            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-            try
-            {
-                using (FileStream stream = File.OpenRead(projectPath))
-                {
-                    ArrayList projectPaths = (ArrayList)ser.Deserialize(stream);
-
-                    if (projectPaths.Count == 0)
-                    {
-                        MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (projectPaths.Count > maxPaths)
-                    {
-                        MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    ClearAllPaths();
-
-                    PData documentProps = projectPaths[projectPaths.Count - 1] as PData;
-                    FigureName.Text = documentProps.Meta;
-                    SolidFillMenuItem.Checked = documentProps.SolidFill;
-                    foreach (PData path in projectPaths)
-                    {
-                        lines.Add(path);
-                        LineList.Items.Add(lineNames[path.LineType]);
-                    }
-
-                    ZoomToFactor(1);
-                    resetRotation();
-                    resetHistory();
-                    canvas.Refresh();
-                    AddToRecents(projectPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            LoadProjectFile(projectPath);
         }
         #endregion
     }
