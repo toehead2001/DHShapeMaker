@@ -3364,15 +3364,6 @@ namespace ShapeMaker
             }
         }
 
-        private void clearAll_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Delete All Paths?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                setUndo();
-                ClearAllPaths();
-            }
-        }
-
         private void pasteData_Click(object sender, EventArgs e)
         {
             setUndo();

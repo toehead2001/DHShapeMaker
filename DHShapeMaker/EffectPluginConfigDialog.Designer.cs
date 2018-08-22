@@ -59,8 +59,6 @@
             this.loopPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.usersManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickStartStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -301,9 +299,7 @@
             this.toolStripSeparator6,
             this.loopPathToolStripMenuItem,
             this.flipHorizontalToolStripMenuItem,
-            this.flipVerticalToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.clearAllToolStripMenuItem});
+            this.flipVerticalToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             this.editToolStripMenuItem.DropDownClosed += new System.EventHandler(this.editToolStripMenuItem_DropDownClosed);
@@ -362,17 +358,6 @@
             resources.ApplyResources(this.flipVerticalToolStripMenuItem, "flipVerticalToolStripMenuItem");
             this.flipVerticalToolStripMenuItem.Tag = "V";
             this.flipVerticalToolStripMenuItem.Click += new System.EventHandler(this.Flip_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
-            // 
-            // clearAllToolStripMenuItem
-            // 
-            this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-            resources.ApplyResources(this.clearAllToolStripMenuItem, "clearAllToolStripMenuItem");
-            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAll_Click);
             // 
             // HelpMenu
             // 
@@ -1136,7 +1121,6 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flipHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flipVerticalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem removePathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clonePathToolStripMenuItem;
@@ -1182,7 +1166,6 @@
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button removePathButton;
         private System.Windows.Forms.Button clonePathButton;

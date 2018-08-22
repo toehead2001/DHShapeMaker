@@ -244,7 +244,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="undoMenuItem.Text" xml:space="preserve">
     <value>&amp;Undo</value>
@@ -253,61 +253,52 @@
     <value>Ctrl+Y</value>
   </data>
   <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>&amp;Redo</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="removePathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
   </data>
   <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete Path</value>
   </data>
   <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clone Path</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="loopPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+1</value>
   </data>
   <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Loop Path</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Horizontal</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Vertical</value>
-  </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 6</value>
-  </data>
-  <data name="clearAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
-  </data>
-  <data name="clearAllToolStripMenuItem.Text" xml:space="preserve">
-    <value>Clear All Paths</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 20</value>
@@ -2028,18 +2019,6 @@ Deselect to Rotate all</value>
   <data name="&gt;&gt;flipVerticalToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
-    <value>toolStripSeparator5</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;clearAllToolStripMenuItem.Name" xml:space="preserve">
-    <value>clearAllToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;clearAllToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;HelpMenu.Name" xml:space="preserve">
     <value>HelpMenu</value>
   </data>
@@ -2290,6 +2269,6 @@ Deselect to Rotate all</value>
     <value>EffectPluginConfigDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.20.6577.35410, Culture=neutral, PublicKeyToken=null</value>
+    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.22.6806.8404, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
