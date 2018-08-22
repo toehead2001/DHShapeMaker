@@ -87,7 +87,7 @@ namespace ShapeMaker
         private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
         private PointF averagePoint = new PointF(0.5f, 0.5f);
-        private Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
+        private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
         internal EffectPluginConfigDialog()
         {
@@ -1223,8 +1223,6 @@ namespace ShapeMaker
                     switch (lt)
                     {
                         case PathType.Straight:
-                            canvasPoints[i] = mapPoint;
-                            break;
                         case PathType.Ellipse:
                             canvasPoints[i] = mapPoint;
                             break;
@@ -1797,7 +1795,7 @@ namespace ShapeMaker
             }
         }
 
-        private int getNubType(int nubIndex)
+        private static int getNubType(int nubIndex)
         {
             if (nubIndex == 0)
                 return 0; //base
