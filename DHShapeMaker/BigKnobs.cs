@@ -190,13 +190,13 @@ namespace ShapeMaker
 
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                movepoint = (float)(Math.Round(movepoint / 15) * 15);
-                rtate = (float)(Math.Round(rtate / 15) * 15);
+                movepoint = movepoint.ConstrainToInterval(15);
+                rtate = rtate.ConstrainToInterval(15);
             }
             else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
             {
-                movepoint = (float)(Math.Round(movepoint / 5) * 5);
-                rtate = (float)(Math.Round(rtate / 5) * 5);
+                movepoint = movepoint.ConstrainToInterval(5);
+                rtate = rtate.ConstrainToInterval(5);
             }
 
             float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
@@ -219,12 +219,12 @@ namespace ShapeMaker
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
                 rtate += Math.Sign(e.Delta) * 15;
-                rtate = (float)(Math.Round(rtate / 15) * 15);
+                rtate = rtate.ConstrainToInterval(15);
             }
             else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
             {
                 rtate += Math.Sign(e.Delta) * 5;
-                rtate = (float)(Math.Round(rtate / 5) * 5);
+                rtate = rtate.ConstrainToInterval(5);
             }
             else
             {

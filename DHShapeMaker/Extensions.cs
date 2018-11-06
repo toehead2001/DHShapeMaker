@@ -6,6 +6,11 @@ namespace ShapeMaker
 {
     internal static class Extensions
     {
+        internal static int ConstrainToInterval(this float amount, int interval)
+        {
+            return (int)(Math.Round(amount / interval) * interval);
+        }
+
         internal static PointF[] RemoveAt(this PointF[] source, int index)
         {
             PointF[] dest = new PointF[source.Length - 1];
