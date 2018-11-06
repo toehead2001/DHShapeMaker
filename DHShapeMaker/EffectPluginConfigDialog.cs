@@ -3400,7 +3400,6 @@ namespace ShapeMaker
             loopPathToolStripMenuItem.Enabled = (canvasPoints.Length > 1);
             flipHorizontalToolStripMenuItem.Enabled = (canvasPoints.Length > 1 || LineList.Items.Count > 0);
             flipVerticalToolStripMenuItem.Enabled = (canvasPoints.Length > 1 || LineList.Items.Count > 0);
-            clearAllToolStripMenuItem.Enabled = (canvasPoints.Length > 0 || LineList.Items.Count > 0);
         }
 
         private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
