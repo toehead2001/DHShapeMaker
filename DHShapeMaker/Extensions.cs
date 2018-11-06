@@ -11,18 +11,6 @@ namespace ShapeMaker
             return (int)(Math.Round(amount / interval) * interval);
         }
 
-        internal static PointF[] RemoveAt(this PointF[] source, int index)
-        {
-            PointF[] dest = new PointF[source.Length - 1];
-            if (index > 0)
-                Array.Copy(source, 0, dest, 0, index);
-
-            if (index < source.Length - 1)
-                Array.Copy(source, index + 1, dest, index, source.Length - index - 1);
-
-            return dest;
-        }
-
         internal static PointF Average(this PointF[] p)
         {
             if (p.Length == 0)
