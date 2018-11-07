@@ -53,9 +53,6 @@
     <Compile Include="BigKnobs.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BigKnobs.designer.cs">
-      <DependentUpon>BigKnobs.cs</DependentUpon>
-    </Compile>
     <Compile Include="CustomToolbarControls.cs" />
     <Compile Include="EffectPlugin.cs" />
     <Compile Include="EffectPluginConfigDialog.cs">
@@ -82,10 +79,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BigKnobs.resx">
-      <DependentUpon>BigKnobs.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="EffectPluginConfigDialog.de.resx">
       <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
     </EmbeddedResource>

@@ -7,11 +7,14 @@ using System.Windows.Forms;
 namespace ShapeMaker
 {
     [DefaultEvent("ValueChanged")]
-    public partial class BigKnobs : Control
+    public class BigKnobs : Control
     {
         public BigKnobs()
         {
-            InitializeComponent();
+            this.SuspendLayout();
+            this.MinimumSize = new Size(100, 100);
+            this.Size = new Size(100, 100);
+            this.ResumeLayout(false);
         }
 
         private float rtate = 180;
