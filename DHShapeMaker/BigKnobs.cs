@@ -296,6 +296,5 @@ namespace ShapeMaker
             OnValueChanged();
             this.Refresh();
         }
-
     }
 }

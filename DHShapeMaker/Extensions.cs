@@ -115,7 +115,6 @@ namespace ShapeMaker
             }
         }
 
-
         private const double RadPerDeg = Math.PI / 180.0;
         private const double TwoPI = Math.PI * 2.0;
 
