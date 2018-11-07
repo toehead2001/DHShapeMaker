@@ -3400,31 +3400,31 @@ namespace ShapeMaker
         {
             setUndo();
 
+            bool isHorizontal = (sender is ToolStripMenuItem menuItem && menuItem.Tag.ToString() == "H");
+
             if (canvasPoints.Count == 0)
             {
-                for (int k = 0; k < lines.Count; k++)
+                foreach (PData path in lines)
                 {
-                    PData currentPath = lines[k];
-                    int t = currentPath.LineType;
-                    PointF[] pl = currentPath.Lines;
+                    PointF[] pl = path.Lines;
 
-                    if ((sender as ToolStripMenuItem).Tag.ToString() == "H")
+                    if (isHorizontal)
                     {
-                        for (int j = 0; j < pl.Length; j++)
+                        for (int i = 0; i < pl.Length; i++)
                         {
-                            pl[j] = new PointF(1 - pl[j].X, pl[j].Y);
+                            pl[i] = new PointF(1 - pl[i].X, pl[i].Y);
                         }
                     }
                     else
                     {
-                        for (int j = 0; j < pl.Length; j++)
+                        for (int i = 0; i < pl.Length; i++)
                         {
-                            pl[j] = new PointF(pl[j].X, 1 - pl[j].Y);
+                            pl[i] = new PointF(pl[i].X, 1 - pl[i].Y);
                         }
                     }
-                    if (currentPath.LineType == (int)PathType.Ellipse)
+                    if (path.LineType == (int)PathType.Ellipse)
                     {
-                        currentPath.RevSweep = !currentPath.RevSweep;
+                        path.RevSweep = !path.RevSweep;
                     }
                 }
             }
@@ -3432,7 +3432,7 @@ namespace ShapeMaker
             {
                 PointF[] tmp = canvasPoints.ToArray();
                 PointF mid = tmp.Average();
-                if ((sender as ToolStripMenuItem).Tag.ToString() == "H")
+                if (isHorizontal)
                 {
                     for (int i = 0; i < tmp.Length; i++)
                     {
