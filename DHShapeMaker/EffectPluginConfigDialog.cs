@@ -56,7 +56,6 @@ namespace ShapeMaker
         private PathType activeType;
         private readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
 
-        private bool countflag = false;
         private const int maxPaths = 200;
         private const int maxPoints = byte.MaxValue;
         private int clickedNub = -1;
@@ -948,7 +947,6 @@ namespace ShapeMaker
                     if (len == 0)//first point
                     {
                         canvasPoints.Add(clickedPoint);
-                        countflag = true;
                     }
                     else//not first point
                     {
@@ -3843,7 +3841,7 @@ namespace ShapeMaker
                 canvas.Refresh();
             }
 
-            if (countflag || canvasPoints.Count > 0 || LineList.Items.Count > 0)
+            if (canvasPoints.Count > 0 || LineList.Items.Count > 0)
             {
                 statusLabelNubsUsed.Text = $"{canvasPoints.Count}/{maxPoints} Nubs used";
                 statusLabelPathsUsed.Text = $"{LineList.Items.Count}/{maxPaths} Paths used";
