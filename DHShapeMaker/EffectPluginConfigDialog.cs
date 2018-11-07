@@ -2529,64 +2529,6 @@ namespace ShapeMaker
             canvas.Refresh();
         }
 
-        private string getMyFolder()
-        {
-            string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software")?.OpenSubKey("PdnDwarves")?.OpenSubKey("ShapeMaker");
-
-            if (rk != null)
-            {
-                try
-                {
-                    fp = rk.GetValue("PdnShapeDir").ToString();
-                    if (!Directory.Exists(fp))
-                        fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                }
-                catch
-                {
-                    fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                }
-            }
-            return fp;
-        }
-
-        private string getMyProjectFolder()
-        {
-            string fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software")?.OpenSubKey("PdnDwarves")?.OpenSubKey("ShapeMaker");
-
-            if (rk != null)
-            {
-                try
-                {
-                    fp = rk.GetValue("ProjectDir").ToString();
-                    if (!Directory.Exists(fp))
-                        fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                }
-                catch
-                {
-                    fp = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                }
-            }
-            return fp;
-        }
-
-        private void saveMyFolder(string filePath)
-        {
-            RegistryKey key;
-            key = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("PdnDwarves").CreateSubKey("ShapeMaker");
-            key.SetValue("PdnShapeDir", Path.GetDirectoryName(filePath));
-            key.Close();
-        }
-
-        private void saveMyProjectFolder(string filePath)
-        {
-            RegistryKey key;
-            key = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("PdnDwarves").CreateSubKey("ShapeMaker");
-            key.SetValue("ProjectDir", Path.GetDirectoryName(filePath));
-            key.Close();
-        }
-
         private void MakePath()
         {
             int ltype = 0;
@@ -3142,7 +3084,7 @@ namespace ShapeMaker
         {
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
-                OFD.InitialDirectory = getMyProjectFolder();
+                OFD.InitialDirectory = Settings.ProjectFolder;
                 OFD.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
@@ -3156,7 +3098,7 @@ namespace ShapeMaker
                     return;
                 }
 
-                saveMyProjectFolder(OFD.FileName);
+                Settings.ProjectFolder = Path.GetDirectoryName(OFD.FileName);
 
                 LoadProjectFile(OFD.FileName);
             }
@@ -3185,13 +3127,15 @@ namespace ShapeMaker
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
-                sfd.InitialDirectory = getMyProjectFolder();
+                sfd.InitialDirectory = Settings.ProjectFolder;
                 sfd.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
                 sfd.AddExtension = true;
 
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
+
+                Settings.ProjectFolder = Path.GetDirectoryName(sfd.FileName);
 
                 ArrayList paths = new ArrayList(lines);
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
@@ -3231,7 +3175,7 @@ namespace ShapeMaker
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
-                sfd.InitialDirectory = getMyFolder();
+                sfd.InitialDirectory = Settings.ShapeFolder;
                 sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
                 sfd.AddExtension = true;
@@ -3239,7 +3183,7 @@ namespace ShapeMaker
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
 
-                saveMyFolder(sfd.FileName);
+                Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -3282,7 +3226,7 @@ namespace ShapeMaker
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
-                sfd.InitialDirectory = getMyFolder();
+                sfd.InitialDirectory = Settings.ShapeFolder;
                 sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
                 sfd.AddExtension = true;
@@ -3290,7 +3234,7 @@ namespace ShapeMaker
                 if (sfd.ShowDialog() != DialogResult.OK)
                     return;
 
-                saveMyFolder(sfd.FileName);
+                Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -3301,7 +3245,7 @@ namespace ShapeMaker
         {
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
-                OFD.InitialDirectory = getMyFolder();
+                OFD.InitialDirectory = Settings.ShapeFolder;
                 OFD.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
@@ -3315,7 +3259,7 @@ namespace ShapeMaker
                     return;
                 }
 
-                saveMyFolder(OFD.FileName);
+                Settings.ShapeFolder = Path.GetDirectoryName(OFD.FileName);
                 ZoomToFactor(1);
                 setUndo();
 
@@ -3886,15 +3830,9 @@ namespace ShapeMaker
         #region Recent Items functions
         private void AddToRecents(string filePath)
         {
-            RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
-            if (settings == null)
-            {
-                Registry.CurrentUser.CreateSubKey(@"Software\PdnDwarves\ShapeMaker").Flush();
-                settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
-            }
-            string recents = (string)settings.GetValue("RecentProjects", string.Empty);
+            string recents = Settings.RecentProjects;
 
-            if (recents == string.Empty)
+            if (recents.Length == 0)
             {
                 recents = filePath;
             }
@@ -3926,22 +3864,14 @@ namespace ShapeMaker
                 recents = string.Join("|", recentsList.ToArray(), 0, length);
             }
 
-            settings.SetValue("RecentProjects", recents);
-            settings.Close();
+            Settings.RecentProjects = recents;
         }
 
         private void openRecentProject_DropDownOpening(object sender, EventArgs e)
         {
             this.openRecentProject.DropDownItems.Clear();
 
-            RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
-            if (settings == null)
-            {
-                Registry.CurrentUser.CreateSubKey(@"Software\PdnDwarves\ShapeMaker").Flush();
-                settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
-            }
-            string recents = (string)settings.GetValue("RecentProjects", string.Empty);
-            settings.Close();
+            string recents = Settings.RecentProjects;
 
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
             string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
@@ -4000,11 +3930,7 @@ namespace ShapeMaker
             if (MessageBox.Show("Are you sure you want to clear the Open Recent Project list?", "ShapeMaker", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
 
-            using (RegistryKey settings = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true))
-            {
-                if (settings != null)
-                    settings.SetValue("RecentProjects", string.Empty);
-            }
+            Settings.RecentProjects = string.Empty;
         }
 
         private void RecentItem_Click(object sender, EventArgs e)
@@ -4030,5 +3956,62 @@ namespace ShapeMaker
         Quadratic,
         SmoothQuadratic,
         None = -1
+    }
+
+    internal static class Settings
+    {
+        private static readonly RegistryKey regKey;
+        private static readonly string documentsPath;
+
+        internal static string RecentProjects
+        {
+            get
+            {
+                return (string)regKey.GetValue("RecentProjects", string.Empty);
+            }
+            set
+            {
+                regKey.SetValue("RecentProjects", value, RegistryValueKind.String);
+                regKey.Flush();
+            }
+        }
+
+        internal static string ProjectFolder
+        {
+            get
+            {
+                return (string)regKey.GetValue("ProjectDir", documentsPath);
+            }
+            set
+            {
+                regKey.SetValue("ProjectDir", value, RegistryValueKind.String);
+                regKey.Flush();
+            }
+        }
+
+        internal static string ShapeFolder
+        {
+            get
+            {
+                return (string)regKey.GetValue("PdnShapeDir", documentsPath);
+            }
+            set
+            {
+                regKey.SetValue("PdnShapeDir", value, RegistryValueKind.String);
+                regKey.Flush();
+            }
+        }
+
+        static Settings()
+        {
+            regKey = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            if (regKey == null)
+            {
+                Registry.CurrentUser.CreateSubKey(@"Software\PdnDwarves\ShapeMaker").Flush();
+                regKey = Registry.CurrentUser.OpenSubKey(@"Software\PdnDwarves\ShapeMaker", true);
+            }
+
+            documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        }
     }
 }
