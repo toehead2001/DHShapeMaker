@@ -3472,29 +3472,29 @@ namespace ShapeMaker
         {
             string dest = Application.StartupPath + @"\Effects\";
 
-            if (!(sender as ToolStripMenuItem).Name.Equals("QuickStartStripMenuItem"))
-            {
-                dest += "ShapeMaker User Guide.pdf";
-            }
-            else
+            if (sender is ToolStripMenuItem menuItem && menuItem.Name.Equals("QuickStartStripMenuItem", StringComparison.OrdinalIgnoreCase))
             {
                 dest += "ShapeMaker QuickStart.pdf";
             }
-            try
+            else
             {
-                if (File.Exists(dest))
+                dest += "ShapeMaker User Guide.pdf";
+            }
+
+            if (File.Exists(dest))
+            {
+                try
                 {
                     Process.Start(dest);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Cursor.Current = Cursors.Default;
+                    MessageBox.Show($"Unable to open the Help Page\r\n{ex.Message}\r\n{dest}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Unable to open the Help Page\r\n{ex.Message}\r\n{dest}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
