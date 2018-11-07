@@ -156,8 +156,10 @@ namespace ShapeMaker
         #endregion
 
         #region Form functions
-        private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             dpiScale = this.DeviceDpi / 96f;
             canvasBaseSize = this.canvas.Width;
 
@@ -252,8 +254,10 @@ namespace ShapeMaker
             return (int)Math.Round(dimension * dpiScale);
         }
 
-        private void EffectPluginConfigDialog_Resize(object sender, EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
+            base.OnResize(e);
+
             adjustForWindowSize();
         }
 
