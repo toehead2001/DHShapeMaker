@@ -14,7 +14,9 @@ namespace ShapeMaker
         internal static PointF Average(this PointF[] p)
         {
             if (p.Length == 0)
+            {
                 return Point.Empty;
+            }
 
             float x = 0, y = 0;
             foreach (PointF pt in p)
@@ -28,7 +30,9 @@ namespace ShapeMaker
         internal static void Add(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
             if (start == end)
+            {
                 return;
+            }
 
             radiusX = Math.Abs(radiusX);
             radiusY = Math.Abs(radiusY);
@@ -82,7 +86,7 @@ namespace ShapeMaker
                 dtheta += TwoPI;
             }
 
-            int segments = (int)Math.Ceiling((double)Math.Abs(dtheta / (Math.PI / 2.0)));
+            int segments = (int)Math.Ceiling(Math.Abs(dtheta / (Math.PI / 2.0)));
             double delta = dtheta / segments;
             double t = 8.0 / 3.0 * Math.Sin(delta / 4.0) * Math.Sin(delta / 4.0) / Math.Sin(delta / 2.0);
 

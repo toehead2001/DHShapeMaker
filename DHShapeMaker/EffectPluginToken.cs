@@ -1,6 +1,6 @@
 using PaintDotNet.Effects;
-using System.Drawing.Drawing2D;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace ShapeMaker
 {
@@ -16,24 +16,24 @@ namespace ShapeMaker
 
         internal EffectPluginConfigToken(GraphicsPath[] gp, List<PData> pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
         {
-            GP = gp;
-            PathData = pathdata;
-            Draw = draw;
-            Scale = scale;
-            SnapTo = snap;
-            ShapeName = shapename;
-            SolidFill = solidfill;
+            this.GP = gp;
+            this.PathData = pathdata;
+            this.Draw = draw;
+            this.Scale = scale;
+            this.SnapTo = snap;
+            this.ShapeName = shapename;
+            this.SolidFill = solidfill;
         }
 
         private EffectPluginConfigToken(EffectPluginConfigToken copyMe) : base(copyMe)
         {
-            GP = copyMe.GP;
-            PathData = copyMe.PathData;
-            Draw = copyMe.Draw;
-            Scale = copyMe.Scale;
-            SnapTo = copyMe.SnapTo;
-            ShapeName = copyMe.ShapeName;
-            SolidFill = copyMe.SolidFill;
+            this.GP = copyMe.GP;
+            this.PathData = copyMe.PathData;
+            this.Draw = copyMe.Draw;
+            this.Scale = copyMe.Scale;
+            this.SnapTo = copyMe.SnapTo;
+            this.ShapeName = copyMe.ShapeName;
+            this.SolidFill = copyMe.SolidFill;
         }
 
         public override object Clone()

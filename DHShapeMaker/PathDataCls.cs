@@ -18,13 +18,13 @@ namespace ShapeMaker
 
         public PData(PointF[] points, bool closed, int lineType, bool isLarge, bool revSweep, string alias, bool loopBack)
         {
-            Lines = points;
-            LineType = lineType;
-            ClosedType = closed;
-            IsLarge = isLarge;
-            RevSweep = revSweep;
-            Alias = alias;
-            LoopBack = loopBack;
+            this.Lines = points;
+            this.LineType = lineType;
+            this.ClosedType = closed;
+            this.IsLarge = isLarge;
+            this.RevSweep = revSweep;
+            this.Alias = alias;
+            this.LoopBack = loopBack;
         }
 
         public PData()

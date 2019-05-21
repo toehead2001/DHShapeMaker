@@ -1,5 +1,5 @@
-﻿using System;
-using PaintDotNet;
+﻿using PaintDotNet;
+using System;
 using System.Reflection;
 
 namespace ShapeMaker

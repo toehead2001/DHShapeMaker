@@ -9,12 +9,12 @@ namespace ShapeMaker
     {
         internal ThemeRenderer(Color backColor, Color borderColor) : base(new ToolColorTable(backColor, borderColor))
         {
-            RoundedEdges = false;
+            this.RoundedEdges = false;
         }
 
         internal ThemeRenderer() : base(new ThemeColorTable())
         {
-            RoundedEdges = false;
+            this.RoundedEdges = false;
         }
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
@@ -27,99 +27,99 @@ namespace ShapeMaker
         {
             internal ToolColorTable(Color backColor, Color borderColor)
             {
-                BackColor = backColor;
-                BorderColor = borderColor;
+                this.backColor = backColor;
+                this.borderColor = borderColor;
             }
 
-            private readonly Color BackColor;
-            private readonly Color BorderColor;
+            private readonly Color backColor;
+            private readonly Color borderColor;
 
-            public override Color ButtonPressedHighlight => BackColor;
-            public override Color ButtonPressedGradientBegin => BackColor;
-            public override Color ButtonPressedGradientMiddle => BackColor;
-            public override Color ButtonPressedGradientEnd => BackColor;
-            public override Color ButtonPressedBorder => BorderColor;
-            public override Color ButtonPressedHighlightBorder => BorderColor;
+            public override Color ButtonPressedHighlight => this.backColor;
+            public override Color ButtonPressedGradientBegin => this.backColor;
+            public override Color ButtonPressedGradientMiddle => this.backColor;
+            public override Color ButtonPressedGradientEnd => this.backColor;
+            public override Color ButtonPressedBorder => this.borderColor;
+            public override Color ButtonPressedHighlightBorder => this.borderColor;
 
             public override Color ButtonSelectedHighlight => Color.Transparent;
-            public override Color ButtonSelectedBorder => BorderColor;
+            public override Color ButtonSelectedBorder => this.borderColor;
             public override Color ButtonSelectedGradientBegin => Color.Transparent;
             public override Color ButtonSelectedGradientMiddle => Color.Transparent;
             public override Color ButtonSelectedGradientEnd => Color.Transparent;
-            public override Color ButtonSelectedHighlightBorder => BorderColor;
+            public override Color ButtonSelectedHighlightBorder => this.borderColor;
 
-            public override Color ButtonCheckedGradientBegin => BackColor;
-            public override Color ButtonCheckedGradientMiddle => BackColor;
-            public override Color ButtonCheckedGradientEnd => BackColor;
-            public override Color ButtonCheckedHighlight => BackColor;
-            public override Color ButtonCheckedHighlightBorder => BorderColor;
+            public override Color ButtonCheckedGradientBegin => this.backColor;
+            public override Color ButtonCheckedGradientMiddle => this.backColor;
+            public override Color ButtonCheckedGradientEnd => this.backColor;
+            public override Color ButtonCheckedHighlight => this.backColor;
+            public override Color ButtonCheckedHighlightBorder => this.borderColor;
         }
 
         private class ThemeColorTable : ProfessionalColorTable
         {
             internal ThemeColorTable()
             {
-                UseSystemColors = false;
+                this.UseSystemColors = false;
             }
 
-            private readonly Color ForeColor = PdnTheme.ForeColor;
-            private readonly Color BackColor = PdnTheme.BackColor;
-            private readonly Color BorderColor = Color.FromArgb(186, 0, 105, 210);
-            private readonly Color HiliteColor = Color.FromArgb(62, 0, 103, 206);
-            private readonly Color CheckedColor = Color.FromArgb(129, 52, 153, 254);
-            private readonly Color CheckedBorderColor = Color.FromArgb(52, 153, 254);
+            private readonly Color foreColor = PdnTheme.ForeColor;
+            private readonly Color backColor = PdnTheme.BackColor;
+            private readonly Color borderColor = Color.FromArgb(186, 0, 105, 210);
+            private readonly Color hiliteColor = Color.FromArgb(62, 0, 103, 206);
+            private readonly Color checkedColor = Color.FromArgb(129, 52, 153, 254);
+            private readonly Color checkedBorderColor = Color.FromArgb(52, 153, 254);
 
-            public override Color ButtonSelectedHighlight => HiliteColor;
-            public override Color ButtonSelectedBorder => BorderColor;
-            public override Color ButtonSelectedGradientBegin => HiliteColor;
-            public override Color ButtonSelectedGradientMiddle => HiliteColor;
-            public override Color ButtonSelectedGradientEnd => HiliteColor;
-            public override Color ButtonSelectedHighlightBorder => BorderColor;
+            public override Color ButtonSelectedHighlight => this.hiliteColor;
+            public override Color ButtonSelectedBorder => this.borderColor;
+            public override Color ButtonSelectedGradientBegin => this.hiliteColor;
+            public override Color ButtonSelectedGradientMiddle => this.hiliteColor;
+            public override Color ButtonSelectedGradientEnd => this.hiliteColor;
+            public override Color ButtonSelectedHighlightBorder => this.borderColor;
 
-            public override Color ButtonPressedHighlight => HiliteColor;
-            public override Color ButtonPressedGradientBegin => CheckedColor;
-            public override Color ButtonPressedGradientMiddle => CheckedColor;
-            public override Color ButtonPressedGradientEnd => CheckedColor;
-            public override Color ButtonPressedBorder => CheckedBorderColor;
-            public override Color ButtonPressedHighlightBorder => CheckedBorderColor;
+            public override Color ButtonPressedHighlight => this.hiliteColor;
+            public override Color ButtonPressedGradientBegin => this.checkedColor;
+            public override Color ButtonPressedGradientMiddle => this.checkedColor;
+            public override Color ButtonPressedGradientEnd => this.checkedColor;
+            public override Color ButtonPressedBorder => this.checkedBorderColor;
+            public override Color ButtonPressedHighlightBorder => this.checkedBorderColor;
 
-            public override Color ButtonCheckedGradientBegin => CheckedColor;
-            public override Color ButtonCheckedGradientMiddle => CheckedColor;
-            public override Color ButtonCheckedGradientEnd => CheckedColor;
-            public override Color ButtonCheckedHighlight => CheckedColor;
-            public override Color ButtonCheckedHighlightBorder => CheckedBorderColor;
+            public override Color ButtonCheckedGradientBegin => this.checkedColor;
+            public override Color ButtonCheckedGradientMiddle => this.checkedColor;
+            public override Color ButtonCheckedGradientEnd => this.checkedColor;
+            public override Color ButtonCheckedHighlight => this.checkedColor;
+            public override Color ButtonCheckedHighlightBorder => this.checkedBorderColor;
 
-            public override Color ToolStripBorder => BackColor;
-            public override Color ToolStripGradientBegin => BackColor;
-            public override Color ToolStripGradientMiddle => BackColor;
-            public override Color ToolStripGradientEnd => BackColor;
-            public override Color ToolStripDropDownBackground => BackColor;
+            public override Color ToolStripBorder => this.backColor;
+            public override Color ToolStripGradientBegin => this.backColor;
+            public override Color ToolStripGradientMiddle => this.backColor;
+            public override Color ToolStripGradientEnd => this.backColor;
+            public override Color ToolStripDropDownBackground => this.backColor;
 
-            public override Color MenuItemBorder => BorderColor;
-            public override Color MenuItemPressedGradientBegin => BackColor;
-            public override Color MenuItemPressedGradientMiddle => BackColor;
-            public override Color MenuItemPressedGradientEnd => BackColor;
+            public override Color MenuItemBorder => this.borderColor;
+            public override Color MenuItemPressedGradientBegin => this.backColor;
+            public override Color MenuItemPressedGradientMiddle => this.backColor;
+            public override Color MenuItemPressedGradientEnd => this.backColor;
 
-            public override Color MenuItemSelected => HiliteColor;
-            public override Color MenuItemSelectedGradientBegin => HiliteColor;
-            public override Color MenuItemSelectedGradientEnd => HiliteColor;
+            public override Color MenuItemSelected => this.hiliteColor;
+            public override Color MenuItemSelectedGradientBegin => this.hiliteColor;
+            public override Color MenuItemSelectedGradientEnd => this.hiliteColor;
 
-            public override Color CheckBackground => CheckedColor;
-            public override Color CheckSelectedBackground => HiliteColor;
-            public override Color CheckPressedBackground => CheckedColor;
+            public override Color CheckBackground => this.checkedColor;
+            public override Color CheckSelectedBackground => this.hiliteColor;
+            public override Color CheckPressedBackground => this.checkedColor;
 
-            public override Color MenuStripGradientBegin => BackColor;
-            public override Color MenuStripGradientEnd => BackColor;
+            public override Color MenuStripGradientBegin => this.backColor;
+            public override Color MenuStripGradientEnd => this.backColor;
             public override Color MenuBorder => Color.Gray;
 
-            public override Color ImageMarginGradientBegin => BackColor;
-            public override Color ImageMarginGradientMiddle => BackColor;
-            public override Color ImageMarginGradientEnd => BackColor;
+            public override Color ImageMarginGradientBegin => this.backColor;
+            public override Color ImageMarginGradientMiddle => this.backColor;
+            public override Color ImageMarginGradientEnd => this.backColor;
 
-            public override Color SeparatorLight => BackColor;
+            public override Color SeparatorLight => this.backColor;
 
-            public override Color StatusStripGradientBegin => BackColor;
-            public override Color StatusStripGradientEnd => BackColor;
+            public override Color StatusStripGradientBegin => this.backColor;
+            public override Color StatusStripGradientEnd => this.backColor;
         }
     }
 
@@ -127,21 +127,21 @@ namespace ShapeMaker
     {
         public ToolStripButtonWithKeys()
         {
-            Margin = new Padding(0, 1, 2, 2);
+            this.Margin = new Padding(0, 1, 2, 2);
         }
 
         private CheckState checkHolder;
 
         protected override void OnEnabledChanged(EventArgs e)
         {
-            if (!Enabled)
+            if (!this.Enabled)
             {
-                checkHolder = CheckState;
-                Checked = false;
+                this.checkHolder = this.CheckState;
+                this.Checked = false;
             }
             else
             {
-                CheckState = checkHolder;
+                this.CheckState = this.checkHolder;
             }
 
             base.OnEnabledChanged(e);

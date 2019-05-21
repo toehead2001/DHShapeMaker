@@ -32,11 +32,11 @@ namespace ShapeMaker
         {
             get
             {
-                return rtate * (maxvalue - minvalue) / span + minvalue;
+                return this.rtate * (this.maxvalue - this.minvalue) / this.span + this.minvalue;
             }
             set
             {
-                rtate = (value - minvalue) * span / (maxvalue - minvalue);
+                this.rtate = (value - this.minvalue) * this.span / (this.maxvalue - this.minvalue);
                 this.Refresh();
             }
         }
@@ -46,11 +46,11 @@ namespace ShapeMaker
         {
             get
             {
-                return minvalue;
+                return this.minvalue;
             }
             set
             {
-                minvalue = (value < maxvalue) ? value : maxvalue - .1f;
+                this.minvalue = (value < this.maxvalue) ? value : this.maxvalue - .1f;
                 this.Refresh();
             }
         }
@@ -60,11 +60,11 @@ namespace ShapeMaker
         {
             get
             {
-                return maxvalue;
+                return this.maxvalue;
             }
             set
             {
-                maxvalue = (value > minvalue) ? value : minvalue + .1f;
+                this.maxvalue = (value > this.minvalue) ? value : this.minvalue + .1f;
                 this.Refresh();
             }
         }
@@ -74,11 +74,11 @@ namespace ShapeMaker
         {
             get
             {
-                return span;
+                return this.span;
             }
             set
             {
-                span = (value < 360) ? value : 359f;
+                this.span = (value < 360) ? value : 359f;
                 this.Refresh();
             }
         }
@@ -88,11 +88,11 @@ namespace ShapeMaker
         {
             get
             {
-                return spinrate;
+                return this.spinrate;
             }
             set
             {
-                spinrate = (value < .3f) ? .3f : (value > 2f) ? 2f : value;
+                this.spinrate = (value < .3f) ? .3f : (value > 2f) ? 2f : value;
                 this.Refresh();
             }
         }
@@ -165,19 +165,25 @@ namespace ShapeMaker
         {
             base.OnMouseDown(e);
 
-            if (!Focused) Focus();
-            rtating = true;
-            touchpoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
+            if (!this.Focused)
+            {
+                Focus();
+            }
+
+            this.rtating = true;
+            this.touchpoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
 
-            if (!rtating)
+            if (!this.rtating)
+            {
                 return;
+            }
 
-            rtating = false;
+            this.rtating = false;
             OnValueChanged();
             this.Refresh();
         }
@@ -186,31 +192,33 @@ namespace ShapeMaker
         {
             base.OnMouseMove(e);
 
-            if (!rtating)
+            if (!this.rtating)
+            {
                 return;
+            }
 
             float movepoint = (float)Math.Atan2(e.Y - this.ClientRectangle.Height / 2f, e.X - this.ClientRectangle.Width / 2f) * 180f / (float)Math.PI + 180f;
 
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
                 movepoint = movepoint.ConstrainToInterval(15);
-                rtate = rtate.ConstrainToInterval(15);
+                this.rtate = this.rtate.ConstrainToInterval(15);
             }
             else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
             {
                 movepoint = movepoint.ConstrainToInterval(5);
-                rtate = rtate.ConstrainToInterval(5);
+                this.rtate = this.rtate.ConstrainToInterval(5);
             }
 
-            float travel = (movepoint < touchpoint) ? (movepoint + 360f - touchpoint) : movepoint - touchpoint;
+            float travel = (movepoint < this.touchpoint) ? (movepoint + 360f - this.touchpoint) : movepoint - this.touchpoint;
 
             travel = (travel > 180) ? travel - 360f : travel;
-            travel *= spinrate;
-            rtate += travel;
+            travel *= this.spinrate;
+            this.rtate += travel;
 
-            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+            this.rtate = (this.rtate > this.span) ? this.rtate - this.span : (this.rtate < 0) ? this.rtate + this.span : this.rtate;
 
-            touchpoint = movepoint;
+            this.touchpoint = movepoint;
             OnValueChanged();
             this.Refresh();
         }
@@ -221,20 +229,20 @@ namespace ShapeMaker
 
             if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
             {
-                rtate += Math.Sign(e.Delta) * 15;
-                rtate = rtate.ConstrainToInterval(15);
+                this.rtate += Math.Sign(e.Delta) * 15;
+                this.rtate = this.rtate.ConstrainToInterval(15);
             }
             else if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
             {
-                rtate += Math.Sign(e.Delta) * 5;
-                rtate = rtate.ConstrainToInterval(5);
+                this.rtate += Math.Sign(e.Delta) * 5;
+                this.rtate = this.rtate.ConstrainToInterval(5);
             }
             else
             {
-                rtate += Math.Sign(e.Delta) * 5;
+                this.rtate += Math.Sign(e.Delta) * 5;
             }
 
-            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+            this.rtate = (this.rtate > this.span) ? this.rtate - this.span : (this.rtate < 0) ? this.rtate + this.span : this.rtate;
 
             OnValueChanged();
             this.Refresh();
@@ -251,7 +259,9 @@ namespace ShapeMaker
             else
             {
                 using (SolidBrush backBrush = new SolidBrush(this.BackColor))
+                {
                     e.Graphics.FillRectangle(backBrush, rotRect);
+                }
             }
 
             if (this.midImage == null)
@@ -261,7 +271,7 @@ namespace ShapeMaker
             }
 
             e.Graphics.TranslateTransform(rotRect.Width / 2f, rotRect.Height / 2f);
-            e.Graphics.RotateTransform(rtate);
+            e.Graphics.RotateTransform(this.rtate);
             e.Graphics.TranslateTransform(rotRect.Width / -2f, rotRect.Height / -2f);
 
             e.Graphics.DrawImage(this.Enabled ? this.midImage : this.topImage ?? this.midImage, rotRect);
@@ -273,7 +283,9 @@ namespace ShapeMaker
         protected override bool IsInputKey(Keys keyData)
         {
             if (keyData == Keys.Left || keyData == Keys.Right)
+            {
                 return true;
+            }
 
             return base.IsInputKey(keyData);
         }
@@ -284,18 +296,18 @@ namespace ShapeMaker
 
             if (e.KeyCode == Keys.Left)
             {
-                rtate--;
+                this.rtate--;
             }
             else if (e.KeyCode == Keys.Right)
             {
-                rtate++;
+                this.rtate++;
             }
             else
             {
                 return;
             }
 
-            rtate = (rtate > span) ? rtate - span : (rtate < 0) ? rtate + span : rtate;
+            this.rtate = (this.rtate > this.span) ? this.rtate - this.span : (this.rtate < 0) ? this.rtate + this.span : this.rtate;
             OnValueChanged();
             this.Refresh();
         }
