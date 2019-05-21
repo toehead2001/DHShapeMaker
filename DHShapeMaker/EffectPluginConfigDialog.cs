@@ -93,8 +93,7 @@ namespace ShapeMaker
             InitializeComponent();
 
             // Theming
-            PdnTheme.ForeColor = this.ForeColor;
-            PdnTheme.BackColor = this.BackColor;
+            PdnTheme.SetColors(this.ForeColor, this.BackColor);
 
             this.menuStrip1.Renderer = PdnTheme.Renderer;
             this.statusStrip1.Renderer = PdnTheme.Renderer;

@@ -160,30 +160,29 @@ namespace ShapeMaker
         private static Color backColor;
         private static ThemeRenderer themeRenderer;
 
+        internal static void SetColors(Color foreColor, Color backColor)
+        {
+            PdnTheme.foreColor = foreColor;
+            PdnTheme.backColor = backColor;
+            PdnTheme.themeRenderer = null;
+        }
+
         internal static Color ForeColor
         {
             get
             {
                 return foreColor;
             }
-            set
-            {
-                foreColor = value;
-                themeRenderer = null;
-            }
         }
+
         internal static Color BackColor
         {
             get
             {
                 return backColor;
             }
-            set
-            {
-                backColor = value;
-                themeRenderer = null;
-            }
         }
+
         internal static ThemeRenderer Renderer
         {
             get
