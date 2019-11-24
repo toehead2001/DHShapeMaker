@@ -1,5 +1,7 @@
 //Elliptical Arc algorithm from svg.codeplex.com
 using PaintDotNet;
+using PaintDotNet.AppModel;
+using PaintDotNet.Clipboard;
 using PaintDotNet.Effects;
 using System;
 using System.Collections;
@@ -82,7 +84,6 @@ namespace ShapeMaker
         private Control hadFocus;
         private bool isNewPath = true;
         private int canvasBaseSize;
-        private Bitmap clipboardImage = null;
         private bool moveFlag = false;
         private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
@@ -3945,60 +3946,24 @@ namespace ShapeMaker
             }
             else
             {
-                Thread t = new Thread(new ThreadStart(GetImageFromClipboard));
-                t.SetApartmentState(ApartmentState.STA);
-                t.Start();
-                t.Join();
-
-                if (this.clipboardImage == null)
+                Surface surface = this.Services.GetService<IClipboardService>().TryGetSurface();
+                if (surface == null)
                 {
                     this.traceLayer.Focus();
                     MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                this.canvas.BackgroundImage = this.clipboardImage;
-            }
-        }
-
-        private void GetImageFromClipboard()
-        {
-            this.clipboardImage?.Dispose();
-            this.clipboardImage = null;
-            try
-            {
-                IDataObject clippy = Clipboard.GetDataObject();
-                if (clippy == null)
-                {
-                    return;
-                }
-
-                if (Clipboard.ContainsData("PNG"))
-                {
-                    object pngObject = Clipboard.GetData("PNG");
-                    if (pngObject is MemoryStream pngStream)
-                    {
-                        this.clipboardImage = (Bitmap)Image.FromStream(pngStream);
-                    }
-                }
-                else if (clippy.GetDataPresent(DataFormats.Bitmap))
-                {
-                    this.clipboardImage = (Bitmap)clippy.GetData(typeof(Bitmap));
-                }
-            }
-            catch
-            {
+                this.canvas.BackgroundImage = surface.CreateAliasedBitmap();
             }
         }
 
         private void traceSource_CheckedChanged(object sender, EventArgs e)
         {
-            if (!(sender as RadioButton).Checked)
+            if (sender is RadioButton radio && radio.Checked)
             {
-                return;
+                setTraceImage();
             }
-
-            setTraceImage();
         }
 
         private void opacitySlider_Scroll(object sender, EventArgs e)
