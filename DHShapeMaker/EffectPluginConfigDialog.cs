@@ -58,7 +58,8 @@ namespace ShapeMaker
 
         private const int maxPaths = 200;
         private const int maxPoints = byte.MaxValue;
-        private int clickedNub = -1;
+        private const int InvalidNub = -1;
+        private int clickedNub = InvalidNub;
         private PointF moveStart;
         private readonly List<PointF> canvasPoints = new List<PointF>(maxPoints);
 
@@ -862,7 +863,7 @@ namespace ShapeMaker
             this.moveStart = PointToCanvasCoord(e.X, e.Y);
 
             //identify node selected
-            this.clickedNub = -1;
+            this.clickedNub = InvalidNub;
             RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
             for (int i = 0; i < this.canvasPoints.Count; i++)
             {
@@ -876,7 +877,7 @@ namespace ShapeMaker
 
             if (Control.ModifierKeys == Keys.Alt)
             {
-                if (this.clickedNub == -1)
+                if (this.clickedNub == InvalidNub)
                 {
                     this.panFlag = true;
 
@@ -906,7 +907,7 @@ namespace ShapeMaker
             {
                 PathType pathType = getPathType();
 
-                if (this.clickedNub > -1) //delete
+                if (this.clickedNub > InvalidNub) //delete
                 {
                     #region delete
                     if (this.clickedNub == 0)
@@ -1159,7 +1160,7 @@ namespace ShapeMaker
             {
                 if (this.canvasPoints.Count != 0)
                 {
-                    if (this.clickedNub != -1)
+                    if (this.clickedNub != InvalidNub)
                     {
                         setUndo();
                         this.moveFlag = true;
@@ -1175,11 +1176,11 @@ namespace ShapeMaker
             }
             else if (e.Button == MouseButtons.Left)
             {
-                if (this.clickedNub == -1)
+                if (this.clickedNub == InvalidNub)
                 {
                     RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
                     int clickedPath = getNearestPath(bhit);
-                    if (clickedPath != -1)
+                    if (clickedPath != InvalidNub)
                     {
                         this.LineList.SelectedIndex = clickedPath;
 
@@ -1228,7 +1229,7 @@ namespace ShapeMaker
         {
             this.panFlag = false;
             this.moveFlag = false;
-            this.clickedNub = -1;
+            this.clickedNub = InvalidNub;
             this.canvas.Refresh();
             this.canvas.Cursor = Cursors.Default;
         }
@@ -1262,7 +1263,7 @@ namespace ShapeMaker
                 //left shift move line or path
                 if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                 {
-                    if (this.canvasPoints.Count != 0 && i > -1 && i < this.canvasPoints.Count)
+                    if (this.canvasPoints.Count != 0 && i > InvalidNub && i < this.canvasPoints.Count)
                     {
                         StatusBarNubLocation(eX, eY);
 
