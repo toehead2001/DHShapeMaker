@@ -3346,18 +3346,14 @@ namespace ShapeMaker
                 return;
             }
 
-            string TMP = string.Empty;
-            bool r = getPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out TMP);
-            if (!r)
+            if (!getPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out _))
             {
                 MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string figure = this.FigureName.Text;
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            figure = rgx.Replace(figure, string.Empty);
-            figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
+            string figure = Regex.Replace(this.FigureName.Text, "[^a-zA-Z0-9 -]", string.Empty);
+            figure = figure.IsNullOrEmpty() ? "Untitled" : figure;
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
