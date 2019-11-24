@@ -1027,7 +1027,9 @@ namespace ShapeMaker
                         eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
                         eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
                     }
+
                     StatusBarNubLocation(eX, eY);
+
                     PointF clickedPoint = PointToCanvasCoord(eX, eY);
                     if (len == 0)//first point
                     {
@@ -1064,7 +1066,7 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-                                    PointF mid4 = new PointF();
+                                    PointF mid4;
                                     if (len > 1)
                                     {
                                         PointF mid3 = reverseAverage(this.canvasPoints[len - 1], this.canvasPoints[len - 2]);
@@ -1106,7 +1108,7 @@ namespace ShapeMaker
                                 PointF[] sCubicPts = new PointF[3];
                                 sCubicPts[2] = clickedPoint;
                                 //startchange
-                                PointF mid6 = new PointF();
+                                PointF mid6;
                                 if (len > 1)
                                 {
                                     PointF mid5 = reverseAverage(this.canvasPoints[len - 1], this.canvasPoints[len - 2]);
@@ -2356,7 +2358,7 @@ namespace ShapeMaker
                 bool isNumber = number.IndexOf(mychar) > -1;
                 bool isCommand = command.IndexOf(mychar) > -1;
 
-                if (TMP.Equals(string.Empty))
+                if (TMP.Length == 0)
                 {
                     TMP += mychar;
                     alpha = true;
@@ -4013,16 +4015,18 @@ namespace ShapeMaker
             }
 
             ToggleUpDownButtons();
-            this.clonePathButton.Enabled = (this.LineList.SelectedIndex > -1);
-            this.removePathButton.Enabled = (this.LineList.SelectedIndex > -1);
-            this.MacroCircle.Enabled = (this.LineList.SelectedIndex == -1);
-            this.MacroRect.Enabled = (this.LineList.SelectedIndex == -1);
-            this.MacroCubic.Enabled = (this.LineList.SelectedIndex == -1);
+
+            bool newPath = this.LineList.SelectedIndex == -1;
+            this.clonePathButton.Enabled = !newPath;
+            this.removePathButton.Enabled = !newPath;
+            this.MacroCircle.Enabled = newPath;
+            this.MacroRect.Enabled = newPath;
+            this.MacroCubic.Enabled = newPath;
             this.ClosePath.Enabled = !((this.MacroCircle.Checked && this.MacroCircle.Enabled) || (this.MacroRect.Checked && this.MacroRect.Enabled));
             this.CloseContPaths.Enabled = !((this.MacroCircle.Checked && this.MacroCircle.Enabled) || (this.MacroRect.Checked && this.MacroRect.Enabled));
-            this.DeselectBtn.Enabled = (this.LineList.SelectedIndex != -1 && this.canvasPoints.Count != 0);
-            this.AddBtn.Enabled = (this.LineList.SelectedIndex == -1 && this.canvasPoints.Count > 1);
-            this.DiscardBtn.Enabled = (this.LineList.SelectedIndex == -1 && this.canvasPoints.Count > 1);
+            this.DeselectBtn.Enabled = (!newPath && this.canvasPoints.Count != 0);
+            this.AddBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
+            this.DiscardBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
             this.scaleSlider.Enabled = (this.canvasPoints.Count > 1 || (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0));
             this.RotationKnob.Enabled = (this.canvasPoints.Count > 1 || (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0));
 
@@ -4042,7 +4046,7 @@ namespace ShapeMaker
                 this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count}/{maxPaths} Paths used";
             }
 
-            if (this.LineList.SelectedIndex == -1)
+            if (newPath)
             {
                 this.isNewPath = true;
             }
