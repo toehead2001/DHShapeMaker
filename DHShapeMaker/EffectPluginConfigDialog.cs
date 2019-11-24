@@ -4101,28 +4101,10 @@ namespace ShapeMaker
             {
                 recents = filePath + "|" + recents;
 
-                string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-                List<string> recentsList = new List<string>();
-                foreach (string itemPath in paths)
-                {
-                    bool contains = false;
-                    foreach (string listItem in recentsList)
-                    {
-                        if (string.Equals(listItem, itemPath, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            contains = true;
-                            break;
-                        }
-                    }
+                IEnumerable<string> paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Distinct();
 
-                    if (!contains)
-                    {
-                        recentsList.Add(itemPath);
-                    }
-                }
-
-                int length = Math.Min(8, recentsList.Count);
-                recents = string.Join("|", recentsList.ToArray(), 0, length);
+                int length = Math.Min(8, paths.Count());
+                recents = string.Join("|", paths.ToArray(), 0, length);
             }
 
             Settings.RecentProjects = recents;
