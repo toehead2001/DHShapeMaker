@@ -72,7 +72,7 @@ namespace ShapeMaker
 
         private float lastRot = 180;
         private bool keyTrak = false;
-        private GraphicsPath[] pGP = new GraphicsPath[0];
+        private GraphicsPath[] pathForPdnCanvas = null;
         private readonly List<PData> lines = new List<PData>();
         private bool panFlag = false;
         private bool canScrollZoom = false;
@@ -118,13 +118,13 @@ namespace ShapeMaker
         #region Effect Token functions
         protected override void InitialInitToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.pGP, this.lines, false, 100, true, "Untitled", false);
+            this.theEffectToken = new EffectPluginConfigToken(this.pathForPdnCanvas, this.lines, false, 100, true, "Untitled", false);
         }
 
         protected override void InitTokenFromDialog()
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)this.EffectToken;
-            token.GP = this.pGP;
+            token.GP = this.pathForPdnCanvas;
             token.PathData = this.lines;
             token.Draw = this.DrawOnCanvas.Checked;
             token.ShapeName = this.FigureName.Text;
@@ -2762,52 +2762,35 @@ namespace ShapeMaker
             this.canvas.Refresh();
         }
 
-        private void MakePath()
+        private void MakePathForPdnCanvas()
         {
-            int ltype = 0;
-            bool ctype = false;
-            bool mpmode = false;
-            bool islarge = false;
-            bool revsweep = false;
             PointF loopBack = new PointF(-9999, -9999);
             PointF Oldxy = new PointF(-9999, -9999);
 
-            Array.Resize(ref this.pGP, this.lines.Count);
+            Rectangle selection = this.Selection.GetBoundsInt();
+            int selMinDim = Math.Min(selection.Width, selection.Height);
+
+            this.pathForPdnCanvas = new GraphicsPath[this.lines.Count];
 
             for (int j = 0; j < this.lines.Count; j++)
             {
-                PointF[] line;
-                try
-                {
-                    this.pGP[j] = new GraphicsPath();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-
                 PData currentPath = this.lines[j];
-                line = currentPath.Lines;
-                ltype = currentPath.LineType;
-                ctype = currentPath.ClosedType;
-                mpmode = currentPath.LoopBack;
-                islarge = currentPath.IsLarge;
-                revsweep = currentPath.RevSweep;
+                PointF[] pathPoints = currentPath.Lines;
+                PathType pathType = (PathType)currentPath.LineType;
 
-                PointF[] pts = new PointF[line.Length];
-                PointF[] Qpts = new PointF[line.Length];
+                PointF[] pts = new PointF[pathPoints.Length];
+                PointF[] Qpts = new PointF[pathPoints.Length];
 
-                Rectangle selection = this.Selection.GetBoundsInt();
-                int selMinDim = Math.Min(selection.Width, selection.Height);
-                for (int i = 0; i < line.Length; i++)
+                for (int i = 0; i < pathPoints.Length; i++)
                 {
-                    pts[i].X = (float)this.OutputScale.Value * selMinDim / 100f * line[i].X + selection.Left;
-                    pts[i].Y = (float)this.OutputScale.Value * selMinDim / 100f * line[i].Y + selection.Top;
+                    pts[i].X = (float)this.OutputScale.Value * selMinDim / 100f * pathPoints[i].X + selection.Left;
+                    pts[i].Y = (float)this.OutputScale.Value * selMinDim / 100f * pathPoints[i].Y + selection.Top;
                 }
+
                 #region cube to quad
-                if (ltype == (int)PathType.Quadratic || ltype == (int)PathType.SmoothQuadratic)
+                if (pathType == PathType.Quadratic || pathType == PathType.SmoothQuadratic)
                 {
-                    for (int i = 0; i < line.Length; i++)
+                    for (int i = 0; i < pathPoints.Length; i++)
                     {
                         int PT = getNubType(i);
                         if (PT == 0)
@@ -2839,43 +2822,56 @@ namespace ShapeMaker
                 //render lines
 
                 #region drawlines
+                this.pathForPdnCanvas[j] = new GraphicsPath();
 
-                if (line.Length > 3 && (ltype == (int)PathType.Quadratic || ltype == (int)PathType.SmoothQuadratic))
+                switch (pathType)
                 {
-                    this.pGP[j].AddBeziers(Qpts);
+                    case PathType.Straight:
+                        if (pathPoints.Length > 1)
+                        {
+                            this.pathForPdnCanvas[j].AddLines(pts);
+                        }
+                        break;
+                    case PathType.Ellipse:
+                        if (pathPoints.Length == 5)
+                        {
+                            PointF mid = pointAverage(pts[0], pts[4]);
+                            float l = pythag(mid, pts[1]);
+                            float h = pythag(mid, pts[2]);
+                            if ((int)h == 0 || (int)l == 0)
+                            {
+                                PointF[] nullLine = { pts[0], pts[4] };
+                                this.pathForPdnCanvas[j].AddLines(nullLine);
+                            }
+                            else
+                            {
+                                float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
+                                this.pathForPdnCanvas[j].Add(pts[0], l, h, a, (currentPath.IsLarge) ? 1 : 0, (currentPath.RevSweep) ? 1 : 0, pts[4]);
+                            }
+                        }
+                        break;
+                    case PathType.Cubic:
+                    case PathType.SmoothCubic:
+                        if (pathPoints.Length > 3)
+                        {
+                            this.pathForPdnCanvas[j].AddBeziers(pts);
+                        }
+                        break;
+                    case PathType.Quadratic:
+                    case PathType.SmoothQuadratic:
+                        if (pathPoints.Length > 3)
+                        {
+                            this.pathForPdnCanvas[j].AddBeziers(Qpts);
+                        }
+                        break;
                 }
-                else if (line.Length > 3 && (ltype == (int)PathType.Cubic || ltype == (int)PathType.SmoothCubic))
-                {
-                    this.pGP[j].AddBeziers(pts);
-                }
-                else if (line.Length > 1 && ltype == (int)PathType.Straight)
-                {
-                    this.pGP[j].AddLines(pts);
-                }
-                else if (line.Length == 5 && ltype == (int)PathType.Ellipse)
-                {
-                    PointF mid = pointAverage(pts[0], pts[4]);
 
-                    float l = pythag(mid, pts[1]);
-                    float h = pythag(mid, pts[2]);
-                    float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-                    if ((int)h == 0 || (int)l == 0)
-                    {
-                        PointF[] nullLine = { pts[0], pts[4] };
-                        this.pGP[j].AddLines(nullLine);
-                    }
-                    else
-                    {
-                        this.pGP[j].Add(pts[0], l, h, a, (islarge) ? 1 : 0, (revsweep) ? 1 : 0, pts[4]);
-                    }
-                }
-
-                if (!mpmode)
+                if (!currentPath.LoopBack)
                 {
-                    if (ctype && pts.Length > 1)
+                    if (currentPath.ClosedType && pts.Length > 1)
                     {
                         PointF[] points = { pts[pts.Length - 1], pts[0] };
-                        this.pGP[j].AddLines(points);
+                        this.pathForPdnCanvas[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
                 }
@@ -2884,7 +2880,7 @@ namespace ShapeMaker
                     if (pts.Length > 1)
                     {
                         PointF[] points = { pts[pts.Length - 1], loopBack };
-                        this.pGP[j].AddLines(points);
+                        this.pathForPdnCanvas[j].AddLines(points);
                         loopBack = pts[pts.Length - 1];
                     }
                 }
@@ -4034,7 +4030,11 @@ namespace ShapeMaker
                 AddNewPath();
             }
 
-            MakePath();
+            if (this.DrawOnCanvas.Checked)
+            {
+                MakePathForPdnCanvas();
+            }
+
             FinishTokenUpdate();
         }
 
