@@ -564,24 +564,22 @@ namespace ShapeMaker
                 {
                     for (int i = 0; i < pPoints.Length; i++)
                     {
-                        int PT = getNubType(i);
-                        if (PT == 0)
+                        switch (GetNubType(i))
                         {
-                            Qpts[i] = pts[i];
-                        }
-                        else if (PT == 1)
-                        {
-                            Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
-                                pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
-                        }
-                        else if (PT == 2)
-                        {
-                            Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
-                                pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
-                        }
-                        else if (PT == 3)
-                        {
-                            Qpts[i] = pts[i];
+                            case NubType.StartPoint:
+                                Qpts[i] = pts[i];
+                                break;
+                            case NubType.ControlPoint1:
+                                Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
+                                        pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
+                                break;
+                            case NubType.ControlPoint2:
+                                Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
+                                        pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
+                                break;
+                            case NubType.EndPoint:
+                                Qpts[i] = pts[i];
+                                break;
                         }
                     }
                 }
@@ -644,7 +642,7 @@ namespace ShapeMaker
                                     }
                                     break;
                                 case PathType.Quadratic:
-                                    if (getNubType(i) == 1)
+                                    if (GetNubType(i) == NubType.ControlPoint1)
                                     {
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                         e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
@@ -653,14 +651,14 @@ namespace ShapeMaker
                                     }
                                     break;
                                 case PathType.SmoothQuadratic:
-                                    if (getNubType(i) == 3)
+                                    if (GetNubType(i) == NubType.EndPoint)
                                     {
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                     }
                                     break;
                                 case PathType.Cubic:
                                 case PathType.SmoothCubic:
-                                    if (getNubType(i) == 1 && !this.MacroCubic.Checked)
+                                    if (GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
                                     {
                                         if (i != 1 || pType == PathType.Cubic)
                                         {
@@ -672,7 +670,7 @@ namespace ShapeMaker
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
                                         e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
                                     }
-                                    else if (getNubType(i) == 3 && this.MacroCubic.Checked)
+                                    else if (GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
                                     {
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                     }
@@ -934,7 +932,7 @@ namespace ShapeMaker
                             this.canvasPoints.Add(hold);
                             break;
                         case PathType.Cubic:
-                            if (getNubType(this.clickedNub) != 3)
+                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -950,7 +948,7 @@ namespace ShapeMaker
 
                             break;
                         case PathType.Quadratic:
-                            if (getNubType(this.clickedNub) != 3)
+                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -961,7 +959,7 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             break;
                         case PathType.SmoothCubic:
-                            if (getNubType(this.clickedNub) != 3)
+                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -972,14 +970,14 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             for (int i = 1; i < this.canvasPoints.Count; i++)
                             {
-                                if (getNubType(i) == 1 && i > 3)
+                                if (GetNubType(i) == NubType.ControlPoint1 && i > 3)
                                 {
                                     this.canvasPoints[i] = reverseAverage(this.canvasPoints[i - 2], this.canvasPoints[i - 1]);
                                 }
                             }
                             break;
                         case PathType.SmoothQuadratic:
-                            if (getNubType(this.clickedNub) != 3)
+                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -990,7 +988,7 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             for (int i = 1; i < this.canvasPoints.Count; i++)
                             {
-                                if (getNubType(i) == 1 && i > 3)
+                                if (GetNubType(i) == NubType.ControlPoint1 && i > 3)
                                 {
                                     this.canvasPoints[i] = reverseAverage(this.canvasPoints[i - 3], this.canvasPoints[i - 1]);
                                     if (i < this.canvasPoints.Count - 1)
@@ -1240,7 +1238,6 @@ namespace ShapeMaker
             StatusBarMouseLocation(e.X, e.Y);
 
             int i = this.clickedNub;
-            int nubType = getNubType(this.clickedNub);
 
             int eX = e.X,
                 eY = e.Y;
@@ -1261,6 +1258,8 @@ namespace ShapeMaker
 
             if (e.Button == MouseButtons.Left)
             {
+                NubType nubType = GetNubType(this.clickedNub);
+
                 //left shift move line or path
                 if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                 {
@@ -1327,7 +1326,7 @@ namespace ShapeMaker
                             #region cubic
 
                             oldp = this.canvasPoints[i];
-                            if (nubType == 0)
+                            if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
@@ -1335,11 +1334,11 @@ namespace ShapeMaker
                                     this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
                                 }
                             }
-                            else if (nubType == 1 || nubType == 2)
+                            else if (nubType == NubType.ControlPoint1 || nubType == NubType.ControlPoint2)
                             {
                                 this.canvasPoints[i] = mapPoint;
                             }
-                            else if (nubType == 3)
+                            else if (nubType == NubType.EndPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 this.canvasPoints[i - 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i - 1]);
@@ -1361,11 +1360,11 @@ namespace ShapeMaker
                             #region Quadratic
 
                             oldp = this.canvasPoints[i];
-                            if (nubType == 0)
+                            if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                             }
-                            else if (nubType == 1)
+                            else if (nubType == NubType.ControlPoint1)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if ((i + 1) < this.canvasPoints.Count)
@@ -1373,7 +1372,7 @@ namespace ShapeMaker
                                     this.canvasPoints[i + 1] = this.canvasPoints[i];
                                 }
                             }
-                            else if (nubType == 2)
+                            else if (nubType == NubType.ControlPoint2)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if ((i - 1) > 0)
@@ -1381,7 +1380,7 @@ namespace ShapeMaker
                                     this.canvasPoints[i - 1] = this.canvasPoints[i];
                                 }
                             }
-                            else if (nubType == 3)
+                            else if (nubType == NubType.EndPoint)
                             {
                                 if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                 {
@@ -1411,7 +1410,7 @@ namespace ShapeMaker
                             #region smooth Cubic
 
                             oldp = this.canvasPoints[i];
-                            if (nubType == 0)
+                            if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
@@ -1421,7 +1420,7 @@ namespace ShapeMaker
 
                                 this.canvasPoints[1] = this.canvasPoints[0];
                             }
-                            else if (nubType == 1)
+                            else if (nubType == NubType.ControlPoint1)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if (i > 1)
@@ -1433,7 +1432,7 @@ namespace ShapeMaker
                                     this.canvasPoints[1] = this.canvasPoints[0];
                                 }
                             }
-                            else if (nubType == 2)
+                            else if (nubType == NubType.ControlPoint2)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 if (i < this.canvasPoints.Count - 2)
@@ -1441,7 +1440,7 @@ namespace ShapeMaker
                                     this.canvasPoints[i + 2] = reverseAverage(this.canvasPoints[i], this.canvasPoints[i + 1]);
                                 }
                             }
-                            else if (nubType == 3)
+                            else if (nubType == NubType.EndPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                                 this.canvasPoints[i - 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i - 1]);
@@ -1459,17 +1458,17 @@ namespace ShapeMaker
                             #region Smooth Quadratic
 
                             oldp = this.canvasPoints[i];
-                            if (nubType == 0)
+                            if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                             }
-                            else if (nubType == 3)
+                            else if (nubType == NubType.EndPoint)
                             {
                                 this.canvasPoints[i] = mapPoint;
                             }
                             for (int j = 0; j < this.canvasPoints.Count; j++)
                             {
-                                if (getNubType(j) == 1 && j > 1)
+                                if (GetNubType(j) == NubType.ControlPoint1 && j > 1)
                                 {
                                     this.canvasPoints[j] = reverseAverage(this.canvasPoints[j - 3], this.canvasPoints[j - 1]);
                                     this.canvasPoints[j + 1] = this.canvasPoints[j];
@@ -1487,7 +1486,7 @@ namespace ShapeMaker
 
                     PointF oldp = this.canvasPoints[i];
 
-                    if (nubType == 0) //special quadratic
+                    if (nubType == NubType.StartPoint) //special quadratic
                     {
                         switch (lt)
                         {
@@ -1533,7 +1532,7 @@ namespace ShapeMaker
 
                                 for (int j = 0; j < this.canvasPoints.Count; j++)
                                 {
-                                    if (getNubType(j) == 1 && j > 1)
+                                    if (GetNubType(j) == NubType.ControlPoint1 && j > 1)
                                     {
                                         this.canvasPoints[j] =
                                             reverseAverage(this.canvasPoints[j - 3], this.canvasPoints[j - 1]);
@@ -1929,14 +1928,15 @@ namespace ShapeMaker
             }
         }
 
-        private static int getNubType(int nubIndex)
+        private static NubType GetNubType(int nubIndex)
         {
             if (nubIndex == 0)
             {
-                return 0; //base
+                return NubType.StartPoint;
             }
 
-            return ((nubIndex - 1) % 3) + 1; //1 =ctl1,2=ctl2, 3= end point;
+            int nubType = ((nubIndex - 1) % 3) + 1;
+            return (NubType)nubType;
         }
 
         private PathType getPathType()
@@ -2150,7 +2150,7 @@ namespace ShapeMaker
                         strPath += " Q ";
                         for (int i = 1; i < line.Length; i++)
                         {
-                            if (getNubType(i) != 2)
+                            if (GetNubType(i) != NubType.ControlPoint2)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
@@ -2171,7 +2171,7 @@ namespace ShapeMaker
                         strPath += " S ";
                         for (int i = 1; i < line.Length; i++)
                         {
-                            if (getNubType(i) != 1)
+                            if (GetNubType(i) != NubType.ControlPoint1)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
@@ -2191,7 +2191,7 @@ namespace ShapeMaker
                         strPath += " T ";
                         for (int i = 1; i < line.Length; i++)
                         {
-                            if (getNubType(i) != 2 && getNubType(i) != 1)
+                            if (GetNubType(i) != NubType.ControlPoint2 && GetNubType(i) != NubType.ControlPoint1)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
@@ -2469,7 +2469,8 @@ namespace ShapeMaker
                         continue;
                     }
                 }
-                int ptype, len = 0;
+                NubType ptype;
+                int len = 0;
 
                 // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
                 switch (strMode)
@@ -2539,16 +2540,16 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         len = pts.Length;
                         Array.Resize(ref pts, len + 1);
-                        ptype = getNubType(len);
+                        ptype = GetNubType(len);
                         if (len > 1)
                         {
-                            if (ptype == 1)
+                            if (ptype == NubType.ControlPoint1)
                             {
                                 Array.Resize(ref pts, len + 2);
                                 pts[len + 1] = LastPos;
                                 pts[len] = reverseAverage(pts[len - 2], pts[len - 1]);
                             }
-                            else if (ptype == 3)
+                            else if (ptype == NubType.EndPoint)
                             {
                                 pts[len] = LastPos;
                             }
@@ -2606,8 +2607,8 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         pts[pts.Length - 1] = LastPos;
                         //
-                        ptype = getNubType(pts.Length - 1);
-                        if (ptype == 1)
+                        ptype = GetNubType(pts.Length - 1);
+                        if (ptype == NubType.ControlPoint1)
                         {
                             Array.Resize(ref pts, pts.Length + 1);
                             pts[pts.Length - 1] = LastPos;
@@ -2795,24 +2796,22 @@ namespace ShapeMaker
                 {
                     for (int i = 0; i < pathPoints.Length; i++)
                     {
-                        int PT = getNubType(i);
-                        if (PT == 0)
+                        switch (GetNubType(i))
                         {
-                            Qpts[i] = pts[i];
-                        }
-                        else if (PT == 1)
-                        {
-                            Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
-                                pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
-                        }
-                        else if (PT == 2)
-                        {
-                            Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
-                                pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
-                        }
-                        else if (PT == 3)
-                        {
-                            Qpts[i] = pts[i];
+                            case NubType.StartPoint:
+                                Qpts[i] = pts[i];
+                                break;
+                            case NubType.ControlPoint1:
+                                Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
+                                        pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
+                                break;
+                            case NubType.ControlPoint2:
+                                Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
+                                        pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
+                                break;
+                            case NubType.EndPoint:
+                                Qpts[i] = pts[i];
+                                break;
                         }
                     }
                 }
