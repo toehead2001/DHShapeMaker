@@ -1237,8 +1237,6 @@ namespace ShapeMaker
         {
             StatusBarMouseLocation(e.X, e.Y);
 
-            int i = this.clickedNub;
-
             int eX = e.X,
                 eY = e.Y;
             if (this.Snap.Checked)
@@ -1259,6 +1257,7 @@ namespace ShapeMaker
             if (e.Button == MouseButtons.Left)
             {
                 NubType nubType = GetNubType(this.clickedNub);
+                int i = this.clickedNub;
 
                 //left shift move line or path
                 if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
