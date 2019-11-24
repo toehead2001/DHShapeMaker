@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="EffectPluginToken.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="NubType.cs" />
     <Compile Include="PathDataCls.cs" />
     <Compile Include="PathType.cs" />
     <Compile Include="PDNSupport.cs" />
