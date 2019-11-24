@@ -2470,6 +2470,8 @@ namespace ShapeMaker
                     }
                 }
                 int ptype, len = 0;
+
+                // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
                 switch (strMode)
                 {
                     case "n":
