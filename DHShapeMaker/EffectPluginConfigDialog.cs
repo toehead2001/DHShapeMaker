@@ -1270,19 +1270,9 @@ namespace ShapeMaker
 
                         PointF oldp = this.canvasPoints[i];
 
-                        switch (lt)
+                        for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
-                            case PathType.Straight:
-                            case PathType.Cubic:
-                            case PathType.Quadratic:
-                            case PathType.SmoothCubic:
-                            case PathType.SmoothQuadratic:
-                            case PathType.Ellipse:
-                                for (int j = 0; j < this.canvasPoints.Count; j++)
-                                {
-                                    this.canvasPoints[j] = movePoint(oldp, mapPoint, this.canvasPoints[j]);
-                                }
-                                break;
+                            this.canvasPoints[j] = movePoint(oldp, mapPoint, this.canvasPoints[j]);
                         }
                     }
                     else if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
@@ -1291,21 +1281,10 @@ namespace ShapeMaker
 
                         for (int k = 0; k < this.lines.Count; k++)
                         {
-                            int t = this.lines[k].LineType;
                             PointF[] pl = this.lines[k].Lines;
-                            switch (t)
+                            for (int j = 0; j < pl.Length; j++)
                             {
-                                case (int)PathType.Straight:
-                                case (int)PathType.Cubic:
-                                case (int)PathType.Quadratic:
-                                case (int)PathType.SmoothCubic:
-                                case (int)PathType.SmoothQuadratic:
-                                case (int)PathType.Ellipse:
-                                    for (int j = 0; j < pl.Length; j++)
-                                    {
-                                        pl[j] = movePoint(this.moveStart, mapPoint, pl[j]);
-                                    }
-                                    break;
+                                pl[j] = movePoint(this.moveStart, mapPoint, pl[j]);
                             }
                         }
                         this.moveStart = mapPoint;
@@ -1992,18 +1971,18 @@ namespace ShapeMaker
                     for (int j = 0; j < tmp.Length; j++)
                     {
                         // exclude 'control' nubs.
-                        switch (this.lines[i].LineType)
+                        switch ((PathType)this.lines[i].LineType)
                         {
-                            case 1: // Ellipse (Red)
+                            case PathType.Ellipse: // Ellipse (Red)
                                 if (j % 4 != 0)
                                 {
                                     continue;
                                 }
 
                                 break;
-                            case 2: // Cubic (Blue)
-                            case 3: // Smooth Cubic (Green)
-                            case 4: // Quadratic (Goldenrod)
+                            case PathType.Cubic: // Cubic (Blue)
+                            case PathType.SmoothCubic: // Smooth Cubic (Green)
+                            case PathType.Quadratic: // Quadratic (Goldenrod)
                                 if (j % 3 != 0)
                                 {
                                     continue;
@@ -2055,7 +2034,7 @@ namespace ShapeMaker
             for (int index = 0; index < this.lines.Count; index++)
             {
                 PData currentPath = this.lines[index];
-                int lt = currentPath.LineType;
+                PathType pathType = (PathType)currentPath.LineType;
                 PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
                 bool revsweep = currentPath.RevSweep;
@@ -2080,9 +2059,10 @@ namespace ShapeMaker
                     strPath += ",";
                     strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
                 }
-                switch (lt)
+
+                switch (pathType)
                 {
-                    case (int)PathType.Straight:
+                    case PathType.Straight:
                         strPath += " L ";
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2098,7 +2078,7 @@ namespace ShapeMaker
                         }
                         oldx = x; oldy = y;
                         break;
-                    case (int)PathType.Ellipse:
+                    case PathType.Ellipse:
                         strPath += " A ";
                         PointF[] pts = new PointF[line.Length];
                         for (int i = 0; i < line.Length; i++)
@@ -2129,7 +2109,7 @@ namespace ShapeMaker
                         oldx = pts[4].X;
                         oldy = pts[4].Y;
                         break;
-                    case (int)PathType.Cubic:
+                    case PathType.Cubic:
                         strPath += " C ";
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2145,9 +2125,8 @@ namespace ShapeMaker
 
                             oldx = x; oldy = y;
                         }
-
                         break;
-                    case (int)PathType.Quadratic:
+                    case PathType.Quadratic:
                         strPath += " Q ";
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2166,9 +2145,8 @@ namespace ShapeMaker
                                 oldx = x; oldy = y;
                             }
                         }
-
                         break;
-                    case (int)PathType.SmoothCubic:
+                    case PathType.SmoothCubic:
                         strPath += " S ";
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2188,7 +2166,7 @@ namespace ShapeMaker
                             }
                         }
                         break;
-                    case (int)PathType.SmoothQuadratic:
+                    case PathType.SmoothQuadratic:
                         strPath += " T ";
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2240,7 +2218,7 @@ namespace ShapeMaker
                 Application.DoEvents();
 
                 PData currentPath = this.lines[index];
-                int lt = currentPath.LineType;
+                PathType pathType = (PathType)currentPath.LineType;
                 PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
                 bool revsweep = currentPath.RevSweep;
@@ -2265,10 +2243,10 @@ namespace ShapeMaker
                     strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
                     strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
-                switch (lt)
-                {
-                    case (int)PathType.Straight:
 
+                switch (pathType)
+                {
+                    case PathType.Straight:
                         tmpstr = string.Empty;
                         for (int i = 1; i < line.Length; i++)
                         {
@@ -2282,7 +2260,7 @@ namespace ShapeMaker
 
                         oldx = x; oldy = y;
                         break;
-                    case (int)PathType.Ellipse:
+                    case PathType.Ellipse:
                         strPath += $"\t\t\t\t\t{Properties.Resources.PGEllipse}\r\n";
                         PointF[] pts = new PointF[line.Length];
                         for (int i = 0; i < line.Length; i++)
@@ -2310,8 +2288,8 @@ namespace ShapeMaker
                         strPath = strPath.Replace("~5", tmpstr);
                         oldx = pts[4].X; oldy = pts[4].Y;
                         break;
-                    case (int)PathType.SmoothCubic:
-                    case (int)PathType.Cubic:
+                    case PathType.SmoothCubic:
+                    case PathType.Cubic:
 
                         for (int i = 1; i < line.Length - 1; i += 3)
                         {
@@ -2327,8 +2305,8 @@ namespace ShapeMaker
 
                         oldx = x; oldy = y;
                         break;
-                    case (int)PathType.SmoothQuadratic:
-                    case (int)PathType.Quadratic:
+                    case PathType.SmoothQuadratic:
+                    case PathType.Quadratic:
 
                         for (int i = 1; i < line.Length - 1; i += 3)
                         {
