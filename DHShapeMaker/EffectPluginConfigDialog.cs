@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -2891,31 +2892,19 @@ namespace ShapeMaker
 
         private bool InView()
         {
-            if (this.canvasPoints.Count > 0)
+            if (this.canvasPoints.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
             {
-                for (int j = 0; j < this.canvasPoints.Count; j++)
+                return false;
+            }
+
+            foreach (PData pathData in this.lines)
+            {
+                if (pathData.Lines.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
                 {
-                    if (this.canvasPoints[j].X > 1.5f || this.canvasPoints[j].Y > 1.5f)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
 
-            if (this.lines.Count > 0)
-            {
-                for (int k = 0; k < this.lines.Count; k++)
-                {
-                    PointF[] pl = this.lines[k].Lines;
-                    for (int j = 0; j < pl.Length; j++)
-                    {
-                        if (pl[j].X > 1.5f || pl[j].Y > 1.5f)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
             return true;
         }
 
