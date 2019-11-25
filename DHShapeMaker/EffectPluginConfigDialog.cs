@@ -95,6 +95,10 @@ namespace ShapeMaker
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
+#if FASTDEBUG
+            this.ShowInTaskbar = true;
+#endif
+
             // Theming
             PdnTheme.SetColors(this.ForeColor, this.BackColor);
 
@@ -2749,6 +2753,9 @@ namespace ShapeMaker
 
         private void MakePathForPdnCanvas()
         {
+#if FASTDEBUG
+            return;
+#endif
             PointF loopBack = new PointF(-9999, -9999);
             PointF Oldxy = new PointF(-9999, -9999);
 
@@ -3915,6 +3922,9 @@ namespace ShapeMaker
         #region Image Tracing
         private void setTraceImage()
         {
+#if FASTDEBUG
+            return;
+#endif
             if (this.traceLayer.Checked)
             {
                 Rectangle selection = this.Selection.GetBoundsInt();
