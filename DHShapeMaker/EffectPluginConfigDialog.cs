@@ -90,6 +90,9 @@ namespace ShapeMaker
         private Control hadFocus;
         private bool isNewPath = true;
         private int canvasBaseSize;
+#if !PDNPLUGIN
+        private Bitmap clipboardImage = null;
+#endif
         private bool moveFlag = false;
         private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
@@ -3952,6 +3955,53 @@ namespace ShapeMaker
                 }
 
                 this.canvas.BackgroundImage = surface.CreateAliasedBitmap();
+            }
+#else
+            if (this.traceClipboard.Checked)
+            {
+                Thread t = new Thread(new ThreadStart(GetImageFromClipboard));
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+                t.Join();
+
+                if (this.clipboardImage == null)
+                {
+                    this.traceLayer.Focus();
+                    MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                this.canvas.BackgroundImage = this.clipboardImage;
+            }
+
+            void GetImageFromClipboard()
+            {
+                this.clipboardImage?.Dispose();
+                this.clipboardImage = null;
+                try
+                {
+                    IDataObject clippy = Clipboard.GetDataObject();
+                    if (clippy == null)
+                    {
+                        return;
+                    }
+
+                    if (Clipboard.ContainsData("PNG"))
+                    {
+                        object pngObject = Clipboard.GetData("PNG");
+                        if (pngObject is MemoryStream pngStream)
+                        {
+                            this.clipboardImage = (Bitmap)Image.FromStream(pngStream);
+                        }
+                    }
+                    else if (clippy.GetDataPresent(DataFormats.Bitmap))
+                    {
+                        this.clipboardImage = (Bitmap)clippy.GetData(typeof(Bitmap));
+                    }
+                }
+                catch
+                {
+                }
             }
 #endif
         }
