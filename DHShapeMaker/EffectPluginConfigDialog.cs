@@ -4111,10 +4111,10 @@ namespace ShapeMaker
             {
                 recents = filePath + "|" + recents;
 
-                IEnumerable<string> paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Distinct();
+                string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToArray();
 
-                int length = Math.Min(8, paths.Count());
-                recents = string.Join("|", paths.ToArray(), 0, length);
+                int length = Math.Min(8, paths.Length);
+                recents = string.Join("|", paths, 0, length);
             }
 
             Settings.RecentProjects = recents;
@@ -4127,6 +4127,7 @@ namespace ShapeMaker
             string recents = Settings.RecentProjects;
 
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
+            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
             string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             int count = 1;
             foreach (string projectPath in paths)
@@ -4136,20 +4137,17 @@ namespace ShapeMaker
                     continue;
                 }
 
-                ToolStripMenuItem recentItem = new ToolStripMenuItem();
-
                 string menuText = $"&{count} {Path.GetFileName(projectPath)}";
-                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                 try
                 {
                     ArrayList projectPaths = (ArrayList)ser.Deserialize(File.OpenRead(projectPath));
-
                     menuText = $"&{count} {(projectPaths[projectPaths.Count - 1] as PData).Meta} ({Path.GetFileName(projectPath)})";
                 }
                 catch
                 {
                 }
 
+                ToolStripMenuItem recentItem = new ToolStripMenuItem();
                 recentItem.Text = menuText;
                 recentItem.ToolTipText = projectPath;
                 recentItem.Click += RecentItem_Click;

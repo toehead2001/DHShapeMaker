@@ -1,0 +1,44 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+end_of_line = crlf
+
+[*.cs]
+dotnet_style_qualification_for_field = true:error
+dotnet_style_qualification_for_property = true:error
+dotnet_style_qualification_for_method = false:none
+dotnet_style_qualification_for_event = true:error
+
+csharp_prefer_braces = true:error
+
+
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+
+# Private fields must be Camel Case (pdn_private_fields_must_be_camel_case)
+dotnet_naming_rule.pdn_private_fields_must_be_camel_case.symbols    = pdn_private_fields
+dotnet_naming_symbols.pdn_private_fields.applicable_kinds           = field
+dotnet_naming_symbols.pdn_private_fields.applicable_accessibilities = private
+
+dotnet_naming_rule.pdn_private_fields_must_be_camel_case.style      = pdn_first_word_lower_case_style
+dotnet_naming_style.pdn_first_word_lower_case_style.capitalization  = camel_case
+
+dotnet_naming_rule.pdn_private_fields_must_be_camel_case.severity   = warning
+
+
+# Properties must be Pascal Case (pdn_propteries_must_be_pascal_case)
+dotnet_naming_rule.pdn_propteries_must_be_pascal_case.symbols   = pdn_properties
+dotnet_naming_symbols.pdn_properties.applicable_kinds           = property
+dotnet_naming_symbols.pdn_properties.applicable_accessibilities = *
+##dotnet_naming_symbols.pdn_properties.required_modifiers       = readonly
+
+dotnet_naming_rule.pdn_propteries_must_be_pascal_case.style   = pdn_properties_pascal_case
+dotnet_naming_style.pdn_properties_pascal_case.capitalization = pascal_case
+
+dotnet_naming_rule.pdn_propteries_must_be_pascal_case.severity = warning
