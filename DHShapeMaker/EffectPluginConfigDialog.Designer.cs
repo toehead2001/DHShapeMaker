@@ -1075,7 +1075,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = true;
             this.Name = "EffectPluginConfigDialog";
-            this.UseAppThemeColors = true;
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             this.Resize += new System.EventHandler(this.EffectPluginConfigDialog_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();

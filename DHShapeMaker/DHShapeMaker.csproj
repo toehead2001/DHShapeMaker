@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4F426B1B-0AD4-4F08-B185-F01E22A50D7A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShapeMaker</RootNamespace>
     <AssemblyName>ShapeMaker</AssemblyName>
@@ -31,12 +31,11 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'FastDebug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\FastDebug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;FASTDEBUG</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PDN Plugin|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\PDN Plugin\</OutputPath>
+    <DefineConstants>TRACE;PDNPLUGIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>

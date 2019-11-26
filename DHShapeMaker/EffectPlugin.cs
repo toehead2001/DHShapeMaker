@@ -1,3 +1,4 @@
+#if PDNPLUGIN
 using PaintDotNet;
 using PaintDotNet.Effects;
 using System.Drawing;
@@ -77,3 +78,4 @@ namespace ShapeMaker
         }
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using PaintDotNet;
+﻿#if PDNPLUGIN
+using PaintDotNet;
 using System;
 using System.Reflection;
 
@@ -13,3 +14,4 @@ namespace ShapeMaker
         public Uri WebsiteUri => new Uri("https://forums.getpaint.net/index.php?showtopic=110677");
     }
 }
+#endif

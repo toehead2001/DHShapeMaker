@@ -1,8 +1,10 @@
 //Elliptical Arc algorithm from svg.codeplex.com
+#if PDNPLUGIN
 using PaintDotNet;
 using PaintDotNet.AppModel;
 using PaintDotNet.Clipboard;
 using PaintDotNet.Effects;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +23,11 @@ using System.Xml.Serialization;
 
 namespace ShapeMaker
 {
+#if PDNPLUGIN
     internal partial class EffectPluginConfigDialog : EffectConfigDialog
+#else
+    internal partial class EffectPluginConfigDialog : Form
+#endif
     {
         private static readonly string[] lineNames =
         {
@@ -95,7 +101,14 @@ namespace ShapeMaker
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
-#if FASTDEBUG
+#if PDNPLUGIN
+            this.UseAppThemeColors = true;
+#else
+            this.buttonOK.Visible = false;
+            this.DrawOnCanvas.Visible = false;
+
+            this.BackColor = Color.White;
+            this.ForeColor = Color.Black;
             this.ShowInTaskbar = true;
 #endif
 
@@ -122,6 +135,7 @@ namespace ShapeMaker
             this.OutputScale.BackColor = PdnTheme.BackColor;
         }
 
+#if PDNPLUGIN
         #region Effect Token functions
         protected override void InitialInitToken()
         {
@@ -158,6 +172,7 @@ namespace ShapeMaker
             }
         }
         #endregion
+#endif
 
         #region Form functions
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
@@ -168,7 +183,7 @@ namespace ShapeMaker
             setTraceImage();
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            this.Text = EffectPlugin.StaticName + " v" + version;
+            this.Text = "ShapeMaker - Test";// v" + version;
 
             this.Arc.Enabled = false;
             this.Sweep.Enabled = false;
@@ -2751,11 +2766,9 @@ namespace ShapeMaker
             this.canvas.Refresh();
         }
 
+#if PDNPLUGIN
         private void MakePathForPdnCanvas()
         {
-#if FASTDEBUG
-            return;
-#endif
             PointF loopBack = new PointF(-9999, -9999);
             PointF Oldxy = new PointF(-9999, -9999);
 
@@ -2878,7 +2891,7 @@ namespace ShapeMaker
                 Oldxy = pts[pts.Length - 1];
             }
         }
-
+#endif
         private bool InView()
         {
             if (this.canvasPoints.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
@@ -2954,7 +2967,7 @@ namespace ShapeMaker
             }
 
             string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name", this.LineList.SelectedItem.ToString(), -1, -1).Trim();
-            if (!s.IsNullOrEmpty())
+            if (s.Length > 0)
             {
                 this.lines[this.LineList.SelectedIndex].Alias = s;
             }
@@ -2995,7 +3008,7 @@ namespace ShapeMaker
                 PData itemPath = this.lines[itemIndex];
 
                 string itemText;
-                if (!itemPath.Alias.IsNullOrEmpty())
+                if (itemPath.Alias.Length > 0)
                 {
                     itemText = itemPath.Alias;
                 }
@@ -3362,7 +3375,7 @@ namespace ShapeMaker
             }
 
             string figure = Regex.Replace(this.FigureName.Text, "[^a-zA-Z0-9 -]", string.Empty);
-            figure = figure.IsNullOrEmpty() ? "Untitled" : figure;
+            figure = figure.Length == 0 ? "Untitled" : figure;
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
@@ -3412,7 +3425,7 @@ namespace ShapeMaker
             string figure = this.FigureName.Text;
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             figure = rgx.Replace(figure, string.Empty);
-            figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
+            figure = (figure.Length == 0) ? "Untitled" : figure;
             output = output.Replace("~1", figure);
             output = output.Replace("~2", TMP);
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -3456,7 +3469,7 @@ namespace ShapeMaker
             string figure = this.FigureName.Text;
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             figure = rgx.Replace(figure, string.Empty);
-            figure = (figure.IsNullOrEmpty()) ? "Untitled" : figure;
+            figure = (figure.Length == 0) ? "Untitled" : figure;
             output = output.Replace("~1", figure);
             output = output.Replace("~2", TMP);
             if (this.SolidFillMenuItem.Checked)
@@ -3922,9 +3935,7 @@ namespace ShapeMaker
         #region Image Tracing
         private void setTraceImage()
         {
-#if FASTDEBUG
-            return;
-#endif
+#if PDNPLUGIN
             if (this.traceLayer.Checked)
             {
                 Rectangle selection = this.Selection.GetBoundsInt();
@@ -3942,6 +3953,7 @@ namespace ShapeMaker
 
                 this.canvas.BackgroundImage = surface.CreateAliasedBitmap();
             }
+#endif
         }
 
         private void traceSource_CheckedChanged(object sender, EventArgs e)
@@ -3973,12 +3985,14 @@ namespace ShapeMaker
                 AddNewPath();
             }
 
+#if PDNPLUGIN
             if (this.DrawOnCanvas.Checked)
             {
                 MakePathForPdnCanvas();
             }
 
             FinishTokenUpdate();
+#endif
         }
 
         private void Deselect_Click(object sender, EventArgs e)
