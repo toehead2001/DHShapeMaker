@@ -1977,12 +1977,12 @@ namespace ShapeMaker
 
         private int getNearestPath(RectangleF hit)
         {
-            int result = -1;
             if (this.LineList.Items.Count == 0)
             {
                 return -1;
             }
 
+            int pathIndex = -1;
             for (int i = 0; i < this.LineList.Items.Count; i++)
             {
                 PointF[] tmp = this.lines[i].Lines;
@@ -2019,17 +2019,17 @@ namespace ShapeMaker
                         PointF p = CanvasCoordToPoint(tmp[j].X, tmp[j].Y);
                         if (hit.Contains(p))
                         {
-                            result = i;
+                            pathIndex = i;
                             break;
                         }
                     }
-                    if (result > -1)
+                    if (pathIndex > -1)
                     {
                         break;
                     }
                 }
             }
-            return result;
+            return pathIndex;
         }
 
         private void StatusBarMouseLocation(int x, int y)
