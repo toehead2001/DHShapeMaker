@@ -1252,6 +1252,11 @@ namespace ShapeMaker
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
+            if (this.clickedNub != InvalidNub && this.LineList.SelectedIndex != -1)
+            {
+                UpdateExistingPath();
+            }
+
             this.panFlag = false;
             this.moveFlag = false;
             this.clickedNub = InvalidNub;
