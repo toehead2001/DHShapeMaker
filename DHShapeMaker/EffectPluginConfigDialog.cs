@@ -82,7 +82,6 @@ namespace ShapeMaker
 
         private float lastRot = 180;
         private bool keyTrak = false;
-        private GraphicsPath[] pathForPdnCanvas = null;
         private readonly List<PData> lines = new List<PData>();
         private bool panFlag = false;
         private bool canScrollZoom = false;
@@ -90,7 +89,9 @@ namespace ShapeMaker
         private Control hadFocus;
         private bool isNewPath = true;
         private int canvasBaseSize;
-#if !PDNPLUGIN
+#if PDNPLUGIN
+        private GraphicsPath[] pathForPdnCanvas = null;
+#else
         private Bitmap clipboardImage = null;
 #endif
         private bool moveFlag = false;
