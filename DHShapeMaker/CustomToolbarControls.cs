@@ -23,6 +23,16 @@ namespace ShapeMaker
             base.OnRenderItemText(e);
         }
 
+        protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
+        {
+            if (e.Item.Enabled)
+            {
+                e.ArrowColor = PdnTheme.ForeColor;
+            }
+
+            base.OnRenderArrow(e);
+        }
+
         private sealed class ToolColorTable : ThemeColorTable
         {
             internal ToolColorTable(Color backColor, Color borderColor)
