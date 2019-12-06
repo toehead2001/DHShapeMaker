@@ -1288,16 +1288,16 @@ namespace ShapeMaker
             if (e.Button == MouseButtons.Left)
             {
                 NubType nubType = GetNubType(this.clickedNub);
-                int i = this.clickedNub;
+                int nubIndex = this.clickedNub;
 
                 //left shift move line or path
                 if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                 {
-                    if (this.canvasPoints.Count != 0 && i > InvalidNub && i < this.canvasPoints.Count)
+                    if (this.canvasPoints.Count != 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count)
                     {
                         StatusBarNubLocation(eX, eY);
 
-                        PointF oldp = this.canvasPoints[i];
+                        PointF oldp = this.canvasPoints[nubIndex];
 
                         for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
@@ -1319,41 +1319,41 @@ namespace ShapeMaker
                         this.moveStart = mapPoint;
                     }
                 } //no shift movepoint
-                else if (this.canvasPoints.Count != 0 && i > 0 && i < this.canvasPoints.Count)
+                else if (this.canvasPoints.Count != 0 && nubIndex > 0 && nubIndex < this.canvasPoints.Count)
                 {
                     StatusBarNubLocation(eX, eY);
 
-                    PointF oldp = this.canvasPoints[i];
+                    PointF oldp = this.canvasPoints[nubIndex];
                     switch (lt)
                     {
                         case PathType.Straight:
                         case PathType.Ellipse:
-                            this.canvasPoints[i] = mapPoint;
+                            this.canvasPoints[nubIndex] = mapPoint;
                             break;
                         case PathType.Cubic:
 
                             #region cubic
 
-                            oldp = this.canvasPoints[i];
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
                             }
                             else if (nubType == NubType.ControlPoint1 || nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                this.canvasPoints[i - 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i - 1]);
-                                if ((i + 1) < this.canvasPoints.Count)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
-                                    this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
                             }
                             if (this.MacroCubic.Checked)
@@ -1368,25 +1368,25 @@ namespace ShapeMaker
 
                             #region Quadratic
 
-                            oldp = this.canvasPoints[i];
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                             }
                             else if (nubType == NubType.ControlPoint1)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                if ((i + 1) < this.canvasPoints.Count)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
-                                    this.canvasPoints[i + 1] = this.canvasPoints[i];
+                                    this.canvasPoints[nubIndex + 1] = this.canvasPoints[nubIndex];
                                 }
                             }
                             else if (nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                if ((i - 1) > 0)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                if ((nubIndex - 1) > 0)
                                 {
-                                    this.canvasPoints[i - 1] = this.canvasPoints[i];
+                                    this.canvasPoints[nubIndex - 1] = this.canvasPoints[nubIndex];
                                 }
                             }
                             else if (nubType == NubType.EndPoint)
@@ -1394,20 +1394,20 @@ namespace ShapeMaker
                                 if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
                                 {
                                     //online
-                                    if (i == this.canvasPoints.Count - 1)
+                                    if (nubIndex == this.canvasPoints.Count - 1)
                                     {
-                                        PointF rtmp = reverseAverage(this.canvasPoints[i - 1], this.canvasPoints[i]);
-                                        this.canvasPoints[i] = onLinePoint(this.canvasPoints[i - 1], rtmp, mapPoint);
+                                        PointF rtmp = reverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
+                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mapPoint);
                                     }
                                     else
                                     {
-                                        this.canvasPoints[i] =
-                                            onLinePoint(this.canvasPoints[i - 1], this.canvasPoints[i + 1], mapPoint);
+                                        this.canvasPoints[nubIndex] =
+                                            onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mapPoint);
                                     }
                                 }
                                 else
                                 {
-                                    this.canvasPoints[i] = mapPoint;
+                                    this.canvasPoints[nubIndex] = mapPoint;
                                 }
                             }
 
@@ -1418,23 +1418,23 @@ namespace ShapeMaker
 
                             #region smooth Cubic
 
-                            oldp = this.canvasPoints[i];
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
 
                                 this.canvasPoints[1] = this.canvasPoints[0];
                             }
                             else if (nubType == NubType.ControlPoint1)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                if (i > 1)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                if (nubIndex > 1)
                                 {
-                                    this.canvasPoints[i - 2] = reverseAverage(this.canvasPoints[i], this.canvasPoints[i - 1]);
+                                    this.canvasPoints[nubIndex - 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                 }
                                 else
                                 {
@@ -1443,19 +1443,19 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                if (i < this.canvasPoints.Count - 2)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                if (nubIndex < this.canvasPoints.Count - 2)
                                 {
-                                    this.canvasPoints[i + 2] = reverseAverage(this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
-                                this.canvasPoints[i - 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i - 1]);
-                                if ((i + 1) < this.canvasPoints.Count)
+                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
-                                    this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
                             }
 
@@ -1466,14 +1466,14 @@ namespace ShapeMaker
 
                             #region Smooth Quadratic
 
-                            oldp = this.canvasPoints[i];
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                             }
                             for (int j = 0; j < this.canvasPoints.Count; j++)
                             {
@@ -1489,28 +1489,28 @@ namespace ShapeMaker
                             break;
                     }
                 } //move first point
-                else if (this.canvasPoints.Count != 0 && i == 0)
+                else if (this.canvasPoints.Count != 0 && nubIndex == 0)
                 {
                     StatusBarNubLocation(eX, eY);
 
-                    PointF oldp = this.canvasPoints[i];
+                    PointF oldp = this.canvasPoints[nubIndex];
 
                     if (nubType == NubType.StartPoint) //special quadratic
                     {
                         switch (lt)
                         {
                             case PathType.Straight:
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                                 break;
                             case PathType.Ellipse:
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                                 break;
                             case PathType.Cubic:
                             case PathType.SmoothCubic:
-                                this.canvasPoints[i] = mapPoint;
+                                this.canvasPoints[nubIndex] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    this.canvasPoints[i + 1] = movePoint(oldp, this.canvasPoints[i], this.canvasPoints[i + 1]);
+                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
 
                                 break;
@@ -1519,17 +1519,17 @@ namespace ShapeMaker
                                 {
                                     if (this.canvasPoints.Count == 1)
                                     {
-                                        this.canvasPoints[i] = mapPoint;
+                                        this.canvasPoints[nubIndex] = mapPoint;
                                     }
                                     else
                                     {
-                                        PointF rtmp = reverseAverage(this.canvasPoints[i + 1], this.canvasPoints[i]);
-                                        this.canvasPoints[i] = onLinePoint(this.canvasPoints[i + 1], rtmp, mapPoint);
+                                        PointF rtmp = reverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
+                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mapPoint);
                                     }
                                 }
                                 else
                                 {
-                                    this.canvasPoints[i] = mapPoint;
+                                    this.canvasPoints[nubIndex] = mapPoint;
                                 }
                                 break;
                             case PathType.SmoothQuadratic:
