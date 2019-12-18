@@ -532,7 +532,7 @@ namespace ShapeMaker
             PointF loopBack = new PointF(-9999, -9999);
             PointF Oldxy = new PointF(-9999, -9999);
 
-            PathType pType = 0;
+            PathType pathType = 0;
             bool isClosed = false;
             bool mpMode = false;
             bool isLarge = false;
@@ -556,7 +556,7 @@ namespace ShapeMaker
                 if (j == this.LineList.SelectedIndex)
                 {
                     pPoints = this.canvasPoints.ToArray();
-                    pType = getPathType();
+                    pathType = getPathType();
                     isClosed = this.ClosePath.Checked;
                     mpMode = this.CloseContPaths.Checked;
                     isLarge = (this.Arc.CheckState == CheckState.Checked);
@@ -566,7 +566,7 @@ namespace ShapeMaker
                 {
                     PData itemPath = this.paths[j];
                     pPoints = itemPath.Lines;
-                    pType = (PathType)itemPath.LineType;
+                    pathType = (PathType)itemPath.LineType;
                     isClosed = itemPath.ClosedType;
                     mpMode = itemPath.LoopBack;
                     isLarge = itemPath.IsLarge;
@@ -587,7 +587,7 @@ namespace ShapeMaker
 
                 PointF[] Qpts = Array.Empty<PointF>();
                 #region cube to quad
-                if (pType == PathType.Quadratic || pType == PathType.SmoothQuadratic)
+                if (pathType == PathType.Quadratic || pathType == PathType.SmoothQuadratic)
                 {
                     Qpts = new PointF[pPoints.Length];
 
@@ -614,11 +614,11 @@ namespace ShapeMaker
                 }
                 #endregion
 
-                bool islinked = true;
+                bool isLinked = true;
                 if (!Oldxy.Equals(pts[0]) || (j == this.LineList.SelectedIndex && this.ClosePath.Checked))
                 {
                     loopBack = new PointF(pts[0].X, pts[0].Y);
-                    islinked = false;
+                    isLinked = false;
                 }
 
                 #region Draw Nubs
@@ -628,7 +628,7 @@ namespace ShapeMaker
                     {
                         e.Graphics.DrawRectangle(new Pen(anchorColor), loopBack.X - 4, loopBack.Y - 4, 6, 6);
                     }
-                    else if (islinked)
+                    else if (isLinked)
                     {
                         PointF[] tri = {new PointF(pts[0].X, pts[0].Y - 4f),
                                         new PointF(pts[0].X + 3f, pts[0].Y + 3f),
@@ -642,7 +642,7 @@ namespace ShapeMaker
 
                     for (int i = 1; i < pts.Length; i++)
                     {
-                        switch (pType)
+                        switch (pathType)
                         {
                             case PathType.Straight:
                                 e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
@@ -684,7 +684,7 @@ namespace ShapeMaker
                             case PathType.SmoothCubic:
                                 if (GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
                                 {
-                                    if (i != 1 || pType == PathType.Cubic)
+                                    if (i != 1 || pathType == PathType.Cubic)
                                     {
                                         e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
                                     }
@@ -705,8 +705,8 @@ namespace ShapeMaker
                 #endregion
 
                 #region Draw Paths
-                using (Pen p = new Pen(lineColors[(int)pType]))
-                using (Pen activePen = new Pen(lineColors[(int)pType]))
+                using (Pen p = new Pen(lineColors[(int)pathType]))
+                using (Pen activePen = new Pen(lineColors[(int)pathType]))
                 {
                     p.DashStyle = DashStyle.Solid;
                     p.Width = 1;
@@ -715,7 +715,7 @@ namespace ShapeMaker
                     activePen.Color = Color.FromArgb(51, p.Color);
                     activePen.LineJoin = LineJoin.Bevel;
 
-                    switch (pType)
+                    switch (pathType)
                     {
                         case PathType.Straight:
                             if (pPoints.Length > 1)
@@ -1030,8 +1030,8 @@ namespace ShapeMaker
                 else //add new
                 {
                     #region add
-                    int len = this.canvasPoints.Count;
-                    if (len >= maxPoints)
+                    int pointCount = this.canvasPoints.Count;
+                    if (pointCount >= maxPoints)
                     {
                         MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -1054,7 +1054,7 @@ namespace ShapeMaker
                     StatusBarNubLocation(eX, eY);
 
                     PointF clickedPoint = PointToCanvasCoord(eX, eY);
-                    if (len == 0)//first point
+                    if (pointCount == 0)//first point
                     {
                         this.canvasPoints.Add(clickedPoint);
                     }
@@ -1068,7 +1068,7 @@ namespace ShapeMaker
                                 break;
                             case PathType.Ellipse:
                                 PointF[] ellipsePts = new PointF[5];
-                                ellipsePts[0] = this.canvasPoints[len - 1];
+                                ellipsePts[0] = this.canvasPoints[pointCount - 1];
                                 ellipsePts[4] = clickedPoint;
                                 PointF mid = pointAverage(ellipsePts[0], ellipsePts[4]);
                                 PointF mid2 = ThirdPoint(ellipsePts[0], mid, true, 1f);
@@ -1090,17 +1090,17 @@ namespace ShapeMaker
                                 else
                                 {
                                     PointF mid4;
-                                    if (len > 1)
+                                    if (pointCount > 1)
                                     {
-                                        PointF mid3 = reverseAverage(this.canvasPoints[len - 1], this.canvasPoints[len - 2]);
-                                        mid4 = AsymRevAverage(this.canvasPoints[len - 4], this.canvasPoints[len - 1], cubicPts[2], mid3);
+                                        PointF mid3 = reverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                        mid4 = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], cubicPts[2], mid3);
                                     }
                                     else
                                     {
-                                        PointF mid3 = pointAverage(this.canvasPoints[len - 1], cubicPts[2]);
-                                        mid4 = ThirdPoint(this.canvasPoints[len - 1], mid3, true, 1f);
+                                        PointF mid3 = pointAverage(this.canvasPoints[pointCount - 1], cubicPts[2]);
+                                        mid4 = ThirdPoint(this.canvasPoints[pointCount - 1], mid3, true, 1f);
                                     }
-                                    cubicPts[0] = pointAverage(this.canvasPoints[len - 1], mid4);
+                                    cubicPts[0] = pointAverage(this.canvasPoints[pointCount - 1], mid4);
                                     cubicPts[1] = pointAverage(cubicPts[2], mid4);
                                 }
                                 this.canvasPoints.AddRange(cubicPts);
@@ -1111,15 +1111,15 @@ namespace ShapeMaker
                                 quadPts[2] = clickedPoint;
                                 PointF tmp;
                                 //add
-                                if (len > 1)
+                                if (pointCount > 1)
                                 {
-                                    tmp = AsymRevAverage(this.canvasPoints[len - 4], this.canvasPoints[len - 1], quadPts[2], this.canvasPoints[len - 2]);
+                                    tmp = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
                                 }
                                 else
                                 {
                                     //add end
-                                    quadPts[1] = ThirdPoint(this.canvasPoints[len - 1], quadPts[2], true, .5f);
-                                    quadPts[0] = ThirdPoint(quadPts[2], this.canvasPoints[len - 1], false, .5f);
+                                    quadPts[1] = ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
+                                    quadPts[0] = ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
                                     tmp = pointAverage(quadPts[1], quadPts[0]);
                                 }
                                 quadPts[1] = tmp;
@@ -1132,21 +1132,21 @@ namespace ShapeMaker
                                 sCubicPts[2] = clickedPoint;
                                 //startchange
                                 PointF mid6;
-                                if (len > 1)
+                                if (pointCount > 1)
                                 {
-                                    PointF mid5 = reverseAverage(this.canvasPoints[len - 1], this.canvasPoints[len - 2]);
-                                    mid6 = AsymRevAverage(this.canvasPoints[len - 4], this.canvasPoints[len - 1], sCubicPts[2], mid5);
+                                    PointF mid5 = reverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                    mid6 = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], sCubicPts[2], mid5);
                                 }
                                 else
                                 {
-                                    PointF mid5 = pointAverage(this.canvasPoints[len - 1], sCubicPts[2]);
-                                    mid6 = ThirdPoint(this.canvasPoints[len - 1], mid5, true, 1f);
+                                    PointF mid5 = pointAverage(this.canvasPoints[pointCount - 1], sCubicPts[2]);
+                                    mid6 = ThirdPoint(this.canvasPoints[pointCount - 1], mid5, true, 1f);
                                 }
 
                                 sCubicPts[1] = pointAverage(mid6, sCubicPts[2]);
-                                if (len > 1)
+                                if (pointCount > 1)
                                 {
-                                    sCubicPts[0] = reverseAverage(this.canvasPoints[len - 2], this.canvasPoints[len - 1]);
+                                    sCubicPts[0] = reverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
                                 }
                                 else
                                 {
@@ -1158,9 +1158,9 @@ namespace ShapeMaker
                             case PathType.SmoothQuadratic:
                                 PointF[] sQuadPts = new PointF[3];
                                 sQuadPts[2] = clickedPoint;
-                                if (len > 1)
+                                if (pointCount > 1)
                                 {
-                                    sQuadPts[0] = reverseAverage(this.canvasPoints[len - 2], this.canvasPoints[len - 1]);
+                                    sQuadPts[0] = reverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
                                     sQuadPts[1] = sQuadPts[0];
                                 }
                                 else
@@ -1284,10 +1284,10 @@ namespace ShapeMaker
             }
 
             PointF mapPoint = PointToCanvasCoord(eX, eY);
-            PathType lt = getPathType();
 
             if (e.Button == MouseButtons.Left)
             {
+                PathType pathType = getPathType();
                 NubType nubType = GetNubType(this.clickedNub);
                 int nubIndex = this.clickedNub;
 
@@ -1325,7 +1325,7 @@ namespace ShapeMaker
                     StatusBarNubLocation(eX, eY);
 
                     PointF oldp = this.canvasPoints[nubIndex];
-                    switch (lt)
+                    switch (pathType)
                     {
                         case PathType.Straight:
                         case PathType.Ellipse:
@@ -1492,7 +1492,7 @@ namespace ShapeMaker
 
                     if (nubType == NubType.StartPoint) //special quadratic
                     {
-                        switch (lt)
+                        switch (pathType)
                         {
                             case PathType.Straight:
                                 this.canvasPoints[nubIndex] = mapPoint;
@@ -1819,12 +1819,15 @@ namespace ShapeMaker
                 {
                     for (int i = 1; i < this.canvasPoints.Count; i++)
                     {
-                        PointF[] tmp = new PointF[5];
-                        tmp[0] = new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y);
-                        tmp[1] = new PointF(this.canvasPoints[i].X, this.canvasPoints[i - 1].Y);
-                        tmp[2] = new PointF(this.canvasPoints[i].X, this.canvasPoints[i].Y);
-                        tmp[3] = new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i].Y);
-                        tmp[4] = new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y);
+                        PointF[] tmp = new PointF[]
+                        {
+                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y),
+                            new PointF(this.canvasPoints[i].X, this.canvasPoints[i - 1].Y),
+                            new PointF(this.canvasPoints[i].X, this.canvasPoints[i].Y),
+                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i].Y),
+                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
+                        };
+
                         this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
                         this.LineList.Items.Add(lineNames[(int)getPathType()]);
                     }
