@@ -3688,31 +3688,24 @@ namespace ShapeMaker
 
         private void HelpMenu_Click(object sender, EventArgs e)
         {
-            string dest = Application.StartupPath + @"\Effects\";
+            string directory = Assembly.GetExecutingAssembly().Location;
 
-            if (sender is ToolStripMenuItem menuItem && menuItem.Name.Equals("QuickStartStripMenuItem", StringComparison.OrdinalIgnoreCase))
-            {
-                dest += "ShapeMaker QuickStart.pdf";
-            }
-            else
+            string pdfPath = (sender is ToolStripMenuItem menuItem && menuItem.Name.Equals(nameof(QuickStartStripMenuItem), StringComparison.OrdinalIgnoreCase))
+                ? Path.Combine(directory, "ShapeMaker QuickStart.pdf")
+                : Path.Combine(directory, "ShapeMaker User Guide.pdf");
+
+            if (!File.Exists(pdfPath))
             {
                 dest += "ShapeMaker User Guide.pdf";
             }
 
-            if (File.Exists(dest))
+            try
             {
-                try
-                {
-                    Process.Start(dest);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Unable to open the Help Page\r\n{ex.Message}\r\n{dest}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Process.Start(pdfPath);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Unable to open the Help Page\r\n{ex.Message}\r\n{pdfPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3828,15 +3821,12 @@ namespace ShapeMaker
             foreach (ToolStripButtonWithKeys button in this.typeButtons)
             {
                 button.Checked = (button.PathType == this.activeType);
-                if (button.Checked)
+                if (button.Checked && this.canvasPoints.Count > 1)
                 {
-                    if (this.canvasPoints.Count > 1)
-                    {
-                        PointF hold = this.canvasPoints[0];
-                        this.canvasPoints.Clear();
-                        this.canvasPoints.Add(hold);
-                        this.canvas.Refresh();
-                    }
+                    PointF hold = this.canvasPoints[0];
+                    this.canvasPoints.Clear();
+                    this.canvasPoints.Add(hold);
+                    this.canvas.Refresh();
                 }
             }
 
