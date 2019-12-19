@@ -3699,7 +3699,8 @@ namespace ShapeMaker
 
             if (!File.Exists(pdfPath))
             {
-                dest += "ShapeMaker User Guide.pdf";
+                MessageBox.Show("Help File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             try
