@@ -9,11 +9,8 @@ namespace ShapeMaker
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "ShapeMaker")]
     public class EffectPlugin : Effect
     {
-        internal const string StaticName = "ShapeMaker - Test";
-        private static readonly Bitmap StaticImage = Properties.Resources.icon;
-        private const string StaticSubMenuName = "Advanced";
-
-        public EffectPlugin() : base(StaticName, StaticImage, StaticSubMenuName, EffectFlags.Configurable)
+        public EffectPlugin()
+            : base("ShapeMaker - Test", Properties.Resources.icon, "Advanced", new EffectOptions { Flags = EffectFlags.Configurable })
         {
         }
 
@@ -25,30 +22,16 @@ namespace ShapeMaker
         protected override void OnSetRenderInfo(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs)
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)parameters;
-            this.PGP = token.GP;
-            this.Draw = token.Draw;
-            if (this.PGP != null)
+            GraphicsPath[] paths = token.GP;
+            bool draw = token.Draw;
+
+            PdnRegion selectionRegion = this.EnvironmentParameters.GetSelection(srcArgs.Bounds);
+
+            dstArgs.Surface.CopySurface(srcArgs.Surface, selectionRegion);
+
+            if (draw && paths?.Length > 0)
             {
-                MyRender(dstArgs.Surface, srcArgs.Surface);
-            }
-
-            base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
-        }
-
-        private GraphicsPath[] PGP = new GraphicsPath[0];
-        private bool Draw = false;
-
-        private void MyRender(Surface dst, Surface src)
-        {
-            PdnRegion selectionRegion = this.EnvironmentParameters.GetSelection(src.Bounds);
-            ColorBgra PrimaryColor = this.EnvironmentParameters.PrimaryColor;
-            float BrushWidth = this.EnvironmentParameters.BrushWidth;
-
-            dst.CopySurface(src, selectionRegion);
-
-            if (this.PGP.Length > 0 && this.Draw)
-            {
-                using (Graphics g = new RenderArgs(dst).Graphics)
+                using (Graphics g = new RenderArgs(dstArgs.Surface).Graphics)
                 {
                     using (Region reg = new Region(selectionRegion.GetRegionData()))
                     {
@@ -56,21 +39,23 @@ namespace ShapeMaker
                     }
                     g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                    using (Pen p = new Pen(PrimaryColor))
+                    using (Pen p = new Pen(this.EnvironmentParameters.PrimaryColor))
                     {
-                        p.Width = BrushWidth;
+                        p.Width = this.EnvironmentParameters.BrushWidth;
                         p.StartCap = LineCap.Round;
                         p.EndCap = LineCap.Round;
-                        for (int i = 0; i < this.PGP.Length; i++)
+                        for (int i = 0; i < paths.Length; i++)
                         {
-                            if (this.PGP[i].PointCount > 0)
+                            if (paths[i].PointCount > 0)
                             {
-                                g.DrawPath(p, this.PGP[i]);
+                                g.DrawPath(p, paths[i]);
                             }
                         }
                     }
                 }
             }
+
+            base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
         }
 
         public override void Render(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs, Rectangle[] rois, int startIndex, int length)
