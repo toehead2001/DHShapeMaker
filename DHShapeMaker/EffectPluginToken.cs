@@ -7,7 +7,7 @@ namespace ShapeMaker
 {
     internal class EffectPluginConfigToken : EffectConfigToken
     {
-        internal GraphicsPath[] GP { get; set; }
+        public string GeometryCode { get; set; }
         internal List<PData> PathData { get; set; }
         internal bool Draw { get; set; }
         internal decimal Scale { get; set; }
@@ -15,9 +15,9 @@ namespace ShapeMaker
         internal string ShapeName { get; set; }
         internal bool SolidFill { get; set; }
 
-        internal EffectPluginConfigToken(GraphicsPath[] gp, List<PData> pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
+        internal EffectPluginConfigToken(string geometryCode, List<PData> pathdata, bool draw, decimal scale, bool snap, string shapename, bool solidfill)
         {
-            this.GP = gp;
+            this.GeometryCode = geometryCode;
             this.PathData = pathdata;
             this.Draw = draw;
             this.Scale = scale;
@@ -28,7 +28,7 @@ namespace ShapeMaker
 
         private EffectPluginConfigToken(EffectPluginConfigToken copyMe) : base(copyMe)
         {
-            this.GP = copyMe.GP;
+            this.GeometryCode = copyMe.GeometryCode;
             this.PathData = copyMe.PathData;
             this.Draw = copyMe.Draw;
             this.Scale = copyMe.Scale;

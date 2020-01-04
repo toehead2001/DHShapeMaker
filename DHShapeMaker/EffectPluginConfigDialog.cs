@@ -90,7 +90,7 @@ namespace ShapeMaker
         private bool isNewPath = true;
         private int canvasBaseSize;
 #if PDNPLUGIN
-        private GraphicsPath[] pathForPdnCanvas = null;
+        private string geometryForPdnCanvas = null;
 #else
         private Bitmap clipboardImage = null;
 #endif
@@ -139,13 +139,13 @@ namespace ShapeMaker
         #region Effect Token functions
         protected override void InitialInitToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.pathForPdnCanvas, this.paths, false, 100, true, "Untitled", false);
+            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false);
         }
 
         protected override void InitTokenFromDialog()
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)this.EffectToken;
-            token.GP = this.pathForPdnCanvas;
+            token.GeometryCode = this.geometryForPdnCanvas;
             token.PathData = this.paths;
             token.Draw = this.DrawOnCanvas.Checked;
             token.ShapeName = this.FigureName.Text;
@@ -2769,132 +2769,6 @@ namespace ShapeMaker
             this.canvas.Refresh();
         }
 
-#if PDNPLUGIN
-        private void MakePathForPdnCanvas()
-        {
-            PointF loopBack = new PointF(-9999, -9999);
-            PointF Oldxy = new PointF(-9999, -9999);
-
-            Rectangle selection = this.Selection.GetBoundsInt();
-            int selMinDim = Math.Min(selection.Width, selection.Height);
-
-            this.pathForPdnCanvas = new GraphicsPath[this.paths.Count];
-
-            for (int j = 0; j < this.paths.Count; j++)
-            {
-                PData currentPath = this.paths[j];
-                PointF[] pathPoints = currentPath.Lines;
-                PathType pathType = (PathType)currentPath.LineType;
-
-                PointF[] pts = new PointF[pathPoints.Length];
-                PointF[] Qpts = new PointF[pathPoints.Length];
-
-                for (int i = 0; i < pathPoints.Length; i++)
-                {
-                    pts[i].X = (float)this.OutputScale.Value * selMinDim / 100f * pathPoints[i].X + selection.Left;
-                    pts[i].Y = (float)this.OutputScale.Value * selMinDim / 100f * pathPoints[i].Y + selection.Top;
-                }
-
-                #region cube to quad
-                if (pathType == PathType.Quadratic || pathType == PathType.SmoothQuadratic)
-                {
-                    for (int i = 0; i < pathPoints.Length; i++)
-                    {
-                        switch (GetNubType(i))
-                        {
-                            case NubType.StartPoint:
-                                Qpts[i] = pts[i];
-                                break;
-                            case NubType.ControlPoint1:
-                                Qpts[i] = new PointF(pts[i].X * 2f / 3f + pts[i - 1].X * 1f / 3f,
-                                        pts[i].Y * 2f / 3f + pts[i - 1].Y * 1f / 3f);
-                                break;
-                            case NubType.ControlPoint2:
-                                Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
-                                        pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
-                                break;
-                            case NubType.EndPoint:
-                                Qpts[i] = pts[i];
-                                break;
-                        }
-                    }
-                }
-                #endregion
-
-                if (pts.Length > 0 && !Oldxy.Equals(pts[0]))
-                {
-                    loopBack = new PointF(pts[0].X, pts[0].Y);
-                }
-                //render lines
-
-                #region drawlines
-                this.pathForPdnCanvas[j] = new GraphicsPath();
-
-                switch (pathType)
-                {
-                    case PathType.Straight:
-                        if (pathPoints.Length > 1)
-                        {
-                            this.pathForPdnCanvas[j].AddLines(pts);
-                        }
-                        break;
-                    case PathType.Ellipse:
-                        if (pathPoints.Length == 5)
-                        {
-                            PointF mid = pointAverage(pts[0], pts[4]);
-                            float l = pythag(mid, pts[1]);
-                            float h = pythag(mid, pts[2]);
-                            if ((int)h == 0 || (int)l == 0)
-                            {
-                                PointF[] nullLine = { pts[0], pts[4] };
-                                this.pathForPdnCanvas[j].AddLines(nullLine);
-                            }
-                            else
-                            {
-                                float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-                                this.pathForPdnCanvas[j].Add(pts[0], l, h, a, (currentPath.IsLarge) ? 1 : 0, (currentPath.RevSweep) ? 1 : 0, pts[4]);
-                            }
-                        }
-                        break;
-                    case PathType.Cubic:
-                    case PathType.SmoothCubic:
-                        if (pathPoints.Length > 3)
-                        {
-                            this.pathForPdnCanvas[j].AddBeziers(pts);
-                        }
-                        break;
-                    case PathType.Quadratic:
-                    case PathType.SmoothQuadratic:
-                        if (pathPoints.Length > 3)
-                        {
-                            this.pathForPdnCanvas[j].AddBeziers(Qpts);
-                        }
-                        break;
-                }
-
-                if (!currentPath.LoopBack)
-                {
-                    if (currentPath.ClosedType && pts.Length > 1)
-                    {
-                        PointF[] points = { pts[pts.Length - 1], pts[0] };
-                        this.pathForPdnCanvas[j].AddLines(points);
-                        loopBack = pts[pts.Length - 1];
-                    }
-                }
-                else
-                {
-                    if (pts.Length > 1)
-                    {
-                        PointF[] points = { pts[pts.Length - 1], loopBack };
-                        this.pathForPdnCanvas[j].AddLines(points);
-                        loopBack = pts[pts.Length - 1];
-                    }
-                }
-                #endregion
-                Oldxy = pts[pts.Length - 1];
-            }
-        }
-#endif
         private bool InView()
         {
             if (this.canvasPoints.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
@@ -4029,7 +3903,8 @@ namespace ShapeMaker
 #if PDNPLUGIN
             if (this.DrawOnCanvas.Checked)
             {
-                MakePathForPdnCanvas();
+                int size = (int)(this.OutputScale.Value * 5);
+                getPathData(size, size, out this.geometryForPdnCanvas);
             }
 
             FinishTokenUpdate();

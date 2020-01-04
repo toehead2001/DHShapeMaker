@@ -2,13 +2,18 @@
 using PaintDotNet;
 using PaintDotNet.Effects;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+using PaintDotNet.Threading;
+using System.Threading;
 
 namespace ShapeMaker
 {
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "ShapeMaker")]
     public class EffectPlugin : Effect
     {
+        private Surface shapeSurface;
+        private readonly BinaryPixelOp normalOp = LayerBlendModeUtil.CreateCompositionOp(LayerBlendMode.Normal);
+        private bool draw;
+
         public EffectPlugin()
             : base("ShapeMaker - Test", Properties.Resources.icon, "Advanced", new EffectOptions { Flags = EffectFlags.Configurable })
         {
@@ -22,37 +27,26 @@ namespace ShapeMaker
         protected override void OnSetRenderInfo(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs)
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)parameters;
-            GraphicsPath[] paths = token.GP;
-            bool draw = token.Draw;
+            string geometryCode = token.GeometryCode;
+            this.draw = token.Draw;
 
-            PdnRegion selectionRegion = this.EnvironmentParameters.GetSelection(srcArgs.Bounds);
-
-            dstArgs.Surface.CopySurface(srcArgs.Surface, selectionRegion);
-
-            if (draw && paths?.Length > 0)
+            if (this.draw)
             {
-                using (Graphics g = new RenderArgs(dstArgs.Surface).Graphics)
-                {
-                    using (Region reg = new Region(selectionRegion.GetRegionData()))
-                    {
-                        g.SetClip(reg, CombineMode.Replace);
-                    }
-                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                Rectangle srcBounds = EnvironmentParameters.SourceSurface.Bounds;
+                Rectangle selection = EnvironmentParameters.GetSelection(srcBounds).GetBoundsInt();
+                ColorBgra strokeColor = EnvironmentParameters.PrimaryColor;
+                ColorBgra fillColor = EnvironmentParameters.SecondaryColor;
+                double strokeThickness = EnvironmentParameters.BrushWidth;
 
-                    using (Pen p = new Pen(this.EnvironmentParameters.PrimaryColor))
-                    {
-                        p.Width = this.EnvironmentParameters.BrushWidth;
-                        p.StartCap = LineCap.Round;
-                        p.EndCap = LineCap.Round;
-                        for (int i = 0; i < paths.Length; i++)
-                        {
-                            if (paths[i].PointCount > 0)
-                            {
-                                g.DrawPath(p, paths[i]);
-                            }
-                        }
-                    }
-                }
+                PdnSynchronizationContext.Instance.Send(new SendOrPostCallback((object _) =>
+                {
+                    ShapeBuilder.SetEnviromentParams(srcBounds.Width, srcBounds.Height, selection.X, selection.Y, selection.Width, selection.Height, strokeColor, fillColor, strokeThickness);
+
+                    ShapeBuilder.RenderShape(geometryCode, false);
+                }), null);
+
+                this.shapeSurface?.Dispose();
+                this.shapeSurface = Surface.CopyFromBitmap(ShapeBuilder.ShapeBmp);
             }
 
             base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
@@ -60,6 +54,22 @@ namespace ShapeMaker
 
         public override void Render(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs, Rectangle[] rois, int startIndex, int length)
         {
+            dstArgs.Surface.CopySurface(srcArgs.Surface, rois, startIndex, length);
+            if (this.draw && this.shapeSurface != null)
+            {
+                this.normalOp.Apply(dstArgs.Surface, this.shapeSurface, rois, startIndex, length);
+            }
+        }
+
+        protected override void OnDispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.shapeSurface?.Dispose();
+                this.shapeSurface = null;
+            }
+
+            base.OnDispose(disposing);
         }
     }
 }
