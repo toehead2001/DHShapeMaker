@@ -106,22 +106,25 @@ namespace ShapeMaker
             InitializeComponent();
 
 #if PDNPLUGIN
-            this.UseAppThemeColors = true;
-#else
-            this.buttonOK.Visible = false;
-            this.DrawOnCanvas.Visible = false;
-
-            this.BackColor = Color.White;
-            this.ForeColor = Color.Black;
-            this.ShowInTaskbar = true;
-#endif
+            //this.UseAppThemeColors = true;
 
             // Theming
             PdnTheme.SetColors(this.ForeColor, this.BackColor);
 
             this.menuStrip1.Renderer = PdnTheme.Renderer;
-            this.statusStrip1.Renderer = PdnTheme.Renderer;
+            //this.statusStrip1.Renderer = PdnTheme.Renderer;
 
+            //this.LineList.ForeColor = PdnTheme.ForeColor;
+            //this.LineList.BackColor = PdnTheme.BackColor;
+            //this.FigureName.ForeColor = PdnTheme.ForeColor;
+            //this.FigureName.BackColor = PdnTheme.BackColor;
+            //this.OutputScale.ForeColor = PdnTheme.ForeColor;
+            //this.OutputScale.BackColor = PdnTheme.BackColor;
+#else
+            this.buttonOK.Visible = false;
+            this.DrawOnCanvas.Visible = false;
+            this.ShowInTaskbar = true;
+#endif
             this.toolStripUndo.Renderer = new ThemeRenderer(Color.White, Color.Silver);
             this.toolStripBlack.Renderer = new ThemeRenderer(lineColorsLight[0], lineColors[0]);
             this.toolStripBlue.Renderer = new ThemeRenderer(lineColorsLight[2], lineColors[2]);
@@ -130,13 +133,6 @@ namespace ShapeMaker
             this.toolStripPurple.Renderer = new ThemeRenderer(lineColorsLight[5], lineColors[5]);
             this.toolStripRed.Renderer = new ThemeRenderer(lineColorsLight[1], lineColors[1]);
             this.toolStripOptions.Renderer = new ThemeRenderer(Color.White, Color.Silver);
-
-            this.LineList.ForeColor = PdnTheme.ForeColor;
-            this.LineList.BackColor = PdnTheme.BackColor;
-            this.FigureName.ForeColor = PdnTheme.ForeColor;
-            this.FigureName.BackColor = PdnTheme.BackColor;
-            this.OutputScale.ForeColor = PdnTheme.ForeColor;
-            this.OutputScale.BackColor = PdnTheme.BackColor;
         }
 
 #if PDNPLUGIN
