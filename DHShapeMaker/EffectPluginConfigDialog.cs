@@ -109,9 +109,9 @@ namespace ShapeMaker
             //this.UseAppThemeColors = true;
 
             // Theming
-            PdnTheme.SetColors(this.ForeColor, this.BackColor);
+            //PdnTheme.SetColors(this.ForeColor, this.BackColor);
 
-            this.menuStrip1.Renderer = PdnTheme.Renderer;
+            //this.menuStrip1.Renderer = PdnTheme.Renderer;
             //this.statusStrip1.Renderer = PdnTheme.Renderer;
 
             //this.LineList.ForeColor = PdnTheme.ForeColor;
