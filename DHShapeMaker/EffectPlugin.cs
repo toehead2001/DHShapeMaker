@@ -46,7 +46,15 @@ namespace ShapeMaker
                 }), null);
 
                 this.shapeSurface?.Dispose();
-                this.shapeSurface = Surface.CopyFromBitmap(ShapeBuilder.ShapeBmp);
+
+                if (ShapeBuilder.ShapeBmp != null)
+                {
+                    this.shapeSurface = Surface.CopyFromBitmap(ShapeBuilder.ShapeBmp);
+                }
+                else
+                {
+                    this.draw = false;
+                }
             }
 
             base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
