@@ -1079,8 +1079,10 @@ namespace ShapeMaker
                             case PathType.Cubic:
                                 PointF[] cubicPts = new PointF[3];
                                 cubicPts[2] = clickedPoint;
+
                                 if (this.MacroCubic.Checked)
                                 {
+                                    this.canvasPoints.AddRange(cubicPts);
                                     CubicAdjust();
                                 }
                                 else
@@ -1098,8 +1100,8 @@ namespace ShapeMaker
                                     }
                                     cubicPts[0] = pointAverage(this.canvasPoints[pointCount - 1], mid4);
                                     cubicPts[1] = pointAverage(cubicPts[2], mid4);
+                                    this.canvasPoints.AddRange(cubicPts);
                                 }
-                                this.canvasPoints.AddRange(cubicPts);
 
                                 break;
                             case PathType.Quadratic:
