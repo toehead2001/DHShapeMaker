@@ -3563,7 +3563,7 @@ namespace ShapeMaker
 
         private void HelpMenu_Click(object sender, EventArgs e)
         {
-            string directory = Assembly.GetExecutingAssembly().Location;
+            string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             string pdfPath = (sender is ToolStripMenuItem menuItem && menuItem.Name.Equals(nameof(QuickStartStripMenuItem), StringComparison.OrdinalIgnoreCase))
                 ? Path.Combine(directory, "ShapeMaker QuickStart.pdf")
