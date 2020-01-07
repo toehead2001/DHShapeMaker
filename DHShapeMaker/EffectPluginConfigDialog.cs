@@ -2232,10 +2232,10 @@ namespace ShapeMaker
         private string GeneratePathGeometry()
         {
             int size = (int)(this.OutputScale.Value * 5);
-            return GeneratePathGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
+            return GeneratePathGeometry(this.paths, size, size);
         }
 
-        private static string GeneratePathGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
+        private static string GeneratePathGeometry(IReadOnlyList<PData> paths, float width, float height)
         {
             string strPath = string.Empty;
             float oldx = 0, oldy = 0;
