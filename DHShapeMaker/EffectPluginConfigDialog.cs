@@ -2232,7 +2232,7 @@ namespace ShapeMaker
         private string GeneratePathGeometry()
         {
             int size = (int)(this.OutputScale.Value * 5);
-            return GenerateStreamGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
+            return GeneratePathGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
         }
 
         private static string GeneratePathGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
@@ -2241,23 +2241,24 @@ namespace ShapeMaker
             float oldx = 0, oldy = 0;
             string[] repstr = { "~1", "~2", "~3" };
             string tmpstr = string.Empty;
+
             for (int index = 0; index < paths.Count; index++)
             {
-                Application.DoEvents();
-
                 PData currentPath = paths[index];
                 PathType pathType = (PathType)currentPath.LineType;
-                PointF[] line = currentPath.Lines;
+                PointF[] points = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
                 bool revsweep = currentPath.RevSweep;
-                if (line.Length < 2)
+
+                if (points.Length < 2)
                 {
                     continue;
                 }
+
                 float x, y;
 
-                x = width * line[0].X;
-                y = height * line[0].Y;
+                x = width * points[0].X;
+                y = height * points[0].Y;
 
                 if (index == 0)
                 {
@@ -2276,11 +2277,11 @@ namespace ShapeMaker
                 {
                     case PathType.Straight:
                         tmpstr = string.Empty;
-                        for (int i = 1; i < line.Length; i++)
+                        for (int i = 1; i < points.Length; i++)
                         {
                             strPath += $"\t\t\t\t\t{Properties.Resources.PGLine}\r\n";
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
+                            x = width * points[i].X;
+                            y = height * points[i].Y;
                             tmpstr = $"{x:0.##},{y:0.##}";
 
                             strPath = strPath.Replace("~1", tmpstr);
@@ -2290,27 +2291,25 @@ namespace ShapeMaker
                         break;
                     case PathType.Ellipse:
                         strPath += $"\t\t\t\t\t{Properties.Resources.PGEllipse}\r\n";
-                        PointF[] pts = new PointF[line.Length];
-                        for (int i = 0; i < line.Length; i++)
+                        PointF[] pts = new PointF[points.Length];
+                        for (int i = 0; i < points.Length; i++)
                         {
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
+                            x = width * points[i].X;
+                            y = height * points[i].Y;
                             pts[i] = new PointF(x, y);
                         }
                         PointF mid = pointAverage(pts[0], pts[4]);
                         float l = pythag(mid, pts[1]);
                         float h = pythag(mid, pts[2]);
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-                        float b = (islarge) ? 1 : 0;
-                        float s = (revsweep) ? 1 : 0;
 
                         tmpstr = $"{l:0.##}";
                         tmpstr += ",";
                         tmpstr += $"{h:0.##}";
                         strPath = strPath.Replace("~1", tmpstr);
                         strPath = strPath.Replace("~2", $"{a:0.##}");
-                        strPath = strPath.Replace("~3", (b == 1) ? "True" : "False");
-                        strPath = strPath.Replace("~4", (s == 1) ? "Clockwise" : "CounterClockwise");
+                        strPath = strPath.Replace("~3", (islarge) ? "True" : "False");
+                        strPath = strPath.Replace("~4", (revsweep) ? "Clockwise" : "CounterClockwise");
 
                         tmpstr = $"{pts[4].X:0.##},{pts[4].Y:0.##}";
                         strPath = strPath.Replace("~5", tmpstr);
@@ -2319,13 +2318,13 @@ namespace ShapeMaker
                     case PathType.SmoothCubic:
                     case PathType.Cubic:
 
-                        for (int i = 1; i < line.Length - 1; i += 3)
+                        for (int i = 1; i < points.Length - 1; i += 3)
                         {
                             strPath += $"\t\t\t\t\t{Properties.Resources.PGBezier}\r\n";
                             for (int j = 0; j < 3; j++)
                             {
-                                x = width * line[j + i].X;
-                                y = height * line[j + i].Y;
+                                x = width * points[j + i].X;
+                                y = height * points[j + i].Y;
                                 tmpstr = $"{x:0.##},{y:0.##}";
                                 strPath = strPath.Replace(repstr[j], tmpstr);
                             }
@@ -2336,16 +2335,16 @@ namespace ShapeMaker
                     case PathType.SmoothQuadratic:
                     case PathType.Quadratic:
 
-                        for (int i = 1; i < line.Length - 1; i += 3)
+                        for (int i = 1; i < points.Length - 1; i += 3)
                         {
                             strPath += $"\t\t\t\t\t{Properties.Resources.PQQuad}\r\n";
 
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
+                            x = width * points[i].X;
+                            y = height * points[i].Y;
                             tmpstr = $"{x:0.##},{y:0.##}";
                             strPath = strPath.Replace("~1", tmpstr);
-                            x = width * line[i + 2].X;
-                            y = height * line[i + 2].Y;
+                            x = width * points[i + 2].X;
+                            y = height * points[i + 2].Y;
                             tmpstr = $"{x:0.##},{y:0.##}";
                             strPath = strPath.Replace("~2", tmpstr);
                         }
@@ -2361,6 +2360,7 @@ namespace ShapeMaker
                     oldy += 10;
                 }
             }
+
             strPath += "\t\t\t\t</PathFigure>\r\n";
             strPath = strPath.Replace("~0", "False");
             strPath += "\r\n";
