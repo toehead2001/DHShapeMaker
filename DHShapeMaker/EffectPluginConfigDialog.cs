@@ -2047,19 +2047,20 @@ namespace ShapeMaker
             this.statusStrip1.Refresh();
         }
 
-        private bool getPathData(float width, float height, out string output)
+        private string GenerateStreamGeometry()
         {
-            string strPath = (this.SolidFillMenuItem.Checked) ? "F1 " : string.Empty;
-            if (this.paths.Count < 1)
-            {
-                output = string.Empty;
-                return false;
-            }
+            int size = (int)(this.OutputScale.Value * 5);
+            return GenerateStreamGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
+        }
+
+        private static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
+        {
+            string strPath = solidFill ? "F1 " : "F0 ";
             float oldx = 0, oldy = 0;
 
-            for (int index = 0; index < this.paths.Count; index++)
+            for (int index = 0; index < paths.Count; index++)
             {
-                PData currentPath = this.paths[index];
+                PData currentPath = paths[index];
                 PathType pathType = (PathType)currentPath.LineType;
                 PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
@@ -2224,26 +2225,27 @@ namespace ShapeMaker
                     }
                 }
             }
-            output = strPath;
-            return true;
+
+            return strPath;
         }
 
-        private bool getPGPathData(float width, float height, out string output)
+        private string GeneratePathGeometry()
+        {
+            int size = (int)(this.OutputScale.Value * 5);
+            return GenerateStreamGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
+        }
+
+        private static string GeneratePathGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
         {
             string strPath = string.Empty;
-            if (this.paths.Count < 1)
-            {
-                output = string.Empty;
-                return false;
-            }
             float oldx = 0, oldy = 0;
             string[] repstr = { "~1", "~2", "~3" };
             string tmpstr = string.Empty;
-            for (int index = 0; index < this.paths.Count; index++)
+            for (int index = 0; index < paths.Count; index++)
             {
                 Application.DoEvents();
 
-                PData currentPath = this.paths[index];
+                PData currentPath = paths[index];
                 PathType pathType = (PathType)currentPath.LineType;
                 PointF[] line = currentPath.Lines;
                 bool islarge = currentPath.IsLarge;
@@ -2362,9 +2364,8 @@ namespace ShapeMaker
             strPath += "\t\t\t\t</PathFigure>\r\n";
             strPath = strPath.Replace("~0", "False");
             strPath += "\r\n";
-            output = strPath;
 
-            return true;
+            return strPath;
         }
 
         private static string scrubNums(string strPath)
@@ -2421,9 +2422,9 @@ namespace ShapeMaker
             return TMP;
         }
 
-        private void parsePathData(string strPath)
+        private void ParseStreamGeometry(string streamGeometry)
         {
-            if (strPath.Length == 0)
+            if (streamGeometry.Length == 0)
             {
                 return;
             }
@@ -2438,9 +2439,9 @@ namespace ShapeMaker
             PointF HomePos = new PointF();
 
             //cook data
-            strPath = strPath.Trim();
-            strPath = scrubNums(strPath);
-            string[] str = strPath.Split(',');
+            streamGeometry = streamGeometry.Trim();
+            streamGeometry = scrubNums(streamGeometry);
+            string[] str = streamGeometry.Split(',');
 
             //parse
             string strMode = string.Empty;
@@ -3247,12 +3248,6 @@ namespace ShapeMaker
                 return;
             }
 
-            if (!getPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out _))
-            {
-                MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             string figure = Regex.Replace(this.FigureName.Text, "[^a-zA-Z0-9 -]", string.Empty);
             figure = figure.Length == 0 ? "Untitled" : figure;
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -3291,22 +3286,13 @@ namespace ShapeMaker
                 return;
             }
 
-            ZoomToFactor(1);
-            string TMP = string.Empty;
-            bool r = getPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out TMP);
-            if (!r)
-            {
-                MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             string output = Properties.Resources.BaseString;
             string figure = this.FigureName.Text;
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             figure = rgx.Replace(figure, string.Empty);
             figure = (figure.Length == 0) ? "Untitled" : figure;
             output = output.Replace("~1", figure);
-            output = output.Replace("~2", TMP);
+            output = output.Replace("~2", GenerateStreamGeometry());
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.FileName = figure;
@@ -3335,22 +3321,13 @@ namespace ShapeMaker
                 return;
             }
 
-            string TMP = string.Empty;
-            bool r = getPGPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out TMP);
-            if (!r)
-            {
-                MessageBox.Show("Save Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            ZoomToFactor(1);
             string output = Properties.Resources.PGBaseString;
             string figure = this.FigureName.Text;
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
             figure = rgx.Replace(figure, string.Empty);
             figure = (figure.Length == 0) ? "Untitled" : figure;
             output = output.Replace("~1", figure);
-            output = output.Replace("~2", TMP);
+            output = output.Replace("~2", GeneratePathGeometry());
             if (this.SolidFillMenuItem.Checked)
             {
                 output = output.Replace("~3", "Nonzero");
@@ -3420,7 +3397,7 @@ namespace ShapeMaker
                         data = d[i];
                         try
                         {
-                            parsePathData(data);
+                            ParseStreamGeometry(data);
                             loadConfirm = true;
                         }
                         catch
@@ -3442,7 +3419,7 @@ namespace ShapeMaker
             setUndo();
             ZoomToFactor(1);
 
-            parsePathData(Clipboard.GetText());
+            ParseStreamGeometry(Clipboard.GetText());
         }
 
         private void CopyStream_Click(object sender, EventArgs e)
@@ -3453,16 +3430,7 @@ namespace ShapeMaker
                 return;
             }
 
-            ZoomToFactor(1);
-            string TMP = string.Empty;
-            bool r = getPathData((int)(this.OutputScale.Value * this.canvas.ClientSize.Width / 100), (int)(this.OutputScale.Value * this.canvas.ClientSize.Height / 100), out TMP);
-            if (!r)
-            {
-                MessageBox.Show("Copy Error", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            Clipboard.SetText(TMP);
+            Clipboard.SetText(GenerateStreamGeometry());
             MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -3903,10 +3871,9 @@ namespace ShapeMaker
             }
 
 #if PDNPLUGIN
-            if (this.DrawOnCanvas.Checked)
+            if (this.DrawOnCanvas.Checked && this.paths.Count > 0)
             {
-                int size = (int)(this.OutputScale.Value * 5);
-                getPathData(size, size, out this.geometryForPdnCanvas);
+                this.geometryForPdnCanvas = GenerateStreamGeometry();
             }
 
             FinishTokenUpdate();
