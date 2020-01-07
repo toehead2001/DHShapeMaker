@@ -3431,7 +3431,7 @@ namespace ShapeMaker
             }
 
             Clipboard.SetText(GenerateStreamGeometry());
-            MessageBox.Show("SVG Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("StreamGeometry Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
