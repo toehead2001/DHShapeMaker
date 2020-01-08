@@ -3342,21 +3342,9 @@ namespace ShapeMaker
                 return;
             }
 
-            string output = Properties.Resources.PGBaseString;
             string figure = this.FigureName.Text;
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            figure = rgx.Replace(figure, string.Empty);
+            figure = Regex.Replace(figure, "[^a-zA-Z0-9 -]", string.Empty);
             figure = (figure.Length == 0) ? "Untitled" : figure;
-            output = output.Replace("~1", figure);
-            output = output.Replace("~2", GeneratePathGeometry());
-            if (this.SolidFillMenuItem.Checked)
-            {
-                output = output.Replace("~3", "Nonzero");
-            }
-            else
-            {
-                output = output.Replace("~3", "EvenOdd");
-            }
 
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
@@ -3372,6 +3360,11 @@ namespace ShapeMaker
                 }
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
+
+                string output = Properties.Resources.PGBaseString;
+                output = output.Replace("~1", figure);
+                output = output.Replace("~2", GeneratePathGeometry());
+                output = this.solidFillCheckBox.Checked ? output.Replace("~3", "Nonzero") : output.Replace("~3", "EvenOdd");
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
