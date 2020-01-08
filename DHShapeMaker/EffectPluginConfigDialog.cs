@@ -864,11 +864,7 @@ namespace ShapeMaker
             // render average point for when Scaling and Rotation
             if (this.drawAverage)
             {
-                Point tmpPoint = new Point
-                {
-                    X = (int)Math.Round(this.averagePoint.X * this.canvas.ClientSize.Width),
-                    Y = (int)Math.Round(this.averagePoint.Y * this.canvas.ClientSize.Height)
-                };
+                Point tmpPoint = CanvasCoordToPoint(this.averagePoint).Round();
                 e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
                 e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
             }
@@ -889,10 +885,10 @@ namespace ShapeMaker
 
             //identify node selected
             this.clickedNub = InvalidNub;
-            RectangleF hit = new RectangleF(e.X - 4, e.Y - 4, 9, 9);
+            Rectangle hit = new Rectangle(e.X - 4, e.Y - 4, 9, 9);
             for (int i = 0; i < this.canvasPoints.Count; i++)
             {
-                PointF p = CanvasCoordToPoint(this.canvasPoints[i].X, this.canvasPoints[i].Y);
+                Point p = CanvasCoordToPoint(this.canvasPoints[i]).Round();
                 if (hit.Contains(p))
                 {
                     this.clickedNub = i;
@@ -1207,7 +1203,7 @@ namespace ShapeMaker
             {
                 if (this.clickedNub == InvalidNub)
                 {
-                    RectangleF bhit = new RectangleF(e.X - 10, e.Y - 10, 20, 20);
+                    Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
                     int clickedPath = getNearestPath(bhit);
                     if (clickedPath != InvalidNub)
                     {
@@ -1215,10 +1211,10 @@ namespace ShapeMaker
 
                         for (int i = 0; i < this.canvasPoints.Count; i++)
                         {
-                            PointF nub = CanvasCoordToPoint(this.canvasPoints[i].X, this.canvasPoints[i].Y);
+                            Point nub = CanvasCoordToPoint(this.canvasPoints[i]).Round();
                             if (bhit.Contains(nub))
                             {
-                                StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
+                                StatusBarNubLocation(nub.X, nub.Y);
                                 break;
                             }
                         }
@@ -1227,8 +1223,8 @@ namespace ShapeMaker
                 else
                 {
                     setUndo();
-                    PointF nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub].X, this.canvasPoints[this.clickedNub].Y);
-                    StatusBarNubLocation((int)Math.Round(nub.X), (int)Math.Round(nub.Y));
+                    Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
+                    StatusBarNubLocation(nub.X, nub.Y);
                 }
             }
             else if (e.Button == MouseButtons.Middle)
@@ -1981,7 +1977,7 @@ namespace ShapeMaker
             ResumeLayout();
         }
 
-        private int getNearestPath(RectangleF hit)
+        private int getNearestPath(Rectangle hit)
         {
             if (this.LineList.Items.Count == 0)
             {
@@ -2022,7 +2018,7 @@ namespace ShapeMaker
                                 break;
                         }
 
-                        PointF p = CanvasCoordToPoint(tmp[j].X, tmp[j].Y);
+                        Point p = CanvasCoordToPoint(tmp[j]).Round();
                         if (hit.Contains(p))
                         {
                             pathIndex = i;
@@ -2040,16 +2036,20 @@ namespace ShapeMaker
 
         private void StatusBarMouseLocation(int x, int y)
         {
-            int zoomFactor = this.canvas.Width / this.canvasBaseSize;
-            this.statusLabelMousePos.Text = $"{Math.Round(x / (float)zoomFactor / dpiScale)}, {Math.Round(y / (float)zoomFactor / dpiScale)}";
+            this.statusLabelMousePos.Text = GetPointForStatusBar(x, y);
             this.statusStrip1.Refresh();
         }
 
         private void StatusBarNubLocation(int x, int y)
         {
-            int zoomFactor = this.canvas.Width / this.canvasBaseSize;
-            this.statusLabelNubPos.Text = $"{Math.Round(x / (float)zoomFactor / dpiScale)}, {Math.Round(y / (float)zoomFactor / dpiScale)}";
+            this.statusLabelNubPos.Text = GetPointForStatusBar(x, y);
             this.statusStrip1.Refresh();
+        }
+
+        private string GetPointForStatusBar(int x, int y)
+        {
+            int zoomFactor = this.canvas.Width / this.canvasBaseSize;
+            return $"{Math.Round(x / (float)zoomFactor / dpiScale)}, {Math.Round(y / (float)zoomFactor / dpiScale)}";
         }
 
         private string GenerateStreamGeometry()
@@ -2670,7 +2670,7 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         pts[ptbase + 4] = LastPos; //ENDPOINT
 
-                        PointF From = CanvasCoordToPoint(pts[ptbase].X, pts[ptbase].Y);
+                        PointF From = CanvasCoordToPoint(pts[ptbase]);
                         PointF To = new PointF(x, y);
 
                         PointF mid = pointAverage(From, To);
@@ -2744,6 +2744,11 @@ namespace ShapeMaker
         private PointF PointToCanvasCoord(float x, float y)
         {
             return new PointF(x / this.canvas.ClientSize.Width, y / this.canvas.ClientSize.Height);
+        }
+
+        private PointF CanvasCoordToPoint(PointF coord)
+        {
+            return CanvasCoordToPoint(coord.X, coord.Y);
         }
 
         private PointF CanvasCoordToPoint(float x, float y)

@@ -11,6 +11,11 @@ namespace ShapeMaker
             return (int)(Math.Round(amount / interval) * interval);
         }
 
+        internal static Point Round(this PointF pointF)
+        {
+            return Point.Round(pointF);
+        }
+
         internal static PointF Average(this PointF[] p)
         {
             if (p.Length == 0)
