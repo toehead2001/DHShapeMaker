@@ -59,8 +59,6 @@ namespace ShapeMaker
             Color.FromArgb(230, 204, 230)
         };
 
-        private static readonly Color anchorColor = Color.Teal;
-
         private PathType activeType;
         private readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
 
@@ -618,22 +616,29 @@ namespace ShapeMaker
                 }
 
                 #region Draw Nubs
-                if (j == this.LineList.SelectedIndex && (Control.ModifierKeys & Keys.Control) != Keys.Control)
+                if (j == this.LineList.SelectedIndex && !Control.ModifierKeys.HasFlag(Keys.Control))
                 {
+                    const int offset = 4;
+                    const int width = 6;
+
                     if ((isClosed || mpMode) && pts.Length > 1)
                     {
-                        e.Graphics.DrawRectangle(new Pen(anchorColor), loopBack.X - 4, loopBack.Y - 4, 6, 6);
+                        e.Graphics.DrawRectangle(Pens.Teal, loopBack.X - offset, loopBack.Y - offset, width, width);
                     }
                     else if (isLinked)
                     {
-                        PointF[] tri = {new PointF(pts[0].X, pts[0].Y - 4f),
-                                        new PointF(pts[0].X + 3f, pts[0].Y + 3f),
-                                        new PointF(pts[0].X - 4f, pts[0].Y + 3f)};
-                        e.Graphics.DrawPolygon(new Pen(anchorColor), tri);
+                        PointF[] tri =
+                        {
+                            new PointF(pts[0].X, pts[0].Y - 4f),
+                            new PointF(pts[0].X + 3f, pts[0].Y + 3f),
+                            new PointF(pts[0].X - 4f, pts[0].Y + 3f)
+                        };
+
+                        e.Graphics.DrawPolygon(Pens.Teal, tri);
                     }
                     else
                     {
-                        e.Graphics.DrawEllipse(new Pen(anchorColor), pts[0].X - 4, pts[0].Y - 4, 6, 6);
+                        e.Graphics.DrawEllipse(Pens.Teal, pts[0].X - offset, pts[0].Y - offset, width, width);
                     }
 
                     for (int i = 1; i < pts.Length; i++)
@@ -641,18 +646,18 @@ namespace ShapeMaker
                         switch (pathType)
                         {
                             case PathType.Straight:
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 break;
                             case PathType.Ellipse:
                                 if (i == 4)
                                 {
                                     PointF mid = pointAverage(pts[0], pts[4]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[4].X - 4, pts[4].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[4].X - offset, pts[4].Y - offset, width, width);
                                     if (!this.MacroCircle.Checked || this.LineList.SelectedIndex != -1)
                                     {
-                                        e.Graphics.DrawRectangle(Pens.Black, pts[1].X - 4, pts[1].Y - 4, 6, 6);
-                                        e.Graphics.FillEllipse(Brushes.Black, pts[3].X - 4, pts[3].Y - 4, 6, 6);
-                                        e.Graphics.FillRectangle(Brushes.Black, pts[2].X - 4, pts[2].Y - 4, 6, 6);
+                                        e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
+                                        e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
+                                        e.Graphics.FillRectangle(Brushes.Black, pts[2].X - offset, pts[2].Y - offset, width, width);
 
                                         e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
                                         e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
@@ -664,16 +669,16 @@ namespace ShapeMaker
                             case PathType.Quadratic:
                                 if (GetNubType(i) == NubType.ControlPoint1)
                                 {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
                                 }
                                 break;
                             case PathType.SmoothQuadratic:
                                 if (GetNubType(i) == NubType.EndPoint)
                                 {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 }
                                 break;
                             case PathType.Cubic:
@@ -682,17 +687,17 @@ namespace ShapeMaker
                                 {
                                     if (i != 1 || pathType == PathType.Cubic)
                                     {
-                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                     }
 
                                     e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - 4, pts[i + 2].Y - 4, 6, 6);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - 4, pts[i + 1].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
                                 }
                                 else if (GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
                                 {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - 4, pts[i].Y - 4, 6, 6);
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 }
                                 break;
                         }
