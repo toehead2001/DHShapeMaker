@@ -1935,6 +1935,29 @@ namespace ShapeMaker
             }
         }
 
+        private static bool IsControlNub(int nubIndex, PathType pathType)
+        {
+            switch (pathType)
+            {
+                case PathType.Ellipse:
+                    if (nubIndex % 4 != 0)
+                    {
+                        return true;
+                    }
+                    break;
+                case PathType.Cubic:
+                case PathType.SmoothCubic:
+                case PathType.Quadratic:
+                    if (nubIndex % 3 != 0)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
+
         private static NubType GetNubType(int nubIndex)
         {
             if (nubIndex == 0)
@@ -1987,50 +2010,38 @@ namespace ShapeMaker
             int pathIndex = -1;
             for (int i = 0; i < this.LineList.Items.Count; i++)
             {
-                PointF[] tmp = this.paths[i].Lines;
+                PathType pathType = (PathType)this.paths[i].LineType;
+                PointF[] tmp;
 
                 using (GraphicsPath gp = new GraphicsPath())
                 {
-                    gp.AddLines(tmp);
-
+                    gp.AddLines(this.paths[i].Lines);
                     gp.Flatten(null, .1f);
+
                     tmp = gp.PathPoints;
-                    for (int j = 0; j < tmp.Length; j++)
+                }
+
+                for (int j = 0; j < tmp.Length; j++)
+                {
+                    if (IsControlNub(j, pathType))
                     {
-                        // exclude 'control' nubs.
-                        switch ((PathType)this.paths[i].LineType)
-                        {
-                            case PathType.Ellipse: // Ellipse (Red)
-                                if (j % 4 != 0)
-                                {
-                                    continue;
-                                }
-
-                                break;
-                            case PathType.Cubic: // Cubic (Blue)
-                            case PathType.SmoothCubic: // Smooth Cubic (Green)
-                            case PathType.Quadratic: // Quadratic (Goldenrod)
-                                if (j % 3 != 0)
-                                {
-                                    continue;
-                                }
-
-                                break;
-                        }
-
-                        Point p = CanvasCoordToPoint(tmp[j]).Round();
-                        if (hit.Contains(p))
-                        {
-                            pathIndex = i;
-                            break;
-                        }
+                        continue;
                     }
-                    if (pathIndex > -1)
+
+                    Point p = CanvasCoordToPoint(tmp[j]).Round();
+                    if (hit.Contains(p))
                     {
+                        pathIndex = i;
                         break;
                     }
                 }
+
+                if (pathIndex > -1)
+                {
+                    break;
+                }
             }
+
             return pathIndex;
         }
 
