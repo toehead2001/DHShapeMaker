@@ -1334,6 +1334,7 @@ namespace ShapeMaker
 
                             #region cubic
 
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mapPoint;
@@ -1367,6 +1368,7 @@ namespace ShapeMaker
 
                             #region Quadratic
 
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mapPoint;
@@ -1416,6 +1418,7 @@ namespace ShapeMaker
 
                             #region smooth Cubic
 
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mapPoint;
@@ -1463,6 +1466,7 @@ namespace ShapeMaker
 
                             #region Smooth Quadratic
 
+                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mapPoint;
@@ -1489,6 +1493,8 @@ namespace ShapeMaker
                 {
                     StatusBarNubLocation(eX, eY);
 
+                    PointF oldp = this.canvasPoints[nubIndex];
+
                     if (nubType == NubType.StartPoint) //special quadratic
                     {
                         switch (pathType)
@@ -1504,7 +1510,6 @@ namespace ShapeMaker
                                 this.canvasPoints[nubIndex] = mapPoint;
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    PointF oldp = this.canvasPoints[nubIndex];
                                     this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                 }
 
