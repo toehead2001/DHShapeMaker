@@ -219,20 +219,14 @@
   <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Copy Path Stream</value>
   </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 6</value>
+  </data>
   <data name="exportPathGeometryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
   </data>
   <data name="exportPathGeometryToolStripMenuItem.Text" xml:space="preserve">
     <value>Export Path&amp;Geometry...</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
-  </data>
-  <data name="SolidFillMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 20</value>
-  </data>
-  <data name="SolidFillMenuItem.Text" xml:space="preserve">
-    <value>Export as Solid &amp;Fill</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 20</value>
@@ -244,7 +238,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="undoMenuItem.Text" xml:space="preserve">
     <value>&amp;Undo</value>
@@ -253,49 +247,49 @@
     <value>Ctrl+Y</value>
   </data>
   <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>&amp;Redo</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>165, 6</value>
   </data>
   <data name="removePathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
   </data>
   <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete Path</value>
   </data>
   <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clone Path</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>165, 6</value>
   </data>
   <data name="loopPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+1</value>
   </data>
   <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Loop Path</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Horizontal</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Vertical</value>
@@ -361,7 +355,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>27</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1256, 17</value>
@@ -376,7 +370,7 @@
     <value>NoControl</value>
   </data>
   <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 520</value>
+    <value>726, 316</value>
   </data>
   <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 17</value>
@@ -400,7 +394,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FitBG.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>30</value>
   </data>
   <data name="DrawOnCanvas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -436,7 +430,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DrawOnCanvas.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <data name="AddBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -448,16 +442,16 @@
     <value>NoControl</value>
   </data>
   <data name="AddBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 260</value>
+    <value>541, 541</value>
   </data>
   <data name="AddBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 36</value>
+    <value>70, 30</value>
   </data>
   <data name="AddBtn.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
   <data name="AddBtn.Text" xml:space="preserve">
-    <value>Add Path</value>
+    <value>Add</value>
   </data>
   <data name="AddBtn.ToolTip" xml:space="preserve">
     <value>Add Path (Enter)</value>
@@ -472,19 +466,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AddBtn.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="FigureName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
-  </data>
-  <data name="FigureName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 6.75pt</value>
   </data>
   <data name="FigureName.Location" type="System.Drawing.Point, System.Drawing">
     <value>726, 426</value>
   </data>
   <data name="FigureName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 18</value>
+    <value>90, 22</value>
   </data>
   <data name="FigureName.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -505,10 +496,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FigureName.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="DeselectBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="DeselectBtn.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="DeselectBtn.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -517,10 +511,10 @@
     <value>NoControl</value>
   </data>
   <data name="DeselectBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 344</value>
+    <value>541, 460</value>
   </data>
   <data name="DeselectBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 36</value>
+    <value>146, 30</value>
   </data>
   <data name="DeselectBtn.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -541,19 +535,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DeselectBtn.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="OutputScale.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
-  </data>
-  <data name="OutputScale.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 6.75pt</value>
   </data>
   <data name="OutputScale.Location" type="System.Drawing.Point, System.Drawing">
     <value>726, 468</value>
   </data>
   <data name="OutputScale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 18</value>
+    <value>90, 22</value>
   </data>
   <data name="OutputScale.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -575,7 +566,7 @@ and Output </value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;OutputScale.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="buttonOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -608,7 +599,7 @@ and Output </value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>29</value>
   </data>
   <data name="LineList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -642,7 +633,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LineList.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>28</value>
   </data>
   <data name="upList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -657,7 +648,7 @@ Double Click to Rename</value>
     <value>541, 422</value>
   </data>
   <data name="upList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 36</value>
+    <value>32, 32</value>
   </data>
   <data name="upList.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -675,7 +666,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;upList.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="DNList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -690,7 +681,7 @@ Double Click to Rename</value>
     <value>579, 422</value>
   </data>
   <data name="DNList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 36</value>
+    <value>32, 32</value>
   </data>
   <data name="DNList.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -708,7 +699,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DNList.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="removePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -723,7 +714,7 @@ Double Click to Rename</value>
     <value>655, 422</value>
   </data>
   <data name="removePathButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 36</value>
+    <value>32, 32</value>
   </data>
   <data name="removePathButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -741,7 +732,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;removePathButton.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="clonePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -756,7 +747,7 @@ Double Click to Rename</value>
     <value>617, 422</value>
   </data>
   <data name="clonePathButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 36</value>
+    <value>32, 32</value>
   </data>
   <data name="clonePathButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -774,7 +765,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;clonePathButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="opacitySlider.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -786,7 +777,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="opacitySlider.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 491</value>
+    <value>718, 287</value>
   </data>
   <data name="opacitySlider.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 23</value>
@@ -807,7 +798,7 @@ Double Click to Rename</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;opacitySlider.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="RotationKnob.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -838,7 +829,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;RotationKnob.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="viewport.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 70</value>
@@ -859,7 +850,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;viewport.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>26</value>
   </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -898,7 +889,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -937,7 +928,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -949,7 +940,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 475</value>
+    <value>729, 271</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -976,7 +967,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1012,7 +1003,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1353, 17</value>
@@ -1120,40 +1111,40 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="pathListLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+  <data name="pathListLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="pathListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="pathListLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>586, 74</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="pathListLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 13</value>
   </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+  <data name="pathListLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
+  <data name="pathListLabel.Text" xml:space="preserve">
     <value>Path List</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="&gt;&gt;pathListLabel.Name" xml:space="preserve">
+    <value>pathListLabel</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+  <data name="&gt;&gt;pathListLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+  <data name="&gt;&gt;pathListLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;pathListLabel.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="label7.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1186,7 +1177,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <metadata name="toolStripBlack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1243,7 +1234,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripBlack.ZOrder" xml:space="preserve">
-    <value>36</value>
+    <value>38</value>
   </data>
   <metadata name="toolStripBlue.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
@@ -1300,7 +1291,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripBlue.ZOrder" xml:space="preserve">
-    <value>35</value>
+    <value>37</value>
   </data>
   <metadata name="toolStripGreen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>266, 17</value>
@@ -1345,7 +1336,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripGreen.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>36</value>
   </data>
   <metadata name="toolStripYellow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>397, 17</value>
@@ -1390,7 +1381,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripYellow.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>35</value>
   </data>
   <metadata name="toolStripPurple.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>531, 17</value>
@@ -1435,7 +1426,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripPurple.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>34</value>
   </data>
   <metadata name="toolStripRed.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>664, 17</value>
@@ -1510,7 +1501,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripRed.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>33</value>
   </data>
   <metadata name="toolStripOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>784, 17</value>
@@ -1591,7 +1582,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripOptions.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>31</value>
   </data>
   <metadata name="toolStripUndo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>926, 17</value>
@@ -1645,7 +1636,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;toolStripUndo.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>32</value>
   </data>
   <data name="scaleSlider.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1675,7 +1666,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;scaleSlider.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="traceLayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1687,7 +1678,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 543</value>
+    <value>726, 339</value>
   </data>
   <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 17</value>
@@ -1708,7 +1699,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;traceLayer.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="traceClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1720,7 +1711,7 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 566</value>
+    <value>726, 362</value>
   </data>
   <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 17</value>
@@ -1741,7 +1732,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;traceClipboard.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="verScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1768,7 +1759,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;verScrollBar.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="horScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1795,7 +1786,7 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;horScrollBar.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="DiscardBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1807,16 +1798,16 @@ Deselect to Rotate all</value>
     <value>NoControl</value>
   </data>
   <data name="DiscardBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 302</value>
+    <value>617, 542</value>
   </data>
   <data name="DiscardBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 36</value>
+    <value>70, 30</value>
   </data>
   <data name="DiscardBtn.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
   <data name="DiscardBtn.Text" xml:space="preserve">
-    <value>Discard Path</value>
+    <value>Discard</value>
   </data>
   <data name="&gt;&gt;DiscardBtn.Name" xml:space="preserve">
     <value>DiscardBtn</value>
@@ -1828,11 +1819,71 @@ Deselect to Rotate all</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DiscardBtn.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <metadata name="WheelTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1469, 17</value>
   </metadata>
+  <data name="newPathLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="newPathLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="newPathLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="newPathLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>586, 525</value>
+  </data>
+  <data name="newPathLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="newPathLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="newPathLabel.Text" xml:space="preserve">
+    <value>New Path</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Name" xml:space="preserve">
+    <value>newPathLabel</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="solidFillCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>726, 496</value>
+  </data>
+  <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="solidFillCheckBox.Text" xml:space="preserve">
+    <value>Solid Fill</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
+    <value>solidFillCheckBox</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1941,22 +1992,16 @@ Deselect to Rotate all</value>
   <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Name" xml:space="preserve">
-    <value>exportPathGeometryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SolidFillMenuItem.Name" xml:space="preserve">
-    <value>SolidFillMenuItem</value>
+  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Name" xml:space="preserve">
+    <value>exportPathGeometryToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;SolidFillMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;editToolStripMenuItem.Name" xml:space="preserve">
@@ -2269,6 +2314,6 @@ Deselect to Rotate all</value>
     <value>EffectPluginConfigDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.22.6806.8404, Culture=neutral, PublicKeyToken=null</value>
+    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.208.7276.37737, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

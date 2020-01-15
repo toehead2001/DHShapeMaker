@@ -78,7 +78,7 @@ namespace ShapeMaker
         private int redoCount = 0;
         private int undoPointer = 0;
 
-        private float lastRot = 180;
+        private double lastRot = 180;
         private bool keyTrak = false;
         private readonly List<PData> paths = new List<PData>();
         private bool panFlag = false;
@@ -96,6 +96,12 @@ namespace ShapeMaker
         private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
         private PointF averagePoint = new PointF(0.5f, 0.5f);
+        private bool scaling;
+        private float initialDist;
+        private Size clickOffset;
+
+        private Rectangle operationBox = Rectangle.Empty;
+        private bool rotating;
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
         internal EffectPluginConfigDialog()
@@ -149,7 +155,7 @@ namespace ShapeMaker
             token.ShapeName = this.FigureName.Text;
             token.Scale = this.OutputScale.Value;
             token.SnapTo = this.Snap.Checked;
-            token.SolidFill = this.SolidFillMenuItem.Checked;
+            token.SolidFill = this.solidFillCheckBox.Checked;
         }
 
         protected override void InitDialogFromToken(EffectConfigToken effectTokenCopy)
@@ -159,7 +165,7 @@ namespace ShapeMaker
             this.FigureName.Text = token.ShapeName;
             this.OutputScale.Value = token.Scale;
             this.Snap.Checked = token.SnapTo;
-            this.SolidFillMenuItem.Checked = token.SolidFill;
+            this.solidFillCheckBox.Checked = token.SolidFill;
 
             this.paths.Clear();
             this.LineList.Items.Clear();
@@ -868,6 +874,16 @@ namespace ShapeMaker
                 e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
                 e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
             }
+
+            if (!this.operationBox.IsEmpty)
+            {
+                int halfWidth = this.operationBox.Width / 2;
+                Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, halfWidth, this.operationBox.Height);
+                Rectangle rotateBox = new Rectangle(this.operationBox.Left + halfWidth, this.operationBox.Top, halfWidth, this.operationBox.Height);
+
+                e.Graphics.FillRectangle(Brushes.DarkSlateGray, scaleBox);
+                e.Graphics.FillRectangle(Brushes.LightSlateGray, rotateBox);
+            }
         }
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
@@ -1199,10 +1215,45 @@ namespace ShapeMaker
                     this.canvas.Cursor = Cursors.SizeAll;
                 }
             }
+            else if (Control.ModifierKeys == Keys.Control && e.Button == MouseButtons.Left)
+            {
+                if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
+                {
+                    Point clickedPoint = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
+                    this.operationBox = new Rectangle(clickedPoint, new Size(40, 20));
+                    setUndo();
+                }
+            }
             else if (e.Button == MouseButtons.Left)
             {
-                if (this.clickedNub == InvalidNub)
+                if (this.operationBox.Contains(e.Location))
                 {
+                    this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
+                    this.averagePoint = this.canvasPoints.Average();
+                    this.drawAverage = true;
+
+                    int halfWidth = this.operationBox.Width / 2;
+                    Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, halfWidth, this.operationBox.Height);
+                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + halfWidth, this.operationBox.Top, halfWidth, this.operationBox.Height);
+
+                    if (scaleBox.Contains(e.Location))
+                    {
+                        this.initialDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                        this.scaling = true;
+                    }
+                    else if (rotateBox.Contains(e.Location))
+                    {
+                        PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
+                        double radians = XYToRadians(clickCoord, this.averagePoint);
+                        this.lastRot = radians;
+                        this.rotating = true;
+                    }
+                }
+                else if (this.clickedNub == InvalidNub)
+                {
+                    this.operationBox = Rectangle.Empty;
+
+                    // TODO : Duplicate Code?
                     Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
                     int clickedPath = getNearestPath(bhit);
                     if (clickedPath != InvalidNub)
@@ -1222,6 +1273,8 @@ namespace ShapeMaker
                 }
                 else
                 {
+                    this.operationBox = Rectangle.Empty;
+
                     setUndo();
                     Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
                     StatusBarNubLocation(nub.X, nub.Y);
@@ -1252,13 +1305,17 @@ namespace ShapeMaker
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.clickedNub != InvalidNub && this.LineList.SelectedIndex != -1)
+            if (this.LineList.SelectedIndex != -1 &&
+                (this.clickedNub != InvalidNub || this.scaling || this.rotating))
             {
                 UpdateExistingPath();
             }
 
             this.panFlag = false;
             this.moveFlag = false;
+            this.scaling = false;
+            this.rotating = false;
+            this.drawAverage = false;
             this.clickedNub = InvalidNub;
             this.canvas.Refresh();
             this.canvas.Cursor = Cursors.Default;
@@ -1290,8 +1347,49 @@ namespace ShapeMaker
                 NubType nubType = GetNubType(this.clickedNub);
                 int nubIndex = this.clickedNub;
 
+                if (this.scaling)
+                {
+                    float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                    float scale = newDist / this.initialDist;
+
+                    this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
+
+                    int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
+                    for (int idx = 0; idx < this.canvasPoints.Count; idx++)
+                    {
+                        this.canvasPoints[idx] = new PointF
+                        {
+                            X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
+                            Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
+                        };
+                    }
+                }
+                else if (this.rotating)
+                {
+                    this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
+
+                    double radians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                    double rad = this.lastRot - radians;
+                    this.lastRot = radians;
+
+                    PointF[] tmp = this.canvasPoints.ToArray();
+                    this.averagePoint = tmp.Average();
+
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        double x = tmp[i].X - this.averagePoint.X;
+                        double y = tmp[i].Y - this.averagePoint.Y;
+                        double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
+                        double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
+
+                        tmp[i] = new PointF((float)nx, (float)ny);
+                    }
+
+                    this.canvasPoints.Clear();
+                    this.canvasPoints.AddRange(tmp);
+                }
                 //left shift move line or path
-                if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
                 {
                     if (this.canvasPoints.Count != 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count)
                     {
@@ -1700,6 +1798,50 @@ namespace ShapeMaker
         {
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
+
+        private static double XYToDegrees(PointF xy, PointF origin)
+        {
+            double angle = 0.0;
+
+            if (xy.Y <= origin.Y)
+            {
+                if (xy.X >= origin.X)
+                {
+                    angle = (double)(xy.X - origin.X) / (double)(origin.Y - xy.Y);
+                    angle = Math.Atan(angle);
+                    angle = 90.0 - angle * 180.0 / Math.PI;
+                }
+                else if (xy.X < origin.X)
+                {
+                    angle = (double)(origin.X - xy.X) / (double)(origin.Y - xy.Y);
+                    angle = Math.Atan(-angle);
+                    angle = 90.0 - angle * 180.0 / Math.PI;
+                }
+            }
+            else if (xy.Y > origin.Y)
+            {
+                if (xy.X >= origin.X)
+                {
+                    angle = (double)(xy.X - origin.X) / (double)(xy.Y - origin.Y);
+                    angle = Math.Atan(-angle);
+                    angle = 270.0 - angle * 180.0 / Math.PI;
+                }
+                else if (xy.X < origin.X)
+                {
+                    angle = (double)(origin.X - xy.X) / (double)(xy.Y - origin.Y);
+                    angle = Math.Atan(angle);
+                    angle = 270.0 - angle * 180.0 / Math.PI;
+                }
+            }
+
+            if (angle > 180) angle -= 360; //Optional. Keeps values between -180 and 180
+            return angle;
+        }
+
+        private static double XYToRadians(PointF xy, PointF origin)
+        {
+            return XYToDegrees(xy, origin) * Math.PI / 180.0;
+        }
         #endregion
 
         #region Rotation Knob functions
@@ -1869,6 +2011,9 @@ namespace ShapeMaker
             {
                 setUndo();
             }
+
+            this.operationBox = Rectangle.Empty;
+            this.drawAverage = false;
 
             this.canvasPoints.Clear();
             this.LineList.SelectedIndex = -1;
@@ -2071,7 +2216,7 @@ namespace ShapeMaker
         private string GenerateStreamGeometry()
         {
             int size = (int)(this.OutputScale.Value * 5);
-            return GenerateStreamGeometry(this.paths, this.SolidFillMenuItem.Checked, size, size);
+            return GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, size, size);
         }
 
         private static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
@@ -2514,7 +2659,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        this.SolidFillMenuItem.Checked = (x == 1);
+                        this.solidFillCheckBox.Checked = (x == 1);
                         break;
                     case "m":
                         errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
@@ -2849,7 +2994,7 @@ namespace ShapeMaker
 
             PData documentProps = projectPaths[projectPaths.Count - 1];
             this.FigureName.Text = documentProps.Meta;
-            this.SolidFillMenuItem.Checked = documentProps.SolidFill;
+            this.solidFillCheckBox.Checked = documentProps.SolidFill;
             foreach (PData path in projectPaths)
             {
                 this.paths.Add(path);
@@ -3294,7 +3439,7 @@ namespace ShapeMaker
                 ArrayList paths = new ArrayList(this.paths);
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                 (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
-                (paths[paths.Count - 1] as PData).SolidFill = this.SolidFillMenuItem.Checked;
+                (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
                 using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
                 {
                     ser.Serialize(stream, paths);
@@ -3620,7 +3765,7 @@ namespace ShapeMaker
             }
             else if (this.canvasPoints.Count > 1)
             {
-                this.averagePoint = this.canvasPoints.ToArray().Average();
+                this.averagePoint = this.canvasPoints.Average();
                 int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
                 for (int idx = 0; idx < this.canvasPoints.Count; idx++)
                 {
@@ -3629,6 +3774,11 @@ namespace ShapeMaker
                         X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
                         Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
                     };
+                }
+
+                if (this.LineList.SelectedIndex != -1)
+                {
+                    UpdateExistingPath();
                 }
             }
             this.canvas.Refresh();

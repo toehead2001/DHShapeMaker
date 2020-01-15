@@ -46,9 +46,8 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.pasteStreamGeomentyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPathStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportPathGeometryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.SolidFillMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportPathGeometryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +93,7 @@
             this.xToolStripMenuZoom4x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
+            this.pathListLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.toolStripBlack = new System.Windows.Forms.ToolStrip();
             this.StraightLine = new ShapeMaker.ToolStripButtonWithKeys();
@@ -136,6 +135,8 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.WheelTimer = new System.Windows.Forms.Timer(this.components);
+            this.newPathLabel = new System.Windows.Forms.Label();
+            this.solidFillCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
@@ -194,9 +195,8 @@
             this.toolStripSeparator3,
             this.pasteStreamGeomentyToolStripMenuItem,
             this.copyPathStreamToolStripMenuItem,
-            this.exportPathGeometryToolStripMenuItem,
             this.toolStripSeparator2,
-            this.SolidFillMenuItem});
+            this.exportPathGeometryToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -270,23 +270,16 @@
             resources.ApplyResources(this.copyPathStreamToolStripMenuItem, "copyPathStreamToolStripMenuItem");
             this.copyPathStreamToolStripMenuItem.Click += new System.EventHandler(this.CopyStream_Click);
             // 
-            // exportPathGeometryToolStripMenuItem
-            // 
-            this.exportPathGeometryToolStripMenuItem.Name = "exportPathGeometryToolStripMenuItem";
-            resources.ApplyResources(this.exportPathGeometryToolStripMenuItem, "exportPathGeometryToolStripMenuItem");
-            this.exportPathGeometryToolStripMenuItem.Click += new System.EventHandler(this.ExportPG_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
-            // SolidFillMenuItem
+            // exportPathGeometryToolStripMenuItem
             // 
-            this.SolidFillMenuItem.CheckOnClick = true;
-            this.SolidFillMenuItem.Name = "SolidFillMenuItem";
-            this.SolidFillMenuItem.Padding = new System.Windows.Forms.Padding(0);
-            resources.ApplyResources(this.SolidFillMenuItem, "SolidFillMenuItem");
+            this.exportPathGeometryToolStripMenuItem.Name = "exportPathGeometryToolStripMenuItem";
+            resources.ApplyResources(this.exportPathGeometryToolStripMenuItem, "exportPathGeometryToolStripMenuItem");
+            this.exportPathGeometryToolStripMenuItem.Click += new System.EventHandler(this.ExportPG_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -652,10 +645,10 @@
             resources.ApplyResources(this.xToolStripMenuZoom1x, "xToolStripMenuZoom1x");
             this.xToolStripMenuZoom1x.Click += new System.EventHandler(this.xToolStripMenuZoom1x_Click);
             // 
-            // label3
+            // pathListLabel
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.pathListLabel, "pathListLabel");
+            this.pathListLabel.Name = "pathListLabel";
             // 
             // label7
             // 
@@ -1028,10 +1021,23 @@
             this.WheelTimer.Interval = 2000;
             this.WheelTimer.Tick += new System.EventHandler(this.EndWheeling);
             // 
+            // newPathLabel
+            // 
+            resources.ApplyResources(this.newPathLabel, "newPathLabel");
+            this.newPathLabel.Name = "newPathLabel";
+            // 
+            // solidFillCheckBox
+            // 
+            resources.ApplyResources(this.solidFillCheckBox, "solidFillCheckBox");
+            this.solidFillCheckBox.Name = "solidFillCheckBox";
+            this.solidFillCheckBox.UseVisualStyleBackColor = true;
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.solidFillCheckBox);
+            this.Controls.Add(this.newPathLabel);
             this.Controls.Add(this.DiscardBtn);
             this.Controls.Add(this.horScrollBar);
             this.Controls.Add(this.verScrollBar);
@@ -1042,7 +1048,7 @@
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pathListLabel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.DeselectBtn);
@@ -1070,7 +1076,6 @@
             this.Controls.Add(this.toolStripBlue);
             this.Controls.Add(this.toolStripBlack);
             this.DoubleBuffered = true;
-            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = true;
@@ -1150,7 +1155,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveProject;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem SolidFillMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSplitButton splitButtonZoom;
@@ -1161,7 +1165,7 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelPathsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubPos;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label pathListLabel;
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
@@ -1215,5 +1219,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem openRecentProject;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Label newPathLabel;
+        private System.Windows.Forms.CheckBox solidFillCheckBox;
     }
 }

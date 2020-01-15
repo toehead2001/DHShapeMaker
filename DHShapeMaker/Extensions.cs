@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -16,20 +17,25 @@ namespace ShapeMaker
             return Point.Round(pointF);
         }
 
-        internal static PointF Average(this PointF[] p)
+        internal static Rectangle Round(this RectangleF rectangleF)
         {
-            if (p.Length == 0)
+            return Rectangle.Round(rectangleF);
+        }
+
+        internal static PointF Average(this IReadOnlyList<PointF> points)
+        {
+            if (points.Count == 0)
             {
                 return Point.Empty;
             }
 
             float x = 0, y = 0;
-            foreach (PointF pt in p)
+            foreach (PointF pt in points)
             {
                 x += pt.X;
                 y += pt.Y;
             }
-            return new PointF(x / p.Length, y / p.Length);
+            return new PointF(x / points.Count, y / points.Count);
         }
 
         internal static void Add(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
