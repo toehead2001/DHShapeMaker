@@ -881,8 +881,8 @@ namespace ShapeMaker
                 Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, halfWidth, this.operationBox.Height);
                 Rectangle rotateBox = new Rectangle(this.operationBox.Left + halfWidth, this.operationBox.Top, halfWidth, this.operationBox.Height);
 
-                e.Graphics.FillRectangle(Brushes.DarkSlateGray, scaleBox);
-                e.Graphics.FillRectangle(Brushes.LightSlateGray, rotateBox);
+                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox);
+                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox);
             }
         }
 

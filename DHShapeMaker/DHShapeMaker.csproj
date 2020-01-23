@@ -136,6 +136,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\ShpeMaker.sample.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Resize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rotate.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetFileName)" "C:\Program Files\Paint.NET\Effects"</PostBuildEvent>
   </PropertyGroup>
