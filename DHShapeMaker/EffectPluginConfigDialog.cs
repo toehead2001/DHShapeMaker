@@ -143,7 +143,7 @@ namespace ShapeMaker
         #region Effect Token functions
         protected override void InitialInitToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Black, ColorBgra.White, 2, DrawMode.Stroke);
+            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Zero, ColorBgra.Zero, 0, DrawMode.Stroke);
         }
 
         protected override void InitTokenFromDialog()
@@ -185,9 +185,9 @@ namespace ShapeMaker
             this.OutputScale.Value = token.Scale;
             this.Snap.Checked = token.SnapTo;
             this.solidFillCheckBox.Checked = token.SolidFill;
-            this.strokeColorPanel.BackColor = token.StrokeColor;
-            this.fillColorPanel.BackColor = token.FillColor;
-            this.strokeThicknessBox.Value = (decimal)token.StrokeThickness;
+            this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.EnvironmentParameters.PrimaryColor : token.StrokeColor;
+            this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.EnvironmentParameters.SecondaryColor : token.FillColor;
+            this.strokeThicknessBox.Value = (token.StrokeThickness == 0) ? (decimal)this.EnvironmentParameters.BrushWidth : (decimal)token.StrokeThickness;
 
             DrawMode drawMode = token.DrawMode;
             if (drawMode.HasFlag(DrawMode.Stroke) &&
@@ -272,11 +272,6 @@ namespace ShapeMaker
             this.toolStripPurple.Left = this.toolStripYellow.Right;
             this.toolStripRed.Left = this.toolStripPurple.Right;
             this.toolStripOptions.Left = this.toolStripRed.Right;
-
-            this.strokeColorPanel.BackColor = this.EnvironmentParameters.PrimaryColor;
-            this.fillColorPanel.BackColor = this.EnvironmentParameters.SecondaryColor;
-            this.strokeThicknessBox.Value = (decimal)this.EnvironmentParameters.BrushWidth;
-            FinishTokenUpdate();
             #endregion
 
             adjustForWindowSize();
