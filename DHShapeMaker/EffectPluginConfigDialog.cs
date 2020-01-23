@@ -279,21 +279,12 @@ namespace ShapeMaker
             this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count}/{maxPaths} Paths used";
 
             // Store hotkeys in a Dictionary
-            foreach (object control in this.Controls)
+            foreach (ToolStripButtonWithKeys button in this.Controls.OfType<ToolStrip>().SelectMany(ts => ts.Items.OfType<ToolStripButtonWithKeys>()))
             {
-                if (control is ToolStrip toolStrip)
+                Keys keys = button.ShortcutKeys;
+                if (keys != Keys.None && !this.hotKeys.ContainsKey(keys))
                 {
-                    foreach (object subControl in toolStrip.Items)
-                    {
-                        if (subControl is ToolStripButtonWithKeys button)
-                        {
-                            Keys keys = button.ShortcutKeys;
-                            if (keys != Keys.None && !this.hotKeys.ContainsKey(keys))
-                            {
-                                this.hotKeys.Add(keys, button);
-                            }
-                        }
-                    }
+                    this.hotKeys.Add(keys, button);
                 }
             }
         }
