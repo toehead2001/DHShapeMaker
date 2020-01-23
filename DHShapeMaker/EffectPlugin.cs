@@ -27,22 +27,23 @@ namespace ShapeMaker
         protected override void OnSetRenderInfo(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs)
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)parameters;
-            string geometryCode = token.GeometryCode;
             this.draw = token.Draw;
 
             if (this.draw)
             {
                 Rectangle srcBounds = EnvironmentParameters.SourceSurface.Bounds;
-                Rectangle selection = EnvironmentParameters.GetSelection(srcBounds).GetBoundsInt();
-                ColorBgra strokeColor = EnvironmentParameters.PrimaryColor;
-                ColorBgra fillColor = EnvironmentParameters.SecondaryColor;
-                double strokeThickness = EnvironmentParameters.BrushWidth;
+                Rectangle selection = EnvironmentParameters.SelectionBounds;
+                ColorBgra strokeColor = token.StrokeColor;
+                ColorBgra fillColor = token.FillColor;
+                double strokeThickness = token.StrokeThickness;
+                string geometryCode = token.GeometryCode;
+                DrawMode drawMode = token.DrawMode;
 
                 PdnSynchronizationContext.Instance.Send(new SendOrPostCallback((object _) =>
                 {
                     ShapeBuilder.SetEnviromentParams(srcBounds.Width, srcBounds.Height, selection.X, selection.Y, selection.Width, selection.Height, strokeColor, fillColor, strokeThickness);
 
-                    ShapeBuilder.RenderShape(geometryCode, false);
+                    ShapeBuilder.RenderShape(geometryCode, drawMode);
                 }), null);
 
                 this.shapeSurface?.Dispose();

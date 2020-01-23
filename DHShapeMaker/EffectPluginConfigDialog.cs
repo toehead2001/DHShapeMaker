@@ -143,7 +143,7 @@ namespace ShapeMaker
         #region Effect Token functions
         protected override void InitialInitToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false);
+            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Black, ColorBgra.White, 2, DrawMode.Stroke);
         }
 
         protected override void InitTokenFromDialog()
@@ -156,6 +156,25 @@ namespace ShapeMaker
             token.Scale = this.OutputScale.Value;
             token.SnapTo = this.Snap.Checked;
             token.SolidFill = this.solidFillCheckBox.Checked;
+            token.StrokeColor = this.strokeColorPanel.BackColor;
+            token.FillColor = this.fillColorPanel.BackColor;
+            token.StrokeThickness = (float)this.strokeThicknessBox.Value;
+
+            switch (this.drawModeBox.SelectedIndex)
+            {
+                case 0:
+                    token.DrawMode = DrawMode.Stroke;
+                    break;
+                case 1:
+                    token.DrawMode = DrawMode.Fill;
+                    break;
+                case 2:
+                    token.DrawMode = DrawMode.Stroke | DrawMode.Fill;
+                    break;
+                default:
+                    token.DrawMode = DrawMode.Stroke;
+                    break;
+            }
         }
 
         protected override void InitDialogFromToken(EffectConfigToken effectTokenCopy)
@@ -166,6 +185,24 @@ namespace ShapeMaker
             this.OutputScale.Value = token.Scale;
             this.Snap.Checked = token.SnapTo;
             this.solidFillCheckBox.Checked = token.SolidFill;
+            this.strokeColorPanel.BackColor = token.StrokeColor;
+            this.fillColorPanel.BackColor = token.FillColor;
+            this.strokeThicknessBox.Value = (decimal)token.StrokeThickness;
+
+            DrawMode drawMode = token.DrawMode;
+            if (drawMode.HasFlag(DrawMode.Stroke) &&
+                drawMode.HasFlag(DrawMode.Fill))
+            {
+                this.drawModeBox.SelectedIndex = 2;
+            }
+            else if (drawMode.HasFlag(DrawMode.Fill))
+            {
+                this.drawModeBox.SelectedIndex = 1;
+            }
+            else
+            {
+                this.drawModeBox.SelectedIndex = 0;
+            }
 
             this.paths.Clear();
             this.LineList.Items.Clear();
@@ -235,6 +272,11 @@ namespace ShapeMaker
             this.toolStripPurple.Left = this.toolStripYellow.Right;
             this.toolStripRed.Left = this.toolStripPurple.Right;
             this.toolStripOptions.Left = this.toolStripRed.Right;
+
+            this.strokeColorPanel.BackColor = this.EnvironmentParameters.PrimaryColor;
+            this.fillColorPanel.BackColor = this.EnvironmentParameters.SecondaryColor;
+            this.strokeThicknessBox.Value = (decimal)this.EnvironmentParameters.BrushWidth;
+            FinishTokenUpdate();
             #endregion
 
             adjustForWindowSize();
@@ -1253,7 +1295,6 @@ namespace ShapeMaker
                 {
                     this.operationBox = Rectangle.Empty;
 
-                    // TODO : Duplicate Code?
                     Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
                     int clickedPath = getNearestPath(bhit);
                     if (clickedPath != InvalidNub)
@@ -3945,8 +3986,8 @@ namespace ShapeMaker
 #if PDNPLUGIN
             if (this.traceLayer.Checked)
             {
-                Rectangle selection = this.Selection.GetBoundsInt();
-                this.canvas.BackgroundImage = this.EffectSourceSurface.CreateAliasedBitmap(selection);
+                Rectangle selection = this.EnvironmentParameters.SelectionBounds;
+                this.canvas.BackgroundImage = this.EnvironmentParameters.SourceSurface.CreateAliasedBitmap(selection);
             }
             else
             {
@@ -4272,5 +4313,33 @@ namespace ShapeMaker
             LoadProjectFile(projectPath);
         }
         #endregion
+
+        private void ColorPanel_Click(object sender, EventArgs e)
+        {
+            if (sender is Panel colorPanel)
+            {
+                this.colorDialog1.Color = colorPanel.BackColor;
+                this.colorDialog1.ShowDialog();
+                colorPanel.BackColor = this.colorDialog1.Color;
+            }
+        }
+
+        private void ColorPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
+            e.Graphics.DrawRectangle(Pens.Black, outerRect);
+            e.Graphics.DrawRectangle(Pens.White, innerRect);
+            //e.Graphics.DrawRectangle(e.Graphics., Pens.Black);
+        }
+
+        private void DrawOnCanvas_CheckedChanged(object sender, EventArgs e)
+        {
+            bool enable = this.DrawOnCanvas.Checked;
+            this.strokeColorPanel.Enabled = enable;
+            this.fillColorPanel.Enabled = enable;
+            this.strokeThicknessBox.Enabled = enable;
+            this.drawModeBox.Enabled = enable;
+        }
     }
 }

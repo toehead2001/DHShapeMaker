@@ -27,7 +27,7 @@ namespace ShapeMaker
             strokeThickness = strokeWidth;
         }
 
-        internal static void RenderShape(string geometryCode, bool filled)
+        internal static void RenderShape(string geometryCode, DrawMode drawMode)
         {
             ShapeBmp?.Dispose();
             ShapeBmp = null;
@@ -43,7 +43,7 @@ namespace ShapeMaker
                 return;
             }
 
-            RenderGeometry(geometry, filled);
+            RenderGeometry(geometry, drawMode);
         }
 
         private static StreamGeometry TryParseStreamGeometry(string streamGeometry)
@@ -61,17 +61,19 @@ namespace ShapeMaker
             return geometry;
         }
 
-        private static void RenderGeometry(Geometry geometry, bool filled)
+        private static void RenderGeometry(Geometry geometry, DrawMode drawMode)
         {
             const int padding = 5;
+            bool stroke = drawMode.HasFlag(DrawMode.Stroke);
+            bool fill = drawMode.HasFlag(DrawMode.Fill);
 
             Path path = new Path
             {
                 Data = geometry,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Stroke = strokeBrush,
-                Fill = filled ? fillBrush : Brushes.Transparent,
+                Stroke = stroke ? strokeBrush : Brushes.Transparent,
+                Fill = !stroke ? strokeBrush : fill ? fillBrush : Brushes.Transparent,
                 StrokeThickness = strokeThickness,
                 Stretch = Stretch.Uniform,
                 Width = selection.Width - padding * 2,

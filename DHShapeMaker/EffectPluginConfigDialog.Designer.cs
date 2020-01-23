@@ -78,6 +78,7 @@
             this.clonePathButton = new System.Windows.Forms.Button();
             this.opacitySlider = new System.Windows.Forms.TrackBar();
             this.RotationKnob = new ShapeMaker.BigKnobs();
+            this.strokeThicknessBox = new System.Windows.Forms.NumericUpDown();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -137,10 +138,15 @@
             this.WheelTimer = new System.Windows.Forms.Timer(this.components);
             this.newPathLabel = new System.Windows.Forms.Label();
             this.solidFillCheckBox = new System.Windows.Forms.CheckBox();
+            this.strokeColorPanel = new System.Windows.Forms.Panel();
+            this.fillColorPanel = new System.Windows.Forms.Panel();
+            this.drawModeBox = new System.Windows.Forms.ComboBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.strokeThicknessBox)).BeginInit();
             this.viewport.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripBlack.SuspendLayout();
@@ -405,9 +411,12 @@
             // DrawOnCanvas
             // 
             resources.ApplyResources(this.DrawOnCanvas, "DrawOnCanvas");
+            this.DrawOnCanvas.Checked = true;
+            this.DrawOnCanvas.CheckState = System.Windows.Forms.CheckState.Checked;
             this.DrawOnCanvas.Name = "DrawOnCanvas";
             this.toolTip1.SetToolTip(this.DrawOnCanvas, resources.GetString("DrawOnCanvas.ToolTip"));
             this.DrawOnCanvas.UseVisualStyleBackColor = true;
+            this.DrawOnCanvas.CheckedChanged += new System.EventHandler(this.DrawOnCanvas_CheckedChanged);
             // 
             // AddBtn
             // 
@@ -540,6 +549,22 @@
             this.RotationKnob.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseDown);
             this.RotationKnob.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseUp);
             this.RotationKnob.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
+            // 
+            // strokeThicknessBox
+            // 
+            resources.ApplyResources(this.strokeThicknessBox, "strokeThicknessBox");
+            this.strokeThicknessBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.strokeThicknessBox.Name = "strokeThicknessBox";
+            this.toolTip1.SetToolTip(this.strokeThicknessBox, resources.GetString("strokeThicknessBox.ToolTip"));
+            this.strokeThicknessBox.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
             // viewport
             // 
@@ -1032,10 +1057,39 @@
             this.solidFillCheckBox.Name = "solidFillCheckBox";
             this.solidFillCheckBox.UseVisualStyleBackColor = true;
             // 
+            // strokeColorPanel
+            // 
+            resources.ApplyResources(this.strokeColorPanel, "strokeColorPanel");
+            this.strokeColorPanel.Name = "strokeColorPanel";
+            this.strokeColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
+            this.strokeColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
+            // 
+            // fillColorPanel
+            // 
+            resources.ApplyResources(this.fillColorPanel, "fillColorPanel");
+            this.fillColorPanel.Name = "fillColorPanel";
+            this.fillColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
+            this.fillColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
+            // 
+            // drawModeBox
+            // 
+            resources.ApplyResources(this.drawModeBox, "drawModeBox");
+            this.drawModeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.drawModeBox.FormattingEnabled = true;
+            this.drawModeBox.Items.AddRange(new object[] {
+            resources.GetString("drawModeBox.Items"),
+            resources.GetString("drawModeBox.Items1"),
+            resources.GetString("drawModeBox.Items2")});
+            this.drawModeBox.Name = "drawModeBox";
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.drawModeBox);
+            this.Controls.Add(this.strokeThicknessBox);
+            this.Controls.Add(this.fillColorPanel);
+            this.Controls.Add(this.strokeColorPanel);
             this.Controls.Add(this.solidFillCheckBox);
             this.Controls.Add(this.newPathLabel);
             this.Controls.Add(this.DiscardBtn);
@@ -1087,6 +1141,7 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.strokeThicknessBox)).EndInit();
             this.viewport.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1221,5 +1276,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Label newPathLabel;
         private System.Windows.Forms.CheckBox solidFillCheckBox;
+        private System.Windows.Forms.Panel strokeColorPanel;
+        private System.Windows.Forms.Panel fillColorPanel;
+        private System.Windows.Forms.NumericUpDown strokeThicknessBox;
+        private System.Windows.Forms.ComboBox drawModeBox;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
