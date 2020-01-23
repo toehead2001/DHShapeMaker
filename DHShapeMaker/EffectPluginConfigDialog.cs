@@ -4323,9 +4323,17 @@ namespace ShapeMaker
         {
             Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
-            e.Graphics.DrawRectangle(Pens.Black, outerRect);
-            e.Graphics.DrawRectangle(Pens.White, innerRect);
-            //e.Graphics.DrawRectangle(e.Graphics., Pens.Black);
+
+            if (sender is Panel panel && !panel.Enabled)
+            {
+                e.Graphics.FillRectangle(SystemBrushes.Control, e.ClipRectangle);
+                e.Graphics.DrawRectangle(Pens.Gray, outerRect);
+            }
+            else
+            {
+                e.Graphics.DrawRectangle(Pens.Black, outerRect);
+                e.Graphics.DrawRectangle(Pens.White, innerRect);
+            }
         }
 
         private void DrawOnCanvas_CheckedChanged(object sender, EventArgs e)
