@@ -62,7 +62,7 @@ namespace ShapeMaker
         private PathType activeType;
         private readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
 
-        private const int maxPaths = 200;
+        private const int maxPaths = 300;
         private const int maxPoints = byte.MaxValue;
         private const int InvalidNub = -1;
         private int clickedNub = InvalidNub;
