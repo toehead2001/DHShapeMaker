@@ -3977,15 +3977,17 @@ namespace ShapeMaker
             }
             else
             {
-                Surface surface = this.Services.GetService<IClipboardService>().TryGetSurface();
-                if (surface == null)
+                using (Surface surface = this.Services.GetService<IClipboardService>().TryGetSurface())
                 {
-                    this.traceLayer.Focus();
-                    MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    if (surface == null)
+                    {
+                        this.traceLayer.Focus();
+                        MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
-                this.canvas.BackgroundImage = surface.CreateAliasedBitmap();
+                    this.canvas.BackgroundImage = new Bitmap(surface.CreateAliasedBitmap());
+                }
             }
 #else
             if (this.traceClipboard.Checked)
