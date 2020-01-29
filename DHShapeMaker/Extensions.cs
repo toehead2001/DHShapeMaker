@@ -22,7 +22,7 @@ namespace ShapeMaker
             return Rectangle.Round(rectangleF);
         }
 
-        internal static PointF Average(this IReadOnlyList<PointF> points)
+        internal static PointF Average(this IReadOnlyCollection<PointF> points)
         {
             if (points.Count == 0)
             {
