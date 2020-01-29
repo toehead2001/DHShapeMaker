@@ -3,9 +3,10 @@
 namespace ShapeMaker
 {
     [Flags]
-    internal enum DrawMode
+    internal enum DrawModes
     {
         Stroke = 1,
-        Fill = 2
+        Fill = 2,
+        Fit = 4
     }
 }

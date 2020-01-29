@@ -143,7 +143,7 @@ namespace ShapeMaker
         #region Effect Token functions
         protected override void InitialInitToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Zero, ColorBgra.Zero, 0, DrawMode.Stroke);
+            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Zero, ColorBgra.Zero, 0, DrawModes.Stroke);
         }
 
         protected override void InitTokenFromDialog()
@@ -153,7 +153,6 @@ namespace ShapeMaker
             token.PathData = this.paths;
             token.Draw = this.DrawOnCanvas.Checked;
             token.ShapeName = this.FigureName.Text;
-            token.Scale = this.OutputScale.Value;
             token.SnapTo = this.Snap.Checked;
             token.SolidFill = this.solidFillCheckBox.Checked;
             token.StrokeColor = this.strokeColorPanel.BackColor;
@@ -163,17 +162,22 @@ namespace ShapeMaker
             switch (this.drawModeBox.SelectedIndex)
             {
                 case 0:
-                    token.DrawMode = DrawMode.Stroke;
+                    token.DrawMode = DrawModes.Stroke;
                     break;
                 case 1:
-                    token.DrawMode = DrawMode.Fill;
+                    token.DrawMode = DrawModes.Fill;
                     break;
                 case 2:
-                    token.DrawMode = DrawMode.Stroke | DrawMode.Fill;
+                    token.DrawMode = DrawModes.Stroke | DrawModes.Fill;
                     break;
                 default:
-                    token.DrawMode = DrawMode.Stroke;
+                    token.DrawMode = DrawModes.Stroke;
                     break;
+            }
+
+            if (this.fitCanvasBox.Checked)
+            {
+                token.DrawMode |= DrawModes.Fit;
             }
         }
 
@@ -182,20 +186,19 @@ namespace ShapeMaker
             EffectPluginConfigToken token = (EffectPluginConfigToken)effectTokenCopy;
             this.DrawOnCanvas.Checked = token.Draw;
             this.FigureName.Text = token.ShapeName;
-            this.OutputScale.Value = token.Scale;
             this.Snap.Checked = token.SnapTo;
             this.solidFillCheckBox.Checked = token.SolidFill;
             this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.EnvironmentParameters.PrimaryColor : token.StrokeColor;
             this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.EnvironmentParameters.SecondaryColor : token.FillColor;
             this.strokeThicknessBox.Value = (token.StrokeThickness == 0) ? (decimal)this.EnvironmentParameters.BrushWidth : (decimal)token.StrokeThickness;
 
-            DrawMode drawMode = token.DrawMode;
-            if (drawMode.HasFlag(DrawMode.Stroke) &&
-                drawMode.HasFlag(DrawMode.Fill))
+            DrawModes drawMode = token.DrawMode;
+            if (drawMode.HasFlag(DrawModes.Stroke) &&
+                drawMode.HasFlag(DrawModes.Fill))
             {
                 this.drawModeBox.SelectedIndex = 2;
             }
-            else if (drawMode.HasFlag(DrawMode.Fill))
+            else if (drawMode.HasFlag(DrawModes.Fill))
             {
                 this.drawModeBox.SelectedIndex = 1;
             }
@@ -203,6 +206,8 @@ namespace ShapeMaker
             {
                 this.drawModeBox.SelectedIndex = 0;
             }
+
+            this.fitCanvasBox.Checked = drawMode.HasFlag(DrawModes.Fit);
 
             this.paths.Clear();
             this.LineList.Items.Clear();
@@ -2242,7 +2247,7 @@ namespace ShapeMaker
 
         private string GenerateStreamGeometry()
         {
-            int size = (int)(this.OutputScale.Value * 5);
+            const int size = 500;
             return GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, size, size);
         }
 
@@ -2424,7 +2429,7 @@ namespace ShapeMaker
 
         private string GeneratePathGeometry()
         {
-            int size = (int)(this.OutputScale.Value * 5);
+            const int size = 500;
             return GeneratePathGeometry(this.paths, size, size);
         }
 
@@ -4336,6 +4341,7 @@ namespace ShapeMaker
             this.fillColorPanel.Enabled = enable;
             this.strokeThicknessBox.Enabled = enable;
             this.drawModeBox.Enabled = enable;
+            this.fitCanvasBox.Enabled = enable;
         }
     }
 }

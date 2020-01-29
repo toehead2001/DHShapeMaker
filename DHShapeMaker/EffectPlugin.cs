@@ -37,7 +37,7 @@ namespace ShapeMaker
                 ColorBgra fillColor = token.FillColor;
                 double strokeThickness = token.StrokeThickness;
                 string geometryCode = token.GeometryCode;
-                DrawMode drawMode = token.DrawMode;
+                DrawModes drawMode = token.DrawMode;
 
                 PdnSynchronizationContext.Instance.Send(new SendOrPostCallback((object _) =>
                 {

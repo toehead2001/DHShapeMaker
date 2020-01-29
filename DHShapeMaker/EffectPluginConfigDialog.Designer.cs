@@ -69,7 +69,6 @@
             this.AddBtn = new System.Windows.Forms.Button();
             this.FigureName = new System.Windows.Forms.TextBox();
             this.DeselectBtn = new System.Windows.Forms.Button();
-            this.OutputScale = new System.Windows.Forms.NumericUpDown();
             this.buttonOK = new System.Windows.Forms.Button();
             this.LineList = new System.Windows.Forms.ListBox();
             this.upList = new System.Windows.Forms.Button();
@@ -81,7 +80,6 @@
             this.strokeThicknessBox = new System.Windows.Forms.NumericUpDown();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -142,9 +140,9 @@
             this.fillColorPanel = new System.Windows.Forms.Panel();
             this.drawModeBox = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.fitCanvasBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.strokeThicknessBox)).BeginInit();
             this.viewport.SuspendLayout();
@@ -448,27 +446,6 @@
             this.DeselectBtn.UseVisualStyleBackColor = true;
             this.DeselectBtn.Click += new System.EventHandler(this.Deselect_Click);
             // 
-            // OutputScale
-            // 
-            resources.ApplyResources(this.OutputScale, "OutputScale");
-            this.OutputScale.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.OutputScale.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.OutputScale.Name = "OutputScale";
-            this.toolTip1.SetToolTip(this.OutputScale, resources.GetString("OutputScale.ToolTip"));
-            this.OutputScale.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
@@ -579,11 +556,6 @@
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
             // 
             // label1
             // 
@@ -1082,10 +1054,17 @@
             resources.GetString("drawModeBox.Items2")});
             this.drawModeBox.Name = "drawModeBox";
             // 
+            // fitCanvasBox
+            // 
+            resources.ApplyResources(this.fitCanvasBox, "fitCanvasBox");
+            this.fitCanvasBox.Name = "fitCanvasBox";
+            this.fitCanvasBox.UseVisualStyleBackColor = true;
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.fitCanvasBox);
             this.Controls.Add(this.drawModeBox);
             this.Controls.Add(this.strokeThicknessBox);
             this.Controls.Add(this.fillColorPanel);
@@ -1104,12 +1083,10 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.pathListLabel);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.OutputScale);
             this.Controls.Add(this.DeselectBtn);
             this.Controls.Add(this.RotationKnob);
             this.Controls.Add(this.FigureName);
             this.Controls.Add(this.AddBtn);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.DNList);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -1139,7 +1116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.strokeThicknessBox)).EndInit();
             this.viewport.ResumeLayout(false);
@@ -1194,12 +1170,10 @@
         private System.Windows.Forms.CheckBox FitBG;
         private System.Windows.Forms.CheckBox DrawOnCanvas;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.TextBox FigureName;
         private BigKnobs RotationKnob;
         private System.Windows.Forms.Button DeselectBtn;
-        private System.Windows.Forms.NumericUpDown OutputScale;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.ListBox LineList;
         private System.Windows.Forms.Label label1;
@@ -1281,5 +1255,6 @@
         private System.Windows.Forms.NumericUpDown strokeThicknessBox;
         private System.Windows.Forms.ComboBox drawModeBox;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.CheckBox fitCanvasBox;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PaintDotNet;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -27,7 +28,7 @@ namespace ShapeMaker
             strokeThickness = strokeWidth;
         }
 
-        internal static void RenderShape(string geometryCode, DrawMode drawMode)
+        internal static void RenderShape(string geometryCode, DrawModes drawMode)
         {
             ShapeBmp?.Dispose();
             ShapeBmp = null;
@@ -61,11 +62,36 @@ namespace ShapeMaker
             return geometry;
         }
 
-        private static void RenderGeometry(Geometry geometry, DrawMode drawMode)
+        private static void RenderGeometry(Geometry geometry, DrawModes drawMode)
         {
             const int padding = 5;
-            bool stroke = drawMode.HasFlag(DrawMode.Stroke);
-            bool fill = drawMode.HasFlag(DrawMode.Fill);
+
+            bool stroke = drawMode.HasFlag(DrawModes.Stroke);
+            bool fill = drawMode.HasFlag(DrawModes.Fill);
+            bool fit = drawMode.HasFlag(DrawModes.Fit);
+
+            double maxDim = Math.Max(selection.Width, selection.Height);
+
+            double xOffset = fit ?
+                selection.X :
+                selection.X - (selection.Height > selection.Width ? selection.Height - selection.Width : 0);
+            double yOffset = fit ?
+                selection.Y :
+                selection.Y - (selection.Width > selection.Height ? selection.Width - selection.Height : 0);
+
+            double width = fit ?
+                 selection.Width - padding * 2 :
+                 maxDim;
+            double height = fit ?
+                 selection.Height - padding * 2 :
+                 maxDim;
+
+            if (!fit)
+            {
+                double newScale = Math.Max(selection.Width, selection.Height) / 500.0;
+                geometry = geometry.Clone();
+                geometry.Transform = new ScaleTransform(newScale, newScale);
+            }
 
             Path path = new Path
             {
@@ -75,17 +101,17 @@ namespace ShapeMaker
                 Stroke = stroke ? strokeBrush : Brushes.Transparent,
                 Fill = !stroke ? strokeBrush : fill ? fillBrush : Brushes.Transparent,
                 StrokeThickness = strokeThickness,
-                Stretch = Stretch.Uniform,
-                Width = selection.Width - padding * 2,
-                Height = selection.Height - padding * 2,
-                Margin = new Thickness(padding)
+                Stretch = fit ? Stretch.Uniform : Stretch.None,
+                Width = width,
+                Height = height,
+                Margin = fit ? new Thickness(padding) : new Thickness(0)
             };
 
             Canvas canvas = new Canvas
             {
                 Width = canvasSize.Width,
                 Height = canvasSize.Height,
-                Margin = new Thickness(selection.X, selection.Y, 0, 0),
+                Margin = new Thickness(xOffset, yOffset, 0, 0),
                 Background = Brushes.Transparent
             };
 

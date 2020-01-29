@@ -17,10 +17,10 @@ namespace ShapeMaker
         internal ColorBgra StrokeColor { get; set; }
         internal ColorBgra FillColor { get; set; }
         internal float StrokeThickness { get; set; }
-        internal DrawMode DrawMode { get; set; }
+        internal DrawModes DrawMode { get; set; }
 
         internal EffectPluginConfigToken(string geometryCode, List<PData> pathdata, bool draw, decimal scale, bool snap,
-            string shapename, bool solidfill, ColorBgra strokeColor, ColorBgra fillColor, float strokeThickness, DrawMode drawMode)
+            string shapename, bool solidfill, ColorBgra strokeColor, ColorBgra fillColor, float strokeThickness, DrawModes drawMode)
         {
             this.GeometryCode = geometryCode;
             this.PathData = pathdata;
