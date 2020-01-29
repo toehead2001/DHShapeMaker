@@ -3467,7 +3467,7 @@ namespace ShapeMaker
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                 (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
                 (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
-                using (FileStream stream = File.Open(sfd.FileName, FileMode.Create))
+                using (FileStream stream = File.Open(sfd.FileName, FileMode.OpenOrCreate))
                 {
                     ser.Serialize(stream, paths);
                 }
