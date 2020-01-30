@@ -1399,7 +1399,7 @@ namespace ShapeMaker
             //    eY = eY.Clamp(this.canvas.ClientRectangle.Top, this.canvas.ClientRectangle.Bottom);
             //}
 
-            PointF mapPoint = PointToCanvasCoord(eX, eY);
+            PointF mouseCoord = PointToCanvasCoord(eX, eY);
 
             if (e.Button == MouseButtons.Left)
             {
@@ -1494,7 +1494,7 @@ namespace ShapeMaker
 
                     if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
+                        PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
 
                         for (int k = 0; k < this.paths.Count; k++)
                         {
@@ -1504,11 +1504,11 @@ namespace ShapeMaker
                                 pl[j] = movePoint(this.moveStart, newPoint, pl[j]);
                             }
                         }
-                        this.moveStart = mapPoint;
+                        this.moveStart = mouseCoord;
                     }
                     else if (this.canvasPoints.Count > 0)
                     {
-                        PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
+                        PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
                         PointF oldp = this.canvasPoints[0];
 
                         for (int j = 0; j < this.canvasPoints.Count; j++)
@@ -1528,7 +1528,7 @@ namespace ShapeMaker
 
                         for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
-                            this.canvasPoints[j] = movePoint(oldp, mapPoint, this.canvasPoints[j]);
+                            this.canvasPoints[j] = movePoint(oldp, mouseCoord, this.canvasPoints[j]);
                         }
                     }
                     else if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
@@ -1540,10 +1540,10 @@ namespace ShapeMaker
                             PointF[] pl = this.paths[k].Lines;
                             for (int j = 0; j < pl.Length; j++)
                             {
-                                pl[j] = movePoint(this.moveStart, mapPoint, pl[j]);
+                                pl[j] = movePoint(this.moveStart, mouseCoord, pl[j]);
                             }
                         }
-                        this.moveStart = mapPoint;
+                        this.moveStart = mouseCoord;
                     }
                 }
                 //no shift movepoint
@@ -1556,7 +1556,7 @@ namespace ShapeMaker
                     {
                         case PathType.Straight:
                         case PathType.Ellipse:
-                            this.canvasPoints[nubIndex] = mapPoint;
+                            this.canvasPoints[nubIndex] = mouseCoord;
                             break;
                         case PathType.Cubic:
 
@@ -1565,7 +1565,7 @@ namespace ShapeMaker
                             oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if (this.canvasPoints.Count > 1)
                                 {
                                     this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
@@ -1573,11 +1573,11 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.ControlPoint1 || nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                 if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
@@ -1599,11 +1599,11 @@ namespace ShapeMaker
                             oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                             }
                             else if (nubType == NubType.ControlPoint1)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
                                     this.canvasPoints[nubIndex + 1] = this.canvasPoints[nubIndex];
@@ -1611,7 +1611,7 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if ((nubIndex - 1) > 0)
                                 {
                                     this.canvasPoints[nubIndex - 1] = this.canvasPoints[nubIndex];
@@ -1625,17 +1625,17 @@ namespace ShapeMaker
                                     if (nubIndex == this.canvasPoints.Count - 1)
                                     {
                                         PointF rtmp = reverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
-                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mapPoint);
+                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
                                     }
                                     else
                                     {
                                         this.canvasPoints[nubIndex] =
-                                            onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mapPoint);
+                                            onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
                                     }
                                 }
                                 else
                                 {
-                                    this.canvasPoints[nubIndex] = mapPoint;
+                                    this.canvasPoints[nubIndex] = mouseCoord;
                                 }
                             }
 
@@ -1649,7 +1649,7 @@ namespace ShapeMaker
                             oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if (this.canvasPoints.Count > 1)
                                 {
                                     this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
@@ -1659,7 +1659,7 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.ControlPoint1)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if (nubIndex > 1)
                                 {
                                     this.canvasPoints[nubIndex - 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
@@ -1671,7 +1671,7 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.ControlPoint2)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if (nubIndex < this.canvasPoints.Count - 2)
                                 {
                                     this.canvasPoints[nubIndex + 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
@@ -1679,7 +1679,7 @@ namespace ShapeMaker
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                 if ((nubIndex + 1) < this.canvasPoints.Count)
                                 {
@@ -1697,11 +1697,11 @@ namespace ShapeMaker
                             oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                             }
                             else if (nubType == NubType.EndPoint)
                             {
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                             }
                             for (int j = 0; j < this.canvasPoints.Count; j++)
                             {
@@ -1728,14 +1728,14 @@ namespace ShapeMaker
                         switch (pathType)
                         {
                             case PathType.Straight:
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 break;
                             case PathType.Ellipse:
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 break;
                             case PathType.Cubic:
                             case PathType.SmoothCubic:
-                                this.canvasPoints[nubIndex] = mapPoint;
+                                this.canvasPoints[nubIndex] = mouseCoord;
                                 if (this.canvasPoints.Count > 1)
                                 {
                                     this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
@@ -1747,24 +1747,24 @@ namespace ShapeMaker
                                 {
                                     if (this.canvasPoints.Count == 1)
                                     {
-                                        this.canvasPoints[nubIndex] = mapPoint;
+                                        this.canvasPoints[nubIndex] = mouseCoord;
                                     }
                                     else
                                     {
                                         PointF rtmp = reverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
-                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mapPoint);
+                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
                                     }
                                 }
                                 else
                                 {
-                                    this.canvasPoints[nubIndex] = mapPoint;
+                                    this.canvasPoints[nubIndex] = mouseCoord;
                                 }
                                 break;
                             case PathType.SmoothQuadratic:
-                                this.canvasPoints[0] = mapPoint;
+                                this.canvasPoints[0] = mouseCoord;
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    this.canvasPoints[1] = mapPoint;
+                                    this.canvasPoints[1] = mouseCoord;
                                 }
 
                                 for (int j = 0; j < this.canvasPoints.Count; j++)
@@ -1794,9 +1794,9 @@ namespace ShapeMaker
 
             void Pan()
             {
-                int mpx = (int)(mapPoint.X * 100);
+                int mpx = (int)(mouseCoord.X * 100);
                 int msx = (int)(this.moveStart.X * 100);
-                int mpy = (int)(mapPoint.Y * 100);
+                int mpy = (int)(mouseCoord.Y * 100);
                 int msy = (int)(this.moveStart.Y * 100);
                 int tx = 10 * (mpx - msx);
                 int ty = 10 * (mpy - msy);
