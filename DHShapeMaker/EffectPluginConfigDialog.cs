@@ -101,7 +101,6 @@ namespace ShapeMaker
         private Size clickOffset;
         private Operation operation;
         private bool opBoxInit;
-        private int opBoxNub;
         private Rectangle operationBox = Rectangle.Empty;
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
@@ -1267,7 +1266,6 @@ namespace ShapeMaker
                 {
                     Point clickedPoint = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
                     this.operationBox = new Rectangle(clickedPoint, new Size(60, 20));
-                    this.opBoxNub = this.clickedNub;
                     this.opBoxInit = true;
                 }
             }
@@ -1302,7 +1300,7 @@ namespace ShapeMaker
                     {
                         this.drawAverage = false;
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        this.initialDistSize = new SizeF(clickCoord.X - this.canvasPoints[this.opBoxNub].X, clickCoord.Y - this.canvasPoints[this.opBoxNub].Y);
+                        this.initialDistSize = new SizeF(clickCoord.X - this.canvasPoints[0].X, clickCoord.Y - this.canvasPoints[0].Y);
                         this.operation = Operation.Move;
                     }
                 }
@@ -1357,7 +1355,6 @@ namespace ShapeMaker
             if (!this.opBoxInit && this.operation == Operation.None)
             {
                 this.operationBox = Rectangle.Empty;
-                this.opBoxNub = InvalidNub;
             }
 
             this.opBoxInit = false;
@@ -1453,7 +1450,7 @@ namespace ShapeMaker
 
                     PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
 
-                    PointF oldp = this.canvasPoints[this.opBoxNub];
+                    PointF oldp = this.canvasPoints[0];
                     for (int j = 0; j < this.canvasPoints.Count; j++)
                     {
                         this.canvasPoints[j] = movePoint(oldp, newPoint, this.canvasPoints[j]);
