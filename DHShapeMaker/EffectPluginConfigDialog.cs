@@ -1393,11 +1393,11 @@ namespace ShapeMaker
                 eY = eY.ConstrainToInterval(10);
             }
 
-            if (!this.canvas.ClientRectangle.Contains(eX, eY))
-            {
-                eX = eX.Clamp(this.canvas.ClientRectangle.Left, this.canvas.ClientRectangle.Right);
-                eY = eY.Clamp(this.canvas.ClientRectangle.Top, this.canvas.ClientRectangle.Bottom);
-            }
+            //if (!this.canvas.ClientRectangle.Contains(eX, eY))
+            //{
+            //    eX = eX.Clamp(this.canvas.ClientRectangle.Left, this.canvas.ClientRectangle.Right);
+            //    eY = eY.Clamp(this.canvas.ClientRectangle.Top, this.canvas.ClientRectangle.Bottom);
+            //}
 
             PointF mapPoint = PointToCanvasCoord(eX, eY);
 
