@@ -93,7 +93,6 @@ namespace ShapeMaker
         private Bitmap clipboardImage = null;
 #endif
         private bool moveFlag = false;
-        private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
         private PointF averagePoint = new PointF(0.5f, 0.5f);
         private float initialDist;
@@ -479,7 +478,7 @@ namespace ShapeMaker
 
             this.Undo.Enabled = (this.undoCount > 0);
             this.Redo.Enabled = true;
-            resetRotation();
+
             this.canvas.Refresh();
         }
 
@@ -535,7 +534,7 @@ namespace ShapeMaker
 
             this.Redo.Enabled = (this.redoCount > 0);
             this.Undo.Enabled = true;
-            resetRotation();
+
             this.canvas.Refresh();
         }
 
@@ -2012,81 +2011,6 @@ namespace ShapeMaker
         }
         #endregion
 
-        #region Rotation Knob functions
-        private void resetRotation()
-        {
-            this.RotationKnob.Value = 180;
-            this.toolTip1.SetToolTip(this.RotationKnob, "0.0\u00B0");
-            this.lastRot = 180;
-        }
-
-        private void RotationKnob_ValueChanged(object sender, EventArgs e)
-        {
-            this.toolTip1.SetToolTip(this.RotationKnob, $"{this.RotationKnob.Value - 180f:0.0}\u00B0");
-
-            double rad = (this.lastRot - this.RotationKnob.Value) * Math.PI / 180;
-            this.lastRot = this.RotationKnob.Value;
-
-            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
-            {
-                this.averagePoint = new PointF(.5f, .5f);
-                for (int k = 0; k < this.paths.Count; k++)
-                {
-                    PointF[] tmp = this.paths[k].Lines;
-
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        double x = tmp[i].X - this.averagePoint.X;
-                        double y = tmp[i].Y - this.averagePoint.Y;
-                        double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + this.averagePoint.X;
-                        double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + this.averagePoint.Y;
-
-                        tmp[i] = new PointF((float)nx, (float)ny);
-                    }
-                }
-            }
-            else if (this.canvasPoints.Count > 1)
-            {
-                PointF[] tmp = this.canvasPoints.ToArray();
-                this.averagePoint = tmp.Average();
-
-                for (int i = 0; i < tmp.Length; i++)
-                {
-                    double x = tmp[i].X - this.averagePoint.X;
-                    double y = tmp[i].Y - this.averagePoint.Y;
-                    double nx = Math.Cos(rad) * x + Math.Sin(rad) * y + this.averagePoint.X;
-                    double ny = Math.Cos(rad) * y - Math.Sin(rad) * x + this.averagePoint.Y;
-
-                    tmp[i] = new PointF((float)nx, (float)ny);
-                }
-
-                this.canvasPoints.Clear();
-                this.canvasPoints.AddRange(tmp);
-
-                if (this.LineList.SelectedIndex != -1)
-                {
-                    UpdateExistingPath();
-                }
-            }
-
-            this.canvas.Refresh();
-        }
-
-        private void RotationKnob_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.drawAverage = true;
-            setUndo();
-            this.toolTip1.Show($"{this.RotationKnob.Value:0.0}\u00B0", this.RotationKnob);
-        }
-
-        private void RotationKnob_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.drawAverage = false;
-            this.canvas.Refresh();
-            this.toolTip1.Hide(this.RotationKnob);
-        }
-        #endregion
-
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
@@ -2156,8 +2080,6 @@ namespace ShapeMaker
             {
                 MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            resetRotation();
 
             if (this.LinkedPaths.Checked)
             {
@@ -3170,7 +3092,6 @@ namespace ShapeMaker
             }
 
             ZoomToFactor(1);
-            resetRotation();
             resetHistory();
             this.canvas.Refresh();
             AddToRecents(projectPath);
@@ -3547,7 +3468,6 @@ namespace ShapeMaker
                 ClearAllPaths();
 
                 ZoomToFactor(1);
-                resetRotation();
                 resetHistory();
                 this.FigureName.Text = "Untitled";
             }
@@ -3905,72 +3825,6 @@ namespace ShapeMaker
         }
         #endregion
 
-        #region Scale Slider functions
-        private void scaleSlider_Scroll(object sender, EventArgs e)
-        {
-            float scale = this.scaleSlider.Value / 100f;
-            this.toolTip1.SetToolTip(this.scaleSlider, $"{scale:0.00}x");
-
-            if (scale > 1 && !InView())
-            {
-                return;
-            }
-
-            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
-            {
-                this.averagePoint = new PointF(.5f, .5f);
-                int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
-                for (int k = 0; k < this.paths.Count; k++)
-                {
-                    PointF[] tmp = this.paths[k].Lines;
-                    PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        tmp[i].X = (tmp2[i].X - this.averagePoint.X) * scale + this.averagePoint.X;
-                        tmp[i].Y = (tmp2[i].Y - this.averagePoint.Y) * scale + this.averagePoint.Y;
-                    }
-                }
-            }
-            else if (this.canvasPoints.Count > 1)
-            {
-                this.averagePoint = this.canvasPoints.Average();
-                int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
-                for (int idx = 0; idx < this.canvasPoints.Count; idx++)
-                {
-                    this.canvasPoints[idx] = new PointF
-                    {
-                        X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
-                        Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
-                    };
-                }
-
-                if (this.LineList.SelectedIndex != -1)
-                {
-                    UpdateExistingPath();
-                }
-            }
-            this.canvas.Refresh();
-        }
-
-        private void scaleSlider_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.WheelTimer.Stop();
-            this.drawAverage = true;
-            setUndo();
-            float scale = this.scaleSlider.Value / 100f;
-            this.toolTip1.SetToolTip(this.scaleSlider, $"{scale:0.00}x");
-        }
-
-        private void scaleSlider_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.drawAverage = false;
-            this.scaleSlider.Value = 100;
-            float scale = this.scaleSlider.Value / 100f;
-            this.toolTip1.SetToolTip(this.scaleSlider, $"{scale:0.00}x");
-            this.canvas.Refresh();
-        }
-        #endregion
-
         #region Toolbar functions
         private void OptionToggle(object sender, EventArgs e)
         {
@@ -4275,8 +4129,6 @@ namespace ShapeMaker
             this.DeselectBtn.Enabled = (!newPath && this.canvasPoints.Count != 0);
             this.AddBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
             this.DiscardBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
-            this.scaleSlider.Enabled = (this.canvasPoints.Count > 1 || (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0));
-            this.RotationKnob.Enabled = (this.canvasPoints.Count > 1 || (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0));
 
             if (Control.ModifierKeys == Keys.Control)
             {
@@ -4297,41 +4149,6 @@ namespace ShapeMaker
             if (newPath)
             {
                 this.isNewPath = true;
-            }
-        }
-
-        private void generic_MouseWheel(object sender, MouseEventArgs e)
-        {
-            this.WheelTimer.Stop();
-
-            if (!this.wheelScaleOrRotate)
-            {
-                this.wheelScaleOrRotate = true;
-                setUndo();
-            }
-
-            if (!this.drawAverage)
-            {
-                this.drawAverage = true;
-            }
-
-            this.WheelTimer.Start();
-        }
-
-        private void EndWheeling(object sender, EventArgs e)
-        {
-            this.WheelTimer.Stop();
-            this.wheelScaleOrRotate = false;
-
-            if (this.scaleSlider.Value != 100)
-            {
-                this.scaleSlider.Value = 100;
-            }
-
-            if (this.drawAverage)
-            {
-                this.drawAverage = false;
-                this.canvas.Refresh();
             }
         }
         #endregion

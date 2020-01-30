@@ -76,12 +76,10 @@
             this.removePathButton = new System.Windows.Forms.Button();
             this.clonePathButton = new System.Windows.Forms.Button();
             this.opacitySlider = new System.Windows.Forms.TrackBar();
-            this.RotationKnob = new ShapeMaker.BigKnobs();
             this.strokeThicknessBox = new System.Windows.Forms.NumericUpDown();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelNubsUsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelPathsUsed = new System.Windows.Forms.ToolStripStatusLabel();
@@ -93,7 +91,6 @@
             this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
             this.pathListLabel = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.toolStripBlack = new System.Windows.Forms.ToolStrip();
             this.StraightLine = new ShapeMaker.ToolStripButtonWithKeys();
             this.MacroRect = new ShapeMaker.ToolStripButtonWithKeys();
@@ -127,13 +124,11 @@
             this.Undo = new System.Windows.Forms.ToolStripButton();
             this.Redo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.scaleSlider = new System.Windows.Forms.TrackBar();
             this.traceLayer = new System.Windows.Forms.RadioButton();
             this.traceClipboard = new System.Windows.Forms.RadioButton();
             this.verScrollBar = new System.Windows.Forms.VScrollBar();
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
-            this.WheelTimer = new System.Windows.Forms.Timer(this.components);
             this.newPathLabel = new System.Windows.Forms.Label();
             this.solidFillCheckBox = new System.Windows.Forms.CheckBox();
             this.strokeColorPanel = new System.Windows.Forms.Panel();
@@ -155,7 +150,6 @@
             this.toolStripRed.SuspendLayout();
             this.toolStripOptions.SuspendLayout();
             this.toolStripUndo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scaleSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // canvas
@@ -513,20 +507,6 @@
             this.opacitySlider.Value = 25;
             this.opacitySlider.Scroll += new System.EventHandler(this.opacitySlider_Scroll);
             // 
-            // RotationKnob
-            // 
-            resources.ApplyResources(this.RotationKnob, "RotationKnob");
-            this.RotationKnob.BaseImage = global::ShapeMaker.Properties.Resources.KnobBase;
-            this.RotationKnob.DialImage = global::ShapeMaker.Properties.Resources.KnobPos;
-            this.RotationKnob.DisabledDialImage = global::ShapeMaker.Properties.Resources.KnobPos2;
-            this.RotationKnob.Name = "RotationKnob";
-            this.toolTip1.SetToolTip(this.RotationKnob, resources.GetString("RotationKnob.ToolTip"));
-            this.RotationKnob.ValueChanged += new System.EventHandler(this.RotationKnob_ValueChanged);
-            this.RotationKnob.Leave += new System.EventHandler(this.EndWheeling);
-            this.RotationKnob.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseDown);
-            this.RotationKnob.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RotationKnob_MouseUp);
-            this.RotationKnob.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
-            // 
             // strokeThicknessBox
             // 
             resources.ApplyResources(this.strokeThicknessBox, "strokeThicknessBox");
@@ -561,11 +541,6 @@
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
             // 
             // statusStrip1
             // 
@@ -646,11 +621,6 @@
             // 
             resources.ApplyResources(this.pathListLabel, "pathListLabel");
             this.pathListLabel.Name = "pathListLabel";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
             // 
             // toolStripBlack
             // 
@@ -960,22 +930,6 @@
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
             // 
-            // scaleSlider
-            // 
-            resources.ApplyResources(this.scaleSlider, "scaleSlider");
-            this.scaleSlider.LargeChange = 0;
-            this.scaleSlider.Maximum = 200;
-            this.scaleSlider.Minimum = 50;
-            this.scaleSlider.Name = "scaleSlider";
-            this.scaleSlider.SmallChange = 0;
-            this.scaleSlider.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.scaleSlider.Value = 100;
-            this.scaleSlider.Scroll += new System.EventHandler(this.scaleSlider_Scroll);
-            this.scaleSlider.Leave += new System.EventHandler(this.EndWheeling);
-            this.scaleSlider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseDown);
-            this.scaleSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.scaleSlider_MouseUp);
-            this.scaleSlider.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.generic_MouseWheel);
-            // 
             // traceLayer
             // 
             resources.ApplyResources(this.traceLayer, "traceLayer");
@@ -1012,11 +966,6 @@
             this.DiscardBtn.TabStop = false;
             this.DiscardBtn.UseVisualStyleBackColor = true;
             this.DiscardBtn.Click += new System.EventHandler(this.Deselect_Click);
-            // 
-            // WheelTimer
-            // 
-            this.WheelTimer.Interval = 2000;
-            this.WheelTimer.Tick += new System.EventHandler(this.EndWheeling);
             // 
             // newPathLabel
             // 
@@ -1076,20 +1025,16 @@
             this.Controls.Add(this.verScrollBar);
             this.Controls.Add(this.traceClipboard);
             this.Controls.Add(this.traceLayer);
-            this.Controls.Add(this.scaleSlider);
             this.Controls.Add(this.opacitySlider);
             this.Controls.Add(this.clonePathButton);
             this.Controls.Add(this.removePathButton);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.pathListLabel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.DeselectBtn);
-            this.Controls.Add(this.RotationKnob);
             this.Controls.Add(this.FigureName);
             this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.DNList);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.upList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DrawOnCanvas);
@@ -1137,7 +1082,6 @@
             this.toolStripOptions.PerformLayout();
             this.toolStripUndo.ResumeLayout(false);
             this.toolStripUndo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scaleSlider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1172,14 +1116,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.TextBox FigureName;
-        private BigKnobs RotationKnob;
         private System.Windows.Forms.Button DeselectBtn;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.ListBox LineList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button upList;
         private System.Windows.Forms.Button DNList;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem openProject;
         private System.Windows.Forms.ToolStripMenuItem saveProject;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -1198,7 +1140,6 @@
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button removePathButton;
         private System.Windows.Forms.Button clonePathButton;
         private System.Windows.Forms.ToolStrip toolStripBlack;
@@ -1234,7 +1175,6 @@
         private ToolStripButtonWithKeys MacroCircle;
         private System.Windows.Forms.ToolStripButton Redo;
         private System.Windows.Forms.TrackBar opacitySlider;
-        private System.Windows.Forms.TrackBar scaleSlider;
         private System.Windows.Forms.RadioButton traceLayer;
         private System.Windows.Forms.RadioButton traceClipboard;
         private System.Windows.Forms.VScrollBar verScrollBar;
@@ -1243,7 +1183,6 @@
         private System.Windows.Forms.ToolStripMenuItem undoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.Timer WheelTimer;
         private System.Windows.Forms.Button DiscardBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem openRecentProject;

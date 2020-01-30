@@ -77,9 +77,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigKnobs.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="CustomToolbarControls.cs" />
     <Compile Include="DrawMode.cs" />
     <Compile Include="EffectPlugin.cs" />
