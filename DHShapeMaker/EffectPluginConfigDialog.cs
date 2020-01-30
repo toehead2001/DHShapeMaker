@@ -96,12 +96,14 @@ namespace ShapeMaker
         private bool wheelScaleOrRotate = false;
         private bool drawAverage = false;
         private PointF averagePoint = new PointF(0.5f, 0.5f);
-        private bool scaling;
         private float initialDist;
+        private SizeF initialDistSize;
         private Size clickOffset;
-
+        private Operation operation;
+        private bool opBoxInit;
+        private int opBoxNub;
         private Rectangle operationBox = Rectangle.Empty;
-        private bool rotating;
+
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
         internal EffectPluginConfigDialog()
@@ -910,12 +912,14 @@ namespace ShapeMaker
 
             if (!this.operationBox.IsEmpty)
             {
-                int halfWidth = this.operationBox.Width / 2;
-                Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, halfWidth, this.operationBox.Height);
-                Rectangle rotateBox = new Rectangle(this.operationBox.Left + halfWidth, this.operationBox.Top, halfWidth, this.operationBox.Height);
+                int opWidth = this.operationBox.Width / 3;
+                Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
                 e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox);
                 e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox);
+                e.Graphics.DrawImage(Properties.Resources.Move, moveBox);
             }
         }
 
@@ -1253,39 +1257,48 @@ namespace ShapeMaker
                 if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
                 {
                     Point clickedPoint = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
-                    this.operationBox = new Rectangle(clickedPoint, new Size(40, 20));
-                    setUndo();
+                    this.operationBox = new Rectangle(clickedPoint, new Size(60, 20));
+                    this.opBoxNub = this.clickedNub;
+                    this.opBoxInit = true;
                 }
             }
             else if (e.Button == MouseButtons.Left)
             {
                 if (this.operationBox.Contains(e.Location))
                 {
+                    setUndo();
+
                     this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
                     this.averagePoint = this.canvasPoints.Average();
                     this.drawAverage = true;
 
-                    int halfWidth = this.operationBox.Width / 2;
-                    Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, halfWidth, this.operationBox.Height);
-                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + halfWidth, this.operationBox.Top, halfWidth, this.operationBox.Height);
+                    int opWidth = this.operationBox.Width / 3;
+                    Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
                     if (scaleBox.Contains(e.Location))
                     {
                         this.initialDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                        this.scaling = true;
+                        this.operation = Operation.Scale;
                     }
                     else if (rotateBox.Contains(e.Location))
                     {
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
                         double radians = XYToRadians(clickCoord, this.averagePoint);
                         this.lastRot = radians;
-                        this.rotating = true;
+                        this.operation = Operation.Rotate;
+                    }
+                    else if (moveBox.Contains(e.Location))
+                    {
+                        this.drawAverage = false;
+                        PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
+                        this.initialDistSize = new SizeF(clickCoord.X - this.canvasPoints[this.opBoxNub].X, clickCoord.Y - this.canvasPoints[this.opBoxNub].Y);
+                        this.operation = Operation.Move;
                     }
                 }
                 else if (this.clickedNub == InvalidNub)
                 {
-                    this.operationBox = Rectangle.Empty;
-
                     Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
                     int clickedPath = getNearestPath(bhit);
                     if (clickedPath != InvalidNub)
@@ -1305,8 +1318,6 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    this.operationBox = Rectangle.Empty;
-
                     setUndo();
                     Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
                     StatusBarNubLocation(nub.X, nub.Y);
@@ -1333,20 +1344,27 @@ namespace ShapeMaker
                     this.panFlag = false;
                 }
             }
+
+            if (!this.opBoxInit && this.operation == Operation.None)
+            {
+                this.operationBox = Rectangle.Empty;
+                this.opBoxNub = InvalidNub;
+            }
+
+            this.opBoxInit = false;
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (this.LineList.SelectedIndex != -1 &&
-                (this.clickedNub != InvalidNub || this.scaling || this.rotating))
+                (this.clickedNub != InvalidNub || this.operation != Operation.None))
             {
                 UpdateExistingPath();
             }
 
             this.panFlag = false;
             this.moveFlag = false;
-            this.scaling = false;
-            this.rotating = false;
+            this.operation = Operation.None;
             this.drawAverage = false;
             this.clickedNub = InvalidNub;
             this.canvas.Refresh();
@@ -1379,7 +1397,7 @@ namespace ShapeMaker
                 NubType nubType = GetNubType(this.clickedNub);
                 int nubIndex = this.clickedNub;
 
-                if (this.scaling)
+                if (this.operation == Operation.Scale)
                 {
                     float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                     float scale = newDist / this.initialDist;
@@ -1396,7 +1414,7 @@ namespace ShapeMaker
                         };
                     }
                 }
-                else if (this.rotating)
+                else if (this.operation == Operation.Rotate)
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
@@ -1419,6 +1437,18 @@ namespace ShapeMaker
 
                     this.canvasPoints.Clear();
                     this.canvasPoints.AddRange(tmp);
+                }
+                else if (this.operation == Operation.Move)
+                {
+                    this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
+
+                    PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
+
+                    PointF oldp = this.canvasPoints[this.opBoxNub];
+                    for (int j = 0; j < this.canvasPoints.Count; j++)
+                    {
+                        this.canvasPoints[j] = movePoint(oldp, newPoint, this.canvasPoints[j]);
+                    }
                 }
                 //left shift move line or path
                 else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
@@ -1448,7 +1478,8 @@ namespace ShapeMaker
                         }
                         this.moveStart = mapPoint;
                     }
-                } //no shift movepoint
+                }
+                //no shift movepoint
                 else if (this.canvasPoints.Count != 0 && nubIndex > 0 && nubIndex < this.canvasPoints.Count)
                 {
                     StatusBarNubLocation(eX, eY);
@@ -3759,7 +3790,7 @@ namespace ShapeMaker
 
         private void aboutShapeMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this.Text + "\nCopyright \u00A9 2017, The Dwarf Horde\n\n" +
+            MessageBox.Show(this.Text + "\nCopyright \u00A9 2020, The Dwarf Horde\n\n" +
                 "Rob Tauler (TechnoRobbo)\n- Code Lead (up to v1.2.3), Design\n\n" +
                 "Jason Wendt (toe_head2001)\n- Code Lead (v1.3 onward), Design\n\n" +
                 "John Robbins (Red Ochre)\n- Graphics Lead, Design\n\n" +
@@ -4342,6 +4373,14 @@ namespace ShapeMaker
             this.strokeThicknessBox.Enabled = enable;
             this.drawModeBox.Enabled = enable;
             this.fitCanvasBox.Enabled = enable;
+        }
+
+        private enum Operation
+        {
+            None,
+            Scale,
+            Rotate,
+            Move
         }
     }
 }

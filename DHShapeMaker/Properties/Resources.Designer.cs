@@ -264,6 +264,16 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Move {
+            get {
+                object obj = ResourceManager.GetObject("Move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
         ///		xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
         ///		DisplayName=&quot;~1&quot;&gt;
