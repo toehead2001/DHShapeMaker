@@ -1282,7 +1282,7 @@ namespace ShapeMaker
                     setUndo();
 
                     this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
-                    this.averagePoint = this.canvasPoints.Average();
+                    this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : new PointF(0.5f,0.5f);
                     this.drawAverage = true;
 
                     int opWidth = this.operationBox.Width / 3;
@@ -1306,7 +1306,8 @@ namespace ShapeMaker
                     {
                         this.drawAverage = false;
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        this.initialDistSize = new SizeF(clickCoord.X - this.canvasPoints[0].X, clickCoord.Y - this.canvasPoints[0].Y);
+                        PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
+                        this.initialDistSize = new SizeF(clickCoord.X - originCoord.X, clickCoord.Y - originCoord.Y);
                         this.operation = Operation.Move;
                     }
                 }
@@ -1415,13 +1416,32 @@ namespace ShapeMaker
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
                     int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
-                    for (int idx = 0; idx < this.canvasPoints.Count; idx++)
+
+                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        this.canvasPoints[idx] = new PointF
+                        this.averagePoint = new PointF(.5f, .5f);
+                        for (int k = 0; k < this.paths.Count; k++)
                         {
-                            X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
-                            Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
-                        };
+                            PointF[] tmp = this.paths[k].Lines;
+                            PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
+                            for (int i = 0; i < tmp.Length; i++)
+                            {
+                                tmp[i].X = (tmp2[i].X - this.averagePoint.X) * scale + this.averagePoint.X;
+                                tmp[i].Y = (tmp2[i].Y - this.averagePoint.Y) * scale + this.averagePoint.Y;
+                            }
+                        }
+                    }
+                    else if (this.canvasPoints.Count > 1)
+                    {
+                        this.averagePoint = this.canvasPoints.Average();
+                        for (int idx = 0; idx < this.canvasPoints.Count; idx++)
+                        {
+                            this.canvasPoints[idx] = new PointF
+                            {
+                                X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
+                                Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
+                            };
+                        }
                     }
                 }
                 else if (this.operation == Operation.Rotate)
@@ -1432,32 +1452,70 @@ namespace ShapeMaker
                     double rad = this.lastRot - radians;
                     this.lastRot = radians;
 
-                    PointF[] tmp = this.canvasPoints.ToArray();
-                    this.averagePoint = tmp.Average();
-
-                    for (int i = 0; i < tmp.Length; i++)
+                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        double x = tmp[i].X - this.averagePoint.X;
-                        double y = tmp[i].Y - this.averagePoint.Y;
-                        double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
-                        double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
+                        this.averagePoint = new PointF(.5f, .5f);
+                        for (int k = 0; k < this.paths.Count; k++)
+                        {
+                            PointF[] tmp = this.paths[k].Lines;
 
-                        tmp[i] = new PointF((float)nx, (float)ny);
+                            for (int i = 0; i < tmp.Length; i++)
+                            {
+                                double x = tmp[i].X - this.averagePoint.X;
+                                double y = tmp[i].Y - this.averagePoint.Y;
+                                double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
+                                double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
+
+                                tmp[i] = new PointF((float)nx, (float)ny);
+                            }
+                        }
                     }
+                    else if (this.canvasPoints.Count > 1)
+                    {
+                        PointF[] tmp = this.canvasPoints.ToArray();
+                        this.averagePoint = tmp.Average();
 
-                    this.canvasPoints.Clear();
-                    this.canvasPoints.AddRange(tmp);
+                        for (int i = 0; i < tmp.Length; i++)
+                        {
+                            double x = tmp[i].X - this.averagePoint.X;
+                            double y = tmp[i].Y - this.averagePoint.Y;
+                            double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
+                            double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
+
+                            tmp[i] = new PointF((float)nx, (float)ny);
+                        }
+
+                        this.canvasPoints.Clear();
+                        this.canvasPoints.AddRange(tmp);
+                    }
                 }
                 else if (this.operation == Operation.Move)
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
-                    PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
-
-                    PointF oldp = this.canvasPoints[0];
-                    for (int j = 0; j < this.canvasPoints.Count; j++)
+                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        this.canvasPoints[j] = movePoint(oldp, newPoint, this.canvasPoints[j]);
+                        PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
+
+                        for (int k = 0; k < this.paths.Count; k++)
+                        {
+                            PointF[] pl = this.paths[k].Lines;
+                            for (int j = 0; j < pl.Length; j++)
+                            {
+                                pl[j] = movePoint(this.moveStart, newPoint, pl[j]);
+                            }
+                        }
+                        this.moveStart = mapPoint;
+                    }
+                    else if (this.canvasPoints.Count > 0)
+                    {
+                        PointF newPoint = new PointF(mapPoint.X - initialDistSize.Width, mapPoint.Y - initialDistSize.Height);
+                        PointF oldp = this.canvasPoints[0];
+
+                        for (int j = 0; j < this.canvasPoints.Count; j++)
+                        {
+                            this.canvasPoints[j] = movePoint(oldp, newPoint, this.canvasPoints[j]);
+                        }
                     }
                 }
                 //left shift move line or path
