@@ -7,6 +7,11 @@ namespace ShapeMaker
 {
     internal static class Extensions
     {
+        internal static int ConstrainToInterval(this int amount, int interval)
+        {
+            return ConstrainToInterval((float)amount, interval);
+        }
+
         internal static int ConstrainToInterval(this float amount, int interval)
         {
             return (int)(Math.Round(amount / interval) * interval);

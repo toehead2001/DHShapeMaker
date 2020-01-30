@@ -1093,8 +1093,8 @@ namespace ShapeMaker
                     int eX = e.X, eY = e.Y;
                     if (this.Snap.Checked)
                     {
-                        eX = (int)(Math.Floor((double)(5 + e.X) / 10) * 10);
-                        eY = (int)(Math.Floor((double)(5 + e.Y) / 10) * 10);
+                        eX = eX.ConstrainToInterval(10);
+                        eY = eY.ConstrainToInterval(10);
                     }
 
                     StatusBarNubLocation(eX, eY);
@@ -1361,8 +1361,8 @@ namespace ShapeMaker
                 eY = e.Y;
             if (this.Snap.Checked)
             {
-                eX = (int)(Math.Floor((double)(5 + eX) / 10) * 10);
-                eY = (int)(Math.Floor((double)(5 + eY) / 10) * 10);
+                eX = eX.ConstrainToInterval(10);
+                eY = eY.ConstrainToInterval(10);
             }
 
             if (!this.canvas.ClientRectangle.Contains(eX, eY))
