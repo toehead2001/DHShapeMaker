@@ -1966,48 +1966,11 @@ namespace ShapeMaker
             return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
 
-        private static double XYToDegrees(PointF xy, PointF origin)
+        private static double XYToRadians(PointF xy, PointF center)
         {
-            double angle = 0.0;
-
-            if (xy.Y <= origin.Y)
-            {
-                if (xy.X >= origin.X)
-                {
-                    angle = (double)(xy.X - origin.X) / (double)(origin.Y - xy.Y);
-                    angle = Math.Atan(angle);
-                    angle = 90.0 - angle * 180.0 / Math.PI;
-                }
-                else if (xy.X < origin.X)
-                {
-                    angle = (double)(origin.X - xy.X) / (double)(origin.Y - xy.Y);
-                    angle = Math.Atan(-angle);
-                    angle = 90.0 - angle * 180.0 / Math.PI;
-                }
-            }
-            else if (xy.Y > origin.Y)
-            {
-                if (xy.X >= origin.X)
-                {
-                    angle = (double)(xy.X - origin.X) / (double)(xy.Y - origin.Y);
-                    angle = Math.Atan(-angle);
-                    angle = 270.0 - angle * 180.0 / Math.PI;
-                }
-                else if (xy.X < origin.X)
-                {
-                    angle = (double)(origin.X - xy.X) / (double)(xy.Y - origin.Y);
-                    angle = Math.Atan(angle);
-                    angle = 270.0 - angle * 180.0 / Math.PI;
-                }
-            }
-
-            if (angle > 180) angle -= 360; //Optional. Keeps values between -180 and 180
-            return angle;
-        }
-
-        private static double XYToRadians(PointF xy, PointF origin)
-        {
-            return XYToDegrees(xy, origin) * Math.PI / 180.0;
+            float dx = xy.X - center.X;
+            float dy = xy.Y - center.Y;
+            return Math.Atan2(-dy, dx);
         }
         #endregion
 
