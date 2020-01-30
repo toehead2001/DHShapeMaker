@@ -43,6 +43,44 @@ namespace ShapeMaker
             return new PointF(x / points.Count, y / points.Count);
         }
 
+        internal static RectangleF Bounds(this IReadOnlyCollection<PointF> points)
+        {
+            if (points.Count == 0)
+            {
+                return RectangleF.Empty;
+            }
+
+            float left = int.MaxValue;
+            float top = int.MaxValue;
+            float right = int.MinValue;
+            float bottom = int.MinValue;
+
+            foreach (PointF pt in points)
+            {
+                if (pt.X < left)
+                {
+                    left = pt.X;
+                }
+
+                if (pt.Y < top)
+                {
+                    top = pt.Y;
+                }
+
+                if (pt.X > right)
+                {
+                    right = pt.X;
+                }
+
+                if (pt.Y > bottom)
+                {
+                    bottom = pt.Y;
+                }
+            }
+
+            return RectangleF.FromLTRB(left, top, right, bottom);
+        }
+
         internal static void Add(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
             if (start == end)

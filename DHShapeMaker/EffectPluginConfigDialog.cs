@@ -358,6 +358,12 @@ namespace ShapeMaker
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.M))
+            {
+                ToggleOpBox();
+                return true;
+            }
+
             if (this.hotKeys.ContainsKey(keyData))
             {
                 ToolStripButtonWithKeys button = this.hotKeys[keyData];
@@ -1265,8 +1271,7 @@ namespace ShapeMaker
             {
                 if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
                 {
-                    Point clickedPoint = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
-                    this.operationBox = new Rectangle(clickedPoint, new Size(60, 20));
+                    ToggleOpBox(true, this.canvasPoints[this.clickedNub]);
                     opBoxInit = true;
                 }
             }
@@ -1757,6 +1762,43 @@ namespace ShapeMaker
 
                 UpdateScrollBars();
             }
+        }
+
+        private void ToggleOpBox()
+        {
+            PointF coord;
+            if (!this.operationBox.IsEmpty)
+            {
+                coord = Point.Empty;
+            }
+            else if (canvasPoints.Count > 0)
+            {
+                PointF pathAverage = canvasPoints.Average();
+                RectangleF pathBounds = canvasPoints.Bounds();
+                coord = new PointF((pathBounds.Right - pathAverage.X) / 2 + pathAverage.X, (pathBounds.Bottom - pathAverage.Y) / 2 + pathAverage.Y);
+            }
+            else
+            {
+                coord = new PointF(0.75f, 0.75f);
+            }
+
+            ToggleOpBox(this.operationBox.IsEmpty, coord);
+        }
+
+        private void ToggleOpBox(bool enable, PointF coord)
+        {
+            if (enable)
+            {
+                Point OpBoxLocation = CanvasCoordToPoint(coord).Round();
+                OpBoxLocation.Offset(5, 5);
+                this.operationBox = new Rectangle(OpBoxLocation, new Size(60, 20));
+            }
+            else
+            {
+                this.operationBox = Rectangle.Empty;
+            }
+
+            this.canvas.Invalidate();
         }
         #endregion
 
