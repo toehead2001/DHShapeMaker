@@ -917,9 +917,18 @@ namespace ShapeMaker
                 Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
                 Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
-                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox);
-                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox);
-                e.Graphics.DrawImage(Properties.Resources.Move, moveBox);
+                ImageAttributes attributes = new ImageAttributes();
+                if (this.operation != Operation.None)
+                {
+                    ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
+                    attributes.SetColorMatrix(colorMatrix);
+                }
+
+                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
+                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
+                e.Graphics.DrawImage(Properties.Resources.Move, moveBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
+
+                attributes.Dispose();
             }
         }
 
