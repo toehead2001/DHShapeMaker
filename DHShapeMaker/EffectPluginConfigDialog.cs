@@ -100,7 +100,6 @@ namespace ShapeMaker
         private SizeF initialDistSize;
         private Size clickOffset;
         private Operation operation;
-        private bool opBoxInit;
         private Rectangle operationBox = Rectangle.Empty;
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
@@ -957,6 +956,8 @@ namespace ShapeMaker
                 }
             }
 
+            bool opBoxInit = false;
+
             if (Control.ModifierKeys == Keys.Alt)
             {
                 if (this.clickedNub == InvalidNub)
@@ -1266,7 +1267,7 @@ namespace ShapeMaker
                 {
                     Point clickedPoint = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
                     this.operationBox = new Rectangle(clickedPoint, new Size(60, 20));
-                    this.opBoxInit = true;
+                    opBoxInit = true;
                 }
             }
             else if (e.Button == MouseButtons.Left)
@@ -1352,12 +1353,10 @@ namespace ShapeMaker
                 }
             }
 
-            if (!this.opBoxInit && this.operation == Operation.None)
+            if (!opBoxInit && this.operation == Operation.None)
             {
                 this.operationBox = Rectangle.Empty;
             }
-
-            this.opBoxInit = false;
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
