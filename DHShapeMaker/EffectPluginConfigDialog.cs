@@ -2985,13 +2985,13 @@ namespace ShapeMaker
 
         private void LoadProjectFile(string projectPath)
         {
-            List<PData> projectPaths = null;
+            IReadOnlyList<PData> projectPaths = null;
             try
             {
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                 using (FileStream stream = File.OpenRead(projectPath))
                 {
-                    projectPaths = new List<PData>(((ArrayList)ser.Deserialize(stream)).Cast<PData>());
+                    projectPaths = ((ArrayList)ser.Deserialize(stream)).Cast<PData>().ToList();
                 }
             }
             catch (Exception ex)
@@ -3332,10 +3332,7 @@ namespace ShapeMaker
         private void canvas_MouseLeave(object sender, EventArgs e)
         {
             this.canScrollZoom = false;
-            if (this.hadFocus != null)
-            {
-                this.hadFocus.Focus();
-            }
+            this.hadFocus?.Focus();
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -3760,7 +3757,10 @@ namespace ShapeMaker
         #region Toolbar functions
         private void OptionToggle(object sender, EventArgs e)
         {
-            (sender as ToolStripButton).Checked = !(sender as ToolStripButton).Checked;
+            if (sender is ToolStripButton button)
+            {
+                button.Checked = !button.Checked;
+            }
 
             if (sender == this.Snap)
             {
@@ -3774,12 +3774,16 @@ namespace ShapeMaker
 
         private void PathTypeToggle(object sender, EventArgs e)
         {
-            if ((sender as ToolStripButton).Checked)
+            if (sender is ToolStripButton button && button.Checked)
             {
                 return;
             }
 
-            this.activeType = (sender as ToolStripButtonWithKeys).PathType;
+            if (sender is ToolStripButtonWithKeys buttonWithKeys)
+            {
+                this.activeType = buttonWithKeys.PathType;
+            }
+
             PathTypeToggle();
         }
 
@@ -3873,7 +3877,10 @@ namespace ShapeMaker
         {
             setUndo();
 
-            (sender as ToolStripButton).CheckState = (sender as ToolStripButton).CheckState == CheckState.Checked ? CheckState.Indeterminate : CheckState.Checked;
+            if (sender is ToolStripButton button)
+            {
+                button.CheckState = button.CheckState == CheckState.Checked ? CheckState.Indeterminate : CheckState.Checked;
+            }
 
             if (sender == this.Arc)
             {
@@ -4018,7 +4025,7 @@ namespace ShapeMaker
 
         private void FigureName_Leave(object sender, EventArgs e)
         {
-            if (this.FigureName.Text == string.Empty)
+            if (this.FigureName.Text.Length == 0)
             {
                 this.FigureName.Text = "Untitled";
             }
@@ -4120,8 +4127,8 @@ namespace ShapeMaker
                 string menuText = $"&{count} {Path.GetFileName(projectPath)}";
                 try
                 {
-                    ArrayList projectPaths = (ArrayList)ser.Deserialize(File.OpenRead(projectPath));
-                    menuText = $"&{count} {(projectPaths[projectPaths.Count - 1] as PData).Meta} ({Path.GetFileName(projectPath)})";
+                    IReadOnlyList<PData> projectPaths = ((ArrayList)ser.Deserialize(File.OpenRead(projectPath))).Cast<PData>().ToList();
+                    menuText = $"&{count} {projectPaths[projectPaths.Count - 1].Meta} ({Path.GetFileName(projectPath)})";
                 }
                 catch
                 {
