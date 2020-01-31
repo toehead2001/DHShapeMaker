@@ -1531,7 +1531,6 @@ namespace ShapeMaker
 
                             #region cubic
 
-                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mouseCoord;
@@ -1565,7 +1564,6 @@ namespace ShapeMaker
 
                             #region Quadratic
 
-                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mouseCoord;
@@ -1615,7 +1613,6 @@ namespace ShapeMaker
 
                             #region smooth Cubic
 
-                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mouseCoord;
@@ -1663,7 +1660,6 @@ namespace ShapeMaker
 
                             #region Smooth Quadratic
 
-                            oldp = this.canvasPoints[nubIndex];
                             if (nubType == NubType.StartPoint)
                             {
                                 this.canvasPoints[nubIndex] = mouseCoord;
@@ -1697,8 +1693,6 @@ namespace ShapeMaker
                         switch (pathType)
                         {
                             case PathType.Straight:
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                break;
                             case PathType.Ellipse:
                                 this.canvasPoints[nubIndex] = mouseCoord;
                                 break;
