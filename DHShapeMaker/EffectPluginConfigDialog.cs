@@ -1474,9 +1474,10 @@ namespace ShapeMaker
                             }
                             else if (this.canvasPoints.Count > 0)
                             {
+                                PointF oldPoint = this.canvasPoints[0];
                                 for (int j = 0; j < this.canvasPoints.Count; j++)
                                 {
-                                    this.canvasPoints[j] = movePoint(this.canvasPoints[0], newPoint, this.canvasPoints[j]);
+                                    this.canvasPoints[j] = movePoint(oldPoint, newPoint, this.canvasPoints[j]);
                                 }
                             }
                             break;
