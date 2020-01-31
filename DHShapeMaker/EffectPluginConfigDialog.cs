@@ -2492,18 +2492,16 @@ namespace ShapeMaker
 
         private static string scrubNums(string strPath)
         {
-            const string command = "fmlacsqthvz";
-            const string number = "e.-0123456789";
+            const string commands = "fmlacsqthvz";
+            const string numbers = "e.-0123456789";
             string TMP = string.Empty;
             bool alpha = false;
             bool blank = false;
 
-            char[] strChars = strPath.ToLower().Replace(',', ' ').ToCharArray();
-            for (int i = 0; i < strChars.Length; i++)
+            foreach (char mychar in strPath.ToLowerInvariant().Replace(',', ' '))
             {
-                char mychar = strChars[i];
-                bool isNumber = number.IndexOf(mychar) > -1;
-                bool isCommand = command.IndexOf(mychar) > -1;
+                bool isNumber = numbers.Contains(mychar);
+                bool isCommand = commands.Contains(mychar);
 
                 if (TMP.Length == 0)
                 {
