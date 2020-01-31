@@ -3365,7 +3365,7 @@ namespace ShapeMaker
         {
             if (this.paths.Count == 0)
             {
-                MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Nothing to Save", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -3386,13 +3386,22 @@ namespace ShapeMaker
 
                 Settings.ProjectFolder = Path.GetDirectoryName(sfd.FileName);
 
-                ArrayList paths = new ArrayList(this.paths);
-                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
-                (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
-                using (FileStream stream = File.Open(sfd.FileName, FileMode.OpenOrCreate))
+                try
                 {
-                    ser.Serialize(stream, paths);
+                    ArrayList paths = new ArrayList(this.paths);
+                    XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+                    (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
+                    (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
+                    using (StringWriter stringWriter = new StringWriter())
+                    {
+                        ser.Serialize(stringWriter, paths);
+                        File.WriteAllText(stringWriter.ToString(), sfd.FileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There was an error saving the file.\r\n\r" + ex.Message, "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 AddToRecents(sfd.FileName);
