@@ -1409,38 +1409,29 @@ namespace ShapeMaker
 
                 if (this.operation == Operation.Scale)
                 {
-                    float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                    float scale = newDist / this.initialDist;
-
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
+                    float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                    float scale = newDist / this.initialDist;
                     int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
 
                     if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        this.averagePoint = new PointF(.5f, .5f);
                         for (int k = 0; k < this.paths.Count; k++)
                         {
                             PointF[] tmp = this.paths[k].Lines;
                             PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                            for (int i = 0; i < tmp.Length; i++)
-                            {
-                                tmp[i].X = (tmp2[i].X - this.averagePoint.X) * scale + this.averagePoint.X;
-                                tmp[i].Y = (tmp2[i].Y - this.averagePoint.Y) * scale + this.averagePoint.Y;
-                            }
+                            tmp.Scale(tmp2, scale, this.averagePoint);
                         }
                     }
                     else if (this.canvasPoints.Count > 1)
                     {
-                        this.averagePoint = this.canvasPoints.Average();
-                        for (int idx = 0; idx < this.canvasPoints.Count; idx++)
-                        {
-                            this.canvasPoints[idx] = new PointF
-                            {
-                                X = (this.undoPoints[undoIndex][idx].X - this.averagePoint.X) * scale + this.averagePoint.X,
-                                Y = (this.undoPoints[undoIndex][idx].Y - this.averagePoint.Y) * scale + this.averagePoint.Y
-                            };
-                        }
+                        PointF[] tmp = this.canvasPoints.ToArray();
+                        PointF[] tmp2 = this.undoPoints[undoIndex];
+                        tmp.Scale(tmp2, scale, this.averagePoint);
+
+                        this.canvasPoints.Clear();
+                        this.canvasPoints.AddRange(tmp);
                     }
                 }
                 else if (this.operation == Operation.Rotate)
@@ -1453,36 +1444,16 @@ namespace ShapeMaker
 
                     if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        this.averagePoint = new PointF(.5f, .5f);
                         for (int k = 0; k < this.paths.Count; k++)
                         {
                             PointF[] tmp = this.paths[k].Lines;
-
-                            for (int i = 0; i < tmp.Length; i++)
-                            {
-                                double x = tmp[i].X - this.averagePoint.X;
-                                double y = tmp[i].Y - this.averagePoint.Y;
-                                double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
-                                double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
-
-                                tmp[i] = new PointF((float)nx, (float)ny);
-                            }
+                            tmp.Rotate(rad, this.averagePoint);
                         }
                     }
                     else if (this.canvasPoints.Count > 1)
                     {
                         PointF[] tmp = this.canvasPoints.ToArray();
-                        this.averagePoint = tmp.Average();
-
-                        for (int i = 0; i < tmp.Length; i++)
-                        {
-                            double x = tmp[i].X - this.averagePoint.X;
-                            double y = tmp[i].Y - this.averagePoint.Y;
-                            double nx = Math.Cos(rad) * x - Math.Sin(rad) * y + this.averagePoint.X;
-                            double ny = Math.Cos(rad) * y + Math.Sin(rad) * x + this.averagePoint.Y;
-
-                            tmp[i] = new PointF((float)nx, (float)ny);
-                        }
+                        tmp.Rotate(rad, this.averagePoint);
 
                         this.canvasPoints.Clear();
                         this.canvasPoints.AddRange(tmp);
@@ -1492,10 +1463,10 @@ namespace ShapeMaker
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
+                    PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
+
                     if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
-                        PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
-
                         for (int k = 0; k < this.paths.Count; k++)
                         {
                             PointF[] pl = this.paths[k].Lines;
@@ -1508,12 +1479,9 @@ namespace ShapeMaker
                     }
                     else if (this.canvasPoints.Count > 0)
                     {
-                        PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
-                        PointF oldp = this.canvasPoints[0];
-
                         for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
-                            this.canvasPoints[j] = movePoint(oldp, newPoint, this.canvasPoints[j]);
+                            this.canvasPoints[j] = movePoint(this.canvasPoints[0], newPoint, this.canvasPoints[j]);
                         }
                     }
                 }

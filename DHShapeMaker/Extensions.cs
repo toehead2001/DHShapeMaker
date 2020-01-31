@@ -81,6 +81,29 @@ namespace ShapeMaker
             return RectangleF.FromLTRB(left, top, right, bottom);
         }
 
+        internal static void Rotate(this PointF[] points, double radians, PointF center)
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                double x = points[i].X - center.X;
+                double y = points[i].Y - center.Y;
+                double nx = Math.Cos(radians) * x - Math.Sin(radians) * y + center.X;
+                double ny = Math.Cos(radians) * y + Math.Sin(radians) * x + center.Y;
+
+                points[i].X = (float)nx;
+                points[i].Y = (float)ny;
+            }
+        }
+
+        internal static void Scale(this PointF[] points, IReadOnlyList<PointF> orginalPoints, float scale, PointF center)
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i].X = (orginalPoints[i].X - center.X) * scale + center.X;
+                points[i].Y = (orginalPoints[i].Y - center.Y) * scale + center.Y;
+            }
+        }
+
         internal static void Add(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
             if (start == end)
