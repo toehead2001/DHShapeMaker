@@ -95,12 +95,12 @@ namespace ShapeMaker
             }
         }
 
-        internal static void Scale(this PointF[] points, IReadOnlyList<PointF> orginalPoints, float scale, PointF center)
+        internal static void Scale(this PointF[] points, IReadOnlyList<PointF> originalPoints, float scale, PointF center)
         {
             for (int i = 0; i < points.Length; i++)
             {
-                points[i].X = (orginalPoints[i].X - center.X) * scale + center.X;
-                points[i].Y = (orginalPoints[i].Y - center.Y) * scale + center.Y;
+                points[i].X = (originalPoints[i].X - center.X) * scale + center.X;
+                points[i].Y = (originalPoints[i].Y - center.Y) * scale + center.Y;
             }
         }
 
