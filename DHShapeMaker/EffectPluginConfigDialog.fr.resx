@@ -122,73 +122,67 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="newProjectMenuItem.Text" xml:space="preserve">
     <value>Projet &amp;nouveau</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 6</value>
+    <value>237, 6</value>
   </data>
   <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="openProject.Text" xml:space="preserve">
     <value>&amp;Ouvrir projet...</value>
   </data>
   <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="saveProject.Text" xml:space="preserve">
     <value>&amp;Enregistrer projet...</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 6</value>
+    <value>237, 6</value>
   </data>
   <data name="importPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="importPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Importer forme PDN...</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Exporter forme PDN...</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 6</value>
+    <value>237, 6</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Coller sentier courant</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Copier sentier courant</value>
   </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 6</value>
+  </data>
   <data name="exportPathGeometryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
+    <value>240, 22</value>
   </data>
   <data name="exportPathGeometryToolStripMenuItem.Text" xml:space="preserve">
     <value>Exporter sentier de la &amp;géométrie</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 6</value>
-  </data>
-  <data name="SolidFillMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 20</value>
-  </data>
-  <data name="SolidFillMenuItem.Text" xml:space="preserve">
-    <value>Exporter comme &amp;garniture solide</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 20</value>
@@ -241,15 +235,6 @@
   <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
     <value>Renverser au &amp;verticale</value>
   </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 6</value>
-  </data>
-  <data name="clearAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="clearAllToolStripMenuItem.Text" xml:space="preserve">
-    <value>Éffacer tous sentiers</value>
-  </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 20</value>
   </data>
@@ -286,14 +271,11 @@
   <data name="HelpMenu.Text" xml:space="preserve">
     <value>&amp;Aide</value>
   </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 24</value>
-  </data>
   <data name="menuStrip1.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>535, 496</value>
+    <value>703, 263</value>
   </data>
   <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 17</value>
@@ -302,7 +284,7 @@
     <value>S'adapter au fond</value>
   </data>
   <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>704, 543</value>
+    <value>716, 459</value>
   </data>
   <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 17</value>
@@ -314,7 +296,7 @@
     <value>Prévoir sur strate</value>
   </data>
   <data name="AddBtn.Text" xml:space="preserve">
-    <value>Ajouter sentier</value>
+    <value>Ajouter</value>
   </data>
   <data name="AddBtn.ToolTip" xml:space="preserve">
     <value>Ajouter sentier (Accéder)</value>
@@ -346,6 +328,9 @@
   <data name="clonePathButton.ToolTip" xml:space="preserve">
     <value>Sentier de duplication</value>
   </data>
+  <data name="opacitySlider.Location" type="System.Drawing.Point, System.Drawing">
+    <value>696, 234</value>
+  </data>
   <data name="viewport.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -358,14 +343,8 @@
   <data name="label4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 13</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Produire graduation %</value>
-  </data>
-  <data name="label5.ToolTip" xml:space="preserve">
-    <value />
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>700, 218</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 13</value>
@@ -374,15 +353,6 @@
     <value>Opacité en traçant l'image</value>
   </data>
   <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Tourner</value>
-  </data>
-  <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="statusLabelNubsUsed.Text" xml:space="preserve">
@@ -400,22 +370,7 @@
   <data name="statusStrip1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 13</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Liste des sentiers</value>
-  </data>
-  <data name="label3.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 13</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Échelonner</value>
-  </data>
-  <data name="label7.ToolTip" xml:space="preserve">
+  <data name="pathListLabel.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="StraightLine.Text" xml:space="preserve">
@@ -535,11 +490,8 @@
   <data name="toolStripUndo.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="scaleSlider.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>529, 519</value>
+    <value>703, 286</value>
   </data>
   <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 17</value>
@@ -551,7 +503,7 @@
     <value />
   </data>
   <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>526, 542</value>
+    <value>703, 309</value>
   </data>
   <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 17</value>
@@ -569,9 +521,30 @@
     <value />
   </data>
   <data name="DiscardBtn.Text" xml:space="preserve">
-    <value>Écarter sentier</value>
+    <value>Écarter</value>
   </data>
   <data name="DiscardBtn.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="newPathLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fillColorPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="drawModeBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="refreshCanvas.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
