@@ -136,6 +136,7 @@
             this.drawModeBox = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.fitCanvasBox = new System.Windows.Forms.CheckBox();
+            this.refreshCanvas = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
@@ -1009,10 +1010,18 @@
             this.fitCanvasBox.Name = "fitCanvasBox";
             this.fitCanvasBox.UseVisualStyleBackColor = true;
             // 
+            // refreshCanvas
+            // 
+            resources.ApplyResources(this.refreshCanvas, "refreshCanvas");
+            this.refreshCanvas.Name = "refreshCanvas";
+            this.refreshCanvas.UseVisualStyleBackColor = true;
+            this.refreshCanvas.Click += new System.EventHandler(this.refreshCanvas_Click);
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.refreshCanvas);
             this.Controls.Add(this.fitCanvasBox);
             this.Controls.Add(this.drawModeBox);
             this.Controls.Add(this.strokeThicknessBox);
@@ -1195,5 +1204,6 @@
         private System.Windows.Forms.ComboBox drawModeBox;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.CheckBox fitCanvasBox;
+        private System.Windows.Forms.Button refreshCanvas;
     }
 }

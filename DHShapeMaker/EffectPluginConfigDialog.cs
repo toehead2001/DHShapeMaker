@@ -3994,14 +3994,7 @@ namespace ShapeMaker
                 AddNewPath();
             }
 
-#if PDNPLUGIN
-            if (this.DrawOnCanvas.Checked && this.paths.Count > 0)
-            {
-                this.geometryForPdnCanvas = GenerateStreamGeometry();
-            }
-
-            FinishTokenUpdate();
-#endif
+            RefreshCanvas();
         }
 
         private void Deselect_Click(object sender, EventArgs e)
@@ -4226,6 +4219,9 @@ namespace ShapeMaker
             this.strokeThicknessBox.Enabled = enable;
             this.drawModeBox.Enabled = enable;
             this.fitCanvasBox.Enabled = enable;
+            this.refreshCanvas.Enabled = enable;
+
+            RefreshCanvas();
         }
 
         private enum Operation
@@ -4234,6 +4230,23 @@ namespace ShapeMaker
             Scale,
             Rotate,
             Move
+        }
+
+        private void refreshCanvas_Click(object sender, EventArgs e)
+        {
+            RefreshCanvas();
+        }
+
+        private void RefreshCanvas()
+        {
+#if PDNPLUGIN
+            if (this.DrawOnCanvas.Checked && this.paths.Count > 0)
+            {
+                this.geometryForPdnCanvas = GenerateStreamGeometry();
+            }
+
+            FinishTokenUpdate();
+#endif
         }
     }
 }
