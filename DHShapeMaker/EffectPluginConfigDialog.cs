@@ -1420,15 +1420,15 @@ namespace ShapeMaker
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
                                     PointF[] tmp = this.paths[k].Lines;
-                                    PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                                    tmp.Scale(tmp2, scale, this.averagePoint);
+                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Lines;
+                                    tmp.Scale(originalPoints, scale, this.averagePoint);
                                 }
                             }
                             else if (this.canvasPoints.Count > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
-                                PointF[] tmp2 = this.undoPoints[undoIndex];
-                                tmp.Scale(tmp2, scale, this.averagePoint);
+                                PointF[] originalPoints = this.undoPoints[undoIndex];
+                                tmp.Scale(originalPoints, scale, this.averagePoint);
 
                                 this.canvasPoints.Clear();
                                 this.canvasPoints.AddRange(tmp);
@@ -1443,15 +1443,15 @@ namespace ShapeMaker
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
                                     PointF[] tmp = this.paths[k].Lines;
-                                    PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                                    tmp.Rotate(tmp2, radians, this.averagePoint);
+                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Lines;
+                                    tmp.Rotate(originalPoints, radians, this.averagePoint);
                                 }
                             }
                             else if (this.canvasPoints.Count > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
-                                PointF[] tmp2 = this.undoPoints[undoIndex];
-                                tmp.Rotate(tmp2, radians, this.averagePoint);
+                                PointF[] originalPoints = this.undoPoints[undoIndex];
+                                tmp.Rotate(originalPoints, radians, this.averagePoint);
 
                                 this.canvasPoints.Clear();
                                 this.canvasPoints.AddRange(tmp);
@@ -1464,10 +1464,10 @@ namespace ShapeMaker
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
-                                    PointF[] pl = this.paths[k].Lines;
-                                    for (int j = 0; j < pl.Length; j++)
+                                    PointF[] pathPoints = this.paths[k].Lines;
+                                    for (int j = 0; j < pathPoints.Length; j++)
                                     {
-                                        pl[j] = movePoint(this.moveStart, newPoint, pl[j]);
+                                        pathPoints[j] = movePoint(this.moveStart, newPoint, pathPoints[j]);
                                     }
                                 }
                                 this.moveStart = mouseCoord;
@@ -1489,11 +1489,11 @@ namespace ShapeMaker
                     {
                         StatusBarNubLocation(eX, eY);
 
-                        PointF oldp = this.canvasPoints[nubIndex];
+                        PointF oldPoint = this.canvasPoints[nubIndex];
 
                         for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
-                            this.canvasPoints[j] = movePoint(oldp, mouseCoord, this.canvasPoints[j]);
+                            this.canvasPoints[j] = movePoint(oldPoint, mouseCoord, this.canvasPoints[j]);
                         }
                     }
                     else if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
@@ -1502,10 +1502,10 @@ namespace ShapeMaker
 
                         for (int k = 0; k < this.paths.Count; k++)
                         {
-                            PointF[] pl = this.paths[k].Lines;
-                            for (int j = 0; j < pl.Length; j++)
+                            PointF[] pathPoints = this.paths[k].Lines;
+                            for (int j = 0; j < pathPoints.Length; j++)
                             {
-                                pl[j] = movePoint(this.moveStart, mouseCoord, pl[j]);
+                                pathPoints[j] = movePoint(this.moveStart, mouseCoord, pathPoints[j]);
                             }
                         }
                         this.moveStart = mouseCoord;
@@ -1515,7 +1515,7 @@ namespace ShapeMaker
                 {
                     StatusBarNubLocation(eX, eY);
 
-                    PointF oldp = this.canvasPoints[nubIndex];
+                    PointF oldPoint = this.canvasPoints[nubIndex];
 
                     NubType nubType = GetNubType(this.clickedNub);
                     PathType pathType = getPathType();
@@ -1533,7 +1533,7 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (this.canvasPoints.Count > 1)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                                 case NubType.ControlPoint1:
@@ -1542,10 +1542,10 @@ namespace ShapeMaker
                                     break;
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    this.canvasPoints[nubIndex - 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                     if ((nubIndex + 1) < this.canvasPoints.Count)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                             }
@@ -1622,7 +1622,7 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (this.canvasPoints.Count > 1)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
 
                                     this.canvasPoints[1] = this.canvasPoints[0];
@@ -1647,10 +1647,10 @@ namespace ShapeMaker
                                     break;
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    this.canvasPoints[nubIndex - 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                     if ((nubIndex + 1) < this.canvasPoints.Count)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                             }
