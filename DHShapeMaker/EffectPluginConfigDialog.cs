@@ -1402,92 +1402,87 @@ namespace ShapeMaker
 
             if (e.Button == MouseButtons.Left)
             {
-                PathType pathType = getPathType();
-                NubType nubType = GetNubType(this.clickedNub);
                 int nubIndex = this.clickedNub;
 
-                if (this.operation == Operation.Scale)
+                if (this.operation != Operation.None)
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
-
-                    float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                    float scale = newDist / this.initialDist;
                     int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
 
-                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                    switch (this.operation)
                     {
-                        for (int k = 0; k < this.paths.Count; k++)
-                        {
-                            PointF[] tmp = this.paths[k].Lines;
-                            PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                            tmp.Scale(tmp2, scale, this.averagePoint);
-                        }
-                    }
-                    else if (this.canvasPoints.Count > 1)
-                    {
-                        PointF[] tmp = this.canvasPoints.ToArray();
-                        PointF[] tmp2 = this.undoPoints[undoIndex];
-                        tmp.Scale(tmp2, scale, this.averagePoint);
+                        case Operation.Scale:
+                            float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                            float scale = newDist / this.initialDist;
 
-                        this.canvasPoints.Clear();
-                        this.canvasPoints.AddRange(tmp);
-                    }
-                }
-                else if (this.operation == Operation.Rotate)
-                {
-                    this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
-
-                    double newRadians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                    double radians = this.initialRads - newRadians;
-                    int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
-
-                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
-                    {
-                        for (int k = 0; k < this.paths.Count; k++)
-                        {
-                            PointF[] tmp = this.paths[k].Lines;
-                            PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
-                            tmp.Rotate(tmp2, radians, this.averagePoint);
-                        }
-                    }
-                    else if (this.canvasPoints.Count > 1)
-                    {
-                        PointF[] tmp = this.canvasPoints.ToArray();
-                        PointF[] tmp2 = this.undoPoints[undoIndex];
-                        tmp.Rotate(tmp2, radians, this.averagePoint);
-
-                        this.canvasPoints.Clear();
-                        this.canvasPoints.AddRange(tmp);
-                    }
-                }
-                else if (this.operation == Operation.Move)
-                {
-                    this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
-
-                    PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
-
-                    if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
-                    {
-                        for (int k = 0; k < this.paths.Count; k++)
-                        {
-                            PointF[] pl = this.paths[k].Lines;
-                            for (int j = 0; j < pl.Length; j++)
+                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                             {
-                                pl[j] = movePoint(this.moveStart, newPoint, pl[j]);
+                                for (int k = 0; k < this.paths.Count; k++)
+                                {
+                                    PointF[] tmp = this.paths[k].Lines;
+                                    PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
+                                    tmp.Scale(tmp2, scale, this.averagePoint);
+                                }
                             }
-                        }
-                        this.moveStart = mouseCoord;
-                    }
-                    else if (this.canvasPoints.Count > 0)
-                    {
-                        for (int j = 0; j < this.canvasPoints.Count; j++)
-                        {
-                            this.canvasPoints[j] = movePoint(this.canvasPoints[0], newPoint, this.canvasPoints[j]);
-                        }
+                            else if (this.canvasPoints.Count > 1)
+                            {
+                                PointF[] tmp = this.canvasPoints.ToArray();
+                                PointF[] tmp2 = this.undoPoints[undoIndex];
+                                tmp.Scale(tmp2, scale, this.averagePoint);
+
+                                this.canvasPoints.Clear();
+                                this.canvasPoints.AddRange(tmp);
+                            }
+                            break;
+                        case Operation.Rotate:
+                            double newRadians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                            double radians = this.initialRads - newRadians;
+
+                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                            {
+                                for (int k = 0; k < this.paths.Count; k++)
+                                {
+                                    PointF[] tmp = this.paths[k].Lines;
+                                    PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
+                                    tmp.Rotate(tmp2, radians, this.averagePoint);
+                                }
+                            }
+                            else if (this.canvasPoints.Count > 1)
+                            {
+                                PointF[] tmp = this.canvasPoints.ToArray();
+                                PointF[] tmp2 = this.undoPoints[undoIndex];
+                                tmp.Rotate(tmp2, radians, this.averagePoint);
+
+                                this.canvasPoints.Clear();
+                                this.canvasPoints.AddRange(tmp);
+                            }
+                            break;
+                        case Operation.Move:
+                            PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
+
+                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                            {
+                                for (int k = 0; k < this.paths.Count; k++)
+                                {
+                                    PointF[] pl = this.paths[k].Lines;
+                                    for (int j = 0; j < pl.Length; j++)
+                                    {
+                                        pl[j] = movePoint(this.moveStart, newPoint, pl[j]);
+                                    }
+                                }
+                                this.moveStart = mouseCoord;
+                            }
+                            else if (this.canvasPoints.Count > 0)
+                            {
+                                for (int j = 0; j < this.canvasPoints.Count; j++)
+                                {
+                                    this.canvasPoints[j] = movePoint(this.canvasPoints[0], newPoint, this.canvasPoints[j]);
+                                }
+                            }
+                            break;
                     }
                 }
-                //left shift move line or path
-                else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+                else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift) //left shift move line or path
                 {
                     if (this.canvasPoints.Count != 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count)
                     {
@@ -1515,12 +1510,15 @@ namespace ShapeMaker
                         this.moveStart = mouseCoord;
                     }
                 }
-                //no shift movepoint
-                else if (this.canvasPoints.Count != 0 && nubIndex > 0 && nubIndex < this.canvasPoints.Count)
+                else if (this.canvasPoints.Count > 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count) //no shift movepoint
                 {
                     StatusBarNubLocation(eX, eY);
 
                     PointF oldp = this.canvasPoints[nubIndex];
+
+                    NubType nubType = GetNubType(this.clickedNub);
+                    PathType pathType = getPathType();
+
                     switch (pathType)
                     {
                         case PathType.Straight:
@@ -1528,146 +1526,150 @@ namespace ShapeMaker
                             this.canvasPoints[nubIndex] = mouseCoord;
                             break;
                         case PathType.Cubic:
+                            switch (nubType)
+                            {
+                                case NubType.StartPoint:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    if (this.canvasPoints.Count > 1)
+                                    {
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                    }
+                                    break;
+                                case NubType.ControlPoint1:
+                                case NubType.ControlPoint2:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    break;
+                                case NubType.EndPoint:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    {
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                    }
+                                    break;
+                            }
 
-                            #region cubic
-
-                            if (nubType == NubType.StartPoint)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if (this.canvasPoints.Count > 1)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
-                            }
-                            else if (nubType == NubType.ControlPoint1 || nubType == NubType.ControlPoint2)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                            }
-                            else if (nubType == NubType.EndPoint)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
-                                if ((nubIndex + 1) < this.canvasPoints.Count)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
-                            }
                             if (this.MacroCubic.Checked)
                             {
                                 CubicAdjust();
                             }
 
-                            #endregion
-
                             break;
                         case PathType.Quadratic:
+                            bool isAltPressed = (Control.ModifierKeys & Keys.Alt) == Keys.Alt;
 
-                            #region Quadratic
-
-                            if (nubType == NubType.StartPoint)
+                            switch (nubType)
                             {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                            }
-                            else if (nubType == NubType.ControlPoint1)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if ((nubIndex + 1) < this.canvasPoints.Count)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = this.canvasPoints[nubIndex];
-                                }
-                            }
-                            else if (nubType == NubType.ControlPoint2)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if ((nubIndex - 1) > 0)
-                                {
-                                    this.canvasPoints[nubIndex - 1] = this.canvasPoints[nubIndex];
-                                }
-                            }
-                            else if (nubType == NubType.EndPoint)
-                            {
-                                if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                                {
-                                    //online
-                                    if (nubIndex == this.canvasPoints.Count - 1)
+                                case NubType.StartPoint:
+                                    if (isAltPressed)
                                     {
-                                        PointF rtmp = reverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
-                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
+                                        if (this.canvasPoints.Count == 1)
+                                        {
+                                            this.canvasPoints[nubIndex] = mouseCoord;
+                                        }
+                                        else
+                                        {
+                                            PointF rtmp = reverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
+                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
+                                        }
                                     }
                                     else
                                     {
-                                        this.canvasPoints[nubIndex] =
-                                            onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
+                                        this.canvasPoints[nubIndex] = mouseCoord;
                                     }
-                                }
-                                else
-                                {
+                                    break;
+                                case NubType.ControlPoint1:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                }
+                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    {
+                                        this.canvasPoints[nubIndex + 1] = this.canvasPoints[nubIndex];
+                                    }
+                                    break;
+                                case NubType.ControlPoint2:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    if ((nubIndex - 1) > 0)
+                                    {
+                                        this.canvasPoints[nubIndex - 1] = this.canvasPoints[nubIndex];
+                                    }
+                                    break;
+                                case NubType.EndPoint:
+                                    if (isAltPressed)
+                                    {
+                                        //online
+                                        if (nubIndex == this.canvasPoints.Count - 1)
+                                        {
+                                            PointF rtmp = reverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
+                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
+                                        }
+                                        else
+                                        {
+                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        this.canvasPoints[nubIndex] = mouseCoord;
+                                    }
+                                    break;
                             }
-
-                            #endregion
 
                             break;
                         case PathType.SmoothCubic:
-
-                            #region smooth Cubic
-
-                            if (nubType == NubType.StartPoint)
+                            switch (nubType)
                             {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if (this.canvasPoints.Count > 1)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
+                                case NubType.StartPoint:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    if (this.canvasPoints.Count > 1)
+                                    {
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                    }
 
-                                this.canvasPoints[1] = this.canvasPoints[0];
-                            }
-                            else if (nubType == NubType.ControlPoint1)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if (nubIndex > 1)
-                                {
-                                    this.canvasPoints[nubIndex - 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
-                                }
-                                else
-                                {
                                     this.canvasPoints[1] = this.canvasPoints[0];
-                                }
+                                    break;
+                                case NubType.ControlPoint1:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    if (nubIndex > 1)
+                                    {
+                                        this.canvasPoints[nubIndex - 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    }
+                                    else
+                                    {
+                                        this.canvasPoints[1] = this.canvasPoints[0];
+                                    }
+                                    break;
+                                case NubType.ControlPoint2:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    if (nubIndex < this.canvasPoints.Count - 2)
+                                    {
+                                        this.canvasPoints[nubIndex + 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                    }
+                                    break;
+                                case NubType.EndPoint:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    {
+                                        this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                    }
+                                    break;
                             }
-                            else if (nubType == NubType.ControlPoint2)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if (nubIndex < this.canvasPoints.Count - 2)
-                                {
-                                    this.canvasPoints[nubIndex + 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
-                            }
-                            else if (nubType == NubType.EndPoint)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                this.canvasPoints[nubIndex - 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
-                                if ((nubIndex + 1) < this.canvasPoints.Count)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
-                            }
-
-                            #endregion
 
                             break;
                         case PathType.SmoothQuadratic:
-
-                            #region Smooth Quadratic
-
-                            if (nubType == NubType.StartPoint)
+                            switch (nubType)
                             {
-                                this.canvasPoints[nubIndex] = mouseCoord;
+                                case NubType.StartPoint:
+                                    this.canvasPoints[0] = mouseCoord;
+                                    if (this.canvasPoints.Count > 1)
+                                    {
+                                        this.canvasPoints[1] = mouseCoord;
+                                    }
+                                    break;
+                                case NubType.EndPoint:
+                                    this.canvasPoints[nubIndex] = mouseCoord;
+                                    break;
                             }
-                            else if (nubType == NubType.EndPoint)
-                            {
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                            }
+
                             for (int j = 0; j < this.canvasPoints.Count; j++)
                             {
                                 if (GetNubType(j) == NubType.ControlPoint1 && j > 1)
@@ -1677,73 +1679,10 @@ namespace ShapeMaker
                                 }
                             }
 
-                            #endregion
-
                             break;
                     }
-                } //move first point
-                else if (this.canvasPoints.Count != 0 && nubIndex == 0)
-                {
-                    StatusBarNubLocation(eX, eY);
-
-                    PointF oldp = this.canvasPoints[nubIndex];
-
-                    if (nubType == NubType.StartPoint) //special quadratic
-                    {
-                        switch (pathType)
-                        {
-                            case PathType.Straight:
-                            case PathType.Ellipse:
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                break;
-                            case PathType.Cubic:
-                            case PathType.SmoothCubic:
-                                this.canvasPoints[nubIndex] = mouseCoord;
-                                if (this.canvasPoints.Count > 1)
-                                {
-                                    this.canvasPoints[nubIndex + 1] = movePoint(oldp, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
-                                }
-
-                                break;
-                            case PathType.Quadratic:
-                                if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-                                {
-                                    if (this.canvasPoints.Count == 1)
-                                    {
-                                        this.canvasPoints[nubIndex] = mouseCoord;
-                                    }
-                                    else
-                                    {
-                                        PointF rtmp = reverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
-                                        this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
-                                    }
-                                }
-                                else
-                                {
-                                    this.canvasPoints[nubIndex] = mouseCoord;
-                                }
-                                break;
-                            case PathType.SmoothQuadratic:
-                                this.canvasPoints[0] = mouseCoord;
-                                if (this.canvasPoints.Count > 1)
-                                {
-                                    this.canvasPoints[1] = mouseCoord;
-                                }
-
-                                for (int j = 0; j < this.canvasPoints.Count; j++)
-                                {
-                                    if (GetNubType(j) == NubType.ControlPoint1 && j > 1)
-                                    {
-                                        this.canvasPoints[j] =
-                                            reverseAverage(this.canvasPoints[j - 3], this.canvasPoints[j - 1]);
-                                        this.canvasPoints[j + 1] = this.canvasPoints[j];
-                                    }
-                                }
-                                break;
-                        }
-                    }
-                } //Pan zoomed
-                else if (this.panFlag)
+                }
+                else if (this.panFlag) //Pan zoomed
                 {
                     Pan();
                 }
