@@ -81,12 +81,12 @@ namespace ShapeMaker
             return RectangleF.FromLTRB(left, top, right, bottom);
         }
 
-        internal static void Rotate(this PointF[] points, double radians, PointF center)
+        internal static void Rotate(this PointF[] points, IReadOnlyList<PointF> originalPoints, double radians, PointF center)
         {
             for (int i = 0; i < points.Length; i++)
             {
-                double x = points[i].X - center.X;
-                double y = points[i].Y - center.Y;
+                double x = originalPoints[i].X - center.X;
+                double y = originalPoints[i].Y - center.Y;
                 double nx = Math.Cos(radians) * x - Math.Sin(radians) * y + center.X;
                 double ny = Math.Cos(radians) * y + Math.Sin(radians) * x + center.Y;
 

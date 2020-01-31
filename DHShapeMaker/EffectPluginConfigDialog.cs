@@ -78,7 +78,6 @@ namespace ShapeMaker
         private int redoCount = 0;
         private int undoPointer = 0;
 
-        private double lastRot = 180;
         private bool keyTrak = false;
         private readonly List<PData> paths = new List<PData>();
         private bool panFlag = false;
@@ -97,6 +96,7 @@ namespace ShapeMaker
         private PointF averagePoint = new PointF(0.5f, 0.5f);
         private float initialDist;
         private SizeF initialDistSize;
+        private double initialRads;
         private Size clickOffset;
         private Operation operation;
         private Rectangle operationBox = Rectangle.Empty;
@@ -1297,8 +1297,7 @@ namespace ShapeMaker
                     else if (rotateBox.Contains(e.Location))
                     {
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        double radians = XYToRadians(clickCoord, this.averagePoint);
-                        this.lastRot = radians;
+                        this.initialRads = XYToRadians(clickCoord, this.averagePoint);
                         this.operation = Operation.Rotate;
                     }
                     else if (moveBox.Contains(e.Location))
@@ -1438,22 +1437,24 @@ namespace ShapeMaker
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
 
-                    double radians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                    double rad = this.lastRot - radians;
-                    this.lastRot = radians;
+                    double newRadians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                    double radians = this.initialRads - newRadians;
+                    int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
 
                     if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                     {
                         for (int k = 0; k < this.paths.Count; k++)
                         {
                             PointF[] tmp = this.paths[k].Lines;
-                            tmp.Rotate(rad, this.averagePoint);
+                            PointF[] tmp2 = this.undoLines[undoIndex][k].Lines;
+                            tmp.Rotate(tmp2, radians, this.averagePoint);
                         }
                     }
                     else if (this.canvasPoints.Count > 1)
                     {
                         PointF[] tmp = this.canvasPoints.ToArray();
-                        tmp.Rotate(rad, this.averagePoint);
+                        PointF[] tmp2 = this.undoPoints[undoIndex];
+                        tmp.Rotate(tmp2, radians, this.averagePoint);
 
                         this.canvasPoints.Clear();
                         this.canvasPoints.AddRange(tmp);
