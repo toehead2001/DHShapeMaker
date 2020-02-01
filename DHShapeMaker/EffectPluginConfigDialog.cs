@@ -2544,13 +2544,14 @@ namespace ShapeMaker
 
         private void ParseStreamGeometry(string streamGeometry)
         {
+            streamGeometry = streamGeometry.Trim();
             if (streamGeometry.Length == 0)
             {
                 return;
             }
 
-            PointF[] pts = Array.Empty<PointF>();
-            int lineType = -1;
+            List<PointF> pts = new List<PointF>();
+            int pathType = -1;
             bool closedType = false;
             bool mpmode = false;
             bool islarge = true;
@@ -2558,72 +2559,72 @@ namespace ShapeMaker
             PointF LastPos = new PointF();
             PointF HomePos = new PointF();
 
-            //cook data
-            streamGeometry = streamGeometry.Trim();
-            streamGeometry = scrubNums(streamGeometry);
-            string[] str = streamGeometry.Split(',');
-
             //parse
             string strMode = string.Empty;
-            const string match = "fmlacsqthvz";
-            bool errorflagx = false;
-            bool errorflagy = false;
+            const string commands = "fmlacsqthvz";
+            bool errorFlagX = false;
+            bool errorFlagY = false;
             float x = 0, y = 0;
+
+            string[] str = scrubNums(streamGeometry).Split(',');
             for (int i = 0; i < str.Length; i++)
             {
-                errorflagx = true; errorflagy = true;
-                if (match.Contains(str[i]))
+                errorFlagX = true;
+                errorFlagY = true;
+
+                if (commands.Contains(str[i]))
                 {
                     strMode = str[i];
-                    int tmpline = match.IndexOf(strMode, StringComparison.Ordinal);
+                    int tmpline = commands.IndexOf(strMode, StringComparison.Ordinal);
                     tmpline = (tmpline > 7) ? 0 : (tmpline > 1) ? tmpline - 2 : -1;
+
                     if (tmpline != -1)
                     {
-                        if (pts.Length > 1 && this.LineList.Items.Count < maxPaths)
+                        if (pts.Count > 1 && this.LineList.Items.Count < maxPaths)
                         {
-                            addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
+                            addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
                         }
 
-                        Array.Resize(ref pts, 1);
-                        pts[0] = LastPos;
+                        pts.Clear();
+                        pts.Add(LastPos);
 
-                        lineType = tmpline;
+                        pathType = tmpline;
                         closedType = false;
                     }
+
                     if (strMode != "z")
                     {
                         continue;
                     }
                 }
-                NubType ptype;
+
                 int len = 0;
 
                 // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
                 switch (strMode)
                 {
                     case "n":
-                    case "z":
-                        Array.Resize(ref pts, pts.Length + 1);
-                        pts[pts.Length - 1] = HomePos;
+                    case "z": // The Close Command
+                        pts.Add(HomePos);
                         break;
-                    case "f":
-                        errorflagx = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "f": // FillRule
+                        errorFlagX = int.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out int fillRule);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        this.solidFillCheckBox.Checked = (x == 1);
+                        this.solidFillCheckBox.Checked = Convert.ToBoolean(fillRule);
                         break;
-                    case "m":
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "m": // Move Command
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
@@ -2632,160 +2633,157 @@ namespace ShapeMaker
                         HomePos = LastPos;
                         break;
 
-                    case "c":
-                    case "l":
-                        Array.Resize(ref pts, pts.Length + 1);
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "c": // Cubic Bezier Curve Command
+                    case "l": // Line Command
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         LastPos = PointToCanvasCoord(x, y);
-                        pts[pts.Length - 1] = LastPos;
+                        pts.Add(LastPos);
                         break;
-                    case "s":
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "s": // Smooth cubic Bezier curve Command
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         LastPos = PointToCanvasCoord(x, y);
-                        len = pts.Length;
-                        Array.Resize(ref pts, len + 1);
-                        ptype = GetNubType(len);
+                        len = pts.Count;
+
                         if (len > 1)
                         {
-                            if (ptype == NubType.ControlPoint1)
+                            NubType nubType = GetNubType(len);
+
+                            if (nubType == NubType.ControlPoint1)
                             {
-                                Array.Resize(ref pts, len + 2);
-                                pts[len + 1] = LastPos;
-                                pts[len] = reverseAverage(pts[len - 2], pts[len - 1]);
+                                pts.Add(reverseAverage(pts[len - 2], pts[len - 1]));
+                                pts.Add(LastPos);
                             }
-                            else if (ptype == NubType.EndPoint)
+                            else if (nubType == NubType.EndPoint)
                             {
-                                pts[len] = LastPos;
+                                pts.Add(LastPos);
                             }
                         }
                         else
                         {
-                            pts[1] = pts[0];
-                            Array.Resize(ref pts, len + 2);
-                            pts[2] = LastPos;
+                            pts.Add(pts[0]);
+                            pts.Add(LastPos);
                         }
 
                         break;
-                    case "t":
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "t": // Smooth quadratic Bezier curve Command
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         LastPos = PointToCanvasCoord(x, y);
-                        len = pts.Length;
-                        Array.Resize(ref pts, len + 3);
-                        pts[len + 2] = LastPos;
+                        len = pts.Count;
+
                         if (len > 1)
                         {
-                            pts[len] = reverseAverage(pts[len - 2], pts[len - 1]);
-                            pts[len + 1] = pts[len];
+                            pts.Add(reverseAverage(pts[len - 2], pts[len - 1]));
+                            pts.Add(pts[len]);
                         }
                         else
                         {
                             pts[1] = pts[0];
                             pts[2] = pts[0];
                         }
+                        pts.Add(LastPos);
                         break;
-                    case "q":
-                        Array.Resize(ref pts, pts.Length + 1);
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "q": // Quadratic Bezier Curve Command
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         LastPos = PointToCanvasCoord(x, y);
-                        pts[pts.Length - 1] = LastPos;
-                        //
-                        ptype = GetNubType(pts.Length - 1);
-                        if (ptype == NubType.ControlPoint1)
+                        pts.Add(LastPos);
+
+                        if (GetNubType(pts.Count - 1) == NubType.ControlPoint1)
                         {
-                            Array.Resize(ref pts, pts.Length + 1);
-                            pts[pts.Length - 1] = LastPos;
+                            pts.Add(LastPos);
                         }
 
                         break;
-                    case "h":
-                        Array.Resize(ref pts, pts.Length + 1);
+                    case "h": //Horizontal Line Command
                         y = LastPos.Y;
-                        errorflagx = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
                         x = x / this.canvas.ClientSize.Height;
                         LastPos = PointToCanvasCoord(x, y);
-                        pts[pts.Length - 1] = LastPos;
+                        pts.Add(LastPos);
                         break;
-                    case "v":
-                        Array.Resize(ref pts, pts.Length + 1);
+                    case "v": // Vertical Line Command
                         x = LastPos.X;
-                        errorflagy = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         y = y / this.canvas.ClientSize.Height;
                         LastPos = PointToCanvasCoord(x, y);
-                        pts[pts.Length - 1] = LastPos;
+                        pts.Add(LastPos);
                         break;
-                    case "a":
-                        int ptbase = 0;
-                        Array.Resize(ref pts, pts.Length + 4);
-                        errorflagx = float.TryParse(str[i + 5], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorflagx)
+                    case "a": // Elliptical Arc Command
+                        errorFlagX = float.TryParse(str[i + 5], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i + 6], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorflagy)
+                        errorFlagY = float.TryParse(str[i + 6], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
+                        if (!errorFlagY)
                         {
                             break;
                         }
 
                         LastPos = PointToCanvasCoord(x, y);
-                        pts[ptbase + 4] = LastPos; //ENDPOINT
 
-                        PointF From = CanvasCoordToPoint(pts[ptbase]);
+                        float dist;
+                        errorFlagX = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //W
+                        if (!errorFlagX)
+                        {
+                            break;
+                        }
+
+                        PointF From = CanvasCoordToPoint(pts[0]);
                         PointF To = new PointF(x, y);
 
                         PointF mid = pointAverage(From, To);
@@ -2793,33 +2791,30 @@ namespace ShapeMaker
                         float far = pythag(From, mid);
                         float atan = (float)Math.Atan2(mid2.Y - mid.Y, mid2.X - mid.X);
 
-                        float dist, dist2;
-                        errorflagx = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //W
-                        if (!errorflagx)
+                        pts.Add(pointOrbit(mid, atan - (float)Math.PI / 4f, dist));
+
+                        errorFlagX = float.TryParse(str[i + 1], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //H
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        pts[ptbase + 1] = pointOrbit(mid, atan - (float)Math.PI / 4f, dist);
-
-                        errorflagx = float.TryParse(str[i + 1], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //H
-                        if (!errorflagx)
-                        {
-                            break;
-                        }
-
-                        pts[ptbase + 2] = pointOrbit(mid, atan + (float)Math.PI / 4f, dist);
-                        errorflagx = float.TryParse(str[i + 2], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
+                        pts.Add(pointOrbit(mid, atan + (float)Math.PI / 4f, dist));
+                        errorFlagX = float.TryParse(str[i + 2], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
                         float rot = dist * (float)Math.PI / 180f; //ROT
-                        pts[ptbase + 3] = pointOrbit(mid, rot, far);
-                        errorflagx = float.TryParse(str[i + 3], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
-                        if (!errorflagx)
+                        pts.Add(pointOrbit(mid, rot, far));
+
+                        pts.Add(LastPos); //ENDPOINT
+
+                        errorFlagX = float.TryParse(str[i + 3], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
+                        if (!errorFlagX)
                         {
                             break;
                         }
 
-                        errorflagy = float.TryParse(str[i + 4], NumberStyles.Float, CultureInfo.InvariantCulture, out dist2);
-                        if (!errorflagy)
+                        float dist2;
+                        errorFlagY = float.TryParse(str[i + 4], NumberStyles.Float, CultureInfo.InvariantCulture, out dist2);
+                        if (!errorFlagY)
                         {
                             break;
                         }
@@ -2831,19 +2826,22 @@ namespace ShapeMaker
                         strMode = "n";
                         break;
                 }
-                if (!errorflagx || !errorflagy)
+
+                if (!errorFlagX || !errorFlagY)
                 {
                     break;
                 }
             }
-            if (!errorflagx || !errorflagy || lineType < 0)
+
+            if (!errorFlagX || !errorFlagY || pathType < 0)
             {
                 MessageBox.Show("No Line Type, or is not in the StreamGeometry Format", "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (pts.Length > 1 && this.LineList.Items.Count < maxPaths)
+
+            if (pts.Count > 1 && this.LineList.Items.Count < maxPaths)
             {
-                addPathtoList(pts, lineType, closedType, islarge, revsweep, mpmode);
+                addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
             }
 
             this.canvas.Refresh();
@@ -2871,11 +2869,11 @@ namespace ShapeMaker
             return new PointF(x * this.canvas.ClientSize.Width, y * this.canvas.ClientSize.Height);
         }
 
-        private void addPathtoList(PointF[] pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
+        private void addPathtoList(IEnumerable<PointF> pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
         {
             if (this.paths.Count < maxPaths)
             {
-                this.paths.Add(new PData(pbpoint, closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
+                this.paths.Add(new PData(pbpoint.ToArray(), closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
                 this.LineList.Items.Add(lineNames[lineType]);
             }
             else
