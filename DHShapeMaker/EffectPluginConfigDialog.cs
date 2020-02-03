@@ -208,9 +208,10 @@ namespace ShapeMaker
 
             this.fitCanvasBox.Checked = drawMode.HasFlag(DrawModes.Fit);
 
+            List<PData> tmp = new List<PData>(token.PathData);
             this.paths.Clear();
             this.LineList.Items.Clear();
-            foreach (PData p in token.PathData)
+            foreach (PData p in tmp)
             {
                 this.paths.Add(p);
                 this.LineList.Items.Add(lineNames[p.LineType]);
