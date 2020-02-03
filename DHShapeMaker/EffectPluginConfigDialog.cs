@@ -3403,7 +3403,7 @@ namespace ShapeMaker
                     XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                     (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
                     (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
-                    using (StringWriter stringWriter = new StringWriter())
+                    using (StringWriterWithEncoding stringWriter = new StringWriterWithEncoding())
                     {
                         ser.Serialize(stringWriter, paths);
                         File.WriteAllText(sfd.FileName, stringWriter.ToString());

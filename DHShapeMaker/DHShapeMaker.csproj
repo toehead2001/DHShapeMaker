@@ -107,6 +107,7 @@
     <Compile Include="ShortcutsFrm.Designer.cs">
       <DependentUpon>ShortcutsFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringWriterWithEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EffectPluginConfigDialog.de.resx">
