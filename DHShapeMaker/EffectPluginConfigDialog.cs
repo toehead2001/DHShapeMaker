@@ -1438,6 +1438,12 @@ namespace ShapeMaker
                             double newRadians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             double radians = this.initialRads - newRadians;
 
+                            if (ModifierKeys.HasFlag(Keys.Shift))
+                            {
+                                double degrees = radians * 180 / Math.PI;
+                                radians = degrees.ConstrainToInterval(15) * Math.PI / 180;
+                            }
+
                             if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)

@@ -12,7 +12,7 @@ namespace ShapeMaker
             return ConstrainToInterval((float)amount, interval);
         }
 
-        internal static int ConstrainToInterval(this float amount, int interval)
+        internal static int ConstrainToInterval(this double amount, int interval)
         {
             return (int)(Math.Round(amount / interval) * interval);
         }
