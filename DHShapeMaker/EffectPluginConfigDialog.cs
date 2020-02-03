@@ -4186,6 +4186,7 @@ namespace ShapeMaker
         }
 
         private void refreshCanvas_Click(object sender, EventArgs e)
+        private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
             RefreshCanvas();
         }

@@ -525,6 +525,7 @@
             0,
             0,
             0});
+            this.strokeThicknessBox.ValueChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
             // viewport
             // 
@@ -1028,6 +1029,7 @@
             resources.GetString("drawModeBox.Items2")});
             this.drawModeBox.Name = "drawModeBox";
             this.toolTip1.SetToolTip(this.drawModeBox, resources.GetString("drawModeBox.ToolTip"));
+            this.drawModeBox.SelectedIndexChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
             // fitCanvasBox
             // 
@@ -1035,6 +1037,7 @@
             this.fitCanvasBox.Name = "fitCanvasBox";
             this.toolTip1.SetToolTip(this.fitCanvasBox, resources.GetString("fitCanvasBox.ToolTip"));
             this.fitCanvasBox.UseVisualStyleBackColor = true;
+            this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
             // refreshCanvas
             // 
@@ -1042,7 +1045,7 @@
             this.refreshCanvas.Name = "refreshCanvas";
             this.toolTip1.SetToolTip(this.refreshCanvas, resources.GetString("refreshCanvas.ToolTip"));
             this.refreshCanvas.UseVisualStyleBackColor = true;
-            this.refreshCanvas.Click += new System.EventHandler(this.refreshCanvas_Click);
+            this.refreshCanvas.Click += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
             // EffectPluginConfigDialog
             // 
