@@ -228,7 +228,7 @@ namespace ShapeMaker
             setTraceImage();
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            this.Text = "ShapeMaker - Test";// v" + version;
+            this.Text = "ShapeMaker - v" + version + " - Test";
 
             this.Arc.Enabled = false;
             this.Sweep.Enabled = false;
