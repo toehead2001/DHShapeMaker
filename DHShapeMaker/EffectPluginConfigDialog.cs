@@ -3392,7 +3392,7 @@ namespace ShapeMaker
                     using (StringWriter stringWriter = new StringWriter())
                     {
                         ser.Serialize(stringWriter, paths);
-                        File.WriteAllText(stringWriter.ToString(), sfd.FileName);
+                        File.WriteAllText(sfd.FileName, stringWriter.ToString());
                     }
                 }
                 catch (Exception ex)
