@@ -1766,6 +1766,14 @@ namespace ShapeMaker
 
             this.canvas.Invalidate();
         }
+
+        private enum Operation
+        {
+            None,
+            Scale,
+            Rotate,
+            Move
+        }
         #endregion
 
         #region Utility functions
@@ -4137,13 +4145,17 @@ namespace ShapeMaker
         }
         #endregion
 
+        #region Draw on Canvas Properties
         private void ColorPanel_Click(object sender, EventArgs e)
         {
             if (sender is Panel colorPanel)
             {
                 this.colorDialog1.Color = colorPanel.BackColor;
-                this.colorDialog1.ShowDialog();
-                colorPanel.BackColor = this.colorDialog1.Color;
+                if (this.colorDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    colorPanel.BackColor = this.colorDialog1.Color;
+                    RefreshCanvas();
+                }
             }
         }
 
@@ -4177,15 +4189,6 @@ namespace ShapeMaker
             RefreshCanvas();
         }
 
-        private enum Operation
-        {
-            None,
-            Scale,
-            Rotate,
-            Move
-        }
-
-        private void refreshCanvas_Click(object sender, EventArgs e)
         private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
             RefreshCanvas();
@@ -4202,5 +4205,6 @@ namespace ShapeMaker
             FinishTokenUpdate();
 #endif
         }
+        #endregion
     }
 }
