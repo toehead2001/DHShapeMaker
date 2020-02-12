@@ -2936,7 +2936,7 @@ namespace ShapeMaker
                 XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
                 using (FileStream stream = File.OpenRead(projectPath))
                 {
-                    projectPaths = ((ArrayList)ser.Deserialize(stream)).Cast<PData>().ToList();
+                    projectPaths = ((ArrayList)ser.Deserialize(stream)).OfType<PData>().ToList();
                 }
             }
             catch (Exception ex)
@@ -4081,7 +4081,7 @@ namespace ShapeMaker
                 string menuText = $"&{count} {Path.GetFileName(projectPath)}";
                 try
                 {
-                    IReadOnlyList<PData> projectPaths = ((ArrayList)ser.Deserialize(File.OpenRead(projectPath))).Cast<PData>().ToList();
+                    IReadOnlyList<PData> projectPaths = ((ArrayList)ser.Deserialize(File.OpenRead(projectPath))).OfType<PData>().ToList();
                     menuText = $"&{count} {projectPaths[projectPaths.Count - 1].Meta} ({Path.GetFileName(projectPath)})";
                 }
                 catch
