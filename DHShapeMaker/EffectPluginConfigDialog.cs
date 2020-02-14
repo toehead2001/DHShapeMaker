@@ -1756,9 +1756,17 @@ namespace ShapeMaker
         {
             if (enable)
             {
-                Point OpBoxLocation = CanvasCoordToPoint(coord).Round();
-                OpBoxLocation.Offset(5, 5);
-                this.operationBox = new Rectangle(OpBoxLocation, new Size(60, 20));
+                Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(60, 20));
+                opBoxRect.X += 5;
+                opBoxRect.Y += 5;
+
+                if (!this.canvas.ClientRectangle.Contains(opBoxRect))
+                {
+                    opBoxRect.X = opBoxRect.X.Clamp(0, this.canvas.ClientSize.Width - opBoxRect.Width);
+                    opBoxRect.Y = opBoxRect.Y.Clamp(0, this.canvas.ClientSize.Height - opBoxRect.Height);
+                }
+
+                this.operationBox = opBoxRect;
             }
             else
             {
