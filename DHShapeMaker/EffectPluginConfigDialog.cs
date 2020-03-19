@@ -634,6 +634,7 @@ namespace ShapeMaker
                         switch (GetNubType(i))
                         {
                             case NubType.StartPoint:
+                            case NubType.EndPoint:
                                 Qpts[i] = pts[i];
                                 break;
                             case NubType.ControlPoint1:
@@ -643,9 +644,6 @@ namespace ShapeMaker
                             case NubType.ControlPoint2:
                                 Qpts[i] = new PointF(pts[i - 1].X * 2f / 3f + pts[i + 1].X * 1f / 3f,
                                         pts[i - 1].Y * 2f / 3f + pts[i + 1].Y * 1f / 3f);
-                                break;
-                            case NubType.EndPoint:
-                                Qpts[i] = pts[i];
                                 break;
                         }
                     }
@@ -2938,7 +2936,7 @@ namespace ShapeMaker
                 return;
             }
 
-            if (projectPaths == null || projectPaths.Count == 0)
+            if (projectPaths.Count == 0)
             {
                 MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

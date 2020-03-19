@@ -31,7 +31,7 @@ namespace ShapeMaker
 
             if (this.draw)
             {
-                Rectangle srcBounds = EnvironmentParameters.SourceSurface.Bounds;
+                Size srcSize = EnvironmentParameters.SourceSurface.Size;
                 Rectangle selection = EnvironmentParameters.SelectionBounds;
                 ColorBgra strokeColor = token.StrokeColor;
                 ColorBgra fillColor = token.FillColor;
@@ -41,7 +41,7 @@ namespace ShapeMaker
 
                 PdnSynchronizationContext.Instance.Send(new SendOrPostCallback((object _) =>
                 {
-                    ShapeBuilder.SetEnviromentParams(srcBounds.Width, srcBounds.Height, selection.X, selection.Y, selection.Width, selection.Height, strokeColor, fillColor, strokeThickness);
+                    ShapeBuilder.SetEnviromentParams(srcSize.Width, srcSize.Height, selection.X, selection.Y, selection.Width, selection.Height, strokeColor, fillColor, strokeThickness);
 
                     ShapeBuilder.RenderShape(geometryCode, drawMode);
                 }), null);
