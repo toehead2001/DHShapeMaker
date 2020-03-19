@@ -406,7 +406,7 @@
     <value>NoControl</value>
   </data>
   <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>723, 459</value>
+    <value>711, 390</value>
   </data>
   <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 17</value>
@@ -544,7 +544,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>717, 423</value>
+    <value>734, 541</value>
   </data>
   <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 30</value>
@@ -773,7 +773,7 @@ Double Click to Rename</value>
     <value>Top, Right</value>
   </data>
   <data name="strokeThicknessBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>773, 486</value>
+    <value>767, 413</value>
   </data>
   <data name="strokeThicknessBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 22</value>
@@ -1719,7 +1719,7 @@ and Output </value>
     <value>Top, Right</value>
   </data>
   <data name="strokeColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>717, 486</value>
+    <value>711, 413</value>
   </data>
   <data name="strokeColorPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -1743,7 +1743,7 @@ and Output </value>
     <value>Top, Right</value>
   </data>
   <data name="fillColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>745, 486</value>
+    <value>739, 413</value>
   </data>
   <data name="fillColorPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -1776,7 +1776,7 @@ and Output </value>
     <value>OutLine &amp; Filled</value>
   </data>
   <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>717, 514</value>
+    <value>711, 441</value>
   </data>
   <data name="drawModeBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 21</value>
@@ -1802,8 +1802,11 @@ and Output </value>
   <data name="fitCanvasBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="fitCanvasBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="fitCanvasBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>723, 541</value>
+    <value>711, 468</value>
   </data>
   <data name="fitCanvasBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 17</value>
@@ -1843,6 +1846,9 @@ and Output </value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -2099,35 +2105,11 @@ and Output </value>
   <data name="&gt;&gt;xToolStripMenuZoom1x.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
-    <value>StraightLine</value>
-  </data>
-  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
-    <value>MacroRect</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
     <value>toolStripSeparator12</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator12.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
-    <value>CubicBezier</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
-    <value>MacroCubic</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
     <value>toolStripSeparator13</value>
@@ -2135,23 +2117,11 @@ and Output </value>
   <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
-    <value>SCubicBezier</value>
-  </data>
-  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
     <value>toolStripSeparator14</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
-    <value>QuadBezier</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
     <value>toolStripSeparator15</value>
@@ -2159,41 +2129,11 @@ and Output </value>
   <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
-    <value>SQuadBezier</value>
-  </data>
-  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
     <value>toolStripSeparator16</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
-    <value>Elliptical</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
-    <value>Arc</value>
-  </data>
-  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
-    <value>Sweep</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
-    <value>MacroCircle</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
     <value>toolStripSeparator17</value>
@@ -2201,35 +2141,11 @@ and Output </value>
   <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
-    <value>Snap</value>
-  </data>
-  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
-    <value>LinkedPaths</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
     <value>toolStripSeparator8</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
-    <value>ClosePath</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
-    <value>CloseContPaths</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.4.9.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Undo.Name" xml:space="preserve">
     <value>Undo</value>
@@ -2254,6 +2170,96 @@ and Output </value>
   </data>
   <data name="&gt;&gt;colorDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColorDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
+    <value>StraightLine</value>
+  </data>
+  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
+    <value>MacroRect</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
+    <value>CubicBezier</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
+    <value>MacroCubic</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
+    <value>SCubicBezier</value>
+  </data>
+  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
+    <value>QuadBezier</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
+    <value>SQuadBezier</value>
+  </data>
+  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
+    <value>Elliptical</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
+    <value>Arc</value>
+  </data>
+  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
+    <value>Sweep</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
+    <value>MacroCircle</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
+    <value>Snap</value>
+  </data>
+  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
+    <value>LinkedPaths</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
+    <value>ClosePath</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
+    <value>CloseContPaths</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>EffectPluginConfigDialog</value>
