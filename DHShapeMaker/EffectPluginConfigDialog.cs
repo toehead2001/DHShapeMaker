@@ -3480,6 +3480,8 @@ namespace ShapeMaker
 
         private void importPdnShape_Click(object sender, EventArgs e)
         {
+            string fileName = null;
+
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 OFD.InitialDirectory = Settings.ShapeFolder;
@@ -3492,46 +3494,48 @@ namespace ShapeMaker
                     return;
                 }
 
-                if (!File.Exists(OFD.FileName))
+                fileName = OFD.FileName;
+            }
+
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Settings.ShapeFolder = Path.GetDirectoryName(fileName);
+            ZoomToFactor(1);
+            setUndo();
+
+            string data = File.ReadAllText(fileName);
+            string[] d = data.Split(new char[] { '"' });
+            bool loadConfirm = false;
+            for (int i = 1; i < d.Length; i++)
+            {
+                if (d[i - 1].Contains("DisplayName="))
                 {
-                    MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    data = d[i];
+                    this.FigureName.Text = data;
                 }
 
-                Settings.ShapeFolder = Path.GetDirectoryName(OFD.FileName);
-                ZoomToFactor(1);
-                setUndo();
-
-                string data = File.ReadAllText(OFD.FileName);
-                string[] d = data.Split(new char[] { '"' });
-                bool loadConfirm = false;
-                for (int i = 1; i < d.Length; i++)
+                if (d[i - 1].Contains("Geometry="))
                 {
-                    if (d[i - 1].Contains("DisplayName="))
+                    data = d[i];
+                    try
                     {
-                        data = d[i];
-                        this.FigureName.Text = data;
+                        ParseStreamGeometry(data);
+                        loadConfirm = true;
                     }
-
-                    if (d[i - 1].Contains("Geometry="))
+                    catch
                     {
-                        data = d[i];
-                        try
-                        {
-                            ParseStreamGeometry(data);
-                            loadConfirm = true;
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        break;
                     }
+                    break;
                 }
-                if (!loadConfirm)
-                {
-                    MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+
+            if (!loadConfirm)
+            {
+                MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             RefreshPdnCanvas();
