@@ -376,7 +376,7 @@
     <value>105, 17</value>
   </data>
   <data name="FitBG.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>11</value>
   </data>
   <data name="FitBG.Text" xml:space="preserve">
     <value>Fit Background</value>
@@ -412,7 +412,7 @@
     <value>109, 17</value>
   </data>
   <data name="DrawOnCanvas.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="DrawOnCanvas.Text" xml:space="preserve">
     <value>Draw on Canvas</value>
@@ -448,7 +448,7 @@
     <value>70, 30</value>
   </data>
   <data name="AddBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>6</value>
   </data>
   <data name="AddBtn.Text" xml:space="preserve">
     <value>Add</value>
@@ -478,7 +478,7 @@
     <value>110, 22</value>
   </data>
   <data name="FigureName.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="FigureName.Text" xml:space="preserve">
     <value>Untitled</value>
@@ -517,7 +517,7 @@
     <value>146, 30</value>
   </data>
   <data name="DeselectBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>5</value>
   </data>
   <data name="DeselectBtn.Text" xml:space="preserve">
     <value>Deselect</value>
@@ -550,7 +550,7 @@
     <value>100, 30</value>
   </data>
   <data name="buttonOK.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>20</value>
   </data>
   <data name="buttonOK.Text" xml:space="preserve">
     <value>OK</value>
@@ -752,7 +752,7 @@ Double Click to Rename</value>
     <value>146, 23</value>
   </data>
   <data name="opacitySlider.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>10</value>
   </data>
   <data name="opacitySlider.ToolTip" xml:space="preserve">
     <value>25%</value>
@@ -779,7 +779,7 @@ Double Click to Rename</value>
     <value>50, 22</value>
   </data>
   <data name="strokeThicknessBox.TabIndex" type="System.Int32, mscorlib">
-    <value>67</value>
+    <value>17</value>
   </data>
   <data name="strokeThicknessBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Right</value>
@@ -1514,7 +1514,7 @@ Double Click to Rename</value>
     <value>76, 17</value>
   </data>
   <data name="traceLayer.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>12</value>
   </data>
   <data name="traceLayer.Text" xml:space="preserve">
     <value>PDN Layer</value>
@@ -1547,7 +1547,7 @@ Double Click to Rename</value>
     <value>76, 17</value>
   </data>
   <data name="traceClipboard.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>13</value>
   </data>
   <data name="traceClipboard.Text" xml:space="preserve">
     <value>Clipboard</value>
@@ -1634,7 +1634,7 @@ Double Click to Rename</value>
     <value>70, 30</value>
   </data>
   <data name="DiscardBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>7</value>
   </data>
   <data name="DiscardBtn.Text" xml:space="preserve">
     <value>Discard</value>
@@ -1697,7 +1697,7 @@ Double Click to Rename</value>
     <value>80, 17</value>
   </data>
   <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>9</value>
   </data>
   <data name="solidFillCheckBox.Text" xml:space="preserve">
     <value>Solid Fill</value>
@@ -1727,7 +1727,7 @@ Double Click to Rename</value>
     <value>22, 22</value>
   </data>
   <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>65</value>
+    <value>15</value>
   </data>
   <data name="strokeColorPanel.ToolTip" xml:space="preserve">
     <value>Primary Color</value>
@@ -1754,7 +1754,7 @@ Double Click to Rename</value>
     <value>22, 22</value>
   </data>
   <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
+    <value>16</value>
   </data>
   <data name="fillColorPanel.ToolTip" xml:space="preserve">
     <value>Secondary Color</value>
@@ -1790,7 +1790,7 @@ Double Click to Rename</value>
     <value>110, 21</value>
   </data>
   <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>68</value>
+    <value>18</value>
   </data>
   <data name="drawModeBox.ToolTip" xml:space="preserve">
     <value>Fill Mode</value>
@@ -1823,7 +1823,7 @@ Double Click to Rename</value>
     <value>92, 17</value>
   </data>
   <data name="fitCanvasBox.TabIndex" type="System.Int32, mscorlib">
-    <value>69</value>
+    <value>19</value>
   </data>
   <data name="fitCanvasBox.Text" xml:space="preserve">
     <value>Fit to Canvas</value>
