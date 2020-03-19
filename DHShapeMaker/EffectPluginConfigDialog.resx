@@ -785,8 +785,7 @@ Double Click to Rename</value>
     <value>Right</value>
   </data>
   <data name="strokeThicknessBox.ToolTip" xml:space="preserve">
-    <value>Scale Preview 
-and Output </value>
+    <value>Outline Width</value>
   </data>
   <data name="&gt;&gt;strokeThicknessBox.Name" xml:space="preserve">
     <value>strokeThicknessBox</value>
@@ -1703,6 +1702,9 @@ and Output </value>
   <data name="solidFillCheckBox.Text" xml:space="preserve">
     <value>Solid Fill</value>
   </data>
+  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
+    <value>Fill Mode</value>
+  </data>
   <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
     <value>solidFillCheckBox</value>
   </data>
@@ -1727,6 +1729,9 @@ and Output </value>
   <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
     <value>65</value>
   </data>
+  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
+    <value>Primary Color</value>
+  </data>
   <data name="&gt;&gt;strokeColorPanel.Name" xml:space="preserve">
     <value>strokeColorPanel</value>
   </data>
@@ -1750,6 +1755,9 @@ and Output </value>
   </data>
   <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
+  </data>
+  <data name="fillColorPanel.ToolTip" xml:space="preserve">
+    <value>Secondary Color</value>
   </data>
   <data name="&gt;&gt;fillColorPanel.Name" xml:space="preserve">
     <value>fillColorPanel</value>
@@ -1784,6 +1792,9 @@ and Output </value>
   <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
     <value>68</value>
   </data>
+  <data name="drawModeBox.ToolTip" xml:space="preserve">
+    <value>Fill Mode</value>
+  </data>
   <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
     <value>drawModeBox</value>
   </data>
@@ -1816,6 +1827,9 @@ and Output </value>
   </data>
   <data name="fitCanvasBox.Text" xml:space="preserve">
     <value>Fit to Canvas</value>
+  </data>
+  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
+    <value>Scale Mode</value>
   </data>
   <data name="&gt;&gt;fitCanvasBox.Name" xml:space="preserve">
     <value>fitCanvasBox</value>

@@ -817,6 +817,7 @@
             // 
             resources.ApplyResources(this.solidFillCheckBox, "solidFillCheckBox");
             this.solidFillCheckBox.Name = "solidFillCheckBox";
+            this.toolTip1.SetToolTip(this.solidFillCheckBox, resources.GetString("solidFillCheckBox.ToolTip"));
             this.solidFillCheckBox.UseVisualStyleBackColor = true;
             this.solidFillCheckBox.CheckedChanged += new System.EventHandler(this.solidFillCheckBox_CheckedChanged);
             // 
@@ -824,6 +825,7 @@
             // 
             resources.ApplyResources(this.strokeColorPanel, "strokeColorPanel");
             this.strokeColorPanel.Name = "strokeColorPanel";
+            this.toolTip1.SetToolTip(this.strokeColorPanel, resources.GetString("strokeColorPanel.ToolTip"));
             this.strokeColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
             this.strokeColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
             // 
@@ -831,6 +833,7 @@
             // 
             resources.ApplyResources(this.fillColorPanel, "fillColorPanel");
             this.fillColorPanel.Name = "fillColorPanel";
+            this.toolTip1.SetToolTip(this.fillColorPanel, resources.GetString("fillColorPanel.ToolTip"));
             this.fillColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
             this.fillColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
             // 
@@ -844,12 +847,14 @@
             resources.GetString("drawModeBox.Items1"),
             resources.GetString("drawModeBox.Items2")});
             this.drawModeBox.Name = "drawModeBox";
+            this.toolTip1.SetToolTip(this.drawModeBox, resources.GetString("drawModeBox.ToolTip"));
             this.drawModeBox.SelectedIndexChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
             // fitCanvasBox
             // 
             resources.ApplyResources(this.fitCanvasBox, "fitCanvasBox");
             this.fitCanvasBox.Name = "fitCanvasBox";
+            this.toolTip1.SetToolTip(this.fitCanvasBox, resources.GetString("fitCanvasBox.ToolTip"));
             this.fitCanvasBox.UseVisualStyleBackColor = true;
             this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
