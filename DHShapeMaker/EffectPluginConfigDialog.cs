@@ -62,7 +62,6 @@ namespace ShapeMaker
         private PathType activeType;
         private readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
 
-        private const int maxPaths = 300;
         private const int maxPoints = byte.MaxValue;
         private const int InvalidNub = -1;
         private int clickedNub = InvalidNub;
@@ -281,7 +280,7 @@ namespace ShapeMaker
 
             adjustForWindowSize();
 
-            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count}/{maxPaths} Paths used";
+            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
 
             // Store hotkeys in a Dictionary
             foreach (ToolStripButtonWithKeys button in this.Controls.OfType<ToolStrip>().SelectMany(ts => ts.Items.OfType<ToolStripButtonWithKeys>()))
@@ -1915,59 +1914,52 @@ namespace ShapeMaker
                 return;
             }
 
-            if (this.paths.Count < maxPaths)
+            setUndo(deSelected);
+            if (this.MacroCircle.Checked && getPathType() == PathType.Ellipse)
             {
-                setUndo(deSelected);
-                if (this.MacroCircle.Checked && getPathType() == PathType.Ellipse)
+                if (this.canvasPoints.Count < 5)
                 {
-                    if (this.canvasPoints.Count < 5)
-                    {
-                        return;
-                    }
-
-                    PointF mid = pointAverage(this.canvasPoints[0], this.canvasPoints[4]);
-                    this.canvasPoints[1] = this.canvasPoints[0];
-                    this.canvasPoints[2] = this.canvasPoints[4];
-                    this.canvasPoints[3] = mid;
-                    this.paths.Add(new PData(this.canvasPoints.ToArray(), false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
-                    this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
-                    PointF[] tmp = new PointF[this.canvasPoints.Count];
-                    //fix
-                    tmp[0] = this.canvasPoints[4];
-                    tmp[4] = this.canvasPoints[0];
-                    tmp[3] = this.canvasPoints[3];
-                    tmp[1] = tmp[0];
-                    tmp[2] = tmp[4];
-                    //test below
-                    this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, true));
-                    this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
+                    return;
                 }
-                else if (this.MacroRect.Checked && getPathType() == PathType.Straight)
-                {
-                    for (int i = 1; i < this.canvasPoints.Count; i++)
-                    {
-                        PointF[] tmp = new PointF[]
-                        {
-                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y),
-                            new PointF(this.canvasPoints[i].X, this.canvasPoints[i - 1].Y),
-                            new PointF(this.canvasPoints[i].X, this.canvasPoints[i].Y),
-                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i].Y),
-                            new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
-                        };
 
-                        this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
-                        this.LineList.Items.Add(lineNames[(int)getPathType()]);
-                    }
-                }
-                else
+                PointF mid = pointAverage(this.canvasPoints[0], this.canvasPoints[4]);
+                this.canvasPoints[1] = this.canvasPoints[0];
+                this.canvasPoints[2] = this.canvasPoints[4];
+                this.canvasPoints[3] = mid;
+                this.paths.Add(new PData(this.canvasPoints.ToArray(), false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
+                PointF[] tmp = new PointF[this.canvasPoints.Count];
+                //fix
+                tmp[0] = this.canvasPoints[4];
+                tmp[4] = this.canvasPoints[0];
+                tmp[3] = this.canvasPoints[3];
+                tmp[1] = tmp[0];
+                tmp[2] = tmp[4];
+                //test below
+                this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, true));
+                this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
+            }
+            else if (this.MacroRect.Checked && getPathType() == PathType.Straight)
+            {
+                for (int i = 1; i < this.canvasPoints.Count; i++)
                 {
-                    this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+                    PointF[] tmp = new PointF[]
+                    {
+                        new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y),
+                        new PointF(this.canvasPoints[i].X, this.canvasPoints[i - 1].Y),
+                        new PointF(this.canvasPoints[i].X, this.canvasPoints[i].Y),
+                        new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i].Y),
+                        new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
+                    };
+
+                    this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
                     this.LineList.Items.Add(lineNames[(int)getPathType()]);
                 }
             }
             else
             {
-                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+                this.LineList.Items.Add(lineNames[(int)getPathType()]);
             }
 
             if (this.LinkedPaths.Checked)
@@ -2603,7 +2595,7 @@ namespace ShapeMaker
 
                     if (tmpline != -1)
                     {
-                        if (pts.Count > 1 && this.LineList.Items.Count < maxPaths)
+                        if (pts.Count > 1)
                         {
                             addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
                         }
@@ -2862,7 +2854,7 @@ namespace ShapeMaker
                 return;
             }
 
-            if (pts.Count > 1 && this.LineList.Items.Count < maxPaths)
+            if (pts.Count > 1)
             {
                 addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
             }
@@ -2894,15 +2886,8 @@ namespace ShapeMaker
 
         private void addPathtoList(IEnumerable<PointF> pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
         {
-            if (this.paths.Count < maxPaths)
-            {
-                this.paths.Add(new PData(pbpoint.ToArray(), closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
-                this.LineList.Items.Add(lineNames[lineType]);
-            }
-            else
-            {
-                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            this.paths.Add(new PData(pbpoint.ToArray(), closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
+            this.LineList.Items.Add(lineNames[lineType]);
         }
 
         private void ClearAllPaths()
@@ -2913,7 +2898,7 @@ namespace ShapeMaker
 
             this.paths.Clear();
             this.LineList.Items.Clear();
-            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count}/{maxPaths} Paths used";
+            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
 
             this.canvas.Refresh();
         }
@@ -2956,12 +2941,6 @@ namespace ShapeMaker
             if (projectPaths == null || projectPaths.Count == 0)
             {
                 MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (projectPaths.Count > maxPaths)
-            {
-                MessageBox.Show($"Too many Paths in project file. (Max is {maxPaths})", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -3098,20 +3077,13 @@ namespace ShapeMaker
                 return;
             }
 
-            if (this.paths.Count < maxPaths)
-            {
-                setUndo();
+            setUndo();
 
-                this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
-                this.LineList.Items.Add(lineNames[(int)getPathType()]);
-                this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
+            this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+            this.LineList.Items.Add(lineNames[(int)getPathType()]);
+            this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 
-                this.canvas.Refresh();
-            }
-            else
-            {
-                MessageBox.Show($"Too many Paths in Shape (Max is {maxPaths})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            this.canvas.Refresh();
         }
 
         private void DNList_Click(object sender, EventArgs e)
@@ -4037,7 +4009,7 @@ namespace ShapeMaker
             if (this.canvasPoints.Count > 0 || this.LineList.Items.Count > 0)
             {
                 this.statusLabelNubsUsed.Text = $"{this.canvasPoints.Count}/{maxPoints} Nubs used";
-                this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count}/{maxPaths} Paths used";
+                this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
             }
 
             if (newPath)
