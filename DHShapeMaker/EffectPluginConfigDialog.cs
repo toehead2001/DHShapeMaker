@@ -480,6 +480,7 @@ namespace ShapeMaker
             this.Redo.Enabled = true;
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void Redo_Click(object sender, EventArgs e)
@@ -536,6 +537,7 @@ namespace ShapeMaker
             this.Undo.Enabled = true;
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void resetHistory()
@@ -1903,6 +1905,8 @@ namespace ShapeMaker
             this.paths[this.LineList.SelectedIndex] = new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked),
                 (this.Sweep.CheckState == CheckState.Checked), this.paths[this.LineList.SelectedIndex].Alias, this.CloseContPaths.Checked);
             this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)getPathType()];
+
+            RefreshPdnCanvas();
         }
 
         private void AddNewPath(bool deSelected = false)
@@ -1972,6 +1976,7 @@ namespace ShapeMaker
             }
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void Deselect()
@@ -2956,6 +2961,7 @@ namespace ShapeMaker
             ZoomToFactor(1);
             resetHistory();
             this.canvas.Refresh();
+            RefreshPdnCanvas();
             AddToRecents(projectPath);
         }
         #endregion
@@ -3066,6 +3072,7 @@ namespace ShapeMaker
             this.LineList.SelectedIndex = -1;
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void Clonebtn_Click(object sender, EventArgs e)
@@ -3082,6 +3089,7 @@ namespace ShapeMaker
             this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void DNList_Click(object sender, EventArgs e)
@@ -3318,7 +3326,7 @@ namespace ShapeMaker
             if (confirm == DialogResult.Yes)
             {
                 ClearAllPaths();
-
+                RefreshPdnCanvas();
                 ZoomToFactor(1);
                 resetHistory();
                 this.FigureName.Text = "Untitled";
@@ -3525,6 +3533,8 @@ namespace ShapeMaker
                     MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            RefreshPdnCanvas();
         }
 
         private void pasteData_Click(object sender, EventArgs e)
@@ -3533,6 +3543,8 @@ namespace ShapeMaker
             ZoomToFactor(1);
 
             ParseStreamGeometry(Clipboard.GetText());
+
+            RefreshPdnCanvas();
         }
 
         private void CopyStream_Click(object sender, EventArgs e)
@@ -3933,8 +3945,6 @@ namespace ShapeMaker
             {
                 AddNewPath();
             }
-
-            RefreshCanvas();
         }
 
         private void Deselect_Click(object sender, EventArgs e)
@@ -3961,6 +3971,11 @@ namespace ShapeMaker
             {
                 this.FigureName.Text = "Untitled";
             }
+        }
+
+        private void solidFillCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshPdnCanvas();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -4133,7 +4148,7 @@ namespace ShapeMaker
                 if (this.colorDialog1.ShowDialog() == DialogResult.OK)
                 {
                     colorPanel.BackColor = this.colorDialog1.Color;
-                    RefreshCanvas();
+                    RefreshPdnCanvas();
                 }
             }
         }
@@ -4163,23 +4178,21 @@ namespace ShapeMaker
             this.strokeThicknessBox.Enabled = enable;
             this.drawModeBox.Enabled = enable;
             this.fitCanvasBox.Enabled = enable;
-            this.refreshCanvas.Enabled = enable;
 
-            RefreshCanvas();
+            RefreshPdnCanvas();
         }
 
         private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
-            RefreshCanvas();
+            RefreshPdnCanvas();
         }
 
-        private void RefreshCanvas()
+        private void RefreshPdnCanvas()
         {
 #if PDNPLUGIN
-            if (this.DrawOnCanvas.Checked && this.paths.Count > 0)
-            {
-                this.geometryForPdnCanvas = GenerateStreamGeometry();
-            }
+            this.geometryForPdnCanvas = (this.DrawOnCanvas.Checked && this.paths.Count > 0) ?
+                GenerateStreamGeometry() :
+                null;
 
             FinishTokenUpdate();
 #endif
