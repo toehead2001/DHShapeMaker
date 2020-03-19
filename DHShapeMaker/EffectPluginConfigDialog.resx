@@ -472,10 +472,10 @@
     <value>Top, Right</value>
   </data>
   <data name="FigureName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>729, 90</value>
+    <value>711, 90</value>
   </data>
   <data name="FigureName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 22</value>
+    <value>110, 22</value>
   </data>
   <data name="FigureName.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -773,7 +773,7 @@ Double Click to Rename</value>
     <value>Top, Right</value>
   </data>
   <data name="strokeThicknessBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>767, 413</value>
+    <value>771, 413</value>
   </data>
   <data name="strokeThicknessBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 22</value>
@@ -1691,7 +1691,7 @@ Double Click to Rename</value>
     <value>NoControl</value>
   </data>
   <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>729, 118</value>
+    <value>711, 118</value>
   </data>
   <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 17</value>
