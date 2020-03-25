@@ -1897,6 +1897,39 @@ namespace ShapeMaker
             float dy = xy.Y - center.Y;
             return Math.Atan2(-dy, dx);
         }
+
+        private static RectangleF GetBoundsOfPaths(IEnumerable<PData> paths)
+        {
+            float left = int.MaxValue;
+            float top = int.MaxValue;
+            float right = int.MinValue;
+            float bottom = int.MinValue;
+
+            foreach (PointF point in paths.SelectMany(path => path.Lines))
+            {
+                if (point.X < left)
+                {
+                    left = point.X;
+                }
+
+                if (point.Y < top)
+                {
+                    top = point.Y;
+                }
+
+                if (point.X > right)
+                {
+                    right = point.X;
+                }
+
+                if (point.Y > bottom)
+                {
+                    bottom = point.Y;
+                }
+            }
+
+            return RectangleF.FromLTRB(left, top, right, bottom);
+        }
         #endregion
 
         #region Misc Helper functions
@@ -2584,6 +2617,8 @@ namespace ShapeMaker
             bool errorFlagY = false;
             float x = 0, y = 0;
 
+            List<PData> paths = new List<PData>();
+
             string[] str = scrubNums(streamGeometry).Split(',');
             for (int i = 0; i < str.Length; i++)
             {
@@ -2600,7 +2635,8 @@ namespace ShapeMaker
                     {
                         if (pts.Count > 1)
                         {
-                            addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
+                            PData path = new PData(pts.ToArray(), closedType, pathType, islarge, revsweep, string.Empty, mpmode);
+                            paths.Add(path);
                         }
 
                         pts.Clear();
@@ -2859,8 +2895,29 @@ namespace ShapeMaker
 
             if (pts.Count > 1)
             {
-                addPathtoList(pts, pathType, closedType, islarge, revsweep, mpmode);
+                PData path = new PData(pts.ToArray(), closedType, pathType, islarge, revsweep, string.Empty, mpmode);
+                paths.Add(path);
             }
+
+            // Center and Scale paths
+            PointF center = new PointF(0.5f, 0.5f);
+            RectangleF bounds = GetBoundsOfPaths(paths);
+            PointF origin = bounds.Location;
+            PointF destination = new PointF(center.X - bounds.Width / 2f, center.Y - bounds.Height / 2f);
+            float scale = 0.98f / Math.Max(bounds.Width, bounds.Height);
+            foreach (PData path in paths)
+            {
+                PointF[] pathPoints = path.Lines;
+                for (int j = 0; j < pathPoints.Length; j++)
+                {
+                    pathPoints[j] = movePoint(origin, destination, pathPoints[j]);
+                }
+
+                pathPoints.Scale(pathPoints, scale, center);
+            }
+
+            this.paths.AddRange(paths);
+            this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
 
             this.canvas.Refresh();
         }
@@ -2885,12 +2942,6 @@ namespace ShapeMaker
         private PointF CanvasCoordToPoint(float x, float y)
         {
             return new PointF(x * this.canvas.ClientSize.Width, y * this.canvas.ClientSize.Height);
-        }
-
-        private void addPathtoList(IEnumerable<PointF> pbpoint, int lineType, bool closedType, bool islarge, bool revsweep, bool mpmtype)
-        {
-            this.paths.Add(new PData(pbpoint.ToArray(), closedType, lineType, islarge, revsweep, string.Empty, mpmtype));
-            this.LineList.Items.Add(lineNames[lineType]);
         }
 
         private void ClearAllPaths()
