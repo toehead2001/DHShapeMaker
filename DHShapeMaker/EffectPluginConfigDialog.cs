@@ -2856,7 +2856,7 @@ namespace ShapeMaker
 
             if (!errorFlagX || !errorFlagY || pathType < 0)
             {
-                MessageBox.Show("No Line Type, or is not in the StreamGeometry Format", "Not a valid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No Line Type, or is not in the StreamGeometry Format", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2864,6 +2864,12 @@ namespace ShapeMaker
             {
                 PData path = new PData(pts.ToArray(), closedType, pathType, islarge, revsweep, string.Empty, mpmode);
                 paths.Add(path);
+            }
+
+            if (paths.Count == 0)
+            {
+                MessageBox.Show("No Paths found.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             // Center and Scale paths
