@@ -38,28 +38,13 @@ namespace ShapeMaker
                 return;
             }
 
-            StreamGeometry geometry = TryParseStreamGeometry(geometryCode);
+            StreamGeometry geometry = StreamGeometryUtil.TryParseStreamGeometry(geometryCode);
             if (geometryCode == null)
             {
                 return;
             }
 
             RenderGeometry(geometry, drawMode);
-        }
-
-        private static StreamGeometry TryParseStreamGeometry(string streamGeometry)
-        {
-            StreamGeometry geometry = null;
-
-            try
-            {
-                geometry = (StreamGeometry)Geometry.Parse(streamGeometry);
-            }
-            catch
-            {
-            }
-
-            return geometry;
         }
 
         private static void RenderGeometry(Geometry geometry, DrawModes drawMode)

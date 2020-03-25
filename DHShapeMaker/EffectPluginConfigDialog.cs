@@ -3504,40 +3504,19 @@ namespace ShapeMaker
             }
 
             Settings.ShapeFolder = Path.GetDirectoryName(fileName);
-            ZoomToFactor(1);
-            setUndo();
 
-            string data = File.ReadAllText(fileName);
-            string[] d = data.Split(new char[] { '"' });
-            bool loadConfirm = false;
-            for (int i = 1; i < d.Length; i++)
-            {
-                if (d[i - 1].Contains("DisplayName="))
-                {
-                    data = d[i];
-                    this.FigureName.Text = data;
-                }
+            string xamlCode = File.ReadAllText(fileName);
+            string shapeCode = StreamGeometryUtil.TryExtractStreamGeometry(xamlCode);
 
-                if (d[i - 1].Contains("Geometry="))
-                {
-                    data = d[i];
-                    try
-                    {
-                        ParseStreamGeometry(data);
-                        loadConfirm = true;
-                    }
-                    catch
-                    {
-                    }
-                    break;
-                }
-            }
-
-            if (!loadConfirm)
+            if (shapeCode == null)
             {
                 MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
+            setUndo();
+            ZoomToFactor(1);
+            ParseStreamGeometry(shapeCode);
             RefreshPdnCanvas();
         }
 

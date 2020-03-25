@@ -108,6 +108,7 @@
       <DependentUpon>ShortcutsFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="StringWriterWithEncoding.cs" />
+    <Compile Include="StreamGeometryUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EffectPluginConfigDialog.de.resx">
