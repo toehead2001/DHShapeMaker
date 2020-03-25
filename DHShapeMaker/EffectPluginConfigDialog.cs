@@ -1897,39 +1897,6 @@ namespace ShapeMaker
             float dy = xy.Y - center.Y;
             return Math.Atan2(-dy, dx);
         }
-
-        private static RectangleF GetBoundsOfPaths(IEnumerable<PData> paths)
-        {
-            float left = int.MaxValue;
-            float top = int.MaxValue;
-            float right = int.MinValue;
-            float bottom = int.MinValue;
-
-            foreach (PointF point in paths.SelectMany(path => path.Lines))
-            {
-                if (point.X < left)
-                {
-                    left = point.X;
-                }
-
-                if (point.Y < top)
-                {
-                    top = point.Y;
-                }
-
-                if (point.X > right)
-                {
-                    right = point.X;
-                }
-
-                if (point.Y > bottom)
-                {
-                    bottom = point.Y;
-                }
-            }
-
-            return RectangleF.FromLTRB(left, top, right, bottom);
-        }
         #endregion
 
         #region Misc Helper functions
@@ -2901,7 +2868,7 @@ namespace ShapeMaker
 
             // Center and Scale paths
             PointF center = new PointF(0.5f, 0.5f);
-            RectangleF bounds = GetBoundsOfPaths(paths);
+            RectangleF bounds = paths.SelectMany(path => path.Lines).ToArray().Bounds();
             PointF origin = bounds.Location;
             PointF destination = new PointF(center.X - bounds.Width / 2f, center.Y - bounds.Height / 2f);
             float scale = 0.98f / Math.Max(bounds.Width, bounds.Height);
