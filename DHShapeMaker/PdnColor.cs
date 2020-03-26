@@ -180,14 +180,15 @@ namespace ShapeMaker
 
                 Rectangle SwatchRect1 = new Rectangle(0, 0, (int)Math.Round(30 * dpiX), (int)Math.Round(30 * dpiY));
                 Rectangle SwatchRect2 = Rectangle.FromLTRB(SwatchRect1.Left + (int)Math.Round(1 * dpiX), SwatchRect1.Top + (int)Math.Round(1 * dpiY), SwatchRect1.Right - (int)Math.Round(1 * dpiX), SwatchRect1.Bottom - (int)Math.Round(1 * dpiY));
+                Rectangle SwatchRect3 = Rectangle.FromLTRB(SwatchRect1.Left, SwatchRect1.Top - 1, SwatchRect1.Right, SwatchRect1.Bottom + 1);
 
                 using (HatchBrush hb = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.LightGray, Color.White))
                 {
                     g.FillRectangle(hb, SwatchRect1);
                 }
-                using (SolidBrush SB = new SolidBrush(_colorval))
+                using (LinearGradientBrush lgb = new LinearGradientBrush(SwatchRect3, Color.FromArgb(byte.MaxValue, _colorval), _colorval, LinearGradientMode.Vertical))
                 {
-                    g.FillRectangle(SB, SwatchRect1);
+                    g.FillRectangle(lgb, SwatchRect1);
                 }
                 using (Pen outlinePen = new Pen(Color.Black, (int)Math.Round(1 * dpiX)))
                 {
@@ -790,7 +791,7 @@ namespace ShapeMaker
                 float dpi = g.DpiX / 96f;
                 RectangleF colorRect = new RectangleF(g.VisibleClipBounds.X + (4 * dpi), g.VisibleClipBounds.Y, g.VisibleClipBounds.Width - (8 * dpi), g.VisibleClipBounds.Height - (4 * dpi));
 
-                using (HatchBrush brush = new HatchBrush(HatchStyle.DiagonalCross, Color.LightGray, Color.White))
+                using (HatchBrush brush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.LightGray, Color.White))
                 {
                     g.FillRectangle(brush, colorRect);
                 }
