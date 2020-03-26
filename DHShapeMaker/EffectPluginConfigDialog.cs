@@ -60,7 +60,7 @@ namespace ShapeMaker
         };
 
         private PathType activeType;
-        private readonly ToolStripButton[] typeButtons = new ToolStripButton[6];
+        private readonly IEnumerable<ToolStripButtonWithKeys> typeButtons;
 
         private const int maxPoints = byte.MaxValue;
         private const int InvalidNub = -1;
@@ -135,6 +135,16 @@ namespace ShapeMaker
             this.toolStripPurple.Renderer = new ThemeRenderer(lineColorsLight[5], lineColors[5]);
             this.toolStripRed.Renderer = new ThemeRenderer(lineColorsLight[1], lineColors[1]);
             this.toolStripOptions.Renderer = new ThemeRenderer(Color.White, Color.Silver);
+
+            this.typeButtons = new ToolStripButtonWithKeys[]
+            {
+                this.StraightLine,
+                this.Elliptical,
+                this.CubicBezier,
+                this.SCubicBezier,
+                this.QuadBezier,
+                this.SQuadBezier
+            };
         }
 
 #if PDNPLUGIN
@@ -232,13 +242,6 @@ namespace ShapeMaker
 
             this.Arc.Enabled = false;
             this.Sweep.Enabled = false;
-
-            this.typeButtons[0] = this.StraightLine;
-            this.typeButtons[1] = this.Elliptical;
-            this.typeButtons[2] = this.CubicBezier;
-            this.typeButtons[3] = this.SCubicBezier;
-            this.typeButtons[4] = this.QuadBezier;
-            this.typeButtons[5] = this.SQuadBezier;
 
             this.toolTip1.ReshowDelay = 0;
             this.toolTip1.AutomaticDelay = 0;
@@ -1787,9 +1790,9 @@ namespace ShapeMaker
         #endregion
 
         #region Utility functions
-        private static PointF[] GetFirstControlPoints(PointF[] rhs)
+        private static IReadOnlyList<PointF> GetFirstControlPoints(IReadOnlyList<PointF> rhs)
         {
-            int n = rhs.Length;
+            int n = rhs.Count;
             PointF[] x = new PointF[n]; // Solution vector.
             float[] tmp = new float[n]; // Temp workspace.
 
@@ -2036,7 +2039,7 @@ namespace ShapeMaker
                 rhs[n - 1].X = (8f * knots[n - 1].X + knots[n].X) / 2f;
                 rhs[n - 1].Y = (8f * knots[n - 1].Y + knots[n].Y) / 2f;
 
-                PointF[] xy = GetFirstControlPoints(rhs);
+                IReadOnlyList<PointF> xy = GetFirstControlPoints(rhs);
 
                 for (int ri = 0; ri < n; ri++)
                 {
@@ -3754,8 +3757,9 @@ namespace ShapeMaker
                 }
             }
 
-            this.Arc.Enabled = (this.Elliptical.Checked && !this.MacroCircle.Checked);
-            this.Sweep.Enabled = (this.Elliptical.Checked && !this.MacroCircle.Checked);
+            bool circleMacro = (this.Elliptical.Checked && !this.MacroCircle.Checked);
+            this.Arc.Enabled = circleMacro;
+            this.Sweep.Enabled = circleMacro;
         }
 
         private void MacroToggle(object sender, EventArgs e)
