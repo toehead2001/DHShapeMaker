@@ -77,6 +77,11 @@
             this.clonePathButton = new System.Windows.Forms.Button();
             this.opacitySlider = new System.Windows.Forms.TrackBar();
             this.strokeThicknessBox = new System.Windows.Forms.NumericUpDown();
+            this.solidFillCheckBox = new System.Windows.Forms.CheckBox();
+            this.strokeColorPanel = new System.Windows.Forms.Panel();
+            this.fillColorPanel = new System.Windows.Forms.Panel();
+            this.drawModeBox = new System.Windows.Forms.ComboBox();
+            this.fitCanvasBox = new System.Windows.Forms.CheckBox();
             this.viewport = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -92,19 +97,34 @@
             this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
             this.pathListLabel = new System.Windows.Forms.Label();
             this.toolStripBlack = new System.Windows.Forms.ToolStrip();
+            this.StraightLine = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroRect = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBlue = new System.Windows.Forms.ToolStrip();
+            this.CubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroCubic = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripGreen = new System.Windows.Forms.ToolStrip();
+            this.SCubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripYellow = new System.Windows.Forms.ToolStrip();
+            this.QuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripPurple = new System.Windows.Forms.ToolStrip();
+            this.SQuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripRed = new System.Windows.Forms.ToolStrip();
+            this.Elliptical = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Arc = new ShapeMaker.ToolStripButtonWithKeys();
+            this.Sweep = new ShapeMaker.ToolStripButtonWithKeys();
+            this.MacroCircle = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripOptions = new System.Windows.Forms.ToolStrip();
+            this.Snap = new ShapeMaker.ToolStripButtonWithKeys();
+            this.LinkedPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.ClosePath = new ShapeMaker.ToolStripButtonWithKeys();
+            this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             this.toolStripUndo = new System.Windows.Forms.ToolStrip();
             this.Undo = new System.Windows.Forms.ToolStripButton();
             this.Redo = new System.Windows.Forms.ToolStripButton();
@@ -115,27 +135,6 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
-            this.solidFillCheckBox = new System.Windows.Forms.CheckBox();
-            this.strokeColorPanel = new System.Windows.Forms.Panel();
-            this.fillColorPanel = new System.Windows.Forms.Panel();
-            this.drawModeBox = new System.Windows.Forms.ComboBox();
-            this.fitCanvasBox = new System.Windows.Forms.CheckBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.StraightLine = new ShapeMaker.ToolStripButtonWithKeys();
-            this.MacroRect = new ShapeMaker.ToolStripButtonWithKeys();
-            this.CubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
-            this.MacroCubic = new ShapeMaker.ToolStripButtonWithKeys();
-            this.SCubicBezier = new ShapeMaker.ToolStripButtonWithKeys();
-            this.QuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
-            this.SQuadBezier = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Elliptical = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Arc = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Sweep = new ShapeMaker.ToolStripButtonWithKeys();
-            this.MacroCircle = new ShapeMaker.ToolStripButtonWithKeys();
-            this.Snap = new ShapeMaker.ToolStripButtonWithKeys();
-            this.LinkedPaths = new ShapeMaker.ToolStripButtonWithKeys();
-            this.ClosePath = new ShapeMaker.ToolStripButtonWithKeys();
-            this.CloseContPaths = new ShapeMaker.ToolStripButtonWithKeys();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
@@ -524,6 +523,51 @@
             0});
             this.strokeThicknessBox.ValueChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
             // 
+            // solidFillCheckBox
+            // 
+            resources.ApplyResources(this.solidFillCheckBox, "solidFillCheckBox");
+            this.solidFillCheckBox.Name = "solidFillCheckBox";
+            this.toolTip1.SetToolTip(this.solidFillCheckBox, resources.GetString("solidFillCheckBox.ToolTip"));
+            this.solidFillCheckBox.UseVisualStyleBackColor = true;
+            this.solidFillCheckBox.CheckedChanged += new System.EventHandler(this.solidFillCheckBox_CheckedChanged);
+            // 
+            // strokeColorPanel
+            // 
+            resources.ApplyResources(this.strokeColorPanel, "strokeColorPanel");
+            this.strokeColorPanel.Name = "strokeColorPanel";
+            this.toolTip1.SetToolTip(this.strokeColorPanel, resources.GetString("strokeColorPanel.ToolTip"));
+            this.strokeColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
+            this.strokeColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
+            // 
+            // fillColorPanel
+            // 
+            resources.ApplyResources(this.fillColorPanel, "fillColorPanel");
+            this.fillColorPanel.Name = "fillColorPanel";
+            this.toolTip1.SetToolTip(this.fillColorPanel, resources.GetString("fillColorPanel.ToolTip"));
+            this.fillColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
+            this.fillColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
+            // 
+            // drawModeBox
+            // 
+            resources.ApplyResources(this.drawModeBox, "drawModeBox");
+            this.drawModeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.drawModeBox.FormattingEnabled = true;
+            this.drawModeBox.Items.AddRange(new object[] {
+            resources.GetString("drawModeBox.Items"),
+            resources.GetString("drawModeBox.Items1"),
+            resources.GetString("drawModeBox.Items2")});
+            this.drawModeBox.Name = "drawModeBox";
+            this.toolTip1.SetToolTip(this.drawModeBox, resources.GetString("drawModeBox.ToolTip"));
+            this.drawModeBox.SelectedIndexChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
+            // 
+            // fitCanvasBox
+            // 
+            resources.ApplyResources(this.fitCanvasBox, "fitCanvasBox");
+            this.fitCanvasBox.Name = "fitCanvasBox";
+            this.toolTip1.SetToolTip(this.fitCanvasBox, resources.GetString("fitCanvasBox.ToolTip"));
+            this.fitCanvasBox.UseVisualStyleBackColor = true;
+            this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
+            // 
             // viewport
             // 
             this.viewport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -634,6 +678,28 @@
             this.toolStripSeparator12});
             this.toolStripBlack.Name = "toolStripBlack";
             // 
+            // StraightLine
+            // 
+            this.StraightLine.Checked = true;
+            this.StraightLine.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.StraightLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.StraightLine.Image = global::ShapeMaker.Properties.Resources.Straight;
+            this.StraightLine.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.StraightLine.Name = "StraightLine";
+            this.StraightLine.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.StraightLine, "StraightLine");
+            this.StraightLine.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // MacroRect
+            // 
+            this.MacroRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroRect.Image = global::ShapeMaker.Properties.Resources.RectMacro;
+            this.MacroRect.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroRect.Name = "MacroRect";
+            this.MacroRect.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.MacroRect, "MacroRect");
+            this.MacroRect.Click += new System.EventHandler(this.MacroToggle);
+            // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
@@ -650,6 +716,26 @@
             this.toolStripSeparator13});
             this.toolStripBlue.Name = "toolStripBlue";
             // 
+            // CubicBezier
+            // 
+            this.CubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CubicBezier.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
+            this.CubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.CubicBezier.Name = "CubicBezier";
+            this.CubicBezier.PathType = ShapeMaker.PathType.Cubic;
+            resources.ApplyResources(this.CubicBezier, "CubicBezier");
+            this.CubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // MacroCubic
+            // 
+            this.MacroCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroCubic.Image = global::ShapeMaker.Properties.Resources.SplineMacro;
+            this.MacroCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroCubic.Name = "MacroCubic";
+            this.MacroCubic.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.MacroCubic, "MacroCubic");
+            this.MacroCubic.Click += new System.EventHandler(this.MacroToggle);
+            // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
@@ -664,6 +750,16 @@
             this.SCubicBezier,
             this.toolStripSeparator14});
             this.toolStripGreen.Name = "toolStripGreen";
+            // 
+            // SCubicBezier
+            // 
+            this.SCubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SCubicBezier.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
+            this.SCubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SCubicBezier.Name = "SCubicBezier";
+            this.SCubicBezier.PathType = ShapeMaker.PathType.SmoothCubic;
+            resources.ApplyResources(this.SCubicBezier, "SCubicBezier");
+            this.SCubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // toolStripSeparator14
             // 
@@ -680,6 +776,16 @@
             this.toolStripSeparator15});
             this.toolStripYellow.Name = "toolStripYellow";
             // 
+            // QuadBezier
+            // 
+            this.QuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.QuadBezier.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
+            this.QuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.QuadBezier.Name = "QuadBezier";
+            this.QuadBezier.PathType = ShapeMaker.PathType.Quadratic;
+            resources.ApplyResources(this.QuadBezier, "QuadBezier");
+            this.QuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
@@ -694,6 +800,16 @@
             this.SQuadBezier,
             this.toolStripSeparator16});
             this.toolStripPurple.Name = "toolStripPurple";
+            // 
+            // SQuadBezier
+            // 
+            this.SQuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SQuadBezier.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
+            this.SQuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.SQuadBezier.Name = "SQuadBezier";
+            this.SQuadBezier.PathType = ShapeMaker.PathType.SmoothQuadratic;
+            resources.ApplyResources(this.SQuadBezier, "SQuadBezier");
+            this.SQuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
             // 
             // toolStripSeparator16
             // 
@@ -713,6 +829,50 @@
             this.toolStripSeparator17});
             this.toolStripRed.Name = "toolStripRed";
             // 
+            // Elliptical
+            // 
+            this.Elliptical.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Elliptical.Image = global::ShapeMaker.Properties.Resources.Elliptical;
+            this.Elliptical.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Elliptical.Name = "Elliptical";
+            this.Elliptical.PathType = ShapeMaker.PathType.Ellipse;
+            resources.ApplyResources(this.Elliptical, "Elliptical");
+            this.Elliptical.Click += new System.EventHandler(this.PathTypeToggle);
+            // 
+            // Arc
+            // 
+            this.Arc.Checked = true;
+            this.Arc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Arc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Arc.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
+            this.Arc.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Arc.Name = "Arc";
+            this.Arc.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.Arc, "Arc");
+            this.Arc.Click += new System.EventHandler(this.Property_Click);
+            // 
+            // Sweep
+            // 
+            this.Sweep.Checked = true;
+            this.Sweep.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Sweep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Sweep.Image = global::ShapeMaker.Properties.Resources.SweepLeft;
+            this.Sweep.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Sweep.Name = "Sweep";
+            this.Sweep.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.Sweep, "Sweep");
+            this.Sweep.Click += new System.EventHandler(this.Property_Click);
+            // 
+            // MacroCircle
+            // 
+            this.MacroCircle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MacroCircle.Image = global::ShapeMaker.Properties.Resources.CircleMacro;
+            this.MacroCircle.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.MacroCircle.Name = "MacroCircle";
+            this.MacroCircle.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.MacroCircle, "MacroCircle");
+            this.MacroCircle.Click += new System.EventHandler(this.MacroToggle);
+            // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
@@ -731,11 +891,55 @@
             this.CloseContPaths});
             this.toolStripOptions.Name = "toolStripOptions";
             // 
+            // Snap
+            // 
+            this.Snap.Checked = true;
+            this.Snap.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Snap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Snap.Image = global::ShapeMaker.Properties.Resources.SnapOn;
+            this.Snap.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.Snap.Name = "Snap";
+            this.Snap.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.Snap, "Snap");
+            this.Snap.Click += new System.EventHandler(this.OptionToggle);
+            // 
+            // LinkedPaths
+            // 
+            this.LinkedPaths.Checked = true;
+            this.LinkedPaths.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LinkedPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LinkedPaths.Image = global::ShapeMaker.Properties.Resources.LinkOn;
+            this.LinkedPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.LinkedPaths.Name = "LinkedPaths";
+            this.LinkedPaths.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.LinkedPaths, "LinkedPaths");
+            this.LinkedPaths.Click += new System.EventHandler(this.OptionToggle);
+            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
+            // 
+            // ClosePath
+            // 
+            this.ClosePath.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClosePath.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
+            this.ClosePath.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.ClosePath.Name = "ClosePath";
+            this.ClosePath.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.ClosePath, "ClosePath");
+            this.ClosePath.Click += new System.EventHandler(this.Loops_Click);
+            // 
+            // CloseContPaths
+            // 
+            this.CloseContPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CloseContPaths.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
+            this.CloseContPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.CloseContPaths.Name = "CloseContPaths";
+            this.CloseContPaths.PathType = ShapeMaker.PathType.Straight;
+            resources.ApplyResources(this.CloseContPaths, "CloseContPaths");
+            this.CloseContPaths.Click += new System.EventHandler(this.Loops_Click);
             // 
             // toolStripUndo
             // 
@@ -812,211 +1016,6 @@
             // 
             resources.ApplyResources(this.newPathLabel, "newPathLabel");
             this.newPathLabel.Name = "newPathLabel";
-            // 
-            // solidFillCheckBox
-            // 
-            resources.ApplyResources(this.solidFillCheckBox, "solidFillCheckBox");
-            this.solidFillCheckBox.Name = "solidFillCheckBox";
-            this.toolTip1.SetToolTip(this.solidFillCheckBox, resources.GetString("solidFillCheckBox.ToolTip"));
-            this.solidFillCheckBox.UseVisualStyleBackColor = true;
-            this.solidFillCheckBox.CheckedChanged += new System.EventHandler(this.solidFillCheckBox_CheckedChanged);
-            // 
-            // strokeColorPanel
-            // 
-            resources.ApplyResources(this.strokeColorPanel, "strokeColorPanel");
-            this.strokeColorPanel.Name = "strokeColorPanel";
-            this.toolTip1.SetToolTip(this.strokeColorPanel, resources.GetString("strokeColorPanel.ToolTip"));
-            this.strokeColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
-            this.strokeColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
-            // 
-            // fillColorPanel
-            // 
-            resources.ApplyResources(this.fillColorPanel, "fillColorPanel");
-            this.fillColorPanel.Name = "fillColorPanel";
-            this.toolTip1.SetToolTip(this.fillColorPanel, resources.GetString("fillColorPanel.ToolTip"));
-            this.fillColorPanel.Click += new System.EventHandler(this.ColorPanel_Click);
-            this.fillColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPanel_Paint);
-            // 
-            // drawModeBox
-            // 
-            resources.ApplyResources(this.drawModeBox, "drawModeBox");
-            this.drawModeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.drawModeBox.FormattingEnabled = true;
-            this.drawModeBox.Items.AddRange(new object[] {
-            resources.GetString("drawModeBox.Items"),
-            resources.GetString("drawModeBox.Items1"),
-            resources.GetString("drawModeBox.Items2")});
-            this.drawModeBox.Name = "drawModeBox";
-            this.toolTip1.SetToolTip(this.drawModeBox, resources.GetString("drawModeBox.ToolTip"));
-            this.drawModeBox.SelectedIndexChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
-            // 
-            // fitCanvasBox
-            // 
-            resources.ApplyResources(this.fitCanvasBox, "fitCanvasBox");
-            this.fitCanvasBox.Name = "fitCanvasBox";
-            this.toolTip1.SetToolTip(this.fitCanvasBox, resources.GetString("fitCanvasBox.ToolTip"));
-            this.fitCanvasBox.UseVisualStyleBackColor = true;
-            this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
-            // 
-            // StraightLine
-            // 
-            this.StraightLine.Checked = true;
-            this.StraightLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.StraightLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.StraightLine.Image = global::ShapeMaker.Properties.Resources.Straight;
-            this.StraightLine.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.StraightLine.Name = "StraightLine";
-            this.StraightLine.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.StraightLine, "StraightLine");
-            this.StraightLine.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // MacroRect
-            // 
-            this.MacroRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MacroRect.Image = global::ShapeMaker.Properties.Resources.RectMacro;
-            this.MacroRect.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.MacroRect.Name = "MacroRect";
-            this.MacroRect.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.MacroRect, "MacroRect");
-            this.MacroRect.Click += new System.EventHandler(this.MacroToggle);
-            // 
-            // CubicBezier
-            // 
-            this.CubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CubicBezier.Image = global::ShapeMaker.Properties.Resources.CubicBezier;
-            this.CubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.CubicBezier.Name = "CubicBezier";
-            this.CubicBezier.PathType = ShapeMaker.PathType.Cubic;
-            resources.ApplyResources(this.CubicBezier, "CubicBezier");
-            this.CubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // MacroCubic
-            // 
-            this.MacroCubic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MacroCubic.Image = global::ShapeMaker.Properties.Resources.SplineMacro;
-            this.MacroCubic.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.MacroCubic.Name = "MacroCubic";
-            this.MacroCubic.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.MacroCubic, "MacroCubic");
-            this.MacroCubic.Click += new System.EventHandler(this.MacroToggle);
-            // 
-            // SCubicBezier
-            // 
-            this.SCubicBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SCubicBezier.Image = global::ShapeMaker.Properties.Resources.SCubicBezier;
-            this.SCubicBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.SCubicBezier.Name = "SCubicBezier";
-            this.SCubicBezier.PathType = ShapeMaker.PathType.SmoothCubic;
-            resources.ApplyResources(this.SCubicBezier, "SCubicBezier");
-            this.SCubicBezier.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // QuadBezier
-            // 
-            this.QuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.QuadBezier.Image = global::ShapeMaker.Properties.Resources.QuadBezier;
-            this.QuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.QuadBezier.Name = "QuadBezier";
-            this.QuadBezier.PathType = ShapeMaker.PathType.Quadratic;
-            resources.ApplyResources(this.QuadBezier, "QuadBezier");
-            this.QuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // SQuadBezier
-            // 
-            this.SQuadBezier.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SQuadBezier.Image = global::ShapeMaker.Properties.Resources.SQuadBezier;
-            this.SQuadBezier.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.SQuadBezier.Name = "SQuadBezier";
-            this.SQuadBezier.PathType = ShapeMaker.PathType.SmoothQuadratic;
-            resources.ApplyResources(this.SQuadBezier, "SQuadBezier");
-            this.SQuadBezier.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // Elliptical
-            // 
-            this.Elliptical.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Elliptical.Image = global::ShapeMaker.Properties.Resources.Elliptical;
-            this.Elliptical.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Elliptical.Name = "Elliptical";
-            this.Elliptical.PathType = ShapeMaker.PathType.Ellipse;
-            resources.ApplyResources(this.Elliptical, "Elliptical");
-            this.Elliptical.Click += new System.EventHandler(this.PathTypeToggle);
-            // 
-            // Arc
-            // 
-            this.Arc.Checked = true;
-            this.Arc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Arc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Arc.Image = global::ShapeMaker.Properties.Resources.ArcSmall;
-            this.Arc.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Arc.Name = "Arc";
-            this.Arc.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.Arc, "Arc");
-            this.Arc.Click += new System.EventHandler(this.Property_Click);
-            // 
-            // Sweep
-            // 
-            this.Sweep.Checked = true;
-            this.Sweep.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Sweep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Sweep.Image = global::ShapeMaker.Properties.Resources.SweepLeft;
-            this.Sweep.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Sweep.Name = "Sweep";
-            this.Sweep.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.Sweep, "Sweep");
-            this.Sweep.Click += new System.EventHandler(this.Property_Click);
-            // 
-            // MacroCircle
-            // 
-            this.MacroCircle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MacroCircle.Image = global::ShapeMaker.Properties.Resources.CircleMacro;
-            this.MacroCircle.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.MacroCircle.Name = "MacroCircle";
-            this.MacroCircle.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.MacroCircle, "MacroCircle");
-            this.MacroCircle.Click += new System.EventHandler(this.MacroToggle);
-            // 
-            // Snap
-            // 
-            this.Snap.Checked = true;
-            this.Snap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Snap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Snap.Image = global::ShapeMaker.Properties.Resources.SnapOn;
-            this.Snap.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.Snap.Name = "Snap";
-            this.Snap.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.Snap, "Snap");
-            this.Snap.Click += new System.EventHandler(this.OptionToggle);
-            // 
-            // LinkedPaths
-            // 
-            this.LinkedPaths.Checked = true;
-            this.LinkedPaths.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.LinkedPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LinkedPaths.Image = global::ShapeMaker.Properties.Resources.LinkOn;
-            this.LinkedPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.LinkedPaths.Name = "LinkedPaths";
-            this.LinkedPaths.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.LinkedPaths, "LinkedPaths");
-            this.LinkedPaths.Click += new System.EventHandler(this.OptionToggle);
-            // 
-            // ClosePath
-            // 
-            this.ClosePath.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ClosePath.Image = global::ShapeMaker.Properties.Resources.ClosePathOff;
-            this.ClosePath.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.ClosePath.Name = "ClosePath";
-            this.ClosePath.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.ClosePath, "ClosePath");
-            this.ClosePath.Click += new System.EventHandler(this.Loops_Click);
-            // 
-            // CloseContPaths
-            // 
-            this.CloseContPaths.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CloseContPaths.Image = global::ShapeMaker.Properties.Resources.ClosePathsOff;
-            this.CloseContPaths.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.CloseContPaths.Name = "CloseContPaths";
-            this.CloseContPaths.PathType = ShapeMaker.PathType.Straight;
-            resources.ApplyResources(this.CloseContPaths, "CloseContPaths");
-            this.CloseContPaths.Click += new System.EventHandler(this.Loops_Click);
             // 
             // EffectPluginConfigDialog
             // 
@@ -1202,7 +1201,6 @@
         private System.Windows.Forms.Panel fillColorPanel;
         private System.Windows.Forms.NumericUpDown strokeThicknessBox;
         private System.Windows.Forms.ComboBox drawModeBox;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.CheckBox fitCanvasBox;
     }
 }

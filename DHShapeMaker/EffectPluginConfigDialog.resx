@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="canvas.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="canvas.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -152,6 +155,9 @@
   </metadata>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1141, 17</value>
+  </metadata>
+  <metadata name="menuStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
@@ -360,6 +366,9 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1256, 17</value>
   </metadata>
+  <metadata name="FitBG.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FitBG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -396,6 +405,9 @@
   <data name="&gt;&gt;FitBG.ZOrder" xml:space="preserve">
     <value>29</value>
   </data>
+  <metadata name="DrawOnCanvas.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DrawOnCanvas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -432,6 +444,9 @@
   <data name="&gt;&gt;DrawOnCanvas.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
+  <metadata name="AddBtn.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="AddBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -468,6 +483,9 @@
   <data name="&gt;&gt;AddBtn.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
+  <metadata name="FigureName.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FigureName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -498,6 +516,9 @@
   <data name="&gt;&gt;FigureName.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
+  <metadata name="DeselectBtn.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DeselectBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -537,6 +558,9 @@
   <data name="&gt;&gt;DeselectBtn.ZOrder" xml:space="preserve">
     <value>17</value>
   </data>
+  <metadata name="buttonOK.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="buttonOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -570,6 +594,9 @@
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
+  <metadata name="LineList.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="LineList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -604,6 +631,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;LineList.ZOrder" xml:space="preserve">
     <value>27</value>
   </data>
+  <metadata name="upList.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="upList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -637,6 +667,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;upList.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
+  <metadata name="DNList.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DNList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -670,6 +703,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;DNList.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
+  <metadata name="removePathButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="removePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -703,6 +739,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;removePathButton.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
+  <metadata name="clonePathButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="clonePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -736,6 +775,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;clonePathButton.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <metadata name="opacitySlider.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="opacitySlider.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -769,6 +811,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;opacitySlider.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <metadata name="strokeThicknessBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="strokeThicknessBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -799,6 +844,183 @@ Double Click to Rename</value>
   <data name="&gt;&gt;strokeThicknessBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="solidFillCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="solidFillCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="solidFillCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 118</value>
+  </data>
+  <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="solidFillCheckBox.Text" xml:space="preserve">
+    <value>Solid Fill</value>
+  </data>
+  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
+    <value>Fill Mode</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
+    <value>solidFillCheckBox</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <metadata name="strokeColorPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="strokeColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="strokeColorPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 413</value>
+  </data>
+  <data name="strokeColorPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 22</value>
+  </data>
+  <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
+    <value>Primary Color</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Name" xml:space="preserve">
+    <value>strokeColorPanel</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <metadata name="fillColorPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="fillColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fillColorPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>739, 413</value>
+  </data>
+  <data name="fillColorPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 22</value>
+  </data>
+  <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="fillColorPanel.ToolTip" xml:space="preserve">
+    <value>Secondary Color</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Name" xml:space="preserve">
+    <value>fillColorPanel</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="drawModeBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="drawModeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="drawModeBox.Items" xml:space="preserve">
+    <value>Outline</value>
+  </data>
+  <data name="drawModeBox.Items1" xml:space="preserve">
+    <value>Filled</value>
+  </data>
+  <data name="drawModeBox.Items2" xml:space="preserve">
+    <value>OutLine &amp; Filled</value>
+  </data>
+  <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 441</value>
+  </data>
+  <data name="drawModeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 21</value>
+  </data>
+  <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="drawModeBox.ToolTip" xml:space="preserve">
+    <value>Fill Mode</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
+    <value>drawModeBox</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="fitCanvasBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="fitCanvasBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fitCanvasBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fitCanvasBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fitCanvasBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 468</value>
+  </data>
+  <data name="fitCanvasBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 17</value>
+  </data>
+  <data name="fitCanvasBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="fitCanvasBox.Text" xml:space="preserve">
+    <value>Fit to Canvas</value>
+  </data>
+  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
+    <value>Scale Mode</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Name" xml:space="preserve">
+    <value>fitCanvasBox</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="viewport.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="viewport.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 70</value>
   </data>
@@ -820,6 +1042,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;viewport.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
+  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -859,6 +1084,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -900,6 +1128,9 @@ Double Click to Rename</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1353, 17</value>
+  </metadata>
+  <metadata name="statusStrip1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="statusLabelNubsUsed.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1006,6 +1237,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
+  <metadata name="pathListLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="pathListLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1041,6 +1275,9 @@ Double Click to Rename</value>
   </data>
   <metadata name="toolStripBlack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="toolStripBlack.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="toolStripBlack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -1099,6 +1336,9 @@ Double Click to Rename</value>
   <metadata name="toolStripBlue.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
   </metadata>
+  <metadata name="toolStripBlue.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="toolStripBlue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1156,6 +1396,9 @@ Double Click to Rename</value>
   <metadata name="toolStripGreen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>266, 17</value>
   </metadata>
+  <metadata name="toolStripGreen.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="toolStripGreen.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1200,6 +1443,9 @@ Double Click to Rename</value>
   </data>
   <metadata name="toolStripYellow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>397, 17</value>
+  </metadata>
+  <metadata name="toolStripYellow.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="toolStripYellow.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -1246,6 +1492,9 @@ Double Click to Rename</value>
   <metadata name="toolStripPurple.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>531, 17</value>
   </metadata>
+  <metadata name="toolStripPurple.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="toolStripPurple.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1290,6 +1539,9 @@ Double Click to Rename</value>
   </data>
   <metadata name="toolStripRed.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>664, 17</value>
+  </metadata>
+  <metadata name="toolStripRed.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="toolStripRed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -1365,6 +1617,9 @@ Double Click to Rename</value>
   </data>
   <metadata name="toolStripOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>784, 17</value>
+  </metadata>
+  <metadata name="toolStripOptions.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <data name="toolStripOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -1447,6 +1702,9 @@ Double Click to Rename</value>
   <metadata name="toolStripUndo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>926, 17</value>
   </metadata>
+  <metadata name="toolStripUndo.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="toolStripUndo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -1498,6 +1756,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripUndo.ZOrder" xml:space="preserve">
     <value>31</value>
   </data>
+  <metadata name="traceLayer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="traceLayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1531,6 +1792,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;traceLayer.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <metadata name="traceClipboard.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="traceClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1564,6 +1828,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;traceClipboard.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="verScrollBar.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="verScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1591,6 +1858,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;verScrollBar.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="horScrollBar.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="horScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1618,6 +1888,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;horScrollBar.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="DiscardBtn.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DiscardBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1651,6 +1924,9 @@ Double Click to Rename</value>
   <data name="&gt;&gt;DiscardBtn.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="newPathLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="newPathLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1684,169 +1960,10 @@ Double Click to Rename</value>
   <data name="&gt;&gt;newPathLabel.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="solidFillCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="solidFillCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 118</value>
-  </data>
-  <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 17</value>
-  </data>
-  <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="solidFillCheckBox.Text" xml:space="preserve">
-    <value>Solid Fill</value>
-  </data>
-  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
-    <value>Fill Mode</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
-    <value>solidFillCheckBox</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="strokeColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="strokeColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 413</value>
-  </data>
-  <data name="strokeColorPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 22</value>
-  </data>
-  <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
-    <value>Primary Color</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Name" xml:space="preserve">
-    <value>strokeColorPanel</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fillColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="fillColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>739, 413</value>
-  </data>
-  <data name="fillColorPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 22</value>
-  </data>
-  <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="fillColorPanel.ToolTip" xml:space="preserve">
-    <value>Secondary Color</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Name" xml:space="preserve">
-    <value>fillColorPanel</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="drawModeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="drawModeBox.Items" xml:space="preserve">
-    <value>Outline</value>
-  </data>
-  <data name="drawModeBox.Items1" xml:space="preserve">
-    <value>Filled</value>
-  </data>
-  <data name="drawModeBox.Items2" xml:space="preserve">
-    <value>OutLine &amp; Filled</value>
-  </data>
-  <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 441</value>
-  </data>
-  <data name="drawModeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 21</value>
-  </data>
-  <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="drawModeBox.ToolTip" xml:space="preserve">
-    <value>Fill Mode</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
-    <value>drawModeBox</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fitCanvasBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="fitCanvasBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fitCanvasBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fitCanvasBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 468</value>
-  </data>
-  <data name="fitCanvasBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 17</value>
-  </data>
-  <data name="fitCanvasBox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="fitCanvasBox.Text" xml:space="preserve">
-    <value>Fit to Canvas</value>
-  </data>
-  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
-    <value>Scale Mode</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Name" xml:space="preserve">
-    <value>fitCanvasBox</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1469, 17</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1860,9 +1977,6 @@ Double Click to Rename</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -2119,11 +2233,35 @@ Double Click to Rename</value>
   <data name="&gt;&gt;xToolStripMenuZoom1x.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
+    <value>StraightLine</value>
+  </data>
+  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
+    <value>MacroRect</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
     <value>toolStripSeparator12</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator12.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
+    <value>CubicBezier</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
+    <value>MacroCubic</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
     <value>toolStripSeparator13</value>
@@ -2131,11 +2269,23 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
+    <value>SCubicBezier</value>
+  </data>
+  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
     <value>toolStripSeparator14</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
+    <value>QuadBezier</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
     <value>toolStripSeparator15</value>
@@ -2143,11 +2293,41 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
+    <value>SQuadBezier</value>
+  </data>
+  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
     <value>toolStripSeparator16</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
+    <value>Elliptical</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
+    <value>Arc</value>
+  </data>
+  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
+    <value>Sweep</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
+    <value>MacroCircle</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
     <value>toolStripSeparator17</value>
@@ -2155,11 +2335,35 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
+    <value>Snap</value>
+  </data>
+  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
+    <value>LinkedPaths</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
     <value>toolStripSeparator8</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
+    <value>ClosePath</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
+    <value>CloseContPaths</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Undo.Name" xml:space="preserve">
     <value>Undo</value>
@@ -2178,102 +2382,6 @@ Double Click to Rename</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colorDialog1.Name" xml:space="preserve">
-    <value>colorDialog1</value>
-  </data>
-  <data name="&gt;&gt;colorDialog1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColorDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
-    <value>StraightLine</value>
-  </data>
-  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
-    <value>MacroRect</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
-    <value>CubicBezier</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
-    <value>MacroCubic</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
-    <value>SCubicBezier</value>
-  </data>
-  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
-    <value>QuadBezier</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
-    <value>SQuadBezier</value>
-  </data>
-  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
-    <value>Elliptical</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
-    <value>Arc</value>
-  </data>
-  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
-    <value>Sweep</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
-    <value>MacroCircle</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
-    <value>Snap</value>
-  </data>
-  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
-    <value>LinkedPaths</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
-    <value>ClosePath</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
-    <value>CloseContPaths</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>EffectPluginConfigDialog</value>

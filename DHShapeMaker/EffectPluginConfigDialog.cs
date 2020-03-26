@@ -4153,11 +4153,16 @@ namespace ShapeMaker
         {
             if (sender is Panel colorPanel)
             {
-                this.colorDialog1.Color = colorPanel.BackColor;
-                if (this.colorDialog1.ShowDialog() == DialogResult.OK)
+                using (ColorWindow colorWindow = new ColorWindow())
                 {
-                    colorPanel.BackColor = this.colorDialog1.Color;
-                    RefreshPdnCanvas();
+                    colorWindow.ShowAlpha = true;
+                    colorWindow.Color = colorPanel.BackColor;
+                    colorWindow.PaletteColors = this.Services.GetService<IPalettesService>().CurrentPalette.Select(colorBgra => colorBgra.ToColor()).ToList();
+                    if (colorWindow.ShowDialog() == DialogResult.OK)
+                    {
+                        colorPanel.BackColor = colorWindow.Color;
+                        RefreshPdnCanvas();
+                    }
                 }
             }
         }
