@@ -832,8 +832,10 @@ namespace ShapeMaker
         internal IReadOnlyList<Color> Colors { get; set; }
         internal Color Color => color;
         private Color color = Color.Black;
+        private int activeIndex = -1;
 
         private const int colorSize = 12;
+        private const int colorsPerRow = 16;
 
         public event EventHandler ColorClicked;
         protected void OnColorClicked()
@@ -843,8 +845,9 @@ namespace ShapeMaker
 
         public Palette()
         {
-            this.Width = 16 * colorSize;
+            this.Width = colorsPerRow * colorSize;
             this.Height = 6 * colorSize;
+            this.DoubleBuffered = true;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -863,12 +866,18 @@ namespace ShapeMaker
 
             for (int i = 0; i < this.Colors.Count; i++)
             {
-                int x = (i % 16) * colorSize;
-                int y = (i / 16) * colorSize;
+                int x = (i % colorsPerRow) * colorSize;
+                int y = (i / colorsPerRow) * colorSize;
 
                 using (LinearGradientBrush solidBrush = new LinearGradientBrush(new Rectangle(x, y - 1, colorSize, colorSize + 2), Color.FromArgb(byte.MaxValue, this.Colors[i]), this.Colors[i], LinearGradientMode.Vertical))
                 {
                     e.Graphics.FillRectangle(solidBrush, new Rectangle(x, y, colorSize, colorSize));
+                }
+
+                if (i == this.activeIndex)
+                {
+                    e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, colorSize - 1, colorSize - 1));
+                    e.Graphics.DrawRectangle(Pens.White, new Rectangle(x + 1, y + 1, colorSize - 3, colorSize - 3));
                 }
             }
         }
@@ -877,13 +886,38 @@ namespace ShapeMaker
         {
             base.OnMouseClick(e);
 
-            int row = e.Y / colorSize;
-            int col = e.X / colorSize;
-
-            int index = 16 * row + col;
+            int index = getIndex(e.X, e.Y);
 
             this.color = this.Colors[index];
             OnColorClicked();
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            int index = getIndex(e.X, e.Y);
+            if (index != this.activeIndex)
+            {
+                this.activeIndex = index;
+                this.Invalidate();
+            }
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+
+            this.activeIndex = -1;
+            this.Invalidate();
+        }
+
+        private int getIndex(int x, int y)
+        {
+            int row = y / colorSize;
+            int col = x / colorSize;
+
+            return colorsPerRow * row + col;
         }
     }
 }
