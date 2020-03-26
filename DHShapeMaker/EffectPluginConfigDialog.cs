@@ -920,18 +920,20 @@ namespace ShapeMaker
                 Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
                 Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
-                ImageAttributes attributes = new ImageAttributes();
-                if (this.operation != Operation.None)
-                {
-                    ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
-                    attributes.SetColorMatrix(colorMatrix);
-                }
+                ImageAttributes activeattributes = new ImageAttributes();
+                ImageAttributes inactiveattributes = new ImageAttributes();
+                ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
+                inactiveattributes.SetColorMatrix(colorMatrix);
 
-                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
-                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
-                e.Graphics.DrawImage(Properties.Resources.Move, moveBox, 0, 0, 20, 20, GraphicsUnit.Pixel, attributes);
+                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                    (this.operation == Operation.None || this.operation == Operation.Scale) ? activeattributes : inactiveattributes);
+                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                    (this.operation == Operation.None || this.operation == Operation.Rotate) ? activeattributes : inactiveattributes);
+                e.Graphics.DrawImage(Properties.Resources.Move, moveBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                    (this.operation == Operation.None || this.operation == Operation.Move) ? activeattributes : inactiveattributes);
 
-                attributes.Dispose();
+                activeattributes.Dispose();
+                inactiveattributes.Dispose();
             }
         }
 
