@@ -4172,15 +4172,21 @@ namespace ShapeMaker
             Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
 
-            if (sender is Panel panel && !panel.Enabled)
+            if (sender is Panel panel && panel.Enabled)
             {
-                e.Graphics.FillRectangle(SystemBrushes.Control, e.ClipRectangle);
-                e.Graphics.DrawRectangle(Pens.Gray, outerRect);
+                using (HatchBrush hatchBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.LightGray, Color.Gray))
+                using (LinearGradientBrush gradientBrush = new LinearGradientBrush(innerRect, Color.FromArgb(byte.MaxValue, panel.BackColor), panel.BackColor, LinearGradientMode.Vertical))
+                {
+                    e.Graphics.FillRectangle(hatchBrush, innerRect);
+                    e.Graphics.FillRectangle(gradientBrush, innerRect);
+                }
+                e.Graphics.DrawRectangle(Pens.Black, outerRect);
+                e.Graphics.DrawRectangle(Pens.White, innerRect);
             }
             else
             {
-                e.Graphics.DrawRectangle(Pens.Black, outerRect);
-                e.Graphics.DrawRectangle(Pens.White, innerRect);
+                e.Graphics.FillRectangle(SystemBrushes.Control, e.ClipRectangle);
+                e.Graphics.DrawRectangle(Pens.Gray, outerRect);
             }
         }
 

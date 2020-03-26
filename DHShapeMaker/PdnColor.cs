@@ -34,7 +34,6 @@ namespace ShapeMaker
         private int MasterAlpha;
         private Bitmap wheelBmp;
         private readonly Color[] HsvRainbow;
-        private Palette palette;
 
         public PdnColor()
         {
@@ -855,7 +854,7 @@ namespace ShapeMaker
         {
             base.OnPaint(e);
 
-            using (HatchBrush checkBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.White, Color.Gray))
+            using (HatchBrush checkBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.White, Color.LightGray))
             {
                 e.Graphics.FillRectangle(checkBrush, e.Graphics.VisibleClipBounds);
             }
