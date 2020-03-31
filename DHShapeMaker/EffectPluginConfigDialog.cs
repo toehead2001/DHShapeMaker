@@ -29,7 +29,7 @@ namespace ShapeMaker
     internal partial class EffectPluginConfigDialog : Form
 #endif
     {
-        private static readonly string[] lineNames =
+        private static readonly IReadOnlyList<string> lineNames = new string[]
         {
             "Straight Lines",
             "Ellipse",
@@ -39,7 +39,7 @@ namespace ShapeMaker
             "Smooth Quadratic Beziers"
         };
 
-        private static readonly Color[] lineColors =
+        private static readonly IReadOnlyList<Color> lineColors = new Color[]
         {
             Color.Black,
             Color.Red,
@@ -49,7 +49,7 @@ namespace ShapeMaker
             Color.Purple
         };
 
-        private static readonly Color[] lineColorsLight =
+        private static readonly IReadOnlyList<Color> lineColorsLight = new Color[]
         {
             Color.FromArgb(204, 204, 204),
             Color.FromArgb(255, 204, 204),
