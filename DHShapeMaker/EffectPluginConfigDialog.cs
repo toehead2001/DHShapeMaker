@@ -3434,7 +3434,7 @@ namespace ShapeMaker
             }
         }
 
-        private void exportPndShape_Click(object sender, EventArgs e)
+        private void exportPdnShape_Click(object sender, EventArgs e)
         {
             if (this.paths.Count == 0)
             {

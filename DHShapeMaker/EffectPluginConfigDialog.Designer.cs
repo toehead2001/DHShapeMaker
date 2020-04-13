@@ -248,7 +248,7 @@
             // 
             this.exportPDNShapeToolStripMenuItem.Name = "exportPDNShapeToolStripMenuItem";
             resources.ApplyResources(this.exportPDNShapeToolStripMenuItem, "exportPDNShapeToolStripMenuItem");
-            this.exportPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.exportPndShape_Click);
+            this.exportPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.exportPdnShape_Click);
             // 
             // toolStripSeparator3
             // 
