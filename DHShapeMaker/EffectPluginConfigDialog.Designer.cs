@@ -566,7 +566,7 @@
             this.fitCanvasBox.Name = "fitCanvasBox";
             this.toolTip1.SetToolTip(this.fitCanvasBox, resources.GetString("fitCanvasBox.ToolTip"));
             this.fitCanvasBox.UseVisualStyleBackColor = true;
-            this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.DrawOnCanvasPropChanged);
+            this.fitCanvasBox.CheckedChanged += new System.EventHandler(this.fitCanvasBox_CheckedChanged);
             // 
             // viewport
             // 

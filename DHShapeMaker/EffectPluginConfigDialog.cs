@@ -99,6 +99,7 @@ namespace ShapeMaker
         private Size clickOffset;
         private Operation operation;
         private Rectangle operationBox = Rectangle.Empty;
+        private bool drawClippingArea = false;
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
@@ -225,6 +226,10 @@ namespace ShapeMaker
                 this.paths.Add(p);
                 this.LineList.Items.Add(lineNames[p.LineType]);
             }
+
+            this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
+
+            RefreshPdnCanvas();
         }
         #endregion
 #endif
@@ -571,6 +576,37 @@ namespace ShapeMaker
             attr.Dispose();
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            if (this.drawClippingArea)
+            {
+                Size selSize = this.EnvironmentParameters.SelectionBounds.Size;
+                if (selSize.Width != selSize.Height)
+                {
+                    Rectangle canvasRect = this.canvas.ClientRectangle;
+                    float ratio = (float)selSize.Width / selSize.Height;
+
+                    Size ratioSize = canvasRect.Size;
+                    if (ratioSize.Width < ratioSize.Height * ratio)
+                    {
+                        ratioSize.Height = (int)Math.Round(canvasRect.Width / ratio);
+                    }
+                    else if (ratioSize.Width > ratioSize.Height * ratio)
+                    {
+                        ratioSize.Width = (int)Math.Round(canvasRect.Height * ratio);
+                    }
+
+                    Point selOffset = new Point((canvasRect.Width - ratioSize.Width) / 2, (canvasRect.Height - ratioSize.Height) / 2);
+                    Rectangle selection = new Rectangle(selOffset, ratioSize);
+
+                    using (GraphicsPath fillPath = new GraphicsPath())
+                    using (HatchBrush hatch = new HatchBrush(HatchStyle.DiagonalCross, Color.Gray, Color.White))
+                    {
+                        fillPath.AddRectangles(new Rectangle[] { canvasRect, selection });
+                        e.Graphics.FillPath(hatch, fillPath);
+                        e.Graphics.DrawRectangle(Pens.Gray, selection);
+                    }
+                }
+            }
 
             PointF loopBack = new PointF(-9999, -9999);
             PointF oldXY = new PointF(-9999, -9999);
@@ -4203,12 +4239,22 @@ namespace ShapeMaker
             this.strokeThicknessBox.Enabled = enable;
             this.drawModeBox.Enabled = enable;
             this.fitCanvasBox.Enabled = enable;
+            this.drawClippingArea = enable && !this.fitCanvasBox.Checked;
+            this.canvas.Refresh();
 
             RefreshPdnCanvas();
         }
 
         private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
+            RefreshPdnCanvas();
+        }
+
+        private void fitCanvasBox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
+            this.canvas.Refresh();
+
             RefreshPdnCanvas();
         }
 
