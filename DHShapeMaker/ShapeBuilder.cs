@@ -59,10 +59,14 @@ namespace ShapeMaker
 
             double xOffset = fit ?
                 selection.X :
-                selection.X - (selection.Height > selection.Width ? selection.Height - selection.Width : 0);
+                selection.X - (selection.Height > selection.Width ? (selection.Height - selection.Width) / 2 : 0);
             double yOffset = fit ?
                 selection.Y :
-                selection.Y - (selection.Width > selection.Height ? selection.Width - selection.Height : 0);
+                selection.Y - (selection.Width > selection.Height ? (selection.Width - selection.Height) / 2 : 0);
+
+            // Negitive values seem to be treated as half values by Canvas Margin
+            if (xOffset < 0) xOffset *= 2;
+            if (yOffset < 0) yOffset *= 2;
 
             double width = fit ?
                  selection.Width - padding * 2 :
