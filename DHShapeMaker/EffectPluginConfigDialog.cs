@@ -2600,7 +2600,7 @@ namespace ShapeMaker
             return TMP;
         }
 
-        private void ParseStreamGeometry(string streamGeometry)
+        private void LoadStreamGeometry(string streamGeometry)
         {
             streamGeometry = streamGeometry.Trim();
             if (streamGeometry.Length == 0)
@@ -2610,14 +2610,14 @@ namespace ShapeMaker
 
             List<PointF> pts = new List<PointF>();
             PathType pathType = PathType.None;
-            bool closedType = false;
-            bool mpmode = false;
-            bool islarge = true;
-            bool revsweep = false;
+            bool closedIndividual = false;
+            bool closedContiguous = false;
+            bool isLarge = true;
+            bool revSweep = false;
+
             PointF LastPos = new PointF();
             PointF HomePos = new PointF();
 
-            //parse
             StreamGeometryCommand currentCommand = StreamGeometryCommand.None;
             int drawCommandsSinceMove = 0;
             bool errorFlagX = false;
@@ -2647,12 +2647,12 @@ namespace ShapeMaker
                         drawCommandsSinceMove++;
                     }
 
-                    mpmode = currentCommand == StreamGeometryCommand.Close && drawCommandsSinceMove > 1;
-                    closedType = !mpmode && currentCommand == StreamGeometryCommand.Close;
+                    closedContiguous = currentCommand == StreamGeometryCommand.Close && drawCommandsSinceMove > 1;
+                    closedIndividual = !closedContiguous && currentCommand == StreamGeometryCommand.Close;
 
                     if (pts.Count > 1)
                     {
-                        PData path = new PData(pts.ToArray(), closedType, (int)pathType, islarge, revsweep, string.Empty, mpmode);
+                        PData path = new PData(pts.ToArray(), closedIndividual, (int)pathType, isLarge, revSweep, string.Empty, closedContiguous);
                         paths.Add(path);
                     }
 
@@ -2887,8 +2887,8 @@ namespace ShapeMaker
                             break;
                         }
 
-                        islarge = Convert.ToBoolean(dist);
-                        revsweep = Convert.ToBoolean(dist2);
+                        isLarge = Convert.ToBoolean(dist);
+                        revSweep = Convert.ToBoolean(dist2);
 
                         i += 6;
                         //currentCommand = StreamGeometryCommand.Close;
@@ -2909,7 +2909,7 @@ namespace ShapeMaker
 
             if (pts.Count > 1)
             {
-                PData path = new PData(pts.ToArray(), closedType, (int)pathType, islarge, revsweep, string.Empty, mpmode);
+                PData path = new PData(pts.ToArray(), closedIndividual, (int)pathType, isLarge, revSweep, string.Empty, closedContiguous);
                 paths.Add(path);
             }
 
@@ -3587,7 +3587,7 @@ namespace ShapeMaker
 
             setUndo();
             ZoomToFactor(1);
-            ParseStreamGeometry(shapeCode);
+            LoadStreamGeometry(shapeCode);
             RefreshPdnCanvas();
         }
 
@@ -3596,7 +3596,7 @@ namespace ShapeMaker
             setUndo();
             ZoomToFactor(1);
 
-            ParseStreamGeometry(Clipboard.GetText());
+            LoadStreamGeometry(Clipboard.GetText());
 
             RefreshPdnCanvas();
         }
