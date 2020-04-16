@@ -2028,7 +2028,8 @@ namespace ShapeMaker
 
         private void Deselect()
         {
-            if (this.LineList.SelectedIndex == -1 && this.canvasPoints.Count > 1)
+            bool isNewPath = this.LineList.SelectedIndex == -1;
+            if (isNewPath && this.canvasPoints.Count > 1)
             {
                 setUndo();
             }
@@ -2036,7 +2037,17 @@ namespace ShapeMaker
             this.operationBox = Rectangle.Empty;
             this.drawAverage = false;
 
-            this.canvasPoints.Clear();
+            if (!isNewPath && this.LinkedPaths.Checked)
+            {
+                PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
+                this.canvasPoints.Clear();
+                this.canvasPoints.Add(hold);
+            }
+            else
+            {
+                this.canvasPoints.Clear();
+            }
+
             this.LineList.SelectedIndex = -1;
             this.canvas.Refresh();
         }
