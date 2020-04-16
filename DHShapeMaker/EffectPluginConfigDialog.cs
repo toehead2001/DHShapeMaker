@@ -223,7 +223,7 @@ namespace ShapeMaker
 
             this.fitCanvasBox.Checked = drawMode.HasFlag(DrawModes.Fit);
 
-            List<PData> tmp = new List<PData>(token.PathData);
+            IEnumerable<PData> tmp = new List<PData>(token.PathData);
             this.paths.Clear();
             this.LineList.Items.Clear();
             foreach (PData p in tmp)
@@ -621,8 +621,8 @@ namespace ShapeMaker
             bool isNewPath = this.LineList.SelectedIndex == -1;
 
             PathType pathType = 0;
-            bool isClosed = false;
-            bool mpMode = false;
+            bool closedIndividual = false;
+            bool closedContiguous = false;
             bool isLarge = false;
             bool revSweep = false;
             IReadOnlyList<PointF> pPoints;
@@ -647,8 +647,8 @@ namespace ShapeMaker
                 {
                     pPoints = this.canvasPoints;
                     pathType = getPathType();
-                    isClosed = this.ClosePath.Checked;
-                    mpMode = this.CloseContPaths.Checked;
+                    closedIndividual = this.ClosePath.Checked;
+                    closedContiguous = this.CloseContPaths.Checked;
                     isLarge = (this.Arc.CheckState == CheckState.Checked);
                     revSweep = (this.Sweep.CheckState == CheckState.Checked);
                 }
@@ -657,8 +657,8 @@ namespace ShapeMaker
                     PData itemPath = this.paths[j];
                     pPoints = itemPath.Lines;
                     pathType = (PathType)itemPath.LineType;
-                    isClosed = itemPath.ClosedType;
-                    mpMode = itemPath.LoopBack;
+                    closedIndividual = itemPath.ClosedType;
+                    closedContiguous = itemPath.LoopBack;
                     isLarge = itemPath.IsLarge;
                     revSweep = itemPath.RevSweep;
                 }
@@ -688,7 +688,7 @@ namespace ShapeMaker
                     const int offset = 4;
                     const int width = 6;
 
-                    if ((isClosed || mpMode) && pts.Length > 1)
+                    if ((closedIndividual || closedContiguous) && pts.Length > 1)
                     {
                         e.Graphics.DrawRectangle(Pens.Teal, loopBack.X - offset, loopBack.Y - offset, width, width);
                     }
@@ -918,9 +918,9 @@ namespace ShapeMaker
                     //join line
                     bool join = !(j == -1 && ((this.MacroCircle.Checked && this.Elliptical.Checked) || (this.MacroRect.Checked && this.StraightLine.Checked)));
 
-                    if (!mpMode)
+                    if (!closedContiguous)
                     {
-                        if (join && isClosed && pts.Length > 1)
+                        if (join && closedIndividual && pts.Length > 1)
                         {
                             e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]); //preserve
                             if (isActive)
