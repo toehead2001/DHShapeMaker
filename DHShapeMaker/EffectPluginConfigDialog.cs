@@ -3596,7 +3596,22 @@ namespace ShapeMaker
             setUndo();
             ZoomToFactor(1);
 
-            LoadStreamGeometry(Clipboard.GetText());
+            string clipboardString = null;
+            try
+            {
+                clipboardString = Clipboard.GetText();
+            }
+            catch
+            {
+            }
+
+            if (clipboardString == null)
+            {
+                MessageBox.Show("There was an error retrieving text from the Clipboard.", "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            LoadStreamGeometry(clipboardString);
 
             RefreshPdnCanvas();
         }
@@ -3609,8 +3624,24 @@ namespace ShapeMaker
                 return;
             }
 
-            Clipboard.SetText(GenerateStreamGeometry());
-            MessageBox.Show("StreamGeometry Copied to Clipboard", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bool copied = false;
+            try
+            {
+                Clipboard.SetText(GenerateStreamGeometry());
+                copied = true;
+            }
+            catch
+            {
+            }
+
+            if (copied)
+            {
+                MessageBox.Show("StreamGeometry Copied to Clipboard.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("There was an error copying the StreamGeometry to Clipboard.", "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
