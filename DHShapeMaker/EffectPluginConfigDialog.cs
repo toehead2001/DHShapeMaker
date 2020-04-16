@@ -1964,7 +1964,9 @@ namespace ShapeMaker
             }
 
             setUndo(deSelected);
-            if (this.MacroCircle.Checked && getPathType() == PathType.Ellipse)
+
+            PathType pathType = getPathType();
+            if (this.MacroCircle.Checked && pathType == PathType.Ellipse)
             {
                 if (this.canvasPoints.Count < 5)
                 {
@@ -1975,20 +1977,22 @@ namespace ShapeMaker
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
-                this.paths.Add(new PData(this.canvasPoints.ToArray(), false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                this.paths.Add(new PData(this.canvasPoints.ToArray(), false, (int)PathType.Ellipse, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
                 this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
-                PointF[] tmp = new PointF[this.canvasPoints.Count];
-                //fix
-                tmp[0] = this.canvasPoints[4];
-                tmp[4] = this.canvasPoints[0];
-                tmp[3] = this.canvasPoints[3];
-                tmp[1] = tmp[0];
-                tmp[2] = tmp[4];
-                //test below
-                this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, true));
+
+                PointF[] tmp = new PointF[]
+                {
+                    this.canvasPoints[4],
+                    this.canvasPoints[4],
+                    this.canvasPoints[0],
+                    this.canvasPoints[3],
+                    this.canvasPoints[0]
+                };
+
+                this.paths.Add(new PData(tmp, false, (int)PathType.Ellipse, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, true));
                 this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
             }
-            else if (this.MacroRect.Checked && getPathType() == PathType.Straight)
+            else if (this.MacroRect.Checked && pathType == PathType.Straight)
             {
                 for (int i = 1; i < this.canvasPoints.Count; i++)
                 {
@@ -2001,14 +2005,14 @@ namespace ShapeMaker
                         new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
                     };
 
-                    this.paths.Add(new PData(tmp, false, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
-                    this.LineList.Items.Add(lineNames[(int)getPathType()]);
+                    this.paths.Add(new PData(tmp, false, (int)PathType.Straight, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                    this.LineList.Items.Add(lineNames[(int)PathType.Straight]);
                 }
             }
             else
             {
-                this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
-                this.LineList.Items.Add(lineNames[(int)getPathType()]);
+                this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)pathType, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+                this.LineList.Items.Add(lineNames[(int)pathType]);
             }
 
             if (this.LinkedPaths.Checked)
