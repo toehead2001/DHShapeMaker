@@ -2041,9 +2041,10 @@ namespace ShapeMaker
             this.operationBox = Rectangle.Empty;
             this.drawAverage = false;
 
-            if (!isNewPath && this.LinkedPaths.Checked)
+            if (this.LinkedPaths.Checked)
             {
-                PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
+                int holdIndex = isNewPath ? 0 : this.canvasPoints.Count - 1;
+                PointF hold = this.canvasPoints[holdIndex];
                 this.canvasPoints.Clear();
                 this.canvasPoints.Add(hold);
             }
