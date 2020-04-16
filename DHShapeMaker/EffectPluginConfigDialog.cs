@@ -86,6 +86,7 @@ namespace ShapeMaker
         private bool isNewPath = true;
         private int canvasBaseSize;
 #if PDNPLUGIN
+        private bool drawClippingArea = false;
         private string geometryForPdnCanvas = null;
 #else
         private Bitmap clipboardImage = null;
@@ -99,7 +100,6 @@ namespace ShapeMaker
         private Size clickOffset;
         private Operation operation;
         private Rectangle operationBox = Rectangle.Empty;
-        private bool drawClippingArea = false;
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
@@ -126,6 +126,11 @@ namespace ShapeMaker
 #else
             this.buttonOK.Visible = false;
             this.DrawOnCanvas.Visible = false;
+            this.strokeColorPanel.Visible = false;
+            this.fillColorPanel.Visible = false;
+            this.strokeThicknessBox.Visible = false;
+            this.drawModeBox.Visible = false;
+            this.fitCanvasBox.Visible = false;
             this.ShowInTaskbar = true;
 #endif
             this.toolStripUndo.Renderer = new ThemeRenderer(Color.White, Color.Silver);
@@ -577,6 +582,7 @@ namespace ShapeMaker
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
+#if PDNPLUGIN
             if (this.drawClippingArea)
             {
                 Size selSize = this.EnvironmentParameters.SelectionBounds.Size;
@@ -607,6 +613,7 @@ namespace ShapeMaker
                     }
                 }
             }
+#endif
 
             PointF loopBack = new PointF(-9999, -9999);
             PointF oldXY = new PointF(-9999, -9999);
@@ -4230,6 +4237,7 @@ namespace ShapeMaker
         #region Draw on Canvas Properties
         private void ColorPanel_Click(object sender, EventArgs e)
         {
+#if PDNPLUGIN
             if (sender is Panel colorPanel)
             {
                 using (ColorWindow colorWindow = new ColorWindow())
@@ -4244,10 +4252,12 @@ namespace ShapeMaker
                     }
                 }
             }
+#endif
         }
 
         private void ColorPanel_Paint(object sender, PaintEventArgs e)
         {
+#if PDNPLUGIN
             Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
 
@@ -4267,10 +4277,12 @@ namespace ShapeMaker
                 e.Graphics.FillRectangle(SystemBrushes.Control, e.ClipRectangle);
                 e.Graphics.DrawRectangle(Pens.Gray, outerRect);
             }
+#endif
         }
 
         private void DrawOnCanvas_CheckedChanged(object sender, EventArgs e)
         {
+#if PDNPLUGIN
             bool enable = this.DrawOnCanvas.Checked;
             this.strokeColorPanel.Enabled = enable;
             this.fillColorPanel.Enabled = enable;
@@ -4281,19 +4293,24 @@ namespace ShapeMaker
             this.canvas.Refresh();
 
             RefreshPdnCanvas();
+#endif
         }
 
         private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
+#if PDNPLUGIN
             RefreshPdnCanvas();
+#endif
         }
 
         private void fitCanvasBox_CheckedChanged(object sender, EventArgs e)
         {
+#if PDNPLUGIN
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
             this.canvas.Refresh();
 
             RefreshPdnCanvas();
+#endif
         }
 
         private void RefreshPdnCanvas()
