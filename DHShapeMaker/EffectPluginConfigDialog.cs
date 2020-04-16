@@ -2609,7 +2609,7 @@ namespace ShapeMaker
             }
 
             List<PointF> pts = new List<PointF>();
-            int pathType = -1;
+            PathType pathType = PathType.None;
             bool closedType = false;
             bool mpmode = false;
             bool islarge = true;
@@ -2618,8 +2618,8 @@ namespace ShapeMaker
             PointF HomePos = new PointF();
 
             //parse
-            string strMode = string.Empty;
-            const string commands = "fmlacsqthvz";
+            StreamGeometryCommand currentCommand = StreamGeometryCommand.None;
+            int drawCommandsSinceMove = 0;
             bool errorFlagX = false;
             bool errorFlagY = false;
             float x = 0, y = 0;
@@ -2632,43 +2632,50 @@ namespace ShapeMaker
                 errorFlagX = true;
                 errorFlagY = true;
 
-                if (commands.Contains(str[i]))
+                StreamGeometryCommand command = GetStreamGeometryCommand(str[i]);
+
+                if (command != StreamGeometryCommand.None)
                 {
-                    strMode = str[i];
-                    int tmpline = commands.IndexOf(strMode, StringComparison.Ordinal);
-                    tmpline = (tmpline > 7) ? 0 : (tmpline > 1) ? tmpline - 2 : -1;
+                    currentCommand = command;
 
-                    if (tmpline != -1)
+                    if (currentCommand == StreamGeometryCommand.Move)
                     {
-                        if (pts.Count > 1)
-                        {
-                            PData path = new PData(pts.ToArray(), closedType, pathType, islarge, revsweep, string.Empty, mpmode);
-                            paths.Add(path);
-                        }
-
-                        pts.Clear();
-                        pts.Add(LastPos);
-
-                        pathType = tmpline;
-                        closedType = false;
+                        drawCommandsSinceMove = 0;
+                    }
+                    else if (currentCommand != StreamGeometryCommand.Close)
+                    {
+                        drawCommandsSinceMove++;
                     }
 
-                    if (strMode != "z")
+                    mpmode = currentCommand == StreamGeometryCommand.Close && drawCommandsSinceMove > 1;
+                    closedType = !mpmode && currentCommand == StreamGeometryCommand.Close;
+
+                    if (pts.Count > 1)
                     {
-                        continue;
+                        PData path = new PData(pts.ToArray(), closedType, (int)pathType, islarge, revsweep, string.Empty, mpmode);
+                        paths.Add(path);
                     }
+
+                    pts.Clear();
+                    pts.Add(LastPos);
+
+                    PathType type = CommandToPathType(currentCommand);
+                    if (type != PathType.None)
+                    {
+                        pathType = type;
+                    }
+
+                    continue;
                 }
 
                 int len = 0;
 
-                // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
-                switch (strMode)
+                switch (currentCommand)
                 {
-                    case "n":
-                    case "z": // The Close Command
+                    case StreamGeometryCommand.Close:
                         pts.Add(HomePos);
                         break;
-                    case "f": // FillRule
+                    case StreamGeometryCommand.FillRule:
                         errorFlagX = int.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out int fillRule);
                         if (!errorFlagX)
                         {
@@ -2677,7 +2684,7 @@ namespace ShapeMaker
 
                         this.solidFillCheckBox.Checked = Convert.ToBoolean(fillRule);
                         break;
-                    case "m": // Move Command
+                    case StreamGeometryCommand.Move:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2694,8 +2701,8 @@ namespace ShapeMaker
                         HomePos = LastPos;
                         break;
 
-                    case "c": // Cubic Bezier Curve Command
-                    case "l": // Line Command
+                    case StreamGeometryCommand.CubicBezierCurve:
+                    case StreamGeometryCommand.Line:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2711,7 +2718,7 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         pts.Add(LastPos);
                         break;
-                    case "s": // Smooth cubic Bezier curve Command
+                    case StreamGeometryCommand.SmoothCubicBezierCurve:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2748,7 +2755,7 @@ namespace ShapeMaker
                         }
 
                         break;
-                    case "t": // Smooth quadratic Bezier curve Command
+                    case StreamGeometryCommand.SmoothQuadraticBezierCurve:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2776,7 +2783,7 @@ namespace ShapeMaker
                         }
                         pts.Add(LastPos);
                         break;
-                    case "q": // Quadratic Bezier Curve Command
+                    case StreamGeometryCommand.QuadraticBezierCurve:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2798,7 +2805,7 @@ namespace ShapeMaker
                         }
 
                         break;
-                    case "h": //Horizontal Line Command
+                    case StreamGeometryCommand.HorizontalLine:
                         y = LastPos.Y;
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
@@ -2810,7 +2817,7 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         pts.Add(LastPos);
                         break;
-                    case "v": // Vertical Line Command
+                    case StreamGeometryCommand.VerticalLine:
                         x = LastPos.X;
                         errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
                         if (!errorFlagY)
@@ -2822,7 +2829,7 @@ namespace ShapeMaker
                         LastPos = PointToCanvasCoord(x, y);
                         pts.Add(LastPos);
                         break;
-                    case "a": // Elliptical Arc Command
+                    case StreamGeometryCommand.EllipticalArc:
                         errorFlagX = float.TryParse(str[i + 5], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
                         if (!errorFlagX)
                         {
@@ -2884,7 +2891,7 @@ namespace ShapeMaker
                         revsweep = Convert.ToBoolean(dist2);
 
                         i += 6;
-                        strMode = "n";
+                        //currentCommand = StreamGeometryCommand.Close;
                         break;
                 }
 
@@ -2894,7 +2901,7 @@ namespace ShapeMaker
                 }
             }
 
-            if (!errorFlagX || !errorFlagY || pathType < 0)
+            if (!errorFlagX || !errorFlagY || pathType == PathType.None)
             {
                 MessageBox.Show("No Line Type, or is not in the StreamGeometry Format", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -2902,7 +2909,7 @@ namespace ShapeMaker
 
             if (pts.Count > 1)
             {
-                PData path = new PData(pts.ToArray(), closedType, pathType, islarge, revsweep, string.Empty, mpmode);
+                PData path = new PData(pts.ToArray(), closedType, (int)pathType, islarge, revsweep, string.Empty, mpmode);
                 paths.Add(path);
             }
 
@@ -4269,5 +4276,56 @@ namespace ShapeMaker
 #endif
         }
         #endregion
+
+        private static StreamGeometryCommand GetStreamGeometryCommand(string commandChar)
+        {
+            // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
+            const string commands = "fmlacsqthvz";
+
+            return (StreamGeometryCommand)commands.IndexOf(commandChar);
+        }
+
+        private static PathType CommandToPathType(StreamGeometryCommand streamGeometryCommand)
+        {
+            switch (streamGeometryCommand)
+            {
+                case StreamGeometryCommand.Line:
+                case StreamGeometryCommand.HorizontalLine:
+                case StreamGeometryCommand.VerticalLine:
+                    return PathType.Straight;
+                case StreamGeometryCommand.EllipticalArc:
+                    return PathType.Ellipse;
+                case StreamGeometryCommand.CubicBezierCurve:
+                    return PathType.Cubic;
+                case StreamGeometryCommand.SmoothCubicBezierCurve:
+                    return PathType.SmoothCubic;
+                case StreamGeometryCommand.QuadraticBezierCurve:
+                    return PathType.Quadratic;
+                case StreamGeometryCommand.SmoothQuadraticBezierCurve:
+                    return PathType.SmoothQuadratic;
+                case StreamGeometryCommand.FillRule:
+                case StreamGeometryCommand.Move:
+                case StreamGeometryCommand.Close:
+                case StreamGeometryCommand.None:
+                default:
+                    return PathType.None;
+            }
+        }
+
+        private enum StreamGeometryCommand
+        {
+            FillRule,
+            Move,
+            Line,
+            EllipticalArc,
+            CubicBezierCurve,
+            SmoothCubicBezierCurve,
+            QuadraticBezierCurve,
+            SmoothQuadraticBezierCurve,
+            HorizontalLine,
+            VerticalLine,
+            Close,
+            None = -1
+        }
     }
 }
