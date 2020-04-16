@@ -2642,7 +2642,7 @@ namespace ShapeMaker
                     {
                         drawCommandsSinceMove = 0;
                     }
-                    else if (currentCommand != StreamGeometryCommand.Close)
+                    else if (currentCommand != StreamGeometryCommand.Close && currentCommand != StreamGeometryCommand.FillRule)
                     {
                         drawCommandsSinceMove++;
                     }
