@@ -2968,11 +2968,15 @@ namespace ShapeMaker
                 pathPoints.Scale(pathPoints, scale, center);
             }
 
+            setUndo();
+            ZoomToFactor(1);
+
             this.paths.AddRange(paths);
             this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
             this.solidFillCheckBox.Checked = paths.Last().SolidFill;
 
             this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private static PointF pointOrbit(PointF center, float rotation, float distance)
@@ -3638,17 +3642,11 @@ namespace ShapeMaker
                 return;
             }
 
-            setUndo();
-            ZoomToFactor(1);
             LoadStreamGeometry(shapeCode);
-            RefreshPdnCanvas();
         }
 
         private void pasteData_Click(object sender, EventArgs e)
         {
-            setUndo();
-            ZoomToFactor(1);
-
             string clipboardString = null;
             try
             {
@@ -3665,8 +3663,6 @@ namespace ShapeMaker
             }
 
             LoadStreamGeometry(clipboardString);
-
-            RefreshPdnCanvas();
         }
 
         private void CopyStream_Click(object sender, EventArgs e)
