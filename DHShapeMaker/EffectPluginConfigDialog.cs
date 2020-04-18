@@ -2623,12 +2623,12 @@ namespace ShapeMaker
             return TMP;
         }
 
-        private void LoadStreamGeometry(string streamGeometry)
+        private static IReadOnlyCollection<PData> StreamGeometryToPData(string streamGeometry)
         {
             streamGeometry = streamGeometry.Trim();
             if (streamGeometry.Length == 0)
             {
-                return;
+                return Array.Empty<PData>();
             }
 
             List<PointF> pts = new List<PointF>();
@@ -2700,12 +2700,6 @@ namespace ShapeMaker
                         break;
                     case StreamGeometryCommand.FillRule:
                         errorFlagX = int.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out int fillRule);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        this.solidFillCheckBox.Checked = Convert.ToBoolean(fillRule);
                         break;
                     case StreamGeometryCommand.Move:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
@@ -2720,7 +2714,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
                         HomePos = LastPos;
                         break;
 
@@ -2738,7 +2732,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
                         pts.Add(LastPos);
                         break;
                     case StreamGeometryCommand.SmoothCubicBezierCurve:
@@ -2754,7 +2748,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
                         len = pts.Count;
 
                         if (len > 1)
@@ -2791,7 +2785,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
                         len = pts.Count;
 
                         if (len > 1)
@@ -2819,7 +2813,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
                         pts.Add(LastPos);
 
                         if (GetNubType(pts.Count - 1) == NubType.ControlPoint1)
@@ -2836,8 +2830,8 @@ namespace ShapeMaker
                             break;
                         }
 
-                        x = x / this.canvas.ClientSize.Height;
-                        LastPos = PointToCanvasCoord(x, y);
+                        x = x / 500;
+                        LastPos = PointToCanvasCoord1x(x, y);
                         pts.Add(LastPos);
                         break;
                     case StreamGeometryCommand.VerticalLine:
@@ -2848,8 +2842,8 @@ namespace ShapeMaker
                             break;
                         }
 
-                        y = y / this.canvas.ClientSize.Height;
-                        LastPos = PointToCanvasCoord(x, y);
+                        y = y / 500;
+                        LastPos = PointToCanvasCoord1x(x, y);
                         pts.Add(LastPos);
                         break;
                     case StreamGeometryCommand.EllipticalArc:
@@ -2865,7 +2859,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        LastPos = PointToCanvasCoord(x, y);
+                        LastPos = PointToCanvasCoord1x(x, y);
 
                         float dist;
                         errorFlagX = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //W
@@ -2874,7 +2868,7 @@ namespace ShapeMaker
                             break;
                         }
 
-                        PointF From = CanvasCoordToPoint(pts[0]);
+                        PointF From = CanvasCoordToPoint1x(pts[0]);
                         PointF To = new PointF(x, y);
 
                         PointF mid = pointAverage(From, To);
@@ -2926,8 +2920,7 @@ namespace ShapeMaker
 
             if (!errorFlagX || !errorFlagY || pathType == PathType.None)
             {
-                MessageBox.Show("No Line Type, or is not in the StreamGeometry Format", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return Array.Empty<PData>();
             }
 
             if (pts.Count > 1)
@@ -2936,9 +2929,16 @@ namespace ShapeMaker
                 paths.Add(path);
             }
 
+            return paths;
+        }
+
+        private void LoadStreamGeometry(string streamGeometry)
+        {
+            IReadOnlyCollection<PData> paths = StreamGeometryToPData(streamGeometry);
+
             if (paths.Count == 0)
             {
-                MessageBox.Show("No Paths found.", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No Paths found, or is not in the StreamGeometry Format", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2965,26 +2965,46 @@ namespace ShapeMaker
             this.canvas.Refresh();
         }
 
-        private PointF pointOrbit(PointF center, float rotation, float distance)
+        private static PointF pointOrbit(PointF center, float rotation, float distance)
         {
             float x = (float)Math.Cos(rotation) * distance;
             float y = (float)Math.Sin(rotation) * distance;
-            return PointToCanvasCoord(center.X + x, center.Y + y);
+            return PointToCanvasCoord1x(center.X + x, center.Y + y);
         }
 
         private PointF PointToCanvasCoord(float x, float y)
         {
-            return new PointF(x / this.canvas.ClientSize.Width, y / this.canvas.ClientSize.Height);
+            return PointToCanvasCoord(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
+        }
+
+        private static PointF PointToCanvasCoord1x(float x, float y)
+        {
+            return PointToCanvasCoord(x, y, 500, 500);
+        }
+
+        private static PointF PointToCanvasCoord(float x, float y, int width, int height)
+        {
+            return new PointF(x / width, y / height);
         }
 
         private PointF CanvasCoordToPoint(PointF coord)
         {
-            return CanvasCoordToPoint(coord.X, coord.Y);
+            return CanvasCoordToPoint(coord.X, coord.Y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
         private PointF CanvasCoordToPoint(float x, float y)
         {
-            return new PointF(x * this.canvas.ClientSize.Width, y * this.canvas.ClientSize.Height);
+            return CanvasCoordToPoint(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
+        }
+
+        private static PointF CanvasCoordToPoint1x(PointF coord)
+        {
+            return CanvasCoordToPoint(coord.X, coord.Y, 500, 500);
+        }
+
+        private static PointF CanvasCoordToPoint(float x, float y, int width, int height)
+        {
+            return new PointF(x * width, y * height);
         }
 
         private void ClearAllPaths()
