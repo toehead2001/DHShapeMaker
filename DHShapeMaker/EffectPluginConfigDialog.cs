@@ -2638,6 +2638,8 @@ namespace ShapeMaker
             bool isLarge = true;
             bool revSweep = false;
 
+            bool solidFill = false;
+
             PointF LastPos = new PointF();
             PointF HomePos = new PointF();
 
@@ -2700,6 +2702,12 @@ namespace ShapeMaker
                         break;
                     case StreamGeometryCommand.FillRule:
                         errorFlagX = int.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out int fillRule);
+                        if (!errorFlagX)
+                        {
+                            break;
+                        }
+
+                        solidFill = Convert.ToBoolean(fillRule);
                         break;
                     case StreamGeometryCommand.Move:
                         errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
@@ -2926,6 +2934,7 @@ namespace ShapeMaker
             if (pts.Count > 1)
             {
                 PData path = new PData(pts.ToArray(), closedIndividual, (int)pathType, isLarge, revSweep, string.Empty, closedContiguous);
+                path.SolidFill = solidFill;
                 paths.Add(path);
             }
 
@@ -2961,6 +2970,7 @@ namespace ShapeMaker
 
             this.paths.AddRange(paths);
             this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
+            this.solidFillCheckBox.Checked = paths.Last().SolidFill;
 
             this.canvas.Refresh();
         }
