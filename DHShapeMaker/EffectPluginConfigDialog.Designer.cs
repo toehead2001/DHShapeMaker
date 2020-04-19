@@ -60,6 +60,8 @@
             this.flipVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.opBoxMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.autoScaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.usersManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickStartStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -293,7 +295,9 @@
             this.flipHorizontalToolStripMenuItem,
             this.flipVerticalToolStripMenuItem,
             this.toolStripSeparator5,
-            this.opBoxMenuItem});
+            this.opBoxMenuItem,
+            this.toolStripSeparator9,
+            this.autoScaleMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             this.editToolStripMenuItem.DropDownClosed += new System.EventHandler(this.editToolStripMenuItem_DropDownClosed);
@@ -363,6 +367,17 @@
             this.opBoxMenuItem.Name = "opBoxMenuItem";
             resources.ApplyResources(this.opBoxMenuItem, "opBoxMenuItem");
             this.opBoxMenuItem.Click += new System.EventHandler(this.opBoxMenuItem_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
+            // 
+            // autoScaleMenuItem
+            // 
+            this.autoScaleMenuItem.Name = "autoScaleMenuItem";
+            resources.ApplyResources(this.autoScaleMenuItem, "autoScaleMenuItem");
+            this.autoScaleMenuItem.Click += new System.EventHandler(this.autoScaleMenuItem_Click);
             // 
             // HelpMenu
             // 
@@ -1219,5 +1234,7 @@
         private System.Windows.Forms.CheckBox fitCanvasBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem opBoxMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem autoScaleMenuItem;
     }
 }

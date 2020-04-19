@@ -2962,9 +2962,31 @@ namespace ShapeMaker
                 return;
             }
 
-            // Center and Scale paths
-            PointF center = new PointF(0.5f, 0.5f);
+            setUndo();
+            ZoomToFactor(1);
+
+            this.paths.AddRange(paths);
+            this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
+            this.solidFillCheckBox.Checked = paths.Last().SolidFill;
+
+            this.canvas.Refresh();
+            RefreshPdnCanvas();
+        }
+
+        private static void AutoScaleAndCenter(IReadOnlyCollection<PData> paths)
+        {
+            if (paths.Count == 0)
+            {
+                return;
+            }
+
             RectangleF bounds = paths.SelectMany(path => path.Lines).ToArray().Bounds();
+            if (bounds.IsEmpty)
+            {
+                return;
+            }
+
+            PointF center = new PointF(0.5f, 0.5f);
             PointF origin = bounds.Location;
             PointF destination = new PointF(center.X - bounds.Width / 2f, center.Y - bounds.Height / 2f);
             float scale = 0.98f / Math.Max(bounds.Width, bounds.Height);
@@ -2978,16 +3000,6 @@ namespace ShapeMaker
 
                 pathPoints.Scale(pathPoints, scale, center);
             }
-
-            setUndo();
-            ZoomToFactor(1);
-
-            this.paths.AddRange(paths);
-            this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
-            this.solidFillCheckBox.Checked = paths.Last().SolidFill;
-
-            this.canvas.Refresh();
-            RefreshPdnCanvas();
         }
 
         private static PointF pointOrbit(PointF center, float rotation, float distance)
@@ -3713,7 +3725,8 @@ namespace ShapeMaker
             this.loopPathToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1);
             this.flipHorizontalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
             this.flipVerticalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
-            this.opBoxMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0); ;
+            this.opBoxMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
+            this.autoScaleMenuItem.Enabled = (this.canvasPoints.Count <= 1 && this.LineList.Items.Count > 0);
         }
 
         private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -3806,6 +3819,14 @@ namespace ShapeMaker
         private void opBoxMenuItem_Click(object sender, EventArgs e)
         {
             ToggleOpBox();
+        }
+
+        private void autoScaleMenuItem_Click(object sender, EventArgs e)
+        {
+            setUndo();
+            AutoScaleAndCenter(this.paths);
+            this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private void HelpMenu_Click(object sender, EventArgs e)
