@@ -1521,7 +1521,13 @@ namespace ShapeMaker
                             }
                             break;
                         case Operation.Move:
-                            PointF newPoint = new PointF(mouseCoord.X - initialDistSize.Width, mouseCoord.Y - initialDistSize.Height);
+                            PointF rawMouseCoord = PointToCanvasCoord(e.X, e.Y);
+                            PointF newCoord = new PointF(rawMouseCoord.X - initialDistSize.Width, rawMouseCoord.Y - initialDistSize.Height);
+                            if (this.Snap.Checked)
+                            {
+                                PointF snapPoint = CanvasCoordToPoint(newCoord).ConstrainToInterval(10);
+                                newCoord = PointToCanvasCoord(snapPoint.X, snapPoint.Y);
+                            }
 
                             if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
                             {
@@ -1530,7 +1536,7 @@ namespace ShapeMaker
                                     PointF[] pathPoints = this.paths[k].Lines;
                                     for (int j = 0; j < pathPoints.Length; j++)
                                     {
-                                        pathPoints[j] = movePoint(this.moveStart, newPoint, pathPoints[j]);
+                                        pathPoints[j] = movePoint(this.moveStart, newCoord, pathPoints[j]);
                                     }
                                 }
                                 this.moveStart = mouseCoord;
@@ -1540,7 +1546,7 @@ namespace ShapeMaker
                                 PointF oldPoint = this.canvasPoints[0];
                                 for (int j = 0; j < this.canvasPoints.Count; j++)
                                 {
-                                    this.canvasPoints[j] = movePoint(oldPoint, newPoint, this.canvasPoints[j]);
+                                    this.canvasPoints[j] = movePoint(oldPoint, newCoord, this.canvasPoints[j]);
                                 }
                             }
                             break;
