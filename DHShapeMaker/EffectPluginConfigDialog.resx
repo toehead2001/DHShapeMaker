@@ -160,16 +160,16 @@
     <value>True</value>
   </metadata>
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="newProjectMenuItem.Text" xml:space="preserve">
     <value>&amp;New Project</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>193, 6</value>
   </data>
   <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="openProject.Text" xml:space="preserve">
     <value>&amp;Open Project...</value>
@@ -184,52 +184,52 @@
     <value>No Recent Projects</value>
   </data>
   <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="openRecentProject.Text" xml:space="preserve">
     <value>Open &amp;Recent Project</value>
   </data>
   <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="saveProject.Text" xml:space="preserve">
     <value>&amp;Save Project...</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>193, 6</value>
   </data>
   <data name="importPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="importPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Import PDN Shape...</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Export PDN Shape...</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>193, 6</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Paste Path Stream</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Copy Path Stream</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
+    <value>193, 6</value>
   </data>
   <data name="exportPathGeometryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+    <value>196, 22</value>
   </data>
   <data name="exportPathGeometryToolStripMenuItem.Text" xml:space="preserve">
     <value>Export Path&amp;Geometry...</value>
@@ -244,7 +244,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="undoMenuItem.Text" xml:space="preserve">
     <value>&amp;Undo</value>
@@ -253,52 +253,64 @@
     <value>Ctrl+Y</value>
   </data>
   <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>&amp;Redo</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 6</value>
+    <value>197, 6</value>
   </data>
   <data name="removePathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
   </data>
   <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete Path</value>
   </data>
   <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clone Path</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 6</value>
+    <value>197, 6</value>
   </data>
   <data name="loopPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+1</value>
   </data>
   <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Loop Path</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Horizontal</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>200, 22</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
     <value>Flip &amp;Vertical</value>
+  </data>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 6</value>
+  </data>
+  <data name="opBoxMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+M</value>
+  </data>
+  <data name="opBoxMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="opBoxMenuItem.Text" xml:space="preserve">
+    <value>Operations Box</value>
   </data>
   <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 20</value>
@@ -379,10 +391,10 @@
     <value>NoControl</value>
   </data>
   <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 263</value>
+    <value>712, 263</value>
   </data>
   <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 17</value>
+    <value>104, 17</value>
   </data>
   <data name="FitBG.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1187,31 +1199,31 @@ Double Click to Rename</value>
     <value>Cursor Location</value>
   </data>
   <data name="xToolStripMenuZoom8x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="xToolStripMenuZoom8x.Text" xml:space="preserve">
     <value>8x</value>
   </data>
   <data name="xToolStripMenuZoom4x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="xToolStripMenuZoom4x.Text" xml:space="preserve">
     <value>4x</value>
   </data>
   <data name="xToolStripMenuZoom2x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="xToolStripMenuZoom2x.Text" xml:space="preserve">
     <value>2x</value>
   </data>
   <data name="xToolStripMenuZoom1x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="xToolStripMenuZoom1x.Text" xml:space="preserve">
     <value>1x</value>
   </data>
   <data name="splitButtonZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 20</value>
+    <value>70, 20</value>
   </data>
   <data name="splitButtonZoom.Text" xml:space="preserve">
     <value>Zoom 1x</value>
@@ -2141,6 +2153,18 @@ Double Click to Rename</value>
     <value>flipVerticalToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;flipVerticalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opBoxMenuItem.Name" xml:space="preserve">
+    <value>opBoxMenuItem</value>
+  </data>
+  <data name="&gt;&gt;opBoxMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;HelpMenu.Name" xml:space="preserve">

@@ -370,12 +370,6 @@ namespace ShapeMaker
                 return true;
             }
 
-            if (keyData == (Keys.Control | Keys.M))
-            {
-                ToggleOpBox();
-                return true;
-            }
-
             if (this.hotKeys.ContainsKey(keyData))
             {
                 ToolStripButtonWithKeys button = this.hotKeys[keyData];
@@ -3702,6 +3696,7 @@ namespace ShapeMaker
             this.loopPathToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1);
             this.flipHorizontalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
             this.flipVerticalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
+            this.opBoxMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0); ;
         }
 
         private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -3710,6 +3705,7 @@ namespace ShapeMaker
             this.redoMenuItem.Enabled = true;
             this.removePathToolStripMenuItem.Enabled = true;
             this.loopPathToolStripMenuItem.Enabled = true;
+            this.opBoxMenuItem.Enabled = true;
         }
 
         private void Flip_Click(object sender, EventArgs e)
@@ -3788,6 +3784,11 @@ namespace ShapeMaker
                 this.canvasPoints[this.canvasPoints.Count - 1] = this.canvasPoints[0];
                 this.canvas.Refresh();
             }
+        }
+
+        private void opBoxMenuItem_Click(object sender, EventArgs e)
+        {
+            ToggleOpBox();
         }
 
         private void HelpMenu_Click(object sender, EventArgs e)

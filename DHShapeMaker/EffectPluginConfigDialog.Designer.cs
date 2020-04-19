@@ -58,6 +58,8 @@
             this.loopPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.opBoxMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.usersManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickStartStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,7 +291,9 @@
             this.toolStripSeparator6,
             this.loopPathToolStripMenuItem,
             this.flipHorizontalToolStripMenuItem,
-            this.flipVerticalToolStripMenuItem});
+            this.flipVerticalToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.opBoxMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
             this.editToolStripMenuItem.DropDownClosed += new System.EventHandler(this.editToolStripMenuItem_DropDownClosed);
@@ -348,6 +352,17 @@
             resources.ApplyResources(this.flipVerticalToolStripMenuItem, "flipVerticalToolStripMenuItem");
             this.flipVerticalToolStripMenuItem.Tag = "V";
             this.flipVerticalToolStripMenuItem.Click += new System.EventHandler(this.Flip_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            // 
+            // opBoxMenuItem
+            // 
+            this.opBoxMenuItem.Name = "opBoxMenuItem";
+            resources.ApplyResources(this.opBoxMenuItem, "opBoxMenuItem");
+            this.opBoxMenuItem.Click += new System.EventHandler(this.opBoxMenuItem_Click);
             // 
             // HelpMenu
             // 
@@ -1202,5 +1217,7 @@
         private System.Windows.Forms.NumericUpDown strokeThicknessBox;
         private System.Windows.Forms.ComboBox drawModeBox;
         private System.Windows.Forms.CheckBox fitCanvasBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem opBoxMenuItem;
     }
 }
