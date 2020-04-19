@@ -163,6 +163,9 @@
   <ItemGroup>
     <None Include="Resources\Move.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grip.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetFileName)" "C:\Program Files\Paint.NET\Effects"</PostBuildEvent>
   </PropertyGroup>

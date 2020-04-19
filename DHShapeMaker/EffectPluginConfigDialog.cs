@@ -954,16 +954,20 @@ namespace ShapeMaker
 
             if (!this.operationBox.IsEmpty)
             {
-                int opWidth = this.operationBox.Width / 3;
-                Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, opWidth, this.operationBox.Height);
-                Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
+                const int gripWidth = 8;
+                int opWidth = (this.operationBox.Width - gripWidth) / 3;
+                Rectangle gripBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
+                Rectangle scaleBox = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle rotateBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle moveBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
                 ImageAttributes activeattributes = new ImageAttributes();
                 ImageAttributes inactiveattributes = new ImageAttributes();
                 ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
                 inactiveattributes.SetColorMatrix(colorMatrix);
 
+                e.Graphics.DrawImage(Properties.Resources.Grip, gripBox, 0, 0, 8, 20, GraphicsUnit.Pixel,
+                    (this.operation == Operation.None || this.operation == Operation.NoneRelocate) ? activeattributes : inactiveattributes);
                 e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
                     (this.operation == Operation.None || this.operation == Operation.Scale) ? activeattributes : inactiveattributes);
                 e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
@@ -1319,18 +1323,21 @@ namespace ShapeMaker
             {
                 if (this.operationBox.Contains(e.Location))
                 {
-                    setUndo();
-
                     this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
                     this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : new PointF(0.5f,0.5f);
-                    this.drawAverage = true;
 
-                    int opWidth = this.operationBox.Width / 3;
-                    Rectangle scaleBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle moveBox = new Rectangle(this.operationBox.Left + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    const int gripWidth = 8;
+                    int opWidth = (this.operationBox.Width - gripWidth) / 3;
+                    Rectangle gripBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
+                    Rectangle scaleBox = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle moveBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
-                    if (scaleBox.Contains(e.Location))
+                    if (gripBox.Contains(e.Location))
+                    {
+                        this.operation = Operation.NoneRelocate;
+                    }
+                    else if (scaleBox.Contains(e.Location))
                     {
                         this.initialDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                         this.operation = Operation.Scale;
@@ -1343,11 +1350,17 @@ namespace ShapeMaker
                     }
                     else if (moveBox.Contains(e.Location))
                     {
-                        this.drawAverage = false;
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
                         PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
                         this.initialDistSize = new SizeF(clickCoord.X - originCoord.X, clickCoord.Y - originCoord.Y);
                         this.operation = Operation.Move;
+                    }
+
+                    this.drawAverage = (this.operation == Operation.Scale || this.operation == Operation.Rotate);
+
+                    if (this.operation != Operation.None && this.operation != Operation.NoneRelocate)
+                    {
+                        setUndo();
                     }
                 }
                 else if (this.clickedNub == InvalidNub)
@@ -1452,6 +1465,9 @@ namespace ShapeMaker
 
                     switch (this.operation)
                     {
+                        case Operation.NoneRelocate:
+                            // Do Nothing
+                            break;
                         case Operation.Scale:
                             float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             float scale = newDist / this.initialDist;
@@ -1796,7 +1812,7 @@ namespace ShapeMaker
         {
             if (enable)
             {
-                Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(60, 20));
+                Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(68, 20));
                 opBoxRect.X += 5;
                 opBoxRect.Y += 5;
 
@@ -1819,6 +1835,7 @@ namespace ShapeMaker
         private enum Operation
         {
             None,
+            NoneRelocate,
             Scale,
             Rotate,
             Move
