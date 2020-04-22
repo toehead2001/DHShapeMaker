@@ -956,23 +956,23 @@ namespace ShapeMaker
             {
                 const int gripWidth = 8;
                 int opWidth = (this.operationBox.Width - gripWidth) / 3;
-                Rectangle gripBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
-                Rectangle scaleBox = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                Rectangle rotateBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                Rectangle moveBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle gripRect = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
+                Rectangle scaleRect = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle rotateRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                Rectangle moveRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
                 ImageAttributes activeattributes = new ImageAttributes();
                 ImageAttributes inactiveattributes = new ImageAttributes();
                 ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
                 inactiveattributes.SetColorMatrix(colorMatrix);
 
-                e.Graphics.DrawImage(Properties.Resources.Grip, gripBox, 0, 0, 8, 20, GraphicsUnit.Pixel,
+                e.Graphics.DrawImage(Properties.Resources.Grip, gripRect, 0, 0, 8, 20, GraphicsUnit.Pixel,
                     (this.operation == Operation.None || this.operation == Operation.NoneRelocate) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Resize, scaleBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                e.Graphics.DrawImage(Properties.Resources.Resize, scaleRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
                     (this.operation == Operation.None || this.operation == Operation.Scale) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
                     (this.operation == Operation.None || this.operation == Operation.Rotate) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Move, moveBox, 0, 0, 20, 20, GraphicsUnit.Pixel,
+                e.Graphics.DrawImage(Properties.Resources.Move, moveRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
                     (this.operation == Operation.None || this.operation == Operation.Move) ? activeattributes : inactiveattributes);
 
                 activeattributes.Dispose();
@@ -1328,27 +1328,27 @@ namespace ShapeMaker
 
                     const int gripWidth = 8;
                     int opWidth = (this.operationBox.Width - gripWidth) / 3;
-                    Rectangle gripBox = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
-                    Rectangle scaleBox = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle rotateBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle moveBox = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle gripRect = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
+                    Rectangle scaleRect = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle rotateRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                    Rectangle moveRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
-                    if (gripBox.Contains(e.Location))
+                    if (gripRect.Contains(e.Location))
                     {
                         this.operation = Operation.NoneRelocate;
                     }
-                    else if (scaleBox.Contains(e.Location))
+                    else if (scaleRect.Contains(e.Location))
                     {
                         this.initialDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                         this.operation = Operation.Scale;
                     }
-                    else if (rotateBox.Contains(e.Location))
+                    else if (rotateRect.Contains(e.Location))
                     {
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
                         this.initialRads = XYToRadians(clickCoord, this.averagePoint);
                         this.operation = Operation.Rotate;
                     }
-                    else if (moveBox.Contains(e.Location))
+                    else if (moveRect.Contains(e.Location))
                     {
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
                         PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
