@@ -103,6 +103,11 @@ namespace ShapeMaker
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
+        private PathType ActivePathType
+        {
+            get => this.activeType;
+        }
+
         internal EffectPluginConfigDialog()
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
@@ -402,7 +407,7 @@ namespace ShapeMaker
             this.redoCount = 0;
             this.undoCount++;
             this.undoCount = (this.undoCount > undoMax) ? undoMax : this.undoCount;
-            this.undoType[this.undoPointer] = getPathType();
+            this.undoType[this.undoPointer] = ActivePathType;
             this.undoSelected[this.undoPointer] = (deSelected) ? -1 : this.LineList.SelectedIndex;
             this.undoPoints[this.undoPointer] = this.canvasPoints.ToArray();
             if (this.undoLines[this.undoPointer] == null)
@@ -640,7 +645,7 @@ namespace ShapeMaker
                 if (isActive)
                 {
                     pPoints = this.canvasPoints;
-                    pathType = getPathType();
+                    pathType = ActivePathType;
                     closedIndividual = this.ClosePath.Checked;
                     closedContiguous = this.CloseContPaths.Checked;
                     isLarge = (this.Arc.CheckState == CheckState.Checked);
@@ -1038,7 +1043,7 @@ namespace ShapeMaker
             }
             else if (e.Button == MouseButtons.Right) //process add or delete
             {
-                PathType pathType = getPathType();
+                PathType pathType = ActivePathType;
 
                 if (this.clickedNub > InvalidNub) //delete
                 {
@@ -1587,7 +1592,7 @@ namespace ShapeMaker
                     PointF oldPoint = this.canvasPoints[nubIndex];
 
                     NubType nubType = CanvasUtil.GetNubType(this.clickedNub);
-                    PathType pathType = getPathType();
+                    PathType pathType = ActivePathType;
 
                     switch (pathType)
                     {
@@ -1840,9 +1845,9 @@ namespace ShapeMaker
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
-            this.paths[this.LineList.SelectedIndex] = new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked),
+            this.paths[this.LineList.SelectedIndex] = new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)ActivePathType, (this.Arc.CheckState == CheckState.Checked),
                 (this.Sweep.CheckState == CheckState.Checked), this.paths[this.LineList.SelectedIndex].Alias, this.CloseContPaths.Checked);
-            this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)getPathType()];
+            this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)ActivePathType];
 
             RefreshPdnCanvas();
         }
@@ -1856,7 +1861,7 @@ namespace ShapeMaker
 
             setUndo(deSelected);
 
-            PathType pathType = getPathType();
+            PathType pathType = ActivePathType;
             if (this.MacroCircle.Checked && pathType == PathType.Ellipse)
             {
                 if (this.canvasPoints.Count < 5)
@@ -2011,11 +2016,6 @@ namespace ShapeMaker
                     }
                 }
             }
-        }
-
-        private PathType getPathType()
-        {
-            return this.activeType;
         }
 
         private void setUiForPath(PathType pathType, bool closedPath, bool largeArc, bool revSweep, bool multiClosedPath)
@@ -2346,8 +2346,8 @@ namespace ShapeMaker
 
             setUndo();
 
-            this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)getPathType(), (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
-            this.LineList.Items.Add(lineNames[(int)getPathType()]);
+            this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)ActivePathType, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+            this.LineList.Items.Add(lineNames[(int)ActivePathType]);
             this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 
             this.canvas.Refresh();
