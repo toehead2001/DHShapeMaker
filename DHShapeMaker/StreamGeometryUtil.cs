@@ -24,45 +24,130 @@ namespace ShapeMaker
 
             XElement docElement = xDoc.Root;
 
-            if (docElement.Name.LocalName == "SimpleGeometryShape" && !docElement.HasElements && docElement.HasAttributes)
+            if (docElement.Name.LocalName == "SimpleGeometryShape")
             {
-                XAttribute geometryAttribute = docElement.Attribute(XName.Get("Geometry", string.Empty));
-                if (geometryAttribute == null)
+                if (docElement.HasElements)
                 {
-                    return null;
-                }
+                    XElement firstElement = docElement.Elements().First();
 
-                string geometryCode = geometryAttribute.Value;
-                if (string.IsNullOrWhiteSpace(geometryCode))
-                {
-                    return null;
-                }
+                    string xElementText = firstElement.ToString();
+                    int xmlnsStartIndex = xElementText.IndexOf(" xmlns=");
+                    int xmlnsEndIndex = xElementText.IndexOf(">");
 
-                StreamGeometry streamGeometry = TryParseStreamGeometry(geometryCode);
-                if (streamGeometry != null)
-                {
-                    return streamGeometry.ToString();
-                }
-            }
-            else if (docElement.HasElements)
-            {
-                IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get("Path", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
-                if (!pathElements.Any())
-                {
-                    return null;
-                }
-
-                List<string> dataStrings = new List<string>();
-                foreach (XElement pathElement in pathElements)
-                {
-                    Path path = TryParsePath(pathElement.ToString());
-                    if (path != null && path.Data is StreamGeometry streamGeometry)
+                    if (firstElement.IsEmpty)
                     {
-                        dataStrings.Add(streamGeometry.ToString());
+                        xmlnsEndIndex--;
+                    }
+
+                    if (xmlnsStartIndex < 0 || xmlnsEndIndex < 0 || xmlnsEndIndex < xmlnsStartIndex)
+                    {
+                        return null;
+                    }
+
+                    const string xamlNs = " xmlns =\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"";
+
+                    string geometryText = xElementText
+                        .Remove(xmlnsStartIndex, xmlnsEndIndex - xmlnsStartIndex)
+                        .Insert(xmlnsStartIndex, xamlNs);
+
+                    Geometry geometry = TryParseXaml<Geometry>(geometryText);
+                    return (geometry != null)
+                        ? StreamGeometryFromGeometry(geometry)
+                        : null;
+                }
+
+                if (docElement.HasAttributes)
+                {
+                    XAttribute geometryAttribute = docElement.Attribute(XName.Get("Geometry", string.Empty));
+                    if (geometryAttribute == null)
+                    {
+                        return null;
+                    }
+
+                    string geometryCode = geometryAttribute.Value;
+                    if (string.IsNullOrWhiteSpace(geometryCode))
+                    {
+                        return null;
+                    }
+
+                    StreamGeometry streamGeometry = TryParseStreamGeometry(geometryCode);
+
+                    return streamGeometry?.ToString();
+                }
+
+                return null;
+            }
+
+            if (docElement.HasElements)
+            {
+                const string xamlNs = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+
+                IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get(nameof(Path), xamlNs));
+                IEnumerable<XElement> geoDrawElements = docElement.Descendants(XName.Get(nameof(GeometryDrawing), xamlNs));
+                IEnumerable<XElement> pathGeoElements = docElement.Descendants(XName.Get(nameof(PathGeometry), xamlNs));
+
+                if (!pathElements.Any() && !geoDrawElements.Any() && !pathGeoElements.Any())
+                {
+                    pathElements = docElement.Descendants(XName.Get(nameof(Path), string.Empty));
+                    geoDrawElements = docElement.Descendants(XName.Get(nameof(GeometryDrawing), string.Empty));
+                    pathGeoElements = docElement.Descendants(XName.Get(nameof(PathGeometry), string.Empty));
+
+                    if (!pathElements.Any() && !geoDrawElements.Any() && !pathGeoElements.Any())
+                    {
+                        return null;
                     }
                 }
 
-                return string.Join(" ", dataStrings);
+                List<string> dataStrings = new List<string>();
+
+                foreach (XElement pathElement in pathElements)
+                {
+                    if (pathElement.Name.NamespaceName.Length == 0)
+                    {
+                        pathElement.Name = XName.Get(pathElement.Name.LocalName, xamlNs);
+                    }
+
+                    Path path = TryParseXaml<Path>(pathElement.ToString());
+                    if (path != null && path.Data != null)
+                    {
+                        string streamGeometry = StreamGeometryFromGeometry(path.Data);
+                        dataStrings.Add(streamGeometry);
+                    }
+                }
+
+                foreach (XElement geoDrawElement in geoDrawElements)
+                {
+                    if (geoDrawElement.Name.NamespaceName.Length == 0)
+                    {
+                        geoDrawElement.Name = XName.Get(geoDrawElement.Name.LocalName, xamlNs);
+                    }
+
+                    GeometryDrawing geoDraw = TryParseXaml<GeometryDrawing>(geoDrawElement.ToString());
+                    if (geoDraw != null && geoDraw.Geometry != null)
+                    {
+                        string streamGeometry = StreamGeometryFromGeometry(geoDraw.Geometry);
+                        dataStrings.Add(streamGeometry);
+                    }
+                }
+
+                foreach (XElement pathGeoElement in pathGeoElements)
+                {
+                    if (pathGeoElement.Name.NamespaceName.Length == 0)
+                    {
+                        pathGeoElement.Name = XName.Get(pathGeoElement.Name.LocalName, xamlNs);
+                    }
+
+                    PathGeometry pathGeometry = TryParseXaml<PathGeometry>(pathGeoElement.ToString());
+                    if (pathGeometry != null)
+                    {
+                        string streamGeometry = StreamGeometryFromGeometry(pathGeometry);
+                        dataStrings.Add(streamGeometry);
+                    }
+                }
+
+                return dataStrings.Any()
+                    ? string.Join(" ", dataStrings)
+                    : null;
             }
 
             return null;
@@ -71,6 +156,7 @@ namespace ShapeMaker
         private static XDocument TryParseXDocument(string xml)
         {
             XDocument xmlDoc = null;
+
             try
             {
                 xmlDoc = XDocument.Parse(xml);
@@ -83,13 +169,14 @@ namespace ShapeMaker
             return xmlDoc;
         }
 
-        private static Path TryParsePath(string shape)
+        private static T TryParseXaml<T>(string xamlText)
+            where T : class
         {
-            Path path = null;
+            T path = null;
 
             try
             {
-                path = (Path)XamlReader.Parse(shape);
+                path = (T)XamlReader.Parse(xamlText);
             }
             catch
             {
@@ -111,6 +198,12 @@ namespace ShapeMaker
             }
 
             return geometry;
+        }
+
+        private static string StreamGeometryFromGeometry(Geometry geometry)
+        {
+            PathGeometry pathGeometry = PathGeometry.CreateFromGeometry(geometry);
+            return pathGeometry.Figures.ToString();
         }
     }
 }
