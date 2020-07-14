@@ -712,7 +712,7 @@ namespace ShapeMaker
                             case PathType.Ellipse:
                                 if (i == 4)
                                 {
-                                    PointF mid = pointAverage(pts[0], pts[4]);
+                                    PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                     e.Graphics.DrawEllipse(Pens.Black, pts[4].X - offset, pts[4].Y - offset, width, width);
                                     if (!this.MacroCircle.Checked || !isNewPath)
                                     {
@@ -728,7 +728,7 @@ namespace ShapeMaker
                                 }
                                 break;
                             case PathType.Quadratic:
-                                if (GetNubType(i) == NubType.ControlPoint1)
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1)
                                 {
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
@@ -737,14 +737,14 @@ namespace ShapeMaker
                                 }
                                 break;
                             case PathType.SmoothQuadratic:
-                                if (GetNubType(i) == NubType.EndPoint)
+                                if (CanvasUtil.GetNubType(i) == NubType.EndPoint)
                                 {
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 }
                                 break;
                             case PathType.Cubic:
                             case PathType.SmoothCubic:
-                                if (GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
                                 {
                                     if (i != 1 || pathType == PathType.Cubic)
                                     {
@@ -756,7 +756,7 @@ namespace ShapeMaker
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
                                 }
-                                else if (GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
+                                else if (CanvasUtil.GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
                                 {
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 }
@@ -812,17 +812,17 @@ namespace ShapeMaker
                         case PathType.Ellipse:
                             if (pts.Length == 5)
                             {
-                                PointF mid = pointAverage(pts[0], pts[4]);
+                                PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                 if (this.MacroCircle.Checked && j == -1 && isNewPath)
                                 {
-                                    float far = pythag(pts[0], pts[4]);
+                                    float far = PointFUtil.Pythag(pts[0], pts[4]);
                                     e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
                                     e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
                                 }
                                 else
                                 {
-                                    float l = pythag(mid, pts[1]);
-                                    float h = pythag(mid, pts[2]);
+                                    float l = PointFUtil.Pythag(mid, pts[1]);
+                                    float h = PointFUtil.Pythag(mid, pts[2]);
 
                                     if ((int)h == 0 || (int)l == 0)
                                     {
@@ -882,7 +882,7 @@ namespace ShapeMaker
                                 PointF[] Qpts = new PointF[pts.Length];
                                 for (int i = 0; i < pts.Length; i++)
                                 {
-                                    switch (GetNubType(i))
+                                    switch (CanvasUtil.GetNubType(i))
                                     {
                                         case NubType.StartPoint:
                                         case NubType.EndPoint:
@@ -1066,7 +1066,7 @@ namespace ShapeMaker
                             this.canvasPoints.Add(hold);
                             break;
                         case PathType.Cubic:
-                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
+                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -1082,7 +1082,7 @@ namespace ShapeMaker
 
                             break;
                         case PathType.Quadratic:
-                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
+                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -1093,7 +1093,7 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             break;
                         case PathType.SmoothCubic:
-                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
+                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -1104,14 +1104,14 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             for (int i = 1; i < this.canvasPoints.Count; i++)
                             {
-                                if (GetNubType(i) == NubType.ControlPoint1 && i > 3)
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
                                 {
-                                    this.canvasPoints[i] = reverseAverage(this.canvasPoints[i - 2], this.canvasPoints[i - 1]);
+                                    this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 2], this.canvasPoints[i - 1]);
                                 }
                             }
                             break;
                         case PathType.SmoothQuadratic:
-                            if (GetNubType(this.clickedNub) != NubType.EndPoint)
+                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
                             {
                                 return;
                             }
@@ -1122,9 +1122,9 @@ namespace ShapeMaker
                             this.canvasPoints.RemoveAt(this.clickedNub - 2);
                             for (int i = 1; i < this.canvasPoints.Count; i++)
                             {
-                                if (GetNubType(i) == NubType.ControlPoint1 && i > 3)
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
                                 {
-                                    this.canvasPoints[i] = reverseAverage(this.canvasPoints[i - 3], this.canvasPoints[i - 1]);
+                                    this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 3], this.canvasPoints[i - 1]);
                                     if (i < this.canvasPoints.Count - 1)
                                     {
                                         this.canvasPoints[i + 1] = this.canvasPoints[i];
@@ -1179,11 +1179,11 @@ namespace ShapeMaker
                                 PointF[] ellipsePts = new PointF[5];
                                 ellipsePts[0] = this.canvasPoints[pointCount - 1];
                                 ellipsePts[4] = clickedPoint;
-                                PointF mid = pointAverage(ellipsePts[0], ellipsePts[4]);
-                                PointF mid2 = ThirdPoint(ellipsePts[0], mid, true, 1f);
-                                ellipsePts[1] = pointAverage(ellipsePts[0], mid2);
-                                ellipsePts[2] = pointAverage(ellipsePts[4], mid2);
-                                ellipsePts[3] = ThirdPoint(ellipsePts[0], mid, false, 1f);
+                                PointF mid = PointFUtil.PointAverage(ellipsePts[0], ellipsePts[4]);
+                                PointF mid2 = PointFUtil.ThirdPoint(ellipsePts[0], mid, true, 1f);
+                                ellipsePts[1] = PointFUtil.PointAverage(ellipsePts[0], mid2);
+                                ellipsePts[2] = PointFUtil.PointAverage(ellipsePts[4], mid2);
+                                ellipsePts[3] = PointFUtil.ThirdPoint(ellipsePts[0], mid, false, 1f);
 
                                 this.canvasPoints.Clear();
                                 this.canvasPoints.AddRange(ellipsePts);
@@ -1203,16 +1203,16 @@ namespace ShapeMaker
                                     PointF mid4;
                                     if (pointCount > 1)
                                     {
-                                        PointF mid3 = reverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
-                                        mid4 = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], cubicPts[2], mid3);
+                                        PointF mid3 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                        mid4 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], cubicPts[2], mid3);
                                     }
                                     else
                                     {
-                                        PointF mid3 = pointAverage(this.canvasPoints[pointCount - 1], cubicPts[2]);
-                                        mid4 = ThirdPoint(this.canvasPoints[pointCount - 1], mid3, true, 1f);
+                                        PointF mid3 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], cubicPts[2]);
+                                        mid4 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid3, true, 1f);
                                     }
-                                    cubicPts[0] = pointAverage(this.canvasPoints[pointCount - 1], mid4);
-                                    cubicPts[1] = pointAverage(cubicPts[2], mid4);
+                                    cubicPts[0] = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], mid4);
+                                    cubicPts[1] = PointFUtil.PointAverage(cubicPts[2], mid4);
                                     this.canvasPoints.AddRange(cubicPts);
                                 }
 
@@ -1224,14 +1224,14 @@ namespace ShapeMaker
                                 //add
                                 if (pointCount > 1)
                                 {
-                                    tmp = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
+                                    tmp = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
                                 }
                                 else
                                 {
                                     //add end
-                                    quadPts[1] = ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
-                                    quadPts[0] = ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
-                                    tmp = pointAverage(quadPts[1], quadPts[0]);
+                                    quadPts[1] = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
+                                    quadPts[0] = PointFUtil.ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
+                                    tmp = PointFUtil.PointAverage(quadPts[1], quadPts[0]);
                                 }
                                 quadPts[1] = tmp;
                                 quadPts[0] = tmp;
@@ -1245,19 +1245,19 @@ namespace ShapeMaker
                                 PointF mid6;
                                 if (pointCount > 1)
                                 {
-                                    PointF mid5 = reverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
-                                    mid6 = AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], sCubicPts[2], mid5);
+                                    PointF mid5 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                    mid6 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], sCubicPts[2], mid5);
                                 }
                                 else
                                 {
-                                    PointF mid5 = pointAverage(this.canvasPoints[pointCount - 1], sCubicPts[2]);
-                                    mid6 = ThirdPoint(this.canvasPoints[pointCount - 1], mid5, true, 1f);
+                                    PointF mid5 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], sCubicPts[2]);
+                                    mid6 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid5, true, 1f);
                                 }
 
-                                sCubicPts[1] = pointAverage(mid6, sCubicPts[2]);
+                                sCubicPts[1] = PointFUtil.PointAverage(mid6, sCubicPts[2]);
                                 if (pointCount > 1)
                                 {
-                                    sCubicPts[0] = reverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
+                                    sCubicPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
                                 }
                                 else
                                 {
@@ -1271,7 +1271,7 @@ namespace ShapeMaker
                                 sQuadPts[2] = clickedPoint;
                                 if (pointCount > 1)
                                 {
-                                    sQuadPts[0] = reverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
+                                    sQuadPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
                                     sQuadPts[1] = sQuadPts[0];
                                 }
                                 else
@@ -1339,13 +1339,13 @@ namespace ShapeMaker
                     }
                     else if (scaleRect.Contains(e.Location))
                     {
-                        this.initialDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                        this.initialDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                         this.operation = Operation.Scale;
                     }
                     else if (rotateRect.Contains(e.Location))
                     {
                         PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        this.initialRads = XYToRadians(clickCoord, this.averagePoint);
+                        this.initialRads = PointFUtil.XYToRadians(clickCoord, this.averagePoint);
                         this.operation = Operation.Rotate;
                     }
                     else if (moveRect.Contains(e.Location))
@@ -1469,7 +1469,7 @@ namespace ShapeMaker
                             // Do Nothing
                             break;
                         case Operation.Scale:
-                            float newDist = pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                            float newDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             float scale = newDist / this.initialDist;
 
                             if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
@@ -1492,7 +1492,7 @@ namespace ShapeMaker
                             }
                             break;
                         case Operation.Rotate:
-                            double newRadians = XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                            double newRadians = PointFUtil.XYToRadians(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             double radians = this.initialRads - newRadians;
 
                             if (ModifierKeys.HasFlag(Keys.Shift))
@@ -1536,7 +1536,7 @@ namespace ShapeMaker
                                     PointF[] pathPoints = this.paths[k].Lines;
                                     for (int j = 0; j < pathPoints.Length; j++)
                                     {
-                                        pathPoints[j] = movePoint(this.moveStart, newCoord, pathPoints[j]);
+                                        pathPoints[j] = PointFUtil.MovePoint(this.moveStart, newCoord, pathPoints[j]);
                                     }
                                 }
                                 this.moveStart = mouseCoord;
@@ -1546,7 +1546,7 @@ namespace ShapeMaker
                                 PointF oldPoint = this.canvasPoints[0];
                                 for (int j = 0; j < this.canvasPoints.Count; j++)
                                 {
-                                    this.canvasPoints[j] = movePoint(oldPoint, newCoord, this.canvasPoints[j]);
+                                    this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, newCoord, this.canvasPoints[j]);
                                 }
                             }
                             break;
@@ -1562,7 +1562,7 @@ namespace ShapeMaker
 
                         for (int j = 0; j < this.canvasPoints.Count; j++)
                         {
-                            this.canvasPoints[j] = movePoint(oldPoint, mouseCoord, this.canvasPoints[j]);
+                            this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, mouseCoord, this.canvasPoints[j]);
                         }
                     }
                     else if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
@@ -1574,7 +1574,7 @@ namespace ShapeMaker
                             PointF[] pathPoints = this.paths[k].Lines;
                             for (int j = 0; j < pathPoints.Length; j++)
                             {
-                                pathPoints[j] = movePoint(this.moveStart, mouseCoord, pathPoints[j]);
+                                pathPoints[j] = PointFUtil.MovePoint(this.moveStart, mouseCoord, pathPoints[j]);
                             }
                         }
                         this.moveStart = mouseCoord;
@@ -1586,7 +1586,7 @@ namespace ShapeMaker
 
                     PointF oldPoint = this.canvasPoints[nubIndex];
 
-                    NubType nubType = GetNubType(this.clickedNub);
+                    NubType nubType = CanvasUtil.GetNubType(this.clickedNub);
                     PathType pathType = getPathType();
 
                     switch (pathType)
@@ -1602,7 +1602,7 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (this.canvasPoints.Count > 1)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                                 case NubType.ControlPoint1:
@@ -1611,10 +1611,10 @@ namespace ShapeMaker
                                     break;
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    this.canvasPoints[nubIndex - 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    this.canvasPoints[nubIndex - 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                     if ((nubIndex + 1) < this.canvasPoints.Count)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                             }
@@ -1639,8 +1639,8 @@ namespace ShapeMaker
                                         }
                                         else
                                         {
-                                            PointF rtmp = reverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
-                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
+                                            PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
+                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
                                         }
                                     }
                                     else
@@ -1668,12 +1668,12 @@ namespace ShapeMaker
                                         //online
                                         if (nubIndex == this.canvasPoints.Count - 1)
                                         {
-                                            PointF rtmp = reverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
-                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
+                                            PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
+                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
                                         }
                                         else
                                         {
-                                            this.canvasPoints[nubIndex] = onLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
+                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
                                         }
                                     }
                                     else
@@ -1691,7 +1691,7 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (this.canvasPoints.Count > 1)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
 
                                     this.canvasPoints[1] = this.canvasPoints[0];
@@ -1700,7 +1700,7 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (nubIndex > 1)
                                     {
-                                        this.canvasPoints[nubIndex - 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                        this.canvasPoints[nubIndex - 2] = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                     }
                                     else
                                     {
@@ -1711,15 +1711,15 @@ namespace ShapeMaker
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     if (nubIndex < this.canvasPoints.Count - 2)
                                     {
-                                        this.canvasPoints[nubIndex + 2] = reverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 2] = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    this.canvasPoints[nubIndex - 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
+                                    this.canvasPoints[nubIndex - 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
                                     if ((nubIndex + 1) < this.canvasPoints.Count)
                                     {
-                                        this.canvasPoints[nubIndex + 1] = movePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
                                     break;
                             }
@@ -1742,9 +1742,9 @@ namespace ShapeMaker
 
                             for (int j = 0; j < this.canvasPoints.Count; j++)
                             {
-                                if (GetNubType(j) == NubType.ControlPoint1 && j > 1)
+                                if (CanvasUtil.GetNubType(j) == NubType.ControlPoint1 && j > 1)
                                 {
-                                    this.canvasPoints[j] = reverseAverage(this.canvasPoints[j - 3], this.canvasPoints[j - 1]);
+                                    this.canvasPoints[j] = PointFUtil.ReverseAverage(this.canvasPoints[j - 3], this.canvasPoints[j - 1]);
                                     this.canvasPoints[j + 1] = this.canvasPoints[j];
                                 }
                             }
@@ -1848,121 +1848,6 @@ namespace ShapeMaker
         }
         #endregion
 
-        #region Utility functions
-        private static IReadOnlyList<PointF> GetFirstControlPoints(IReadOnlyList<PointF> rhs)
-        {
-            int n = rhs.Count;
-            PointF[] x = new PointF[n]; // Solution vector.
-            float[] tmp = new float[n]; // Temp workspace.
-
-            float b = 2.0f;
-            x[0] = new PointF(rhs[0].X / b, rhs[0].Y / b);
-
-            for (int i = 1; i < n; i++) // Decomposition and forward substitution.
-            {
-                tmp[i] = 1f / b;
-                b = (i < n - 1 ? 4.0f : 3.5f) - tmp[i];
-                x[i].X = (rhs[i].X - x[i - 1].X) / b;
-                x[i].Y = (rhs[i].Y - x[i - 1].Y) / b;
-            }
-            for (int i = 1; i < n; i++)
-            {
-                x[n - i - 1].X -= tmp[n - i] * x[n - i].X; // Backsubstitution.
-                x[n - i - 1].Y -= tmp[n - i] * x[n - i].Y;
-            }
-            return x;
-        }
-
-        private static PointF onLinePoint(PointF sp, PointF ep, PointF mt)
-        {
-            PointF xy = new PointF(sp.X, sp.Y);
-            float dist = 9999;
-
-            for (float i = 0; i < 1; i += .001f)
-            {
-                PointF test = new PointF(ep.X * i + sp.X - sp.X * i, ep.Y * i + sp.Y - sp.Y * i);
-
-                float tmp = pythag(mt, test);
-                if (tmp < dist)
-                {
-                    dist = tmp;
-                    xy = new PointF(test.X, test.Y);
-                }
-            }
-
-            return xy;
-        }
-
-        private static PointF movePoint(PointF orig, PointF dest, PointF target)
-        {
-            return new PointF
-            {
-                X = target.X + (dest.X - orig.X),
-                Y = target.Y + (dest.Y - orig.Y)
-            };
-        }
-
-        private static PointF ThirdPoint(PointF p1, PointF p2, bool flip, float curve)
-        {
-            float Shift = (float)(1f / Math.Sqrt(3));
-            float x3, y3;
-            if (!flip)
-            {
-                x3 = p2.X + Shift * (p1.Y - p2.Y);
-                y3 = p2.Y + Shift * (p2.X - p1.X);
-            }
-            else
-            {
-                x3 = p2.X + Shift * (p2.Y - p1.Y);
-                y3 = p2.Y + Shift * (p1.X - p2.X);
-            }
-            x3 = (x3 - p2.X) * curve + p2.X;
-            y3 = (y3 - p2.Y) * curve + p2.Y;
-            return new PointF(x3, y3);
-        }
-
-        private static PointF reverseAverage(PointF p1, PointF p2)
-        {
-            return new PointF
-            {
-                X = p2.X * 2f - p1.X,
-                Y = p2.Y * 2f - p1.Y
-            };
-        }
-
-        private static PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
-        {
-            PointF tmp = reverseAverage(c1, p1);
-            float py1 = pythag(p0, p1);
-            float py2 = pythag(p2, p1);
-            float norm = (py1 + py2) / (py1 * 2f + .00001f);
-            tmp.X = (tmp.X - c1.X) * norm + c1.X;
-            tmp.Y = (tmp.Y - c1.Y) * norm + c1.Y;
-            return tmp;
-        }
-
-        private static PointF pointAverage(PointF p1, PointF p2)
-        {
-            return new PointF
-            {
-                X = (p2.X + p1.X) / 2f,
-                Y = (p2.Y + p1.Y) / 2f
-            };
-        }
-
-        private static float pythag(PointF p1, PointF p2)
-        {
-            return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
-        }
-
-        private static double XYToRadians(PointF xy, PointF center)
-        {
-            float dx = xy.X - center.X;
-            float dy = xy.Y - center.Y;
-            return Math.Atan2(-dy, dx);
-        }
-        #endregion
-
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
@@ -1990,7 +1875,7 @@ namespace ShapeMaker
                     return;
                 }
 
-                PointF mid = pointAverage(this.canvasPoints[0], this.canvasPoints[4]);
+                PointF mid = PointFUtil.PointAverage(this.canvasPoints[0], this.canvasPoints[4]);
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
@@ -2114,7 +1999,7 @@ namespace ShapeMaker
                 rhs[n - 1].X = (8f * knots[n - 1].X + knots[n].X) / 2f;
                 rhs[n - 1].Y = (8f * knots[n - 1].Y + knots[n].Y) / 2f;
 
-                IReadOnlyList<PointF> xy = GetFirstControlPoints(rhs);
+                IReadOnlyList<PointF> xy = PointFUtil.GetFirstControlPoints(rhs);
 
                 for (int ri = 0; ri < n; ri++)
                 {
@@ -2137,40 +2022,6 @@ namespace ShapeMaker
                     }
                 }
             }
-        }
-
-        private static bool IsControlNub(int nubIndex, PathType pathType)
-        {
-            switch (pathType)
-            {
-                case PathType.Ellipse:
-                    if (nubIndex % 4 != 0)
-                    {
-                        return true;
-                    }
-                    break;
-                case PathType.Cubic:
-                case PathType.SmoothCubic:
-                case PathType.Quadratic:
-                    if (nubIndex % 3 != 0)
-                    {
-                        return true;
-                    }
-                    break;
-            }
-
-            return false;
-        }
-
-        private static NubType GetNubType(int nubIndex)
-        {
-            if (nubIndex == 0)
-            {
-                return NubType.StartPoint;
-            }
-
-            int nubType = ((nubIndex - 1) % 3) + 1;
-            return (NubType)nubType;
         }
 
         private PathType getPathType()
@@ -2227,7 +2078,7 @@ namespace ShapeMaker
 
                 for (int j = 0; j < tmp.Length; j++)
                 {
-                    if (IsControlNub(j, pathType))
+                    if (CanvasUtil.IsControlNub(j, pathType))
                     {
                         continue;
                     }
@@ -2270,697 +2121,18 @@ namespace ShapeMaker
         private string GenerateStreamGeometry()
         {
             const int size = 500;
-            return GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, size, size);
-        }
-
-        private static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
-        {
-            string strPath = solidFill ? "F1 " : "F0 ";
-            float oldx = 0, oldy = 0;
-
-            for (int index = 0; index < paths.Count; index++)
-            {
-                PData currentPath = paths[index];
-                PathType pathType = (PathType)currentPath.LineType;
-                PointF[] line = currentPath.Lines;
-                bool islarge = currentPath.IsLarge;
-                bool revsweep = currentPath.RevSweep;
-                if (line.Length < 2)
-                {
-                    continue;
-                }
-                float x, y;
-
-                x = width * line[0].X;
-                y = height * line[0].Y;
-
-                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType)
-                {
-                    if (index > 0)
-                    {
-                        strPath += " ";
-                    }
-
-                    strPath += "M ";
-                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                    strPath += ",";
-                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                }
-
-                switch (pathType)
-                {
-                    case PathType.Straight:
-                        strPath += " L ";
-                        for (int i = 1; i < line.Length; i++)
-                        {
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                            strPath += ",";
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                            if (i < line.Length - 1)
-                            {
-                                strPath += ",";
-                            }
-                        }
-                        oldx = x; oldy = y;
-                        break;
-                    case PathType.Ellipse:
-                        strPath += " A ";
-                        PointF[] pts = new PointF[line.Length];
-                        for (int i = 0; i < line.Length; i++)
-                        {
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
-                            pts[i] = new PointF(x, y);
-                        }
-                        PointF mid = pointAverage(pts[0], pts[4]);
-                        float l = pythag(mid, pts[1]);
-                        float h = pythag(mid, pts[2]);
-                        float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-                        float b = (islarge) ? 1 : 0;
-                        float s = (revsweep) ? 1 : 0;
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", l);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", h);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", b);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", s);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].X);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].Y);
-                        oldx = pts[4].X;
-                        oldy = pts[4].Y;
-                        break;
-                    case PathType.Cubic:
-                        strPath += " C ";
-                        for (int i = 1; i < line.Length; i++)
-                        {
-                            x = width * line[i].X;
-                            y = height * line[i].Y;
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                            strPath += ",";
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                            if (i < line.Length - 1)
-                            {
-                                strPath += ",";
-                            }
-
-                            oldx = x; oldy = y;
-                        }
-                        break;
-                    case PathType.Quadratic:
-                        strPath += " Q ";
-                        for (int i = 1; i < line.Length; i++)
-                        {
-                            if (GetNubType(i) != NubType.ControlPoint2)
-                            {
-                                x = width * line[i].X;
-                                y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                                if (i < line.Length - 1)
-                                {
-                                    strPath += ",";
-                                }
-
-                                oldx = x; oldy = y;
-                            }
-                        }
-                        break;
-                    case PathType.SmoothCubic:
-                        strPath += " S ";
-                        for (int i = 1; i < line.Length; i++)
-                        {
-                            if (GetNubType(i) != NubType.ControlPoint1)
-                            {
-                                x = width * line[i].X;
-                                y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                                if (i < line.Length - 1)
-                                {
-                                    strPath += ",";
-                                }
-
-                                oldx = x; oldy = y;
-                            }
-                        }
-                        break;
-                    case PathType.SmoothQuadratic:
-                        strPath += " T ";
-                        for (int i = 1; i < line.Length; i++)
-                        {
-                            if (GetNubType(i) != NubType.ControlPoint2 && GetNubType(i) != NubType.ControlPoint1)
-                            {
-                                x = width * line[i].X;
-                                y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
-                                if (i < line.Length - 1)
-                                {
-                                    strPath += ",";
-                                }
-
-                                oldx = x; oldy = y;
-                            }
-                        }
-                        break;
-                }
-
-                if (currentPath.ClosedType || currentPath.LoopBack)
-                {
-                    strPath += " Z";
-                    if (currentPath.ClosedType)
-                    {
-                        oldx += 10;
-                        oldy += 10;
-                    }
-                }
-            }
-
-            return strPath;
+            return StreamGeometryUtil.GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, size, size);
         }
 
         private string GeneratePathGeometry()
         {
             const int size = 500;
-            return GeneratePathGeometry(this.paths, size, size);
-        }
-
-        private static string GeneratePathGeometry(IReadOnlyList<PData> paths, float width, float height)
-        {
-            string strPath = string.Empty;
-            float oldx = 0, oldy = 0;
-            string[] repstr = { "~1", "~2", "~3" };
-            string tmpstr = string.Empty;
-
-            for (int index = 0; index < paths.Count; index++)
-            {
-                PData currentPath = paths[index];
-                PathType pathType = (PathType)currentPath.LineType;
-                PointF[] points = currentPath.Lines;
-                bool islarge = currentPath.IsLarge;
-                bool revsweep = currentPath.RevSweep;
-
-                if (points.Length < 2)
-                {
-                    continue;
-                }
-
-                float x, y;
-
-                x = width * points[0].X;
-                y = height * points[0].Y;
-
-                if (index == 0)
-                {
-                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
-                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
-                }
-                else if (currentPath.ClosedType || (x != oldx || y != oldy))//mod 091515
-                {
-                    strPath = strPath.Replace("~0", "False");
-                    strPath += "\t\t\t\t</PathFigure>\r\n";
-                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
-                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
-                }
-
-                switch (pathType)
-                {
-                    case PathType.Straight:
-                        tmpstr = string.Empty;
-                        for (int i = 1; i < points.Length; i++)
-                        {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PGLine}\r\n";
-                            x = width * points[i].X;
-                            y = height * points[i].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
-
-                            strPath = strPath.Replace("~1", tmpstr);
-                        }
-
-                        oldx = x; oldy = y;
-                        break;
-                    case PathType.Ellipse:
-                        strPath += $"\t\t\t\t\t{Properties.Resources.PGEllipse}\r\n";
-                        PointF[] pts = new PointF[points.Length];
-                        for (int i = 0; i < points.Length; i++)
-                        {
-                            x = width * points[i].X;
-                            y = height * points[i].Y;
-                            pts[i] = new PointF(x, y);
-                        }
-                        PointF mid = pointAverage(pts[0], pts[4]);
-                        float l = pythag(mid, pts[1]);
-                        float h = pythag(mid, pts[2]);
-                        float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
-
-                        tmpstr = $"{l:0.##}";
-                        tmpstr += ",";
-                        tmpstr += $"{h:0.##}";
-                        strPath = strPath.Replace("~1", tmpstr);
-                        strPath = strPath.Replace("~2", $"{a:0.##}");
-                        strPath = strPath.Replace("~3", (islarge) ? "True" : "False");
-                        strPath = strPath.Replace("~4", (revsweep) ? "Clockwise" : "CounterClockwise");
-
-                        tmpstr = $"{pts[4].X:0.##},{pts[4].Y:0.##}";
-                        strPath = strPath.Replace("~5", tmpstr);
-                        oldx = pts[4].X; oldy = pts[4].Y;
-                        break;
-                    case PathType.SmoothCubic:
-                    case PathType.Cubic:
-
-                        for (int i = 1; i < points.Length - 1; i += 3)
-                        {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PGBezier}\r\n";
-                            for (int j = 0; j < 3; j++)
-                            {
-                                x = width * points[j + i].X;
-                                y = height * points[j + i].Y;
-                                tmpstr = $"{x:0.##},{y:0.##}";
-                                strPath = strPath.Replace(repstr[j], tmpstr);
-                            }
-                        }
-
-                        oldx = x; oldy = y;
-                        break;
-                    case PathType.SmoothQuadratic:
-                    case PathType.Quadratic:
-
-                        for (int i = 1; i < points.Length - 1; i += 3)
-                        {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PQQuad}\r\n";
-
-                            x = width * points[i].X;
-                            y = height * points[i].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
-                            strPath = strPath.Replace("~1", tmpstr);
-                            x = width * points[i + 2].X;
-                            y = height * points[i + 2].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
-                            strPath = strPath.Replace("~2", tmpstr);
-                        }
-
-                        oldx = x; oldy = y;
-                        break;
-                }
-
-                if (currentPath.ClosedType || currentPath.LoopBack)
-                {
-                    strPath = strPath.Replace("~0", "True");
-                    oldx += 10;
-                    oldy += 10;
-                }
-            }
-
-            strPath += "\t\t\t\t</PathFigure>\r\n";
-            strPath = strPath.Replace("~0", "False");
-            strPath += "\r\n";
-
-            return strPath;
-        }
-
-        private static string scrubNums(string strPath)
-        {
-            const string commands = "fmlacsqthvz";
-            const string numbers = "e.-0123456789";
-            string TMP = string.Empty;
-            bool alpha = false;
-            bool blank = false;
-
-            foreach (char mychar in strPath.ToLowerInvariant().Replace(',', ' '))
-            {
-                bool isNumber = numbers.Contains(mychar);
-                bool isCommand = commands.Contains(mychar);
-
-                if (TMP.Length == 0)
-                {
-                    TMP += mychar;
-                    alpha = true;
-                    blank = false;
-                }
-                else if (mychar.Equals(' '))
-                {
-                    alpha = true;
-                    blank = true;
-                }
-                else if (isCommand && (!alpha || blank))
-                {
-                    TMP += "," + mychar;
-                    alpha = true;
-                    blank = false;
-                }
-                else if (isCommand)
-                {
-                    TMP += mychar;
-                    alpha = true;
-                    blank = false;
-                }
-                else if (isNumber && (alpha || blank))
-                {
-                    TMP += "," + mychar;
-                    alpha = false;
-                    blank = false;
-                }
-                else if (isNumber)
-                {
-                    TMP += mychar;
-                    alpha = false;
-                    blank = false;
-                }
-            }
-            return TMP;
-        }
-
-        private static IReadOnlyCollection<PData> StreamGeometryToPData(string streamGeometry)
-        {
-            streamGeometry = streamGeometry.Trim();
-            if (streamGeometry.Length == 0)
-            {
-                return Array.Empty<PData>();
-            }
-
-            List<PointF> pts = new List<PointF>();
-            PathType pathType = PathType.None;
-            bool closedIndividual = false;
-            bool closedContiguous = false;
-            bool isLarge = true;
-            bool revSweep = false;
-
-            bool solidFill = false;
-
-            PointF LastPos = new PointF();
-            PointF HomePos = new PointF();
-
-            StreamGeometryCommand currentCommand = StreamGeometryCommand.None;
-            int drawCommandsSinceMove = 0;
-            bool errorFlagX = false;
-            bool errorFlagY = false;
-            float x = 0, y = 0;
-
-            List<PData> paths = new List<PData>();
-
-            string[] str = scrubNums(streamGeometry).Split(',');
-            for (int i = 0; i < str.Length; i++)
-            {
-                errorFlagX = true;
-                errorFlagY = true;
-
-                StreamGeometryCommand command = GetStreamGeometryCommand(str[i]);
-
-                if (command != StreamGeometryCommand.None)
-                {
-                    currentCommand = command;
-
-                    if (currentCommand == StreamGeometryCommand.Move)
-                    {
-                        drawCommandsSinceMove = 0;
-                    }
-                    else if (currentCommand != StreamGeometryCommand.Close && currentCommand != StreamGeometryCommand.FillRule)
-                    {
-                        drawCommandsSinceMove++;
-                    }
-
-                    closedContiguous = currentCommand == StreamGeometryCommand.Close && drawCommandsSinceMove > 1;
-                    closedIndividual = !closedContiguous && currentCommand == StreamGeometryCommand.Close;
-
-                    if (pts.Count > 1)
-                    {
-                        PData path = new PData(pts.ToArray(), closedIndividual, (int)pathType, isLarge, revSweep, string.Empty, closedContiguous);
-                        paths.Add(path);
-                    }
-
-                    pts.Clear();
-                    pts.Add(LastPos);
-
-                    PathType type = CommandToPathType(currentCommand);
-                    if (type != PathType.None)
-                    {
-                        pathType = type;
-                    }
-
-                    continue;
-                }
-
-                int len = 0;
-
-                switch (currentCommand)
-                {
-                    case StreamGeometryCommand.Close:
-                        pts.Add(HomePos);
-                        break;
-                    case StreamGeometryCommand.FillRule:
-                        errorFlagX = int.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out int fillRule);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        solidFill = Convert.ToBoolean(fillRule);
-                        break;
-                    case StreamGeometryCommand.Move:
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        HomePos = LastPos;
-                        break;
-
-                    case StreamGeometryCommand.CubicBezierCurve:
-                    case StreamGeometryCommand.Line:
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        pts.Add(LastPos);
-                        break;
-                    case StreamGeometryCommand.SmoothCubicBezierCurve:
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        len = pts.Count;
-
-                        if (len > 1)
-                        {
-                            NubType nubType = GetNubType(len);
-
-                            if (nubType == NubType.ControlPoint1)
-                            {
-                                pts.Add(reverseAverage(pts[len - 2], pts[len - 1]));
-                                pts.Add(LastPos);
-                            }
-                            else if (nubType == NubType.EndPoint)
-                            {
-                                pts.Add(LastPos);
-                            }
-                        }
-                        else
-                        {
-                            pts.Add(pts[0]);
-                            pts.Add(LastPos);
-                        }
-
-                        break;
-                    case StreamGeometryCommand.SmoothQuadraticBezierCurve:
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        len = pts.Count;
-
-                        if (len > 1)
-                        {
-                            pts.Add(reverseAverage(pts[len - 2], pts[len - 1]));
-                            pts.Add(pts[len]);
-                        }
-                        else
-                        {
-                            pts[1] = pts[0];
-                            pts[2] = pts[0];
-                        }
-                        pts.Add(LastPos);
-                        break;
-                    case StreamGeometryCommand.QuadraticBezierCurve:
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        pts.Add(LastPos);
-
-                        if (GetNubType(pts.Count - 1) == NubType.ControlPoint1)
-                        {
-                            pts.Add(LastPos);
-                        }
-
-                        break;
-                    case StreamGeometryCommand.HorizontalLine:
-                        y = LastPos.Y;
-                        errorFlagX = float.TryParse(str[i++], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        x = x / 500;
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        pts.Add(LastPos);
-                        break;
-                    case StreamGeometryCommand.VerticalLine:
-                        x = LastPos.X;
-                        errorFlagY = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        y = y / 500;
-                        LastPos = PointToCanvasCoord1x(x, y);
-                        pts.Add(LastPos);
-                        break;
-                    case StreamGeometryCommand.EllipticalArc:
-                        errorFlagX = float.TryParse(str[i + 5], NumberStyles.Float, CultureInfo.InvariantCulture, out x);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        errorFlagY = float.TryParse(str[i + 6], NumberStyles.Float, CultureInfo.InvariantCulture, out y);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        LastPos = PointToCanvasCoord1x(x, y);
-
-                        float dist;
-                        errorFlagX = float.TryParse(str[i], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //W
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        PointF From = CanvasCoordToPoint1x(pts[0]);
-                        PointF To = new PointF(x, y);
-
-                        PointF mid = pointAverage(From, To);
-                        PointF mid2 = ThirdPoint(From, mid, true, 1f);
-                        float far = pythag(From, mid);
-                        float atan = (float)Math.Atan2(mid2.Y - mid.Y, mid2.X - mid.X);
-
-                        pts.Add(pointOrbit(mid, atan - (float)Math.PI / 4f, dist));
-
-                        errorFlagX = float.TryParse(str[i + 1], NumberStyles.Float, CultureInfo.InvariantCulture, out dist); //H
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        pts.Add(pointOrbit(mid, atan + (float)Math.PI / 4f, dist));
-                        errorFlagX = float.TryParse(str[i + 2], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
-                        float rot = dist * (float)Math.PI / 180f; //ROT
-                        pts.Add(pointOrbit(mid, rot, far));
-
-                        pts.Add(LastPos); //ENDPOINT
-
-                        errorFlagX = float.TryParse(str[i + 3], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
-                        if (!errorFlagX)
-                        {
-                            break;
-                        }
-
-                        float dist2;
-                        errorFlagY = float.TryParse(str[i + 4], NumberStyles.Float, CultureInfo.InvariantCulture, out dist2);
-                        if (!errorFlagY)
-                        {
-                            break;
-                        }
-
-                        isLarge = Convert.ToBoolean(dist);
-                        revSweep = Convert.ToBoolean(dist2);
-
-                        i += 6;
-                        //currentCommand = StreamGeometryCommand.Close;
-                        break;
-                }
-
-                if (!errorFlagX || !errorFlagY)
-                {
-                    break;
-                }
-            }
-
-            if (!errorFlagX || !errorFlagY || pathType == PathType.None)
-            {
-                return Array.Empty<PData>();
-            }
-
-            if (pts.Count > 1)
-            {
-                PData path = new PData(pts.ToArray(), closedIndividual, (int)pathType, isLarge, revSweep, string.Empty, closedContiguous);
-                path.SolidFill = solidFill;
-                paths.Add(path);
-            }
-
-            return paths;
+            return PathGeometryUtil.GeneratePathGeometry(this.paths, size, size);
         }
 
         private void LoadStreamGeometry(string streamGeometry)
         {
-            IReadOnlyCollection<PData> paths = StreamGeometryToPData(streamGeometry);
+            IReadOnlyCollection<PData> paths = PData.FromStreamGeometry(streamGeometry);
 
             if (paths.Count == 0)
             {
@@ -2979,75 +2151,19 @@ namespace ShapeMaker
             RefreshPdnCanvas();
         }
 
-        private static void AutoScaleAndCenter(IReadOnlyCollection<PData> paths)
-        {
-            if (paths.Count == 0)
-            {
-                return;
-            }
-
-            RectangleF bounds = paths.SelectMany(path => path.Lines).ToArray().Bounds();
-            if (bounds.IsEmpty)
-            {
-                return;
-            }
-
-            PointF center = new PointF(0.5f, 0.5f);
-            PointF origin = bounds.Location;
-            PointF destination = new PointF(center.X - bounds.Width / 2f, center.Y - bounds.Height / 2f);
-            float scale = 0.98f / Math.Max(bounds.Width, bounds.Height);
-            foreach (PData path in paths)
-            {
-                PointF[] pathPoints = path.Lines;
-                for (int j = 0; j < pathPoints.Length; j++)
-                {
-                    pathPoints[j] = movePoint(origin, destination, pathPoints[j]);
-                }
-
-                pathPoints.Scale(pathPoints, scale, center);
-            }
-        }
-
-        private static PointF pointOrbit(PointF center, float rotation, float distance)
-        {
-            float x = (float)Math.Cos(rotation) * distance;
-            float y = (float)Math.Sin(rotation) * distance;
-            return PointToCanvasCoord1x(center.X + x, center.Y + y);
-        }
-
         private PointF PointToCanvasCoord(float x, float y)
         {
-            return PointToCanvasCoord(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
-        }
-
-        private static PointF PointToCanvasCoord1x(float x, float y)
-        {
-            return PointToCanvasCoord(x, y, 500, 500);
-        }
-
-        private static PointF PointToCanvasCoord(float x, float y, int width, int height)
-        {
-            return new PointF(x / width, y / height);
+            return CanvasUtil.PointToCanvasCoord(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
         private PointF CanvasCoordToPoint(PointF coord)
         {
-            return CanvasCoordToPoint(coord.X, coord.Y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
+            return CanvasUtil.CanvasCoordToPoint(coord.X, coord.Y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
         private PointF CanvasCoordToPoint(float x, float y)
         {
-            return CanvasCoordToPoint(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
-        }
-
-        private static PointF CanvasCoordToPoint1x(PointF coord)
-        {
-            return CanvasCoordToPoint(coord.X, coord.Y, 500, 500);
-        }
-
-        private static PointF CanvasCoordToPoint(float x, float y, int width, int height)
-        {
-            return new PointF(x * width, y * height);
+            return CanvasUtil.CanvasCoordToPoint(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
         private void ClearAllPaths()
@@ -3830,7 +2946,7 @@ namespace ShapeMaker
         private void autoScaleMenuItem_Click(object sender, EventArgs e)
         {
             setUndo();
-            AutoScaleAndCenter(this.paths);
+            CanvasUtil.AutoScaleAndCenter(this.paths);
             this.canvas.Refresh();
             RefreshPdnCanvas();
         }
@@ -4411,56 +3527,5 @@ namespace ShapeMaker
 #endif
         }
         #endregion
-
-        private static StreamGeometryCommand GetStreamGeometryCommand(string commandChar)
-        {
-            // https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/path-markup-syntax
-            const string commands = "fmlacsqthvz";
-
-            return (StreamGeometryCommand)commands.IndexOf(commandChar);
-        }
-
-        private static PathType CommandToPathType(StreamGeometryCommand streamGeometryCommand)
-        {
-            switch (streamGeometryCommand)
-            {
-                case StreamGeometryCommand.Line:
-                case StreamGeometryCommand.HorizontalLine:
-                case StreamGeometryCommand.VerticalLine:
-                    return PathType.Straight;
-                case StreamGeometryCommand.EllipticalArc:
-                    return PathType.Ellipse;
-                case StreamGeometryCommand.CubicBezierCurve:
-                    return PathType.Cubic;
-                case StreamGeometryCommand.SmoothCubicBezierCurve:
-                    return PathType.SmoothCubic;
-                case StreamGeometryCommand.QuadraticBezierCurve:
-                    return PathType.Quadratic;
-                case StreamGeometryCommand.SmoothQuadraticBezierCurve:
-                    return PathType.SmoothQuadratic;
-                case StreamGeometryCommand.FillRule:
-                case StreamGeometryCommand.Move:
-                case StreamGeometryCommand.Close:
-                case StreamGeometryCommand.None:
-                default:
-                    return PathType.None;
-            }
-        }
-
-        private enum StreamGeometryCommand
-        {
-            FillRule,
-            Move,
-            Line,
-            EllipticalArc,
-            CubicBezierCurve,
-            SmoothCubicBezierCurve,
-            QuadraticBezierCurve,
-            SmoothQuadraticBezierCurve,
-            HorizontalLine,
-            VerticalLine,
-            Close,
-            None = -1
-        }
     }
 }

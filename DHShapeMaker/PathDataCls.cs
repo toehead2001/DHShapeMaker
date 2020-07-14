@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace ShapeMaker
@@ -29,6 +30,11 @@ namespace ShapeMaker
 
         public PData()
         {
+        }
+
+        internal static IReadOnlyCollection<PData> FromStreamGeometry(string streamGeometry)
+        {
+            return PDataFactory.StreamGeometryToPData(streamGeometry);
         }
     }
 }

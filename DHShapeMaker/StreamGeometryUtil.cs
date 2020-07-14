@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -204,6 +207,182 @@ namespace ShapeMaker
         {
             PathGeometry pathGeometry = PathGeometry.CreateFromGeometry(geometry);
             return pathGeometry.Figures.ToString();
+        }
+
+        internal static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
+        {
+            string strPath = solidFill ? "F1 " : "F0 ";
+            float oldx = 0, oldy = 0;
+
+            for (int index = 0; index < paths.Count; index++)
+            {
+                PData currentPath = paths[index];
+                PathType pathType = (PathType)currentPath.LineType;
+                PointF[] line = currentPath.Lines;
+                bool islarge = currentPath.IsLarge;
+                bool revsweep = currentPath.RevSweep;
+                if (line.Length < 2)
+                {
+                    continue;
+                }
+                float x, y;
+
+                x = width * line[0].X;
+                y = height * line[0].Y;
+
+                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType)
+                {
+                    if (index > 0)
+                    {
+                        strPath += " ";
+                    }
+
+                    strPath += "M ";
+                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                    strPath += ",";
+                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                }
+
+                switch (pathType)
+                {
+                    case PathType.Straight:
+                        strPath += " L ";
+                        for (int i = 1; i < line.Length; i++)
+                        {
+                            x = width * line[i].X;
+                            y = height * line[i].Y;
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                            strPath += ",";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                            if (i < line.Length - 1)
+                            {
+                                strPath += ",";
+                            }
+                        }
+                        oldx = x; oldy = y;
+                        break;
+                    case PathType.Ellipse:
+                        strPath += " A ";
+                        PointF[] pts = new PointF[line.Length];
+                        for (int i = 0; i < line.Length; i++)
+                        {
+                            x = width * line[i].X;
+                            y = height * line[i].Y;
+                            pts[i] = new PointF(x, y);
+                        }
+                        PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
+                        float l = PointFUtil.Pythag(mid, pts[1]);
+                        float h = PointFUtil.Pythag(mid, pts[2]);
+                        float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
+                        float b = (islarge) ? 1 : 0;
+                        float s = (revsweep) ? 1 : 0;
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", l);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", h);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", b);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", s);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].X);
+                        strPath += ",";
+                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].Y);
+                        oldx = pts[4].X;
+                        oldy = pts[4].Y;
+                        break;
+                    case PathType.Cubic:
+                        strPath += " C ";
+                        for (int i = 1; i < line.Length; i++)
+                        {
+                            x = width * line[i].X;
+                            y = height * line[i].Y;
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                            strPath += ",";
+                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                            if (i < line.Length - 1)
+                            {
+                                strPath += ",";
+                            }
+
+                            oldx = x; oldy = y;
+                        }
+                        break;
+                    case PathType.Quadratic:
+                        strPath += " Q ";
+                        for (int i = 1; i < line.Length; i++)
+                        {
+                            if (CanvasUtil.GetNubType(i) != NubType.ControlPoint2)
+                            {
+                                x = width * line[i].X;
+                                y = height * line[i].Y;
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                                strPath += ",";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                                if (i < line.Length - 1)
+                                {
+                                    strPath += ",";
+                                }
+
+                                oldx = x; oldy = y;
+                            }
+                        }
+                        break;
+                    case PathType.SmoothCubic:
+                        strPath += " S ";
+                        for (int i = 1; i < line.Length; i++)
+                        {
+                            if (CanvasUtil.GetNubType(i) != NubType.ControlPoint1)
+                            {
+                                x = width * line[i].X;
+                                y = height * line[i].Y;
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                                strPath += ",";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                                if (i < line.Length - 1)
+                                {
+                                    strPath += ",";
+                                }
+
+                                oldx = x; oldy = y;
+                            }
+                        }
+                        break;
+                    case PathType.SmoothQuadratic:
+                        strPath += " T ";
+                        for (int i = 1; i < line.Length; i++)
+                        {
+                            if (CanvasUtil.GetNubType(i) != NubType.ControlPoint2 && CanvasUtil.GetNubType(i) != NubType.ControlPoint1)
+                            {
+                                x = width * line[i].X;
+                                y = height * line[i].Y;
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
+                                strPath += ",";
+                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                                if (i < line.Length - 1)
+                                {
+                                    strPath += ",";
+                                }
+
+                                oldx = x; oldy = y;
+                            }
+                        }
+                        break;
+                }
+
+                if (currentPath.ClosedType || currentPath.LoopBack)
+                {
+                    strPath += " Z";
+                    if (currentPath.ClosedType)
+                    {
+                        oldx += 10;
+                        oldy += 10;
+                    }
+                }
+            }
+
+            return strPath;
         }
     }
 }
