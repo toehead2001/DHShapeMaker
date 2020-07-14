@@ -93,9 +93,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FastDebug\Program.cs" />
     <Compile Include="NubType.cs" />
-    <Compile Include="PathDataCls.cs" />
     <Compile Include="PathGeometryUtil.cs" />
     <Compile Include="PathType.cs" />
+    <Compile Include="PData.cs" />
     <Compile Include="PDataFactory.cs" />
     <Compile Include="PdnColor.cs">
       <SubType>UserControl</SubType>
