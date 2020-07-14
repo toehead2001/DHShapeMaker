@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace ShapeMaker
 {
@@ -15,17 +16,23 @@ namespace ShapeMaker
                 return null;
             }
 
-            XmlDocument xDoc = TryLoadXml(xamlCode);
+            XDocument xDoc = TryParseXDocument(xamlCode);
             if (xDoc == null)
             {
                 return null;
             }
 
-            XmlElement docElement = xDoc.DocumentElement;
+            XElement docElement = xDoc.Root;
 
-            if (docElement.Name == "ps:SimpleGeometryShape" && !docElement.HasChildNodes && docElement.HasAttributes && docElement.HasAttribute("Geometry"))
+            if (docElement.Name.LocalName == "SimpleGeometryShape" && !docElement.HasElements && docElement.HasAttributes)
             {
-                string geometryCode = docElement.Attributes.GetNamedItem("Geometry").InnerText;
+                XAttribute geometryAttribute = docElement.Attribute(XName.Get("Geometry", string.Empty));
+                if (geometryAttribute == null)
+                {
+                    return null;
+                }
+
+                string geometryCode = geometryAttribute.Value;
                 if (string.IsNullOrWhiteSpace(geometryCode))
                 {
                     return null;
@@ -37,18 +44,18 @@ namespace ShapeMaker
                     return streamGeometry.ToString();
                 }
             }
-            else
+            else if (docElement.HasElements)
             {
-                XmlNodeList pathNodes = docElement.GetElementsByTagName("Path");
-                if (pathNodes.Count == 0)
+                IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get("Path", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
+                if (!pathElements.Any())
                 {
                     return null;
                 }
 
-                List<string> dataStrings = new List<string>(pathNodes.Count);
-                foreach (XmlNode pathNode in pathNodes)
+                List<string> dataStrings = new List<string>();
+                foreach (XElement pathElement in pathElements)
                 {
-                    Path path = TryParsePath(pathNode.OuterXml);
+                    Path path = TryParsePath(pathElement.ToString());
                     if (path != null && path.Data is StreamGeometry streamGeometry)
                     {
                         dataStrings.Add(streamGeometry.ToString());
@@ -61,12 +68,12 @@ namespace ShapeMaker
             return null;
         }
 
-        private static XmlDocument TryLoadXml(string xml)
+        private static XDocument TryParseXDocument(string xml)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            XDocument xmlDoc = null;
             try
             {
-                xmlDoc.LoadXml(xml);
+                xmlDoc = XDocument.Parse(xml);
             }
             catch
             {
