@@ -89,7 +89,7 @@ namespace ShapeMaker
                 VerticalAlignment = VerticalAlignment.Center,
                 Stroke = stroke ? strokeBrush : Brushes.Transparent,
                 Fill = !stroke ? strokeBrush : fill ? fillBrush : Brushes.Transparent,
-                StrokeThickness = strokeThickness,
+                StrokeThickness = stroke ? strokeThickness : 0,
                 Stretch = fit ? Stretch.Uniform : Stretch.None,
                 Width = width,
                 Height = height,
