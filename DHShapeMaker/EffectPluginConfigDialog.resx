@@ -968,13 +968,13 @@ Double Click to Rename</value>
     <value>Top, Right</value>
   </data>
   <data name="drawModeBox.Items" xml:space="preserve">
-    <value>Outlined</value>
+    <value>Outline</value>
   </data>
   <data name="drawModeBox.Items1" xml:space="preserve">
-    <value>Filled</value>
+    <value>Fill</value>
   </data>
   <data name="drawModeBox.Items2" xml:space="preserve">
-    <value>Outlined &amp; Filled</value>
+    <value>Outline &amp; Fill</value>
   </data>
   <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>711, 441</value>
