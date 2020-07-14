@@ -188,6 +188,11 @@ namespace ShapeMaker
             return path;
         }
 
+        internal static string TryGetValidatedStreamGeometry(string streamGeometry)
+        {
+            return TryParseStreamGeometry(streamGeometry)?.ToString();
+        }
+
         internal static StreamGeometry TryParseStreamGeometry(string streamGeometry)
         {
             StreamGeometry geometry = null;

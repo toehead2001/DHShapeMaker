@@ -2136,7 +2136,7 @@ namespace ShapeMaker
 
             if (paths.Count == 0)
             {
-                MessageBox.Show("No Paths found, or is not in the StreamGeometry Format", "Import", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No Paths found.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2793,21 +2793,36 @@ namespace ShapeMaker
         private void pasteData_Click(object sender, EventArgs e)
         {
             string clipboardString = null;
+            bool pasted = false;
             try
             {
                 clipboardString = Clipboard.GetText();
+                pasted = true;
             }
             catch
             {
             }
 
-            if (clipboardString == null)
+            if (!pasted)
             {
                 MessageBox.Show("There was an error retrieving text from the Clipboard.", "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            LoadStreamGeometry(clipboardString);
+            if (string.IsNullOrWhiteSpace(clipboardString))
+            {
+                MessageBox.Show("The text on the Clipboard is empty.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string validatedStreamGeometry = StreamGeometryUtil.TryGetValidatedStreamGeometry(clipboardString);
+            if (validatedStreamGeometry == null)
+            {
+                MessageBox.Show("The text on the Clipboard is not in the StreamGeometry Format.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            LoadStreamGeometry(validatedStreamGeometry);
         }
 
         private void CopyStream_Click(object sender, EventArgs e)
