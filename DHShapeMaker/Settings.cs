@@ -10,41 +10,31 @@ namespace ShapeMaker
 
         internal static string RecentProjects
         {
-            get
-            {
-                return (string)regKey.GetValue("RecentProjects", string.Empty);
-            }
-            set
-            {
-                regKey.SetValue("RecentProjects", value, RegistryValueKind.String);
-                regKey.Flush();
-            }
+            get => GetRegValue("RecentProjects", string.Empty);
+            set => SetRegValue("RecentProjects", value);
         }
 
         internal static string ProjectFolder
         {
-            get
-            {
-                return (string)regKey.GetValue("ProjectDir", documentsPath);
-            }
-            set
-            {
-                regKey.SetValue("ProjectDir", value, RegistryValueKind.String);
-                regKey.Flush();
-            }
+            get => GetRegValue("ProjectDir", documentsPath);
+            set => SetRegValue("ProjectDir", value);
         }
 
         internal static string ShapeFolder
         {
-            get
-            {
-                return (string)regKey.GetValue("PdnShapeDir", documentsPath);
-            }
-            set
-            {
-                regKey.SetValue("PdnShapeDir", value, RegistryValueKind.String);
-                regKey.Flush();
-            }
+            get => GetRegValue("PdnShapeDir", documentsPath);
+            set => SetRegValue("PdnShapeDir", value);
+        }
+
+        private static string GetRegValue(string valueName, string defaultValue)
+        {
+            return (string)regKey.GetValue(valueName, defaultValue);
+        }
+
+        private static void SetRegValue(string valueName, string value)
+        {
+            regKey.SetValue(valueName, value, RegistryValueKind.String);
+            regKey.Flush();
         }
 
         static Settings()
