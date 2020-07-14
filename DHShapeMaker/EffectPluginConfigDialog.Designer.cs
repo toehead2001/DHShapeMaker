@@ -41,13 +41,13 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProject = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.importPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pdnStreamGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pdnPathGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importXamlGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.pasteStreamGeomentyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPathStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportPathGeometryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -191,13 +191,11 @@
             this.openRecentProject,
             this.saveProject,
             this.toolStripSeparator1,
-            this.importPDNShapeToolStripMenuItem,
             this.exportPDNShapeToolStripMenuItem,
+            this.importXamlGeometryMenuItem,
             this.toolStripSeparator3,
             this.pasteStreamGeomentyToolStripMenuItem,
-            this.copyPathStreamToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exportPathGeometryToolStripMenuItem});
+            this.copyPathStreamToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -242,17 +240,31 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // importPDNShapeToolStripMenuItem
-            // 
-            this.importPDNShapeToolStripMenuItem.Name = "importPDNShapeToolStripMenuItem";
-            resources.ApplyResources(this.importPDNShapeToolStripMenuItem, "importPDNShapeToolStripMenuItem");
-            this.importPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.importPdnShape_Click);
-            // 
             // exportPDNShapeToolStripMenuItem
             // 
+            this.exportPDNShapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pdnStreamGeometryMenuItem,
+            this.pdnPathGeometryMenuItem});
             this.exportPDNShapeToolStripMenuItem.Name = "exportPDNShapeToolStripMenuItem";
             resources.ApplyResources(this.exportPDNShapeToolStripMenuItem, "exportPDNShapeToolStripMenuItem");
-            this.exportPDNShapeToolStripMenuItem.Click += new System.EventHandler(this.exportPdnShape_Click);
+            // 
+            // pdnStreamGeometryMenuItem
+            // 
+            this.pdnStreamGeometryMenuItem.Name = "pdnStreamGeometryMenuItem";
+            resources.ApplyResources(this.pdnStreamGeometryMenuItem, "pdnStreamGeometryMenuItem");
+            this.pdnStreamGeometryMenuItem.Click += new System.EventHandler(this.ExportPdnStreamGeometry_Click);
+            // 
+            // pdnPathGeometryMenuItem
+            // 
+            this.pdnPathGeometryMenuItem.Name = "pdnPathGeometryMenuItem";
+            resources.ApplyResources(this.pdnPathGeometryMenuItem, "pdnPathGeometryMenuItem");
+            this.pdnPathGeometryMenuItem.Click += new System.EventHandler(this.ExportPdnPathGeometry_Click);
+            // 
+            // importXamlGeometryMenuItem
+            // 
+            this.importXamlGeometryMenuItem.Name = "importXamlGeometryMenuItem";
+            resources.ApplyResources(this.importXamlGeometryMenuItem, "importXamlGeometryMenuItem");
+            this.importXamlGeometryMenuItem.Click += new System.EventHandler(this.ImportXamlGeometry_Click);
             // 
             // toolStripSeparator3
             // 
@@ -263,24 +275,13 @@
             // 
             this.pasteStreamGeomentyToolStripMenuItem.Name = "pasteStreamGeomentyToolStripMenuItem";
             resources.ApplyResources(this.pasteStreamGeomentyToolStripMenuItem, "pasteStreamGeomentyToolStripMenuItem");
-            this.pasteStreamGeomentyToolStripMenuItem.Click += new System.EventHandler(this.pasteData_Click);
+            this.pasteStreamGeomentyToolStripMenuItem.Click += new System.EventHandler(this.PasteStreamGeometry_Click);
             // 
             // copyPathStreamToolStripMenuItem
             // 
             this.copyPathStreamToolStripMenuItem.Name = "copyPathStreamToolStripMenuItem";
             resources.ApplyResources(this.copyPathStreamToolStripMenuItem, "copyPathStreamToolStripMenuItem");
-            this.copyPathStreamToolStripMenuItem.Click += new System.EventHandler(this.CopyStream_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            // 
-            // exportPathGeometryToolStripMenuItem
-            // 
-            this.exportPathGeometryToolStripMenuItem.Name = "exportPathGeometryToolStripMenuItem";
-            resources.ApplyResources(this.exportPathGeometryToolStripMenuItem, "exportPathGeometryToolStripMenuItem");
-            this.exportPathGeometryToolStripMenuItem.Click += new System.EventHandler(this.ExportPG_Click);
+            this.copyPathStreamToolStripMenuItem.Click += new System.EventHandler(this.CopyStreamGeometry_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -1131,8 +1132,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importPDNShapeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportPDNShapeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importXamlGeometryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteStreamGeomentyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyPathStreamToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -1147,7 +1147,6 @@
         private System.Windows.Forms.ToolStripMenuItem usersManualToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem keyboardShortcutsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportPathGeometryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem QuickStartStripMenuItem;
         private System.Windows.Forms.CheckBox FitBG;
         private System.Windows.Forms.CheckBox DrawOnCanvas;
@@ -1163,7 +1162,6 @@
         private System.Windows.Forms.ToolStripMenuItem openProject;
         private System.Windows.Forms.ToolStripMenuItem saveProject;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSplitButton splitButtonZoom;
@@ -1236,5 +1234,8 @@
         private System.Windows.Forms.ToolStripMenuItem opBoxMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem autoScaleMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportPDNShapeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pdnStreamGeometryMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pdnPathGeometryMenuItem;
     }
 }

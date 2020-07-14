@@ -160,16 +160,16 @@
     <value>True</value>
   </metadata>
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="newProjectMenuItem.Text" xml:space="preserve">
     <value>&amp;New Project</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 6</value>
+    <value>201, 6</value>
   </data>
   <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="openProject.Text" xml:space="preserve">
     <value>&amp;Open Project...</value>
@@ -184,55 +184,58 @@
     <value>No Recent Projects</value>
   </data>
   <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="openRecentProject.Text" xml:space="preserve">
     <value>Open &amp;Recent Project</value>
   </data>
   <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="saveProject.Text" xml:space="preserve">
     <value>&amp;Save Project...</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 6</value>
+    <value>201, 6</value>
   </data>
-  <data name="importPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+  <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
   </data>
-  <data name="importPDNShapeToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Import PDN Shape...</value>
+  <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
+    <value>&amp;StreamGeometry</value>
+  </data>
+  <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
+  </data>
+  <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
+    <value>&amp;PathGeometry</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Export PDN Shape...</value>
   </data>
+  <data name="importXamlGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="importXamlGeometryMenuItem.Text" xml:space="preserve">
+    <value>&amp;Import Xaml Geometry...</value>
+  </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 6</value>
+    <value>201, 6</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Paste Path Stream</value>
+    <value>&amp;Paste StreamGeometry</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
+    <value>204, 22</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Copy Path Stream</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 6</value>
-  </data>
-  <data name="exportPathGeometryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 22</value>
-  </data>
-  <data name="exportPathGeometryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Export Path&amp;Geometry...</value>
+    <value>&amp;Copy StreamGeometry</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 20</value>
@@ -2062,16 +2065,28 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;importPDNShapeToolStripMenuItem.Name" xml:space="preserve">
-    <value>importPDNShapeToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;importPDNShapeToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;exportPDNShapeToolStripMenuItem.Name" xml:space="preserve">
     <value>exportPDNShapeToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;exportPDNShapeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Name" xml:space="preserve">
+    <value>pdnStreamGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pdnPathGeometryMenuItem.Name" xml:space="preserve">
+    <value>pdnPathGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pdnPathGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;importXamlGeometryMenuItem.Name" xml:space="preserve">
+    <value>importXamlGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;importXamlGeometryMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
@@ -2090,18 +2105,6 @@ Double Click to Rename</value>
     <value>copyPathStreamToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Name" xml:space="preserve">
-    <value>exportPathGeometryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;exportPathGeometryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;editToolStripMenuItem.Name" xml:space="preserve">
@@ -2432,6 +2435,6 @@ Double Click to Rename</value>
     <value>EffectPluginConfigDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.210.7348.40816, Culture=neutral, PublicKeyToken=null</value>
+    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Version=4.213.7497.39107, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

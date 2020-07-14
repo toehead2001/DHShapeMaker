@@ -2668,7 +2668,7 @@ namespace ShapeMaker
             }
         }
 
-        private void exportPdnShape_Click(object sender, EventArgs e)
+        private void ExportPdnStreamGeometry_Click(object sender, EventArgs e)
         {
             if (this.paths.Count == 0)
             {
@@ -2703,7 +2703,7 @@ namespace ShapeMaker
             }
         }
 
-        private void ExportPG_Click(object sender, EventArgs e)
+        private void ExportPdnPathGeometry_Click(object sender, EventArgs e)
         {
             if (this.paths.Count == 0)
             {
@@ -2740,7 +2740,7 @@ namespace ShapeMaker
             }
         }
 
-        private void importPdnShape_Click(object sender, EventArgs e)
+        private void ImportXamlGeometry_Click(object sender, EventArgs e)
         {
             string fileName = null;
 
@@ -2779,7 +2779,7 @@ namespace ShapeMaker
             LoadStreamGeometry(shapeCode);
         }
 
-        private void pasteData_Click(object sender, EventArgs e)
+        private void PasteStreamGeometry_Click(object sender, EventArgs e)
         {
             string clipboardString = null;
             bool pasted = false;
@@ -2814,7 +2814,7 @@ namespace ShapeMaker
             LoadStreamGeometry(validatedStreamGeometry);
         }
 
-        private void CopyStream_Click(object sender, EventArgs e)
+        private void CopyStreamGeometry_Click(object sender, EventArgs e)
         {
             if (this.paths.Count == 0)
             {
