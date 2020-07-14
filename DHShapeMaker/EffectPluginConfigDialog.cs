@@ -1631,17 +1631,10 @@ namespace ShapeMaker
                             switch (nubType)
                             {
                                 case NubType.StartPoint:
-                                    if (isAltPressed)
+                                    if (isAltPressed && this.canvasPoints.Count != 1)
                                     {
-                                        if (this.canvasPoints.Count == 1)
-                                        {
-                                            this.canvasPoints[nubIndex] = mouseCoord;
-                                        }
-                                        else
-                                        {
-                                            PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
-                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
-                                        }
+                                        PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
+                                        this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
                                     }
                                     else
                                     {
@@ -1666,15 +1659,11 @@ namespace ShapeMaker
                                     if (isAltPressed)
                                     {
                                         //online
-                                        if (nubIndex == this.canvasPoints.Count - 1)
-                                        {
-                                            PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex]);
-                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex - 1], rtmp, mouseCoord);
-                                        }
-                                        else
-                                        {
-                                            this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex + 1], mouseCoord);
-                                        }
+                                        PointF point = (nubIndex == this.canvasPoints.Count - 1)
+                                            ? PointFUtil.ReverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex])
+                                            : this.canvasPoints[nubIndex + 1];
+
+                                        this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex - 1], point, mouseCoord);
                                     }
                                     else
                                     {
