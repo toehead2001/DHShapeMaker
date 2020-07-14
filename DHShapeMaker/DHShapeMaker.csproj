@@ -96,7 +96,6 @@
     <Compile Include="PathGeometryUtil.cs" />
     <Compile Include="PathType.cs" />
     <Compile Include="PData.cs" />
-    <Compile Include="PDataFactory.cs" />
     <Compile Include="PdnColor.cs">
       <SubType>UserControl</SubType>
     </Compile>
