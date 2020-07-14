@@ -1,4 +1,4 @@
-﻿#if !PDNPLUGIN
+﻿#if FASTDEBUG
 using System;
 using System.Windows.Forms;
 

@@ -203,7 +203,7 @@ namespace ShapeMaker
             }
         }
 
-#if !PDNPLUGIN
+#if FASTDEBUG
         internal static int Clamp(this int value, int min, int max)
         {
             if (min > max)

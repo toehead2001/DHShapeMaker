@@ -1,5 +1,5 @@
 //Elliptical Arc algorithm from svg.codeplex.com
-#if PDNPLUGIN
+#if !FASTDEBUG
 using PaintDotNet;
 using PaintDotNet.AppModel;
 using PaintDotNet.Clipboard;
@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 
 namespace ShapeMaker
 {
-#if PDNPLUGIN
+#if !FASTDEBUG
     internal partial class EffectPluginConfigDialog : EffectConfigDialog
 #else
     internal partial class EffectPluginConfigDialog : Form
@@ -85,7 +85,7 @@ namespace ShapeMaker
         private Control hadFocus;
         private bool isNewPath = true;
         private int canvasBaseSize;
-#if PDNPLUGIN
+#if !FASTDEBUG
         private bool drawClippingArea = false;
         private string geometryForPdnCanvas = null;
 #else
@@ -108,7 +108,7 @@ namespace ShapeMaker
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
-#if PDNPLUGIN
+#if !FASTDEBUG
             //this.UseAppThemeColors = true;
 
             // Theming
@@ -153,7 +153,7 @@ namespace ShapeMaker
             };
         }
 
-#if PDNPLUGIN
+#if !FASTDEBUG
         #region Effect Token functions
         protected override void InitialInitToken()
         {
@@ -576,7 +576,7 @@ namespace ShapeMaker
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-#if PDNPLUGIN
+#if !FASTDEBUG
             if (this.drawClippingArea)
             {
                 Size selSize = this.EnvironmentParameters.SelectionBounds.Size;
@@ -4029,7 +4029,7 @@ namespace ShapeMaker
         #region Image Tracing
         private void setTraceImage()
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             if (this.traceLayer.Checked)
             {
                 Rectangle selection = this.EnvironmentParameters.SelectionBounds;
@@ -4324,7 +4324,7 @@ namespace ShapeMaker
         #region Draw on Canvas Properties
         private void ColorPanel_Click(object sender, EventArgs e)
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             if (sender is Panel colorPanel)
             {
                 using (ColorWindow colorWindow = new ColorWindow())
@@ -4344,7 +4344,7 @@ namespace ShapeMaker
 
         private void ColorPanel_Paint(object sender, PaintEventArgs e)
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
 
@@ -4369,7 +4369,7 @@ namespace ShapeMaker
 
         private void DrawOnCanvas_CheckedChanged(object sender, EventArgs e)
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             bool enable = this.DrawOnCanvas.Checked;
             this.strokeColorPanel.Enabled = enable;
             this.fillColorPanel.Enabled = enable;
@@ -4385,14 +4385,14 @@ namespace ShapeMaker
 
         private void DrawOnCanvasPropChanged(object sender, EventArgs e)
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             RefreshPdnCanvas();
 #endif
         }
 
         private void fitCanvasBox_CheckedChanged(object sender, EventArgs e)
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
             this.canvas.Refresh();
 
@@ -4402,7 +4402,7 @@ namespace ShapeMaker
 
         private void RefreshPdnCanvas()
         {
-#if PDNPLUGIN
+#if !FASTDEBUG
             this.geometryForPdnCanvas = (this.DrawOnCanvas.Checked && this.paths.Count > 0) ?
                 GenerateStreamGeometry() :
                 null;

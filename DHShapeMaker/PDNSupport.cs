@@ -1,4 +1,4 @@
-﻿#if PDNPLUGIN
+﻿#if !FASTDEBUG
 using PaintDotNet;
 using System;
 using System.Reflection;
