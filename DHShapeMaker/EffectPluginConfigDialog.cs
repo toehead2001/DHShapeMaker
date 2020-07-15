@@ -1329,7 +1329,7 @@ namespace ShapeMaker
                 if (this.operationBox.Contains(e.Location))
                 {
                     this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
-                    this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : new PointF(0.5f,0.5f);
+                    this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : this.paths.Average();
 
                     const int gripWidth = 8;
                     int opWidth = (this.operationBox.Width - gripWidth) / 3;
