@@ -3086,28 +3086,22 @@ namespace ShapeMaker
         {
             setUndo();
 
-            if (this.CloseContPaths.Equals(sender))
+            if (sender == this.CloseContPaths)
             {
-                if (!this.CloseContPaths.Checked)
+                this.CloseContPaths.Checked = !this.CloseContPaths.Checked;
+
+                if (this.CloseContPaths.Checked && this.ClosePath.Checked)
                 {
                     this.ClosePath.Checked = false;
-                    this.CloseContPaths.Checked = true;
-                }
-                else
-                {
-                    this.CloseContPaths.Checked = false;
                 }
             }
-            else
+            else if (sender == this.ClosePath)
             {
-                if (!this.ClosePath.Checked)
+                this.ClosePath.Checked = !this.ClosePath.Checked;
+
+                if (this.ClosePath.Checked && this.CloseContPaths.Checked)
                 {
-                    this.ClosePath.Checked = true;
                     this.CloseContPaths.Checked = false;
-                }
-                else
-                {
-                    this.ClosePath.Checked = false;
                 }
             }
 
