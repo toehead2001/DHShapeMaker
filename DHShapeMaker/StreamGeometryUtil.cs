@@ -27,8 +27,13 @@ namespace ShapeMaker
 
             XElement docElement = xDoc.Root;
 
-            if (docElement.Name.LocalName == "svg")
+            if (docElement.Name == XName.Get("svg", "http://www.w3.org/2000/svg"))
             {
+                if (!docElement.HasElements)
+                {
+                    return null;
+                }
+
                 IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get("path", "http://www.w3.org/2000/svg"));
                 if (!pathElements.Any())
                 {
@@ -37,14 +42,14 @@ namespace ShapeMaker
 
                 List<string> dataStrings = new List<string>();
 
-                foreach (XElement path in pathElements)
+                foreach (XElement pathElement in pathElements)
                 {
-                    if (!path.HasAttributes)
+                    if (!pathElement.HasAttributes)
                     {
                         continue;
                     }
 
-                    XAttribute dAttribute = path.Attribute(XName.Get("d", string.Empty));
+                    XAttribute dAttribute = pathElement.Attribute(XName.Get("d", string.Empty));
                     if (dAttribute == null)
                     {
                         continue;
@@ -118,7 +123,7 @@ namespace ShapeMaker
                     : null;
             }
 
-            if (docElement.Name.LocalName == "SimpleGeometryShape")
+            if (docElement.Name == XName.Get("SimpleGeometryShape", "clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework"))
             {
                 if (docElement.HasElements)
                 {
@@ -138,13 +143,14 @@ namespace ShapeMaker
                         return null;
                     }
 
-                    const string xamlNs = " xmlns =\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"";
+                    const string replacementNs = " xmlns =\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"";
 
                     string geometryText = xElementText
                         .Remove(xmlnsStartIndex, xmlnsEndIndex - xmlnsStartIndex)
-                        .Insert(xmlnsStartIndex, xamlNs);
+                        .Insert(xmlnsStartIndex, replacementNs);
 
                     Geometry geometry = TryParseXaml<Geometry>(geometryText);
+
                     return (geometry != null)
                         ? StreamGeometryFromGeometry(geometry)
                         : null;
@@ -170,9 +176,14 @@ namespace ShapeMaker
                 return null;
             }
 
-            if (docElement.HasElements)
+            const string xamlNs = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+
+            if (docElement.Name.NamespaceName == xamlNs)
             {
-                const string xamlNs = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+                if (!docElement.HasElements)
+                {
+                    return null;
+                }
 
                 IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get(nameof(Path), xamlNs));
                 IEnumerable<XElement> geoDrawElements = docElement.Descendants(XName.Get(nameof(GeometryDrawing), xamlNs));
