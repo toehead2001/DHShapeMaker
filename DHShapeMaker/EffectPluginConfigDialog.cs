@@ -2700,9 +2700,9 @@ namespace ShapeMaker
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
-                string output = Properties.Resources.BaseString;
-                output = output.Replace("~1", shapeName);
-                output = output.Replace("~2", GenerateStreamGeometry());
+                string output = Properties.Resources.BaseString
+                    .Replace("~1", shapeName)
+                    .Replace("~2", GenerateStreamGeometry());
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2734,10 +2734,10 @@ namespace ShapeMaker
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
-                string output = Properties.Resources.PGBaseString;
-                output = output.Replace("~1", shapeName);
-                output = output.Replace("~2", GeneratePathGeometry());
-                output = this.solidFillCheckBox.Checked ? output.Replace("~3", "Nonzero") : output.Replace("~3", "EvenOdd");
+                string output = Properties.Resources.PGBaseString
+                    .Replace("~1", shapeName)
+                    .Replace("~2", GeneratePathGeometry())
+                    .Replace("~3", this.solidFillCheckBox.Checked ? "Nonzero" : "EvenOdd");
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
