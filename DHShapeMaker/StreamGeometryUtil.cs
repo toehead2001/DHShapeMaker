@@ -27,6 +27,49 @@ namespace ShapeMaker
 
             XElement docElement = xDoc.Root;
 
+            if (docElement.Name.LocalName == "svg")
+            {
+                IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get("path", "http://www.w3.org/2000/svg"));
+                if (!pathElements.Any())
+                {
+                    return null;
+                }
+
+                List<string> dataStrings = new List<string>();
+
+                foreach (XElement path in pathElements)
+                {
+                    if (!path.HasAttributes)
+                    {
+                        continue;
+                    }
+
+                    XAttribute dAttribute = path.Attribute(XName.Get("d", string.Empty));
+                    if (dAttribute == null)
+                    {
+                        continue;
+                    }
+
+                    string geometryCode = dAttribute.Value;
+                    if (string.IsNullOrWhiteSpace(geometryCode))
+                    {
+                        continue;
+                    }
+
+                    string streamGeometry = TryGetValidatedStreamGeometry(geometryCode);
+                    if (streamGeometry == null)
+                    {
+                        continue;
+                    }
+
+                    dataStrings.Add(streamGeometry);
+                }
+
+                return dataStrings.Any()
+                    ? string.Join(" ", dataStrings)
+                    : null;
+            }
+
             if (docElement.Name.LocalName == "SimpleGeometryShape")
             {
                 if (docElement.HasElements)

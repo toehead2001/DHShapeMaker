@@ -41,10 +41,11 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProject = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.importGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exportPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnStreamGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnPathGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importXamlGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.pasteStreamGeomentyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPathStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +140,6 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
@@ -192,7 +192,7 @@
             this.openRecentProject,
             this.saveProject,
             this.toolStripSeparator1,
-            this.importXamlGeometryMenuItem,
+            this.importGeometryMenuItem,
             this.toolStripSeparator2,
             this.exportPDNShapeToolStripMenuItem,
             this.toolStripSeparator3,
@@ -242,6 +242,17 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
+            // importGeometryMenuItem
+            // 
+            this.importGeometryMenuItem.Name = "importGeometryMenuItem";
+            resources.ApplyResources(this.importGeometryMenuItem, "importGeometryMenuItem");
+            this.importGeometryMenuItem.Click += new System.EventHandler(this.ImportGeometry_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
             // exportPDNShapeToolStripMenuItem
             // 
             this.exportPDNShapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -261,12 +272,6 @@
             this.pdnPathGeometryMenuItem.Name = "pdnPathGeometryMenuItem";
             resources.ApplyResources(this.pdnPathGeometryMenuItem, "pdnPathGeometryMenuItem");
             this.pdnPathGeometryMenuItem.Click += new System.EventHandler(this.ExportPdnPathGeometry_Click);
-            // 
-            // importXamlGeometryMenuItem
-            // 
-            this.importXamlGeometryMenuItem.Name = "importXamlGeometryMenuItem";
-            resources.ApplyResources(this.importXamlGeometryMenuItem, "importXamlGeometryMenuItem");
-            this.importXamlGeometryMenuItem.Click += new System.EventHandler(this.ImportXamlGeometry_Click);
             // 
             // toolStripSeparator3
             // 
@@ -1050,11 +1055,6 @@
             resources.ApplyResources(this.newPathLabel, "newPathLabel");
             this.newPathLabel.Name = "newPathLabel";
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -1139,7 +1139,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importXamlGeometryMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importGeometryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteStreamGeomentyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyPathStreamToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;

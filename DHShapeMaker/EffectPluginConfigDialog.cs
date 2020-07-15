@@ -2743,14 +2743,14 @@ namespace ShapeMaker
             }
         }
 
-        private void ImportXamlGeometry_Click(object sender, EventArgs e)
+        private void ImportGeometry_Click(object sender, EventArgs e)
         {
             string fileName = null;
 
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 OFD.InitialDirectory = Settings.ShapeFolder;
-                OFD.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
+                OFD.Filter = "All Supported Files|*.xaml;*.svg|XAML Files|*.xaml|SVG Files|*.svg|All Files|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
 
@@ -2764,22 +2764,22 @@ namespace ShapeMaker
 
             if (!File.Exists(fileName))
             {
-                MessageBox.Show("Specified file not found", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Specified file not found", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             Settings.ShapeFolder = Path.GetDirectoryName(fileName);
 
-            string xamlCode = File.ReadAllText(fileName);
-            string shapeCode = StreamGeometryUtil.TryExtractStreamGeometry(xamlCode);
+            string fileContents = File.ReadAllText(fileName);
+            string streamGeometry = StreamGeometryUtil.TryExtractStreamGeometry(fileContents);
 
-            if (shapeCode == null)
+            if (streamGeometry == null)
             {
-                MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Incorrect Format", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            LoadStreamGeometry(shapeCode);
+            LoadStreamGeometry(streamGeometry);
         }
 
         private void PasteStreamGeometry_Click(object sender, EventArgs e)
