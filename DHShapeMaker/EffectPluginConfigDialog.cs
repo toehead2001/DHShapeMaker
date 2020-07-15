@@ -2822,7 +2822,7 @@ namespace ShapeMaker
         {
             if (this.paths.Count == 0)
             {
-                MessageBox.Show("Nothing to Copy", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("There are no paths to copy.", "Copy StreamGeometry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -2838,7 +2838,7 @@ namespace ShapeMaker
 
             if (copied)
             {
-                MessageBox.Show("StreamGeometry Copied to Clipboard.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("StreamGeometry copied to Clipboard.", "Copy StreamGeometry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
