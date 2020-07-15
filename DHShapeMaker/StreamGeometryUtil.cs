@@ -116,9 +116,7 @@ namespace ShapeMaker
                         return null;
                     }
 
-                    StreamGeometry streamGeometry = TryParseStreamGeometry(geometryCode);
-
-                    return streamGeometry?.ToString();
+                    return TryGetValidatedStreamGeometry(geometryCode);
                 }
 
                 return null;
