@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace ShapeMaker
 {
@@ -34,6 +35,11 @@ namespace ShapeMaker
             return Rectangle.Round(rectangleF);
         }
 
+        internal static PointF Average(this IEnumerable<PData> paths)
+        {
+            return paths.SelectMany(path => path.Lines).ToArray().Average();
+        }
+
         internal static PointF Average(this IReadOnlyCollection<PointF> points)
         {
             if (points.Count == 0)
@@ -48,6 +54,11 @@ namespace ShapeMaker
                 y += pt.Y;
             }
             return new PointF(x / points.Count, y / points.Count);
+        }
+
+        internal static RectangleF Bounds(this IEnumerable<PData> paths)
+        {
+            return paths.SelectMany(path => path.Lines).ToArray().Bounds();
         }
 
         internal static RectangleF Bounds(this IReadOnlyCollection<PointF> points)

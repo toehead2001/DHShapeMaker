@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace ShapeMaker
 {
@@ -68,7 +67,7 @@ namespace ShapeMaker
                 return;
             }
 
-            RectangleF bounds = paths.SelectMany(path => path.Lines).ToArray().Bounds();
+            RectangleF bounds = paths.Bounds();
             if (bounds.IsEmpty)
             {
                 return;
