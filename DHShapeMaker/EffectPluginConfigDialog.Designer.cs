@@ -139,6 +139,7 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
@@ -191,8 +192,9 @@
             this.openRecentProject,
             this.saveProject,
             this.toolStripSeparator1,
-            this.exportPDNShapeToolStripMenuItem,
             this.importXamlGeometryMenuItem,
+            this.toolStripSeparator2,
+            this.exportPDNShapeToolStripMenuItem,
             this.toolStripSeparator3,
             this.pasteStreamGeomentyToolStripMenuItem,
             this.copyPathStreamToolStripMenuItem});
@@ -1048,6 +1050,11 @@
             resources.ApplyResources(this.newPathLabel, "newPathLabel");
             this.newPathLabel.Name = "newPathLabel";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -1237,5 +1244,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportPDNShapeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdnStreamGeometryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdnPathGeometryMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
