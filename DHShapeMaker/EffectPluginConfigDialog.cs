@@ -2679,7 +2679,7 @@ namespace ShapeMaker
         {
             if (this.paths.Count == 0)
             {
-                MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("There are no paths to save.", "Paint.NET Shape Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -2705,7 +2705,7 @@ namespace ShapeMaker
                     .Replace("~2", GenerateStreamGeometry());
 
                 File.WriteAllText(sfd.FileName, output);
-                MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.NET Shape Export - StreamGeometry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2713,7 +2713,7 @@ namespace ShapeMaker
         {
             if (this.paths.Count == 0)
             {
-                MessageBox.Show("Nothing to Save", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("There are no paths to save.", "Paint.NET Shape Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -2740,7 +2740,7 @@ namespace ShapeMaker
                     .Replace("~3", this.solidFillCheckBox.Checked ? "Nonzero" : "EvenOdd");
 
                 File.WriteAllText(sfd.FileName, output);
-                MessageBox.Show("PathGeometry XAML Saved", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.NET Shape Export - PathGeometry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
