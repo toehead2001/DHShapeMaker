@@ -1794,15 +1794,13 @@ namespace ShapeMaker
             {
                 coord = Point.Empty;
             }
-            else if (canvasPoints.Count > 0)
-            {
-                PointF pathAverage = canvasPoints.Average();
-                RectangleF pathBounds = canvasPoints.Bounds();
-                coord = new PointF((pathBounds.Right - pathAverage.X) / 2 + pathAverage.X, (pathBounds.Bottom - pathAverage.Y) / 2 + pathAverage.Y);
-            }
             else
             {
-                coord = new PointF(0.75f, 0.75f);
+                RectangleF bounds = (canvasPoints.Count > 0)
+                    ? canvasPoints.Bounds()
+                    : paths.Bounds();
+
+                coord = new PointF(bounds.Right, bounds.Bottom);
             }
 
             ToggleOpBox(this.operationBox.IsEmpty, coord);
