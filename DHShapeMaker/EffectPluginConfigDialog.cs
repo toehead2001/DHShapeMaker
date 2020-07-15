@@ -1014,10 +1014,393 @@ namespace ShapeMaker
 
             bool opBoxInit = false;
 
-            if (Control.ModifierKeys == Keys.Alt)
+            switch (e.Button)
             {
-                if (this.clickedNub == InvalidNub)
-                {
+                case MouseButtons.Left:
+                    if (Control.ModifierKeys == Keys.Alt)
+                    {
+                        if (this.clickedNub == InvalidNub)
+                        {
+                            this.panFlag = true;
+
+                            if (this.canvas.Width > this.viewport.ClientSize.Width && this.canvas.Height > this.viewport.ClientSize.Height)
+                            {
+                                this.canvas.Cursor = Cursors.NoMove2D;
+                            }
+                            else if (this.canvas.Width > this.viewport.ClientSize.Width)
+                            {
+                                this.canvas.Cursor = Cursors.NoMoveHoriz;
+                            }
+                            else if (this.canvas.Height > this.viewport.ClientSize.Height)
+                            {
+                                this.canvas.Cursor = Cursors.NoMoveVert;
+                            }
+                            else
+                            {
+                                this.panFlag = false;
+                            }
+                        }
+                        else
+                        {
+                            setUndo();
+                        }
+                    }
+                    else if (Control.ModifierKeys == Keys.Shift)
+                    {
+                        if (this.canvasPoints.Count != 0)
+                        {
+                            if (this.clickedNub != InvalidNub)
+                            {
+                                setUndo();
+                                this.moveFlag = true;
+                                this.canvas.Cursor = Cursors.SizeAll;
+                            }
+                        }
+                        else if (this.LineList.Items.Count > 0)
+                        {
+                            setUndo();
+                            this.moveFlag = true;
+                            this.canvas.Cursor = Cursors.SizeAll;
+                        }
+                    }
+                    else if (Control.ModifierKeys == Keys.Control)
+                    {
+                        if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
+                        {
+                            ToggleOpBox(true, this.canvasPoints[this.clickedNub]);
+                            opBoxInit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (this.operationBox.Contains(e.Location))
+                        {
+                            this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
+                            this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : this.paths.Average();
+
+                            const int gripWidth = 8;
+                            int opWidth = (this.operationBox.Width - gripWidth) / 3;
+                            Rectangle gripRect = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
+                            Rectangle scaleRect = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                            Rectangle rotateRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
+                            Rectangle moveRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
+
+                            if (gripRect.Contains(e.Location))
+                            {
+                                this.operation = Operation.NoneRelocate;
+                            }
+                            else if (scaleRect.Contains(e.Location))
+                            {
+                                this.initialDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                                this.operation = Operation.Scale;
+                            }
+                            else if (rotateRect.Contains(e.Location))
+                            {
+                                PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
+                                this.initialRads = PointFUtil.XYToRadians(clickCoord, this.averagePoint);
+                                this.operation = Operation.Rotate;
+                            }
+                            else if (moveRect.Contains(e.Location))
+                            {
+                                PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
+                                PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
+                                this.initialDistSize = new SizeF(clickCoord.X - originCoord.X, clickCoord.Y - originCoord.Y);
+                                this.operation = Operation.Move;
+                            }
+
+                            this.drawAverage = (this.operation == Operation.Scale || this.operation == Operation.Rotate);
+
+                            if (this.operation != Operation.None && this.operation != Operation.NoneRelocate)
+                            {
+                                setUndo();
+                            }
+                        }
+                        else if (this.clickedNub == InvalidNub)
+                        {
+                            Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
+                            int clickedPath = getNearestPath(bhit);
+                            if (clickedPath != InvalidPath)
+                            {
+                                this.LineList.SelectedIndex = clickedPath;
+
+                                for (int i = 0; i < this.canvasPoints.Count; i++)
+                                {
+                                    Point nub = CanvasCoordToPoint(this.canvasPoints[i]).Round();
+                                    if (bhit.Contains(nub))
+                                    {
+                                        StatusBarNubLocation(nub.X, nub.Y);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            setUndo();
+                            Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
+                            StatusBarNubLocation(nub.X, nub.Y);
+                        }
+                    }
+
+                    break;
+                case MouseButtons.Right:  //process add or delete
+                    PathType pathType = ActivePathType;
+
+                    if (this.clickedNub > InvalidNub) //delete
+                    {
+                        #region delete
+                        if (this.clickedNub == 0)
+                        {
+                            return; //don't delete moveto 
+                        }
+
+                        setUndo();
+
+                        switch (pathType)
+                        {
+                            case PathType.Straight:
+                                this.canvasPoints.RemoveAt(this.clickedNub);
+                                break;
+                            case PathType.Ellipse:
+                                if (this.clickedNub != 4)
+                                {
+                                    return;
+                                }
+
+                                PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
+                                this.canvasPoints.Clear();
+                                this.canvasPoints.Add(hold);
+                                break;
+                            case PathType.Cubic:
+                                if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
+                                {
+                                    return;
+                                }
+
+                                this.canvasPoints.RemoveAt(this.clickedNub);
+                                //remove control points
+                                this.canvasPoints.RemoveAt(this.clickedNub - 1);
+                                this.canvasPoints.RemoveAt(this.clickedNub - 2);
+                                if (this.MacroCubic.Checked)
+                                {
+                                    CubicAdjust();
+                                }
+
+                                break;
+                            case PathType.Quadratic:
+                                if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
+                                {
+                                    return;
+                                }
+
+                                this.canvasPoints.RemoveAt(this.clickedNub);
+                                //remove control points
+                                this.canvasPoints.RemoveAt(this.clickedNub - 1);
+                                this.canvasPoints.RemoveAt(this.clickedNub - 2);
+                                break;
+                            case PathType.SmoothCubic:
+                                if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
+                                {
+                                    return;
+                                }
+
+                                this.canvasPoints.RemoveAt(this.clickedNub);
+                                //remove control points
+                                this.canvasPoints.RemoveAt(this.clickedNub - 1);
+                                this.canvasPoints.RemoveAt(this.clickedNub - 2);
+                                for (int i = 1; i < this.canvasPoints.Count; i++)
+                                {
+                                    if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
+                                    {
+                                        this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 2], this.canvasPoints[i - 1]);
+                                    }
+                                }
+                                break;
+                            case PathType.SmoothQuadratic:
+                                if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
+                                {
+                                    return;
+                                }
+
+                                this.canvasPoints.RemoveAt(this.clickedNub);
+                                //remove control points
+                                this.canvasPoints.RemoveAt(this.clickedNub - 1);
+                                this.canvasPoints.RemoveAt(this.clickedNub - 2);
+                                for (int i = 1; i < this.canvasPoints.Count; i++)
+                                {
+                                    if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
+                                    {
+                                        this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 3], this.canvasPoints[i - 1]);
+                                        if (i < this.canvasPoints.Count - 1)
+                                        {
+                                            this.canvasPoints[i + 1] = this.canvasPoints[i];
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+                        this.canvas.Refresh();
+                        #endregion //delete
+                    }
+                    else //add new
+                    {
+                        #region add
+                        int pointCount = this.canvasPoints.Count;
+                        if (pointCount >= maxPoints)
+                        {
+                            MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        if (pathType == PathType.Ellipse && this.canvasPoints.Count > 2)
+                        {
+                            return;
+                        }
+
+                        setUndo();
+
+                        int eX = e.X, eY = e.Y;
+                        if (this.Snap.Checked)
+                        {
+                            eX = eX.ConstrainToInterval(10);
+                            eY = eY.ConstrainToInterval(10);
+                        }
+
+                        StatusBarNubLocation(eX, eY);
+
+                        PointF clickedPoint = PointToCanvasCoord(eX, eY);
+                        if (pointCount == 0)//first point
+                        {
+                            this.canvasPoints.Add(clickedPoint);
+                        }
+                        else//not first point
+                        {
+                            switch (pathType)
+                            {
+                                case PathType.Straight:
+                                    this.canvasPoints.Add(clickedPoint);
+
+                                    break;
+                                case PathType.Ellipse:
+                                    PointF[] ellipsePts = new PointF[5];
+                                    ellipsePts[0] = this.canvasPoints[pointCount - 1];
+                                    ellipsePts[4] = clickedPoint;
+                                    PointF mid = PointFUtil.PointAverage(ellipsePts[0], ellipsePts[4]);
+                                    PointF mid2 = PointFUtil.ThirdPoint(ellipsePts[0], mid, true, 1f);
+                                    ellipsePts[1] = PointFUtil.PointAverage(ellipsePts[0], mid2);
+                                    ellipsePts[2] = PointFUtil.PointAverage(ellipsePts[4], mid2);
+                                    ellipsePts[3] = PointFUtil.ThirdPoint(ellipsePts[0], mid, false, 1f);
+
+                                    this.canvasPoints.Clear();
+                                    this.canvasPoints.AddRange(ellipsePts);
+                                    break;
+
+                                case PathType.Cubic:
+                                    PointF[] cubicPts = new PointF[3];
+                                    cubicPts[2] = clickedPoint;
+
+                                    if (this.MacroCubic.Checked)
+                                    {
+                                        this.canvasPoints.AddRange(cubicPts);
+                                        CubicAdjust();
+                                    }
+                                    else
+                                    {
+                                        PointF mid4;
+                                        if (pointCount > 1)
+                                        {
+                                            PointF mid3 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                            mid4 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], cubicPts[2], mid3);
+                                        }
+                                        else
+                                        {
+                                            PointF mid3 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], cubicPts[2]);
+                                            mid4 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid3, true, 1f);
+                                        }
+                                        cubicPts[0] = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], mid4);
+                                        cubicPts[1] = PointFUtil.PointAverage(cubicPts[2], mid4);
+                                        this.canvasPoints.AddRange(cubicPts);
+                                    }
+
+                                    break;
+                                case PathType.Quadratic:
+                                    PointF[] quadPts = new PointF[3];
+                                    quadPts[2] = clickedPoint;
+                                    PointF tmp;
+                                    //add
+                                    if (pointCount > 1)
+                                    {
+                                        tmp = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
+                                    }
+                                    else
+                                    {
+                                        //add end
+                                        quadPts[1] = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
+                                        quadPts[0] = PointFUtil.ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
+                                        tmp = PointFUtil.PointAverage(quadPts[1], quadPts[0]);
+                                    }
+                                    quadPts[1] = tmp;
+                                    quadPts[0] = tmp;
+                                    this.canvasPoints.AddRange(quadPts);
+                                    break;
+
+                                case PathType.SmoothCubic:
+                                    PointF[] sCubicPts = new PointF[3];
+                                    sCubicPts[2] = clickedPoint;
+                                    //startchange
+                                    PointF mid6;
+                                    if (pointCount > 1)
+                                    {
+                                        PointF mid5 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
+                                        mid6 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], sCubicPts[2], mid5);
+                                    }
+                                    else
+                                    {
+                                        PointF mid5 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], sCubicPts[2]);
+                                        mid6 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid5, true, 1f);
+                                    }
+
+                                    sCubicPts[1] = PointFUtil.PointAverage(mid6, sCubicPts[2]);
+                                    if (pointCount > 1)
+                                    {
+                                        sCubicPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
+                                    }
+                                    else
+                                    {
+                                        sCubicPts[0] = this.canvasPoints[0];
+                                    }
+                                    this.canvasPoints.AddRange(sCubicPts);
+
+                                    break;
+                                case PathType.SmoothQuadratic:
+                                    PointF[] sQuadPts = new PointF[3];
+                                    sQuadPts[2] = clickedPoint;
+                                    if (pointCount > 1)
+                                    {
+                                        sQuadPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
+                                        sQuadPts[1] = sQuadPts[0];
+                                    }
+                                    else
+                                    {
+                                        sQuadPts[0] = this.canvasPoints[0];
+                                        sQuadPts[1] = this.canvasPoints[0];
+                                    }
+                                    this.canvasPoints.AddRange(sQuadPts);
+                                    break;
+                            }
+                        }
+
+                        this.canvas.Refresh();
+                        #endregion //add
+                    }
+
+                    if (this.LineList.SelectedIndex != InvalidPath && this.clickedNub != 0)
+                    {
+                        UpdateExistingPath();
+                    }
+
+                    break;
+                case MouseButtons.Middle:
                     this.panFlag = true;
 
                     if (this.canvas.Width > this.viewport.ClientSize.Width && this.canvas.Height > this.viewport.ClientSize.Height)
@@ -1036,385 +1419,8 @@ namespace ShapeMaker
                     {
                         this.panFlag = false;
                     }
-                }
-                else
-                {
-                    setUndo();
-                }
-            }
-            else if (e.Button == MouseButtons.Right) //process add or delete
-            {
-                PathType pathType = ActivePathType;
 
-                if (this.clickedNub > InvalidNub) //delete
-                {
-                    #region delete
-                    if (this.clickedNub == 0)
-                    {
-                        return; //don't delete moveto 
-                    }
-
-                    setUndo();
-
-                    switch (pathType)
-                    {
-                        case PathType.Straight:
-                            this.canvasPoints.RemoveAt(this.clickedNub);
-                            break;
-                        case PathType.Ellipse:
-                            if (this.clickedNub != 4)
-                            {
-                                return;
-                            }
-
-                            PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
-                            this.canvasPoints.Clear();
-                            this.canvasPoints.Add(hold);
-                            break;
-                        case PathType.Cubic:
-                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
-                            {
-                                return;
-                            }
-
-                            this.canvasPoints.RemoveAt(this.clickedNub);
-                            //remove control points
-                            this.canvasPoints.RemoveAt(this.clickedNub - 1);
-                            this.canvasPoints.RemoveAt(this.clickedNub - 2);
-                            if (this.MacroCubic.Checked)
-                            {
-                                CubicAdjust();
-                            }
-
-                            break;
-                        case PathType.Quadratic:
-                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
-                            {
-                                return;
-                            }
-
-                            this.canvasPoints.RemoveAt(this.clickedNub);
-                            //remove control points
-                            this.canvasPoints.RemoveAt(this.clickedNub - 1);
-                            this.canvasPoints.RemoveAt(this.clickedNub - 2);
-                            break;
-                        case PathType.SmoothCubic:
-                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
-                            {
-                                return;
-                            }
-
-                            this.canvasPoints.RemoveAt(this.clickedNub);
-                            //remove control points
-                            this.canvasPoints.RemoveAt(this.clickedNub - 1);
-                            this.canvasPoints.RemoveAt(this.clickedNub - 2);
-                            for (int i = 1; i < this.canvasPoints.Count; i++)
-                            {
-                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
-                                {
-                                    this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 2], this.canvasPoints[i - 1]);
-                                }
-                            }
-                            break;
-                        case PathType.SmoothQuadratic:
-                            if (CanvasUtil.GetNubType(this.clickedNub) != NubType.EndPoint)
-                            {
-                                return;
-                            }
-
-                            this.canvasPoints.RemoveAt(this.clickedNub);
-                            //remove control points
-                            this.canvasPoints.RemoveAt(this.clickedNub - 1);
-                            this.canvasPoints.RemoveAt(this.clickedNub - 2);
-                            for (int i = 1; i < this.canvasPoints.Count; i++)
-                            {
-                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && i > 3)
-                                {
-                                    this.canvasPoints[i] = PointFUtil.ReverseAverage(this.canvasPoints[i - 3], this.canvasPoints[i - 1]);
-                                    if (i < this.canvasPoints.Count - 1)
-                                    {
-                                        this.canvasPoints[i + 1] = this.canvasPoints[i];
-                                    }
-                                }
-                            }
-                            break;
-                    }
-                    this.canvas.Refresh();
-                    #endregion //delete
-                }
-                else //add new
-                {
-                    #region add
-                    int pointCount = this.canvasPoints.Count;
-                    if (pointCount >= maxPoints)
-                    {
-                        MessageBox.Show($"Too many Nubs in Path (Max is {maxPoints})", "Buffer Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    if (pathType == PathType.Ellipse && this.canvasPoints.Count > 2)
-                    {
-                        return;
-                    }
-
-                    setUndo();
-
-                    int eX = e.X, eY = e.Y;
-                    if (this.Snap.Checked)
-                    {
-                        eX = eX.ConstrainToInterval(10);
-                        eY = eY.ConstrainToInterval(10);
-                    }
-
-                    StatusBarNubLocation(eX, eY);
-
-                    PointF clickedPoint = PointToCanvasCoord(eX, eY);
-                    if (pointCount == 0)//first point
-                    {
-                        this.canvasPoints.Add(clickedPoint);
-                    }
-                    else//not first point
-                    {
-                        switch (pathType)
-                        {
-                            case PathType.Straight:
-                                this.canvasPoints.Add(clickedPoint);
-
-                                break;
-                            case PathType.Ellipse:
-                                PointF[] ellipsePts = new PointF[5];
-                                ellipsePts[0] = this.canvasPoints[pointCount - 1];
-                                ellipsePts[4] = clickedPoint;
-                                PointF mid = PointFUtil.PointAverage(ellipsePts[0], ellipsePts[4]);
-                                PointF mid2 = PointFUtil.ThirdPoint(ellipsePts[0], mid, true, 1f);
-                                ellipsePts[1] = PointFUtil.PointAverage(ellipsePts[0], mid2);
-                                ellipsePts[2] = PointFUtil.PointAverage(ellipsePts[4], mid2);
-                                ellipsePts[3] = PointFUtil.ThirdPoint(ellipsePts[0], mid, false, 1f);
-
-                                this.canvasPoints.Clear();
-                                this.canvasPoints.AddRange(ellipsePts);
-                                break;
-
-                            case PathType.Cubic:
-                                PointF[] cubicPts = new PointF[3];
-                                cubicPts[2] = clickedPoint;
-
-                                if (this.MacroCubic.Checked)
-                                {
-                                    this.canvasPoints.AddRange(cubicPts);
-                                    CubicAdjust();
-                                }
-                                else
-                                {
-                                    PointF mid4;
-                                    if (pointCount > 1)
-                                    {
-                                        PointF mid3 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
-                                        mid4 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], cubicPts[2], mid3);
-                                    }
-                                    else
-                                    {
-                                        PointF mid3 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], cubicPts[2]);
-                                        mid4 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid3, true, 1f);
-                                    }
-                                    cubicPts[0] = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], mid4);
-                                    cubicPts[1] = PointFUtil.PointAverage(cubicPts[2], mid4);
-                                    this.canvasPoints.AddRange(cubicPts);
-                                }
-
-                                break;
-                            case PathType.Quadratic:
-                                PointF[] quadPts = new PointF[3];
-                                quadPts[2] = clickedPoint;
-                                PointF tmp;
-                                //add
-                                if (pointCount > 1)
-                                {
-                                    tmp = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
-                                }
-                                else
-                                {
-                                    //add end
-                                    quadPts[1] = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
-                                    quadPts[0] = PointFUtil.ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
-                                    tmp = PointFUtil.PointAverage(quadPts[1], quadPts[0]);
-                                }
-                                quadPts[1] = tmp;
-                                quadPts[0] = tmp;
-                                this.canvasPoints.AddRange(quadPts);
-                                break;
-
-                            case PathType.SmoothCubic:
-                                PointF[] sCubicPts = new PointF[3];
-                                sCubicPts[2] = clickedPoint;
-                                //startchange
-                                PointF mid6;
-                                if (pointCount > 1)
-                                {
-                                    PointF mid5 = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 1], this.canvasPoints[pointCount - 2]);
-                                    mid6 = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], sCubicPts[2], mid5);
-                                }
-                                else
-                                {
-                                    PointF mid5 = PointFUtil.PointAverage(this.canvasPoints[pointCount - 1], sCubicPts[2]);
-                                    mid6 = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], mid5, true, 1f);
-                                }
-
-                                sCubicPts[1] = PointFUtil.PointAverage(mid6, sCubicPts[2]);
-                                if (pointCount > 1)
-                                {
-                                    sCubicPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
-                                }
-                                else
-                                {
-                                    sCubicPts[0] = this.canvasPoints[0];
-                                }
-                                this.canvasPoints.AddRange(sCubicPts);
-
-                                break;
-                            case PathType.SmoothQuadratic:
-                                PointF[] sQuadPts = new PointF[3];
-                                sQuadPts[2] = clickedPoint;
-                                if (pointCount > 1)
-                                {
-                                    sQuadPts[0] = PointFUtil.ReverseAverage(this.canvasPoints[pointCount - 2], this.canvasPoints[pointCount - 1]);
-                                    sQuadPts[1] = sQuadPts[0];
-                                }
-                                else
-                                {
-                                    sQuadPts[0] = this.canvasPoints[0];
-                                    sQuadPts[1] = this.canvasPoints[0];
-                                }
-                                this.canvasPoints.AddRange(sQuadPts);
-                                break;
-                        }
-                    }
-
-                    this.canvas.Refresh();
-                    #endregion //add
-                }
-
-                if (this.LineList.SelectedIndex != InvalidPath && this.clickedNub != 0)
-                {
-                    UpdateExistingPath();
-                }
-            }
-            else if (Control.ModifierKeys == Keys.Shift && e.Button == MouseButtons.Left)
-            {
-                if (this.canvasPoints.Count != 0)
-                {
-                    if (this.clickedNub != InvalidNub)
-                    {
-                        setUndo();
-                        this.moveFlag = true;
-                        this.canvas.Cursor = Cursors.SizeAll;
-                    }
-                }
-                else if (this.LineList.Items.Count > 0)
-                {
-                    setUndo();
-                    this.moveFlag = true;
-                    this.canvas.Cursor = Cursors.SizeAll;
-                }
-            }
-            else if (Control.ModifierKeys == Keys.Control && e.Button == MouseButtons.Left)
-            {
-                if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
-                {
-                    ToggleOpBox(true, this.canvasPoints[this.clickedNub]);
-                    opBoxInit = true;
-                }
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-                if (this.operationBox.Contains(e.Location))
-                {
-                    this.clickOffset = new Size(e.X - this.operationBox.X, e.Y - this.operationBox.Y);
-                    this.averagePoint = (this.canvasPoints.Count > 1) ? this.canvasPoints.Average() : this.paths.Average();
-
-                    const int gripWidth = 8;
-                    int opWidth = (this.operationBox.Width - gripWidth) / 3;
-                    Rectangle gripRect = new Rectangle(this.operationBox.Left, this.operationBox.Top, gripWidth, this.operationBox.Height);
-                    Rectangle scaleRect = new Rectangle(this.operationBox.Left + gripWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle rotateRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
-                    Rectangle moveRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
-
-                    if (gripRect.Contains(e.Location))
-                    {
-                        this.operation = Operation.NoneRelocate;
-                    }
-                    else if (scaleRect.Contains(e.Location))
-                    {
-                        this.initialDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
-                        this.operation = Operation.Scale;
-                    }
-                    else if (rotateRect.Contains(e.Location))
-                    {
-                        PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        this.initialRads = PointFUtil.XYToRadians(clickCoord, this.averagePoint);
-                        this.operation = Operation.Rotate;
-                    }
-                    else if (moveRect.Contains(e.Location))
-                    {
-                        PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                        PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
-                        this.initialDistSize = new SizeF(clickCoord.X - originCoord.X, clickCoord.Y - originCoord.Y);
-                        this.operation = Operation.Move;
-                    }
-
-                    this.drawAverage = (this.operation == Operation.Scale || this.operation == Operation.Rotate);
-
-                    if (this.operation != Operation.None && this.operation != Operation.NoneRelocate)
-                    {
-                        setUndo();
-                    }
-                }
-                else if (this.clickedNub == InvalidNub)
-                {
-                    Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
-                    int clickedPath = getNearestPath(bhit);
-                    if (clickedPath != InvalidPath)
-                    {
-                        this.LineList.SelectedIndex = clickedPath;
-
-                        for (int i = 0; i < this.canvasPoints.Count; i++)
-                        {
-                            Point nub = CanvasCoordToPoint(this.canvasPoints[i]).Round();
-                            if (bhit.Contains(nub))
-                            {
-                                StatusBarNubLocation(nub.X, nub.Y);
-                                break;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    setUndo();
-                    Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
-                    StatusBarNubLocation(nub.X, nub.Y);
-                }
-            }
-            else if (e.Button == MouseButtons.Middle)
-            {
-                this.panFlag = true;
-
-                if (this.canvas.Width > this.viewport.ClientSize.Width && this.canvas.Height > this.viewport.ClientSize.Height)
-                {
-                    this.canvas.Cursor = Cursors.NoMove2D;
-                }
-                else if (this.canvas.Width > this.viewport.ClientSize.Width)
-                {
-                    this.canvas.Cursor = Cursors.NoMoveHoriz;
-                }
-                else if (this.canvas.Height > this.viewport.ClientSize.Height)
-                {
-                    this.canvas.Cursor = Cursors.NoMoveVert;
-                }
-                else
-                {
-                    this.panFlag = false;
-                }
+                    break;
             }
 
             if (!opBoxInit && this.operation == Operation.None)
