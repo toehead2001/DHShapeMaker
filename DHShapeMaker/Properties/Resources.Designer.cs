@@ -81,10 +81,11 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
-        ///                        xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;                 
-        ///                        DisplayName=&quot;~1&quot;
-        ///                        Geometry=&quot;~2
+        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape
+        ///    xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
+        ///    xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
+        ///    DisplayName=&quot;~1&quot;
+        ///    Geometry=&quot;~2
         ///&quot;/&gt;.
         /// </summary>
         internal static string BaseString {
@@ -254,14 +255,15 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
-        ///		xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
-        ///		DisplayName=&quot;~1&quot;&gt;
-        ///	&lt;GeometryGroup FillRule=&quot;~3&quot;&gt;
-        ///		&lt;PathGeometry&gt;
+        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape
+        ///        xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
+        ///        xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
+        ///        DisplayName=&quot;~1&quot;&gt;
+        ///    &lt;GeometryGroup FillRule=&quot;~3&quot;&gt;
+        ///        &lt;PathGeometry&gt;
         ///~2
-        ///		&lt;/PathGeometry&gt;
-        ///	&lt;/GeometryGroup&gt;
+        ///        &lt;/PathGeometry&gt;
+        ///    &lt;/GeometryGroup&gt;
         ///
         ///&lt;/ps:SimpleGeometryShape&gt;.
         /// </summary>
