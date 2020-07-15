@@ -70,6 +70,54 @@ namespace ShapeMaker
                     : null;
             }
 
+            if (docElement.Name == XName.Get("vector", string.Empty))
+            {
+                if (!docElement.HasElements)
+                {
+                    return null;
+                }
+
+                IEnumerable<XElement> pathElements = docElement.Descendants(XName.Get("path", string.Empty));
+                if (!pathElements.Any())
+                {
+                    return null;
+                }
+
+                List<string> dataStrings = new List<string>();
+
+                foreach (XElement pathElement in pathElements)
+                {
+                    if (!pathElement.HasAttributes)
+                    {
+                        continue;
+                    }
+
+                    XAttribute pathDataAttribute = pathElement.Attribute(XName.Get("pathData", "http://schemas.android.com/apk/res/android"));
+                    if (pathDataAttribute == null)
+                    {
+                        continue;
+                    }
+
+                    string geometryCode = pathDataAttribute.Value;
+                    if (string.IsNullOrWhiteSpace(geometryCode))
+                    {
+                        continue;
+                    }
+
+                    string streamGeometry = TryGetValidatedStreamGeometry(geometryCode);
+                    if (streamGeometry == null)
+                    {
+                        continue;
+                    }
+
+                    dataStrings.Add(streamGeometry);
+                }
+
+                return dataStrings.Any()
+                    ? string.Join(" ", dataStrings)
+                    : null;
+            }
+
             if (docElement.Name.LocalName == "SimpleGeometryShape")
             {
                 if (docElement.HasElements)

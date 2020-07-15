@@ -2760,7 +2760,7 @@ namespace ShapeMaker
             using (OpenFileDialog OFD = new OpenFileDialog())
             {
                 OFD.InitialDirectory = Settings.ShapeFolder;
-                OFD.Filter = "All Supported Files|*.xaml;*.svg|XAML Files|*.xaml|SVG Files|*.svg|All Files|*.*";
+                OFD.Filter = "All Supported Files|*.svg;*.xaml;*.xml|SVG Files|*.svg|XAML Files|*.xaml|XML Files|*.xml|All Files|*.*";
                 OFD.FilterIndex = 1;
                 OFD.RestoreDirectory = false;
 
