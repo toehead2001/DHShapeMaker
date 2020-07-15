@@ -2226,6 +2226,13 @@ namespace ShapeMaker
             RefreshPdnCanvas();
             AddToRecents(projectPath);
         }
+
+        private static string GetSanitizedShapeName(string shapeName)
+        {
+            string sanitizedName = Regex.Replace(shapeName.Trim(), "[\"<>]", string.Empty);
+
+            return string.IsNullOrWhiteSpace(sanitizedName) ? "Untitled" : sanitizedName;
+        }
         #endregion
 
         #region Path List functions
@@ -2676,16 +2683,11 @@ namespace ShapeMaker
                 return;
             }
 
-            string output = Properties.Resources.BaseString;
-            string figure = this.FigureName.Text;
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            figure = rgx.Replace(figure, string.Empty);
-            figure = (figure.Length == 0) ? "Untitled" : figure;
-            output = output.Replace("~1", figure);
-            output = output.Replace("~2", GenerateStreamGeometry());
+            string shapeName = GetSanitizedShapeName(this.FigureName.Text);
+
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.FileName = figure;
+                sfd.FileName = shapeName;
                 sfd.InitialDirectory = Settings.ShapeFolder;
                 sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
@@ -2697,6 +2699,10 @@ namespace ShapeMaker
                 }
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
+
+                string output = Properties.Resources.BaseString;
+                output = output.Replace("~1", shapeName);
+                output = output.Replace("~2", GenerateStreamGeometry());
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.net Shape Exported", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2711,13 +2717,11 @@ namespace ShapeMaker
                 return;
             }
 
-            string figure = this.FigureName.Text;
-            figure = Regex.Replace(figure, "[^a-zA-Z0-9 -]", string.Empty);
-            figure = (figure.Length == 0) ? "Untitled" : figure;
+            string shapeName = GetSanitizedShapeName(this.FigureName.Text);
 
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.FileName = figure;
+                sfd.FileName = shapeName;
                 sfd.InitialDirectory = Settings.ShapeFolder;
                 sfd.Filter = "XAML Files (.xaml)|*.xaml|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
@@ -2731,7 +2735,7 @@ namespace ShapeMaker
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
                 string output = Properties.Resources.PGBaseString;
-                output = output.Replace("~1", figure);
+                output = output.Replace("~1", shapeName);
                 output = output.Replace("~2", GeneratePathGeometry());
                 output = this.solidFillCheckBox.Checked ? output.Replace("~3", "Nonzero") : output.Replace("~3", "EvenOdd");
 
