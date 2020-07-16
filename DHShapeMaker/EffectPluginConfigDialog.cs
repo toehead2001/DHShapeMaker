@@ -2443,21 +2443,11 @@ namespace ShapeMaker
             this.panFlag = false;
 
             int zoomFactor = this.canvas.Width / this.canvasBaseSize;
-            switch (zoomFactor)
-            {
-                case 8:
-                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 4 : 1);
-                    break;
-                case 4:
-                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 2 : 8);
-                    break;
-                case 2:
-                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 1 : 4);
-                    break;
-                default:
-                    ZoomToFactor(((ModifierKeys & Keys.Alt) == Keys.Alt) ? 8 : 2);
-                    break;
-            }
+            int delta = ((ModifierKeys & Keys.Alt) == Keys.Alt) ? -1 : 1;
+
+            int newZoomFactor = GetNewZoomFactor(zoomFactor, delta, true);
+
+            ZoomToFactor(newZoomFactor);
         }
 
         private void xToolStripMenuZoom1x_Click(object sender, EventArgs e)
@@ -2470,14 +2460,14 @@ namespace ShapeMaker
             ZoomToFactor(2);
         }
 
-        private void xToolStripMenuZoom4x_Click(object sender, EventArgs e)
+        private void xToolStripMenuZoom5x_Click(object sender, EventArgs e)
         {
-            ZoomToFactor(4);
+            ZoomToFactor(5);
         }
 
-        private void xToolStripMenuZoom8x_Click(object sender, EventArgs e)
+        private void xToolStripMenuZoom10x_Click(object sender, EventArgs e)
         {
-            ZoomToFactor(8);
+            ZoomToFactor(10);
         }
 
         private void ZoomToFactor(int zoomFactor)
@@ -2552,17 +2542,40 @@ namespace ShapeMaker
             }
 
             int delta = Math.Sign(e.Delta);
-            int oldZoomFactor = this.canvas.Width / this.canvasBaseSize;
-            if ((delta > 0 && oldZoomFactor == 8) || (delta < 0 && oldZoomFactor == 1))
+            if (delta == 0)
             {
                 return;
             }
 
-            int zoomFactor = (delta > 0) ? oldZoomFactor * 2 : oldZoomFactor / 2;
+            int oldZoomFactor = this.canvas.Width / this.canvasBaseSize;
+            if ((delta > 0 && oldZoomFactor == 10) || (delta < 0 && oldZoomFactor == 1))
+            {
+                return;
+            }
+
+            int newZoomFactor = GetNewZoomFactor(oldZoomFactor, delta, false);
             Point mousePosition = new Point(e.X - this.viewport.Location.X, e.Y - this.viewport.Location.Y);
-            ZoomToFactor(zoomFactor, mousePosition);
+
+            ZoomToFactor(newZoomFactor, mousePosition);
 
             base.OnMouseWheel(e);
+        }
+
+        private static int GetNewZoomFactor(int oldZoomFactor, int delta, bool wrapAround)
+        {
+            List<int> zoomFactors = new List<int> { 1, 2, 5, 10 };
+
+            int oldZoomIndex = zoomFactors.IndexOf(oldZoomFactor);
+            if (oldZoomIndex == -1)
+            {
+                return (delta > 0) ? 10 : 1;
+            }
+
+            int newZoomIndex = wrapAround
+                ? (((oldZoomIndex + delta) % 4) + 4) % 4
+                : (oldZoomIndex + delta).Clamp(0, 3);
+
+            return zoomFactors[newZoomIndex];
         }
         #endregion
 

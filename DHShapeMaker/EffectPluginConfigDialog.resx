@@ -1213,26 +1213,26 @@ Double Click to Rename</value>
   <data name="statusLabelMousePos.ToolTipText" xml:space="preserve">
     <value>Cursor Location</value>
   </data>
-  <data name="xToolStripMenuZoom8x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
+  <data name="xToolStripMenuZoom10x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
   </data>
-  <data name="xToolStripMenuZoom8x.Text" xml:space="preserve">
-    <value>8x</value>
+  <data name="xToolStripMenuZoom10x.Text" xml:space="preserve">
+    <value>10x</value>
   </data>
-  <data name="xToolStripMenuZoom4x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
+  <data name="xToolStripMenuZoom5x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
   </data>
-  <data name="xToolStripMenuZoom4x.Text" xml:space="preserve">
-    <value>4x</value>
+  <data name="xToolStripMenuZoom5x.Text" xml:space="preserve">
+    <value>5x</value>
   </data>
   <data name="xToolStripMenuZoom2x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
+    <value>92, 22</value>
   </data>
   <data name="xToolStripMenuZoom2x.Text" xml:space="preserve">
     <value>2x</value>
   </data>
   <data name="xToolStripMenuZoom1x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 22</value>
+    <value>92, 22</value>
   </data>
   <data name="xToolStripMenuZoom1x.Text" xml:space="preserve">
     <value>1x</value>
@@ -2266,16 +2266,16 @@ Double Click to Rename</value>
   <data name="&gt;&gt;splitButtonZoom.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;xToolStripMenuZoom8x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom8x</value>
+  <data name="&gt;&gt;xToolStripMenuZoom10x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom10x</value>
   </data>
-  <data name="&gt;&gt;xToolStripMenuZoom8x.Type" xml:space="preserve">
+  <data name="&gt;&gt;xToolStripMenuZoom10x.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;xToolStripMenuZoom4x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom4x</value>
+  <data name="&gt;&gt;xToolStripMenuZoom5x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom5x</value>
   </data>
-  <data name="&gt;&gt;xToolStripMenuZoom4x.Type" xml:space="preserve">
+  <data name="&gt;&gt;xToolStripMenuZoom5x.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;xToolStripMenuZoom2x.Name" xml:space="preserve">
