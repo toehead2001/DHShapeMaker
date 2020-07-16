@@ -208,22 +208,22 @@
     <value>191, 6</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
-    <value>&amp;StreamGeometry</value>
+    <value>&amp;StreamGeometry...</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
-    <value>&amp;PathGeometry</value>
+    <value>&amp;PathGeometry...</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 22</value>
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Export PDN Shape...</value>
+    <value>&amp;Export PDN Shape</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
