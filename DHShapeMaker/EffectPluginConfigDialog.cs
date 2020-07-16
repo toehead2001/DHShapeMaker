@@ -2858,11 +2858,7 @@ namespace ShapeMaker
             {
             }
 
-            if (copied)
-            {
-                MessageBox.Show("StreamGeometry copied to Clipboard.", "Copy StreamGeometry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
+            if (!copied)
             {
                 MessageBox.Show("There was an error copying the StreamGeometry to Clipboard.", "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
