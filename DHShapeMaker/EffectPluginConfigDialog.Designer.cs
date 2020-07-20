@@ -46,6 +46,7 @@
             this.exportPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnStreamGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnPathGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSvgMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.pasteStreamGeomentyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPathStreamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,6 +196,7 @@
             this.importGeometryMenuItem,
             this.toolStripSeparator2,
             this.exportPDNShapeToolStripMenuItem,
+            this.exportSvgMenuItem,
             this.toolStripSeparator3,
             this.pasteStreamGeomentyToolStripMenuItem,
             this.copyPathStreamToolStripMenuItem});
@@ -272,6 +274,12 @@
             this.pdnPathGeometryMenuItem.Name = "pdnPathGeometryMenuItem";
             resources.ApplyResources(this.pdnPathGeometryMenuItem, "pdnPathGeometryMenuItem");
             this.pdnPathGeometryMenuItem.Click += new System.EventHandler(this.ExportPdnPathGeometry_Click);
+            // 
+            // exportSvgMenuItem
+            // 
+            this.exportSvgMenuItem.Name = "exportSvgMenuItem";
+            resources.ApplyResources(this.exportSvgMenuItem, "exportSvgMenuItem");
+            this.exportSvgMenuItem.Click += new System.EventHandler(this.exportSvgMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -1245,5 +1253,6 @@
         private System.Windows.Forms.ToolStripMenuItem pdnStreamGeometryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdnPathGeometryMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem exportSvgMenuItem;
     }
 }

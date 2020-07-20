@@ -316,7 +316,7 @@ namespace ShapeMaker
 
         internal static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
         {
-            string strPath = solidFill ? "F1 " : "F0 ";
+            string strPath = solidFill ? "F1 " : string.Empty; // "F0 "
             float oldx = 0, oldy = 0;
 
             for (int index = 0; index < paths.Count; index++)

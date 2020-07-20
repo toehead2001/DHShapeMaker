@@ -208,13 +208,13 @@
     <value>191, 6</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
     <value>&amp;StreamGeometry...</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
     <value>&amp;PathGeometry...</value>
@@ -224,6 +224,12 @@
   </data>
   <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Export PDN Shape</value>
+  </data>
+  <data name="exportSvgMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="exportSvgMenuItem.Text" xml:space="preserve">
+    <value>Export SVG</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
@@ -2096,6 +2102,12 @@ Double Click to Rename</value>
     <value>pdnPathGeometryMenuItem</value>
   </data>
   <data name="&gt;&gt;pdnPathGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportSvgMenuItem.Name" xml:space="preserve">
+    <value>exportSvgMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportSvgMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">

@@ -2128,6 +2128,14 @@ namespace ShapeMaker
             return PathGeometryUtil.GeneratePathGeometry(this.paths, size, size);
         }
 
+        private string GenerateSvg()
+        {
+            const int size = 500;
+            return string.Format(
+                ExportConsts.SvgFile,
+                StreamGeometryUtil.GenerateStreamGeometry(this.paths, false, size, size));
+        }
+
         private void LoadStreamGeometry(string streamGeometry)
         {
             IReadOnlyCollection<PData> paths = PData.FromStreamGeometry(streamGeometry);
@@ -2763,6 +2771,36 @@ namespace ShapeMaker
 
                 File.WriteAllText(sfd.FileName, output);
                 MessageBox.Show("The shape has been exported as a XAML file for use in paint.net.\r\n\r\nPlease note that paint.net needs to be restarted to use the shape.", "Paint.NET Shape Export - PathGeometry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void exportSvgMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.paths.Count == 0)
+            {
+                MessageBox.Show("There are no paths to save.", "SVG Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string shapeName = GetSanitizedShapeName(this.FigureName.Text);
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.FileName = shapeName;
+                sfd.InitialDirectory = Settings.ShapeFolder;
+                sfd.Filter = "SVG Files (.svg)|*.svg|All Files (*.*)|*.*";
+                sfd.FilterIndex = 1;
+                sfd.AddExtension = true;
+
+                if (sfd.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
+
+                File.WriteAllText(sfd.FileName, GenerateSvg());
+                MessageBox.Show("The shape has been exported as an SVG.", "SVG Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

@@ -90,6 +90,7 @@
       <DependentUpon>EffectPluginConfigDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="EffectPluginToken.cs" />
+    <Compile Include="ExportConsts.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FastDebug\Program.cs" />
     <Compile Include="NubType.cs" />
