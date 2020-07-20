@@ -17,18 +17,18 @@ namespace ShapeMaker
             "<ps:SimpleGeometryShape\r\n" +
             "    xmlns=\"clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework\"\r\n" +
             "    xmlns:ps=\"clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework\"\r\n" +
-            "    DisplayName=\"~1\"\r\n" +
-            "    Geometry=\"~2\r\n" +
+            "    DisplayName=\"{0}\"\r\n" +
+            "    Geometry=\"{1}\r\n" +
             "\"/>\r\n";
 
         internal const string PdnPathGeometryFile =
             "<ps:SimpleGeometryShape\r\n" +
             "        xmlns=\"clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework\"\r\n" +
             "        xmlns:ps=\"clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework\"\r\n" +
-            "        DisplayName=\"~1\">\r\n" +
-            "    <GeometryGroup FillRule=\"~3\">\r\n" +
+            "        DisplayName=\"{0}\">\r\n" +
+            "    <GeometryGroup FillRule=\"{1}\">\r\n" +
             "        <PathGeometry>\r\n" +
-            "~2\r\n" +
+            "{2}\r\n" +
             "        </PathGeometry>\r\n" +
             "    </GeometryGroup>\r\n" +
             "</ps:SimpleGeometryShape>\r\n";
