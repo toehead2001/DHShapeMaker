@@ -1693,9 +1693,8 @@ namespace ShapeMaker
                                     if (this.canvasPoints.Count > 1)
                                     {
                                         this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
+                                        this.canvasPoints[1] = this.canvasPoints[0];
                                     }
-
-                                    this.canvasPoints[1] = this.canvasPoints[0];
                                     break;
                                 case NubType.ControlPoint1:
                                     this.canvasPoints[nubIndex] = mouseCoord;
