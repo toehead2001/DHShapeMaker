@@ -2729,7 +2729,7 @@ namespace ShapeMaker
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
-                string output = Properties.Resources.BaseString
+                string output = ExportConsts.PdnStreamGeometryFile
                     .Replace("~1", shapeName)
                     .Replace("~2", GenerateStreamGeometry());
 
@@ -2763,7 +2763,7 @@ namespace ShapeMaker
 
                 Settings.ShapeFolder = Path.GetDirectoryName(sfd.FileName);
 
-                string output = Properties.Resources.PGBaseString
+                string output = ExportConsts.PdnPathGeometryFile
                     .Replace("~1", shapeName)
                     .Replace("~2", GeneratePathGeometry())
                     .Replace("~3", this.solidFillCheckBox.Checked ? "Nonzero" : "EvenOdd");

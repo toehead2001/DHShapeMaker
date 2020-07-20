@@ -33,14 +33,14 @@ namespace ShapeMaker
 
                 if (index == 0)
                 {
-                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
+                    strPath += $"\t\t\t\t{ExportConsts.PGMove}\r\n";
                     strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
                 else if (currentPath.ClosedType || (x != oldx || y != oldy))//mod 091515
                 {
                     strPath = strPath.Replace("~0", "False");
                     strPath += "\t\t\t\t</PathFigure>\r\n";
-                    strPath += $"\t\t\t\t{Properties.Resources.PGMove}\r\n";
+                    strPath += $"\t\t\t\t{ExportConsts.PGMove}\r\n";
                     strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
 
@@ -50,7 +50,7 @@ namespace ShapeMaker
                         tmpstr = string.Empty;
                         for (int i = 1; i < points.Length; i++)
                         {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PGLine}\r\n";
+                            strPath += $"\t\t\t\t\t{ExportConsts.PGLine}\r\n";
                             x = width * points[i].X;
                             y = height * points[i].Y;
                             tmpstr = $"{x:0.##},{y:0.##}";
@@ -61,7 +61,7 @@ namespace ShapeMaker
                         oldx = x; oldy = y;
                         break;
                     case PathType.Ellipse:
-                        strPath += $"\t\t\t\t\t{Properties.Resources.PGEllipse}\r\n";
+                        strPath += $"\t\t\t\t\t{ExportConsts.PGEllipse}\r\n";
                         PointF[] pts = new PointF[points.Length];
                         for (int i = 0; i < points.Length; i++)
                         {
@@ -91,7 +91,7 @@ namespace ShapeMaker
 
                         for (int i = 1; i < points.Length - 1; i += 3)
                         {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PGBezier}\r\n";
+                            strPath += $"\t\t\t\t\t{ExportConsts.PGBezier}\r\n";
                             for (int j = 0; j < 3; j++)
                             {
                                 x = width * points[j + i].X;
@@ -108,7 +108,7 @@ namespace ShapeMaker
 
                         for (int i = 1; i < points.Length - 1; i += 3)
                         {
-                            strPath += $"\t\t\t\t\t{Properties.Resources.PQQuad}\r\n";
+                            strPath += $"\t\t\t\t\t{ExportConsts.PGQuad}\r\n";
 
                             x = width * points[i].X;
                             y = height * points[i].Y;

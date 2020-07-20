@@ -81,20 +81,6 @@ namespace ShapeMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape
-        ///    xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
-        ///    xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
-        ///    DisplayName=&quot;~1&quot;
-        ///    Geometry=&quot;~2
-        ///&quot;/&gt;.
-        /// </summary>
-        internal static string BaseString {
-            get {
-                return ResourceManager.GetString("BaseString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bg {
@@ -251,70 +237,6 @@ namespace ShapeMaker.Properties {
             get {
                 object obj = ResourceManager.GetObject("Move", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;ps:SimpleGeometryShape
-        ///        xmlns=&quot;clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework&quot;
-        ///        xmlns:ps=&quot;clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework&quot;
-        ///        DisplayName=&quot;~1&quot;&gt;
-        ///    &lt;GeometryGroup FillRule=&quot;~3&quot;&gt;
-        ///        &lt;PathGeometry&gt;
-        ///~2
-        ///        &lt;/PathGeometry&gt;
-        ///    &lt;/GeometryGroup&gt;
-        ///
-        ///&lt;/ps:SimpleGeometryShape&gt;.
-        /// </summary>
-        internal static string PGBaseString {
-            get {
-                return ResourceManager.GetString("PGBaseString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;BezierSegment Point1=&quot;~1&quot; Point2=&quot;~2&quot; Point3=&quot;~3&quot; /&gt;.
-        /// </summary>
-        internal static string PGBezier {
-            get {
-                return ResourceManager.GetString("PGBezier", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;ArcSegment Size=&quot;~1&quot; RotationAngle=&quot;~2&quot; IsLargeArc=&quot;~3&quot; SweepDirection=&quot;~4&quot; Point=&quot;~5&quot; /&gt;.
-        /// </summary>
-        internal static string PGEllipse {
-            get {
-                return ResourceManager.GetString("PGEllipse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;LineSegment Point=&quot;~1&quot; /&gt;.
-        /// </summary>
-        internal static string PGLine {
-            get {
-                return ResourceManager.GetString("PGLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;PathFigure IsClosed=&quot;~0&quot; IsFilled=&quot;True&quot; StartPoint=&quot;~1&quot;&gt;.
-        /// </summary>
-        internal static string PGMove {
-            get {
-                return ResourceManager.GetString("PGMove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;QuadraticBezierSegment Point1=&quot;~1&quot; Point2=&quot;~2&quot; /&gt;.
-        /// </summary>
-        internal static string PQQuad {
-            get {
-                return ResourceManager.GetString("PQQuad", resourceCulture);
             }
         }
         
