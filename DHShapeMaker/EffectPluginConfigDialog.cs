@@ -3520,7 +3520,7 @@ namespace ShapeMaker
         private void ColorPanel_Paint(object sender, PaintEventArgs e)
         {
 #if !FASTDEBUG
-            Rectangle outerRect = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            Rectangle outerRect = new RectangleF(e.Graphics.VisibleClipBounds.X, e.Graphics.VisibleClipBounds.Y, e.Graphics.VisibleClipBounds.Width - 1, e.Graphics.VisibleClipBounds.Height - 1).Round();
             Rectangle innerRect = new Rectangle(outerRect.X + 1, outerRect.Y + 1, outerRect.Width - 2, outerRect.Height - 2);
 
             if (sender is Panel panel && panel.Enabled)
