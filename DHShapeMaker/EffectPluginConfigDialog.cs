@@ -1444,6 +1444,13 @@ namespace ShapeMaker
             this.clickedNub = InvalidNub;
             this.canvas.Refresh();
             this.canvas.Cursor = Cursors.Default;
+
+            if (!this.operationBox.IsEmpty && !this.canvas.ClientRectangle.Contains(this.operationBox))
+            {
+                this.operationBox.X = this.operationBox.X.Clamp(0, this.canvas.ClientSize.Width - this.operationBox.Width);
+                this.operationBox.Y = this.operationBox.Y.Clamp(0, this.canvas.ClientSize.Height - this.operationBox.Height);
+                this.canvas.Invalidate();
+            }
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -2491,6 +2498,8 @@ namespace ShapeMaker
                 return;
             }
 
+            PointF opBoxCoord = PointToCanvasCoord(operationBox.X, operationBox.Y);
+
             int newDimension = this.canvasBaseSize * zoomFactor;
 
             Point zoomedCanvasPos = new Point
@@ -2526,6 +2535,12 @@ namespace ShapeMaker
             this.splitButtonZoom.Text = $"Zoom {zoomFactor}x";
 
             UpdateScrollBars();
+
+            if (!operationBox.IsEmpty)
+            {
+                this.operationBox.Location = CanvasCoordToPoint(opBoxCoord).Round();
+                this.canvas.Invalidate();
+            }
         }
 
         private void canvas_MouseEnter(object sender, EventArgs e)
