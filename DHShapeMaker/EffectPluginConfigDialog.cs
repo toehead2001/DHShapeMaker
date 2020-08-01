@@ -2215,13 +2215,13 @@ namespace ShapeMaker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Incorrect Format\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Incorrect Format.\r\n" + ex.Message, "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (projectPaths.Count == 0)
             {
-                MessageBox.Show("Incorrect Format", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No Project data was found in the file.", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2661,7 +2661,7 @@ namespace ShapeMaker
         {
             if (this.paths.Count == 0)
             {
-                MessageBox.Show("Nothing to Save", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There are no paths to save.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2837,7 +2837,7 @@ namespace ShapeMaker
 
             if (streamGeometry == null)
             {
-                MessageBox.Show("Incorrect Format", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No valid Geometry was found in the file.", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
