@@ -43,7 +43,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportPDNShapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnStreamGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdnPathGeometryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSvgMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,6 +141,7 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacitySlider)).BeginInit();
@@ -195,8 +196,7 @@
             this.toolStripSeparator1,
             this.importGeometryMenuItem,
             this.toolStripSeparator2,
-            this.exportPDNShapeToolStripMenuItem,
-            this.exportSvgMenuItem,
+            this.exportMenuItem,
             this.toolStripSeparator3,
             this.pasteStreamGeomentyToolStripMenuItem,
             this.copyPathStreamToolStripMenuItem});
@@ -255,13 +255,15 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
-            // exportPDNShapeToolStripMenuItem
+            // exportMenuItem
             // 
-            this.exportPDNShapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pdnStreamGeometryMenuItem,
-            this.pdnPathGeometryMenuItem});
-            this.exportPDNShapeToolStripMenuItem.Name = "exportPDNShapeToolStripMenuItem";
-            resources.ApplyResources(this.exportPDNShapeToolStripMenuItem, "exportPDNShapeToolStripMenuItem");
+            this.pdnPathGeometryMenuItem,
+            this.toolStripSeparator10,
+            this.exportSvgMenuItem});
+            this.exportMenuItem.Name = "exportMenuItem";
+            resources.ApplyResources(this.exportMenuItem, "exportMenuItem");
             // 
             // pdnStreamGeometryMenuItem
             // 
@@ -1063,6 +1065,11 @@
             resources.ApplyResources(this.newPathLabel, "newPathLabel");
             this.newPathLabel.Name = "newPathLabel";
             // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -1249,10 +1256,11 @@
         private System.Windows.Forms.ToolStripMenuItem opBoxMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem autoScaleMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportPDNShapeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdnStreamGeometryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pdnPathGeometryMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exportSvgMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }

@@ -208,28 +208,31 @@
     <value>191, 6</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
+    <value>245, 22</value>
   </data>
   <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
-    <value>&amp;StreamGeometry...</value>
+    <value>PDN Shape (&amp;StreamGeometry) ...</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
+    <value>245, 22</value>
   </data>
   <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
-    <value>&amp;PathGeometry...</value>
+    <value>PDN Shape (&amp;PathGeometry) ...</value>
   </data>
-  <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Export PDN Shape</value>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 6</value>
   </data>
   <data name="exportSvgMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
+    <value>245, 22</value>
   </data>
   <data name="exportSvgMenuItem.Text" xml:space="preserve">
-    <value>Export SVG</value>
+    <value>SVG</value>
+  </data>
+  <data name="exportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="exportMenuItem.Text" xml:space="preserve">
+    <value>&amp;Export</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
@@ -2086,10 +2089,10 @@ Double Click to Rename</value>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportPDNShapeToolStripMenuItem.Name" xml:space="preserve">
-    <value>exportPDNShapeToolStripMenuItem</value>
+  <data name="&gt;&gt;exportMenuItem.Name" xml:space="preserve">
+    <value>exportMenuItem</value>
   </data>
-  <data name="&gt;&gt;exportPDNShapeToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;exportMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pdnStreamGeometryMenuItem.Name" xml:space="preserve">
@@ -2450,6 +2453,12 @@ Double Click to Rename</value>
     <value>toolStripSeparator11</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Name" xml:space="preserve">
+    <value>toolStripSeparator10</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
