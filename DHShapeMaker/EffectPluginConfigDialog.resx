@@ -1001,7 +1001,7 @@ Double Click to Rename</value>
     <value>18</value>
   </data>
   <data name="drawModeBox.ToolTip" xml:space="preserve">
-    <value>Fill Mode</value>
+    <value>Draw Mode</value>
   </data>
   <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
     <value>drawModeBox</value>
