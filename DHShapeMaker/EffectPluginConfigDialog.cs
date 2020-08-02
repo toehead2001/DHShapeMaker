@@ -3182,6 +3182,7 @@ namespace ShapeMaker
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
             this.canvas.Refresh();
+            this.LineList.Invalidate();
 
             if (this.LineList.SelectedIndex != InvalidPath)
             {
