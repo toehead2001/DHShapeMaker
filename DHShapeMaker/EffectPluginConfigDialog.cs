@@ -1815,7 +1815,12 @@ namespace ShapeMaker
             }
             else
             {
-                RectangleF bounds = (canvasPoints.Count > 0)
+                if (this.LineList.SelectedIndex == InvalidPath && canvasPoints.Count == 1)
+                {
+                    canvasPoints.Clear();
+                }
+
+                RectangleF bounds = (canvasPoints.Count > 1)
                     ? canvasPoints.Bounds()
                     : paths.Bounds();
 
