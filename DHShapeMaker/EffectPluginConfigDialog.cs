@@ -1431,10 +1431,16 @@ namespace ShapeMaker
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.LineList.SelectedIndex != InvalidPath &&
-                (this.clickedNub != InvalidNub || this.operation != Operation.None))
+            if (this.clickedNub != InvalidNub || this.operation != Operation.None)
             {
-                UpdateExistingPath();
+                if (this.LineList.SelectedIndex != InvalidPath)
+                {
+                    UpdateExistingPath();
+                }
+                else
+                {
+                    RefreshPdnCanvas();
+                }
             }
 
             this.panFlag = false;
