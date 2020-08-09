@@ -318,6 +318,7 @@ namespace ShapeMaker
         {
             string strPath = solidFill ? "F1 " : string.Empty; // "F0 "
             float oldx = 0, oldy = 0;
+            bool previousClosed = false;
 
             for (int index = 0; index < paths.Count; index++)
             {
@@ -335,7 +336,7 @@ namespace ShapeMaker
                 x = width * line[0].X;
                 y = height * line[0].Y;
 
-                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType)
+                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType || previousClosed)
                 {
                     if (index > 0)
                     {
@@ -484,6 +485,12 @@ namespace ShapeMaker
                         oldx += 10;
                         oldy += 10;
                     }
+
+                    previousClosed = true;
+                }
+                else
+                {
+                    previousClosed = false;
                 }
             }
 
