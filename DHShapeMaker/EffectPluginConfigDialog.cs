@@ -915,34 +915,19 @@ namespace ShapeMaker
                             break;
                     }
 
-                    //join line
-                    bool join = !(j == -1 && ((this.MacroCircle.Checked && this.Elliptical.Checked) || (this.MacroRect.Checked && this.StraightLine.Checked)));
-
-                    if (!closedContiguous)
+                    // Close Path(s)
+                    if ((closedContiguous || closedIndividual) && pts.Length > 1 &&
+                        !(j == -1 && ((this.MacroCircle.Checked && this.Elliptical.Checked) || (this.MacroRect.Checked && this.StraightLine.Checked))))
                     {
-                        if (join && closedIndividual && pts.Length > 1)
-                        {
-                            e.Graphics.DrawLine(p, pts[0], pts[pts.Length - 1]); //preserve
-                            if (isActive)
-                            {
-                                e.Graphics.DrawLine(activePen, pts[0], pts[pts.Length - 1]); //preserve
-                            }
+                        PointF pointA = closedIndividual ? pts[0] : pts[pts.Length - 1];
+                        PointF pointB = closedIndividual ? pts[pts.Length - 1] : loopBack;
 
-                            loopBack = pts[pts.Length - 1];
-                        }
-                    }
-                    else
-                    {
-                        if (join && pts.Length > 1)
-                        {
-                            e.Graphics.DrawLine(p, pts[pts.Length - 1], loopBack);
-                            if (isActive)
-                            {
-                                e.Graphics.DrawLine(activePen, pts[pts.Length - 1], loopBack);
-                            }
+                        p.Color = Color.DimGray;
+                        p.DashStyle = DashStyle.Dash;
 
-                            loopBack = pts[pts.Length - 1];
-                        }
+                        e.Graphics.DrawLine(p, pointA, pointB);
+
+                        loopBack = pts[pts.Length - 1];
                     }
                 }
                 #endregion
