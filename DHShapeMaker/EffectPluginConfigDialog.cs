@@ -686,8 +686,8 @@ namespace ShapeMaker
                 #region Draw Nubs
                 if (isActive && !ModifierKeys.HasFlag(Keys.Control))
                 {
-                    const int offset = 4;
                     const int width = 6;
+                    const int offset = width / 2;
 
                     if ((closedIndividual || closedContiguous) && pts.Length > 1)
                     {
