@@ -616,7 +616,7 @@ namespace ShapeMaker
 #endif
 
             PointF loopBack = new PointF(-9999, -9999);
-            PointF oldXY = new PointF(-9999, -9999);
+            PointF previousEndPoint = new PointF(-9999, -9999);
 
             bool isNewPath = this.LineList.SelectedIndex == InvalidPath;
 
@@ -676,7 +676,7 @@ namespace ShapeMaker
                 }
 
                 bool isLinked = true;
-                if (!oldXY.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
+                if (!previousEndPoint.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
                 {
                     loopBack = new PointF(pts[0].X, pts[0].Y);
                     isLinked = false;
@@ -932,7 +932,7 @@ namespace ShapeMaker
                 }
                 #endregion
 
-                oldXY = pts[pts.Length - 1];
+                previousEndPoint = pts[pts.Length - 1];
             }
 
             // render average point for when Scaling and Rotation
