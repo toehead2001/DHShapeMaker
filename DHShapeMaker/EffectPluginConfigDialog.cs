@@ -145,22 +145,7 @@ namespace ShapeMaker
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             InitializeComponent();
 
-#if !FASTDEBUG
-            //this.UseAppThemeColors = true;
-
-            // Theming
-            //PdnTheme.SetColors(this.ForeColor, this.BackColor);
-
-            //this.menuStrip1.Renderer = PdnTheme.Renderer;
-            //this.statusStrip1.Renderer = PdnTheme.Renderer;
-
-            //this.LineList.ForeColor = PdnTheme.ForeColor;
-            //this.LineList.BackColor = PdnTheme.BackColor;
-            //this.FigureName.ForeColor = PdnTheme.ForeColor;
-            //this.FigureName.BackColor = PdnTheme.BackColor;
-            //this.OutputScale.ForeColor = PdnTheme.ForeColor;
-            //this.OutputScale.BackColor = PdnTheme.BackColor;
-#else
+#if FASTDEBUG
             this.buttonOK.Visible = false;
             this.DrawOnCanvas.Visible = false;
             this.strokeColorPanel.Visible = false;

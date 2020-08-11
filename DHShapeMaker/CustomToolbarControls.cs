@@ -12,27 +12,6 @@ namespace ShapeMaker
             this.RoundedEdges = false;
         }
 
-        internal ThemeRenderer() : base(new ThemeColorTable())
-        {
-            this.RoundedEdges = false;
-        }
-
-        protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
-        {
-            e.TextColor = PdnTheme.ForeColor;
-            base.OnRenderItemText(e);
-        }
-
-        protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
-        {
-            if (e.Item.Enabled)
-            {
-                e.ArrowColor = PdnTheme.ForeColor;
-            }
-
-            base.OnRenderArrow(e);
-        }
-
         private sealed class ToolColorTable : ThemeColorTable
         {
             internal ToolColorTable(Color backColor, Color borderColor)
@@ -72,8 +51,7 @@ namespace ShapeMaker
                 this.UseSystemColors = false;
             }
 
-            private readonly Color foreColor = PdnTheme.ForeColor;
-            private readonly Color backColor = PdnTheme.BackColor;
+            private readonly Color backColor = Color.White;
             private readonly Color borderColor = Color.FromArgb(186, 0, 105, 210);
             private readonly Color hiliteColor = Color.FromArgb(62, 0, 103, 206);
             private readonly Color checkedColor = Color.FromArgb(129, 52, 153, 254);
@@ -162,48 +140,5 @@ namespace ShapeMaker
 
         [Localizable(true), DefaultValue(Keys.None)]
         public Keys ShortcutKeys { get; set; }
-    }
-
-    internal static class PdnTheme
-    {
-        private static Color foreColor;
-        private static Color backColor;
-        private static ThemeRenderer themeRenderer;
-
-        internal static void SetColors(Color foreColor, Color backColor)
-        {
-            PdnTheme.foreColor = foreColor;
-            PdnTheme.backColor = backColor;
-            PdnTheme.themeRenderer = null;
-        }
-
-        internal static Color ForeColor
-        {
-            get
-            {
-                return foreColor;
-            }
-        }
-
-        internal static Color BackColor
-        {
-            get
-            {
-                return backColor;
-            }
-        }
-
-        internal static ThemeRenderer Renderer
-        {
-            get
-            {
-                if (themeRenderer == null)
-                {
-                    themeRenderer = new ThemeRenderer();
-                }
-
-                return themeRenderer;
-            }
-        }
     }
 }
