@@ -379,12 +379,7 @@ namespace ShapeMaker
         #endregion
 
         #region Undo History functions
-        private void setUndo()
-        {
-            setUndo(false);
-        }
-
-        private void setUndo(bool deSelected)
+        private void setUndo(bool deSelected = false)
         {
             // set undo
             this.Undo.Enabled = true;
@@ -2244,8 +2239,7 @@ namespace ShapeMaker
                 return;
             }
 
-            if (this.LineList.Items.Count > 0 &&
-                this.LineList.SelectedIndex < this.paths.Count)
+            if (this.LineList.SelectedIndex < this.paths.Count)
             {
                 SetUiForPath(this.paths[this.LineList.SelectedIndex]);
             }
