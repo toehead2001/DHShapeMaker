@@ -6,7 +6,7 @@ namespace ShapeMaker
 {
     internal static class PathGeometryUtil
     {
-        internal static string GeneratePathGeometry(IReadOnlyList<PData> paths, float width, float height)
+        internal static string GeneratePathGeometry(IReadOnlyList<PathData> paths, float width, float height)
         {
             string strPath = string.Empty;
             float oldx = 0, oldy = 0;
@@ -15,11 +15,11 @@ namespace ShapeMaker
 
             for (int index = 0; index < paths.Count; index++)
             {
-                PData currentPath = paths[index];
-                PathType pathType = (PathType)currentPath.LineType;
-                PointF[] points = currentPath.Lines;
-                bool islarge = currentPath.IsLarge;
-                bool revsweep = currentPath.RevSweep;
+                PathData currentPath = paths[index];
+                PathType pathType = currentPath.PathType;
+                PointF[] points = currentPath.Points;
+                bool islarge = currentPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
+                bool revsweep = currentPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
 
                 if (points.Length < 2)
                 {
@@ -36,7 +36,7 @@ namespace ShapeMaker
                     strPath += $"\t\t\t\t{ExportConsts.PGMove}\r\n";
                     strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
                 }
-                else if (currentPath.ClosedType || (x != oldx || y != oldy))//mod 091515
+                else if (currentPath.CloseType == CloseType.Individual || (x != oldx || y != oldy))//mod 091515
                 {
                     strPath = strPath.Replace("~0", "False");
                     strPath += "\t\t\t\t</PathFigure>\r\n";
@@ -124,7 +124,7 @@ namespace ShapeMaker
                         break;
                 }
 
-                if (currentPath.ClosedType || currentPath.LoopBack)
+                if (currentPath.CloseType != CloseType.None)
                 {
                     strPath = strPath.Replace("~0", "True");
                     oldx += 10;

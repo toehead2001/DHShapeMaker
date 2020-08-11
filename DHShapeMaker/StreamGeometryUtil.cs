@@ -314,7 +314,7 @@ namespace ShapeMaker
             return pathGeometry.Figures.ToString();
         }
 
-        internal static string GenerateStreamGeometry(IReadOnlyList<PData> paths, bool solidFill, float width, float height)
+        internal static string GenerateStreamGeometry(IReadOnlyList<PathData> paths, bool solidFill, float width, float height)
         {
             string strPath = solidFill ? "F1 " : string.Empty; // "F0 "
             float oldx = 0, oldy = 0;
@@ -322,21 +322,23 @@ namespace ShapeMaker
 
             for (int index = 0; index < paths.Count; index++)
             {
-                PData currentPath = paths[index];
-                PathType pathType = (PathType)currentPath.LineType;
-                PointF[] line = currentPath.Lines;
-                bool islarge = currentPath.IsLarge;
-                bool revsweep = currentPath.RevSweep;
+                PathData currentPath = paths[index];
+                PathType pathType = currentPath.PathType;
+                PointF[] line = currentPath.Points;
+                bool islarge = currentPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
+                bool revsweep = currentPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
+
                 if (line.Length < 2)
                 {
                     continue;
                 }
+
                 float x, y;
 
                 x = width * line[0].X;
                 y = height * line[0].Y;
 
-                if (index == 0 || (x != oldx || y != oldy) || currentPath.ClosedType || previousClosed)
+                if (index == 0 || (x != oldx || y != oldy) || currentPath.CloseType == CloseType.Individual || previousClosed)
                 {
                     if (index > 0)
                     {
@@ -477,10 +479,10 @@ namespace ShapeMaker
                         break;
                 }
 
-                if (currentPath.ClosedType || currentPath.LoopBack)
+                if (currentPath.CloseType != CloseType.None)
                 {
                     strPath += " Z";
-                    if (currentPath.ClosedType)
+                    if (currentPath.CloseType == CloseType.Individual)
                     {
                         oldx += 10;
                         oldy += 10;

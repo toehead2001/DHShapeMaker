@@ -60,7 +60,7 @@ namespace ShapeMaker
             return (NubType)nubType;
         }
 
-        internal static void AutoScaleAndCenter(IReadOnlyCollection<PData> paths)
+        internal static void AutoScaleAndCenter(IReadOnlyCollection<PathData> paths)
         {
             if (paths.Count == 0)
             {
@@ -77,9 +77,9 @@ namespace ShapeMaker
             PointF origin = bounds.Location;
             PointF destination = new PointF(center.X - bounds.Width / 2f, center.Y - bounds.Height / 2f);
             float scale = 0.98f / Math.Max(bounds.Width, bounds.Height);
-            foreach (PData path in paths)
+            foreach (PathData path in paths)
             {
-                PointF[] pathPoints = path.Lines;
+                PointF[] pathPoints = path.Points;
                 for (int j = 0; j < pathPoints.Length; j++)
                 {
                     pathPoints[j] = PointFUtil.MovePoint(origin, destination, pathPoints[j]);

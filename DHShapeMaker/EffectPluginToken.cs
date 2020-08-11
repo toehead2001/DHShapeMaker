@@ -8,7 +8,7 @@ namespace ShapeMaker
     internal class EffectPluginConfigToken : EffectConfigToken
     {
         public string GeometryCode { get; set; }
-        internal List<PData> PathData { get; set; }
+        internal List<PathData> PathData { get; set; }
         internal bool Draw { get; set; }
         internal decimal Scale { get; set; }
         internal bool SnapTo { get; set; }
@@ -19,7 +19,7 @@ namespace ShapeMaker
         internal float StrokeThickness { get; set; }
         internal DrawModes DrawMode { get; set; }
 
-        internal EffectPluginConfigToken(string geometryCode, List<PData> pathdata, bool draw, decimal scale, bool snap,
+        internal EffectPluginConfigToken(string geometryCode, List<PathData> pathdata, bool draw, decimal scale, bool snap,
             string shapename, bool solidfill, ColorBgra strokeColor, ColorBgra fillColor, float strokeThickness, DrawModes drawMode)
         {
             this.GeometryCode = geometryCode;

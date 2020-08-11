@@ -35,9 +35,9 @@ namespace ShapeMaker
             return Rectangle.Round(rectangleF);
         }
 
-        internal static PointF Average(this IEnumerable<PData> paths)
+        internal static PointF Average(this IEnumerable<PathData> paths)
         {
-            return paths.SelectMany(path => path.Lines).ToArray().Average();
+            return paths.SelectMany(path => path.Points).ToArray().Average();
         }
 
         internal static PointF Average(this IReadOnlyCollection<PointF> points)
@@ -56,9 +56,9 @@ namespace ShapeMaker
             return new PointF(x / points.Count, y / points.Count);
         }
 
-        internal static RectangleF Bounds(this IEnumerable<PData> paths)
+        internal static RectangleF Bounds(this IEnumerable<PathData> paths)
         {
-            return paths.SelectMany(path => path.Lines).ToArray().Bounds();
+            return paths.SelectMany(path => path.Points).ToArray().Bounds();
         }
 
         internal static RectangleF Bounds(this IReadOnlyCollection<PointF> points)

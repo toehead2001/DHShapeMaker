@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace ShapeMaker
@@ -70,7 +71,7 @@ namespace ShapeMaker
         private readonly List<PointF> canvasPoints = new List<PointF>(maxPoints);
 
         private const int undoMax = 16;
-        private readonly List<PData>[] undoLines = new List<PData>[undoMax];
+        private readonly List<PathData>[] undoLines = new List<PathData>[undoMax];
         private readonly PointF[][] undoPoints = new PointF[undoMax][];
         private readonly PathType[] undoType = new PathType[undoMax];
         private readonly int[] undoSelected = new int[undoMax];
@@ -79,7 +80,7 @@ namespace ShapeMaker
         private int undoPointer = 0;
 
         private bool keyTrak = false;
-        private readonly List<PData> paths = new List<PData>();
+        private readonly List<PathData> paths = new List<PathData>();
         private bool panFlag = false;
         private bool canScrollZoom = false;
         private static float dpiScale = 1;
@@ -104,9 +105,39 @@ namespace ShapeMaker
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
-        private PathType ActivePathType
+        private PathType PathTypeFromUI
         {
             get => this.activeType;
+        }
+
+        private CloseType CloseTypeFromUI
+        {
+            get => this.ClosePath.Checked ? CloseType.Individual : this.CloseContPaths.Checked ? CloseType.Contiguous : CloseType.None;
+        }
+
+        private ArcOptions ArcOptionsFromUI
+        {
+            get
+            {
+                if (this.activeType != PathType.Ellipse)
+                {
+                    return ArcOptions.None;
+                }
+
+                ArcOptions arcOptions = ArcOptions.None;
+
+                if (this.Arc.CheckState == CheckState.Checked)
+                {
+                    arcOptions |= ArcOptions.LargeArc;
+                }
+
+                if (this.Sweep.CheckState == CheckState.Checked)
+                {
+                    arcOptions |= ArcOptions.PositiveSweep;
+                }
+
+                return arcOptions;
+            }
         }
 
         internal EffectPluginConfigDialog()
@@ -229,13 +260,13 @@ namespace ShapeMaker
 
             this.fitCanvasBox.Checked = drawMode.HasFlag(DrawModes.Fit);
 
-            IEnumerable<PData> tmp = new List<PData>(token.PathData);
+            IEnumerable<PathData> tmp = new List<PathData>(token.PathData);
             this.paths.Clear();
             this.LineList.Items.Clear();
-            foreach (PData p in tmp)
+            foreach (PathData p in tmp)
             {
                 this.paths.Add(p);
-                this.LineList.Items.Add(lineNames[p.LineType]);
+                this.LineList.Items.Add(lineNames[(int)p.PathType]);
             }
 
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
@@ -408,23 +439,23 @@ namespace ShapeMaker
             this.redoCount = 0;
             this.undoCount++;
             this.undoCount = (this.undoCount > undoMax) ? undoMax : this.undoCount;
-            this.undoType[this.undoPointer] = ActivePathType;
+            this.undoType[this.undoPointer] = this.PathTypeFromUI;
             this.undoSelected[this.undoPointer] = (deSelected) ? InvalidPath : this.LineList.SelectedIndex;
             this.undoPoints[this.undoPointer] = this.canvasPoints.ToArray();
             if (this.undoLines[this.undoPointer] == null)
             {
-                this.undoLines[this.undoPointer] = new List<PData>();
+                this.undoLines[this.undoPointer] = new List<PathData>();
             }
             else
             {
                 this.undoLines[this.undoPointer].Clear();
             }
 
-            foreach (PData pd in this.paths)
+            foreach (PathData pd in this.paths)
             {
-                PointF[] tmp = new PointF[pd.Lines.Length];
-                Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                this.undoLines[this.undoPointer].Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
+                PointF[] tmp = new PointF[pd.Points.Length];
+                Array.Copy(pd.Points, tmp, pd.Points.Length);
+                this.undoLines[this.undoPointer].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
             }
 
             this.undoPointer++;
@@ -460,12 +491,12 @@ namespace ShapeMaker
             if (this.undoLines[this.undoPointer].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PData pd in this.undoLines[this.undoPointer])
+                foreach (PathData pd in this.undoLines[this.undoPointer])
                 {
-                    PointF[] tmp = new PointF[pd.Lines.Length];
-                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                    this.paths.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
-                    this.LineList.Items.Add(lineNames[pd.LineType]);
+                    PointF[] tmp = new PointF[pd.Points.Length];
+                    Array.Copy(pd.Points, tmp, pd.Points.Length);
+                    this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                    this.LineList.Items.Add(lineNames[(int)pd.PathType]);
                 }
                 if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
                 {
@@ -477,12 +508,12 @@ namespace ShapeMaker
 
             if (this.LineList.SelectedIndex != InvalidPath)
             {
-                PData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath((PathType)selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
+                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
             }
             else
             {
-                setUiForPath(this.undoType[this.undoPointer], false, false, false, false);
+                setUiForPath(this.undoType[this.undoPointer], CloseType.None, ArcOptions.None);
             }
 
             this.undoCount--;
@@ -518,12 +549,12 @@ namespace ShapeMaker
             if (this.undoLines[this.undoPointer].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PData pd in this.undoLines[this.undoPointer])
+                foreach (PathData pd in this.undoLines[this.undoPointer])
                 {
-                    PointF[] tmp = new PointF[pd.Lines.Length];
-                    Array.Copy(pd.Lines, tmp, pd.Lines.Length);
-                    this.paths.Add(new PData(tmp, pd.ClosedType, pd.LineType, pd.IsLarge, pd.RevSweep, pd.Alias, pd.LoopBack));
-                    this.LineList.Items.Add(lineNames[pd.LineType]);
+                    PointF[] tmp = new PointF[pd.Points.Length];
+                    Array.Copy(pd.Points, tmp, pd.Points.Length);
+                    this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                    this.LineList.Items.Add(lineNames[(int)pd.PathType]);
                 }
                 if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
                 {
@@ -535,12 +566,12 @@ namespace ShapeMaker
 
             if (this.LineList.SelectedIndex != InvalidPath)
             {
-                PData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath((PathType)selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
+                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
             }
             else
             {
-                setUiForPath(this.undoType[this.undoPointer], false, false, false, false);
+                setUiForPath(this.undoType[this.undoPointer], CloseType.None, ArcOptions.None);
             }
 
             this.undoCount++;
@@ -647,7 +678,7 @@ namespace ShapeMaker
                 if (isActive)
                 {
                     pPoints = this.canvasPoints;
-                    pathType = ActivePathType;
+                    pathType = this.PathTypeFromUI;
                     closedIndividual = this.ClosePath.Checked;
                     closedContiguous = this.CloseContPaths.Checked;
                     isLarge = (this.Arc.CheckState == CheckState.Checked);
@@ -655,13 +686,13 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    PData itemPath = this.paths[j];
-                    pPoints = itemPath.Lines;
-                    pathType = (PathType)itemPath.LineType;
-                    closedIndividual = itemPath.ClosedType;
-                    closedContiguous = itemPath.LoopBack;
-                    isLarge = itemPath.IsLarge;
-                    revSweep = itemPath.RevSweep;
+                    PathData itemPath = this.paths[j];
+                    pPoints = itemPath.Points;
+                    pathType = itemPath.PathType;
+                    closedIndividual = itemPath.CloseType == CloseType.Individual;
+                    closedContiguous = itemPath.CloseType == CloseType.Contiguous;
+                    isLarge = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
+                    revSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
                 }
 
                 if (pPoints.Count == 0)
@@ -1131,7 +1162,7 @@ namespace ShapeMaker
 
                     break;
                 case MouseButtons.Right:  //process add or delete
-                    PathType pathType = ActivePathType;
+                    PathType pathType = this.PathTypeFromUI;
 
                     if (this.clickedNub > InvalidNub) //delete
                     {
@@ -1488,8 +1519,8 @@ namespace ShapeMaker
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
-                                    PointF[] tmp = this.paths[k].Lines;
-                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Lines;
+                                    PointF[] tmp = this.paths[k].Points;
+                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Points;
                                     tmp.Scale(originalPoints, scale, this.averagePoint);
                                 }
                             }
@@ -1517,8 +1548,8 @@ namespace ShapeMaker
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
-                                    PointF[] tmp = this.paths[k].Lines;
-                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Lines;
+                                    PointF[] tmp = this.paths[k].Points;
+                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Points;
                                     tmp.Rotate(originalPoints, radians, this.averagePoint);
                                 }
                             }
@@ -1545,7 +1576,7 @@ namespace ShapeMaker
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
-                                    PointF[] pathPoints = this.paths[k].Lines;
+                                    PointF[] pathPoints = this.paths[k].Points;
                                     for (int j = 0; j < pathPoints.Length; j++)
                                     {
                                         pathPoints[j] = PointFUtil.MovePoint(this.moveStart, newCoord, pathPoints[j]);
@@ -1583,7 +1614,7 @@ namespace ShapeMaker
 
                         for (int k = 0; k < this.paths.Count; k++)
                         {
-                            PointF[] pathPoints = this.paths[k].Lines;
+                            PointF[] pathPoints = this.paths[k].Points;
                             for (int j = 0; j < pathPoints.Length; j++)
                             {
                                 pathPoints[j] = PointFUtil.MovePoint(this.moveStart, mouseCoord, pathPoints[j]);
@@ -1599,7 +1630,7 @@ namespace ShapeMaker
                     PointF oldPoint = this.canvasPoints[nubIndex];
 
                     NubType nubType = CanvasUtil.GetNubType(this.clickedNub);
-                    PathType pathType = ActivePathType;
+                    PathType pathType = this.PathTypeFromUI;
 
                     switch (pathType)
                     {
@@ -1854,9 +1885,8 @@ namespace ShapeMaker
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
-            this.paths[this.LineList.SelectedIndex] = new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)ActivePathType, (this.Arc.CheckState == CheckState.Checked),
-                (this.Sweep.CheckState == CheckState.Checked), this.paths[this.LineList.SelectedIndex].Alias, this.CloseContPaths.Checked);
-            this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)ActivePathType];
+            this.paths[this.LineList.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.LineList.SelectedIndex].Alias);
+            this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)this.PathTypeFromUI];
 
             RefreshPdnCanvas();
         }
@@ -1870,7 +1900,7 @@ namespace ShapeMaker
 
             setUndo(deSelected);
 
-            PathType pathType = ActivePathType;
+            PathType pathType = this.PathTypeFromUI;
             if (this.MacroCircle.Checked && pathType == PathType.Ellipse)
             {
                 if (this.canvasPoints.Count < 5)
@@ -1882,7 +1912,7 @@ namespace ShapeMaker
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
-                this.paths.Add(new PData(this.canvasPoints.ToArray(), false, (int)PathType.Ellipse, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                this.paths.Add(new PathData(PathType.Ellipse, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI, string.Empty));
                 this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
 
                 PointF[] tmp = new PointF[]
@@ -1894,7 +1924,7 @@ namespace ShapeMaker
                     this.canvasPoints[0]
                 };
 
-                this.paths.Add(new PData(tmp, false, (int)PathType.Ellipse, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, true));
+                this.paths.Add(new PathData(PathType.Ellipse, tmp, CloseType.Contiguous, this.ArcOptionsFromUI, string.Empty));
                 this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
@@ -1910,13 +1940,13 @@ namespace ShapeMaker
                         new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
                     };
 
-                    this.paths.Add(new PData(tmp, false, (int)PathType.Straight, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, false));
+                    this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None, string.Empty));
                     this.LineList.Items.Add(lineNames[(int)PathType.Straight]);
                 }
             }
             else
             {
-                this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)pathType, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
+                this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
                 this.LineList.Items.Add(lineNames[(int)pathType]);
             }
 
@@ -2031,7 +2061,7 @@ namespace ShapeMaker
             }
         }
 
-        private void setUiForPath(PathType pathType, bool closedPath, bool largeArc, bool revSweep, bool multiClosedPath)
+        private void setUiForPath(PathType pathType, CloseType closeType, ArcOptions arcOptions)
         {
             SuspendLayout();
             this.MacroCubic.Checked = false;
@@ -2042,16 +2072,18 @@ namespace ShapeMaker
                 this.activeType = pathType;
                 PathTypeToggle();
             }
-            this.ClosePath.Checked = closedPath;
+
+            this.ClosePath.Checked = closeType == CloseType.Individual;
             this.ClosePath.Image = (this.ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
-            this.CloseContPaths.Checked = multiClosedPath;
+            this.CloseContPaths.Checked = closeType == CloseType.Contiguous;
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
+
             if (pathType == PathType.Ellipse)
             {
-                this.Arc.CheckState = largeArc ? CheckState.Checked : CheckState.Indeterminate;
+                this.Arc.CheckState = arcOptions.HasFlag(ArcOptions.LargeArc) ? CheckState.Checked : CheckState.Indeterminate;
                 this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
 
-                this.Sweep.CheckState = revSweep ? CheckState.Checked : CheckState.Indeterminate;
+                this.Sweep.CheckState = arcOptions.HasFlag(ArcOptions.PositiveSweep) ? CheckState.Checked : CheckState.Indeterminate;
                 this.Sweep.Image = (this.Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
             }
             ResumeLayout();
@@ -2067,12 +2099,12 @@ namespace ShapeMaker
             int pathIndex = InvalidPath;
             for (int i = 0; i < this.LineList.Items.Count; i++)
             {
-                PathType pathType = (PathType)this.paths[i].LineType;
+                PathType pathType = this.paths[i].PathType;
                 PointF[] tmp;
 
                 using (GraphicsPath gp = new GraphicsPath())
                 {
-                    gp.AddLines(this.paths[i].Lines);
+                    gp.AddLines(this.paths[i].Points);
                     gp.Flatten(null, .1f);
 
                     tmp = gp.PathPoints;
@@ -2142,7 +2174,7 @@ namespace ShapeMaker
 
         private void LoadStreamGeometry(string streamGeometry)
         {
-            IReadOnlyCollection<PData> paths = PData.FromStreamGeometry(streamGeometry);
+            IReadOnlyCollection<PathData> paths = PathDataCollection.FromStreamGeometry(streamGeometry).Paths;
 
             if (paths.Count == 0)
             {
@@ -2154,8 +2186,7 @@ namespace ShapeMaker
             ZoomToFactor(1);
 
             this.paths.AddRange(paths);
-            this.LineList.Items.AddRange(paths.Select(path => lineNames[path.LineType]).ToArray());
-            this.solidFillCheckBox.Checked = paths.Last().SolidFill;
+            this.LineList.Items.AddRange(paths.Select(path => lineNames[(int)path.PathType]).ToArray());
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2196,9 +2227,9 @@ namespace ShapeMaker
                 return false;
             }
 
-            foreach (PData pathData in this.paths)
+            foreach (PathData pathData in this.paths)
             {
-                if (pathData.Lines.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
+                if (pathData.Points.Any(pt => pt.X > 1.5f || pt.Y > 1.5f))
                 {
                     return false;
                 }
@@ -2207,15 +2238,32 @@ namespace ShapeMaker
             return true;
         }
 
-        private void LoadProjectFile(string projectPath)
+        private void LoadProjectFile(string projectFile)
         {
-            IReadOnlyList<PData> projectPaths = null;
+            PathDataCollection collection = null;
+
+            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
+
             try
             {
-                XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                using (FileStream stream = File.OpenRead(projectPath))
+                using (FileStream fileStream = File.OpenRead(projectFile))
+                using (XmlTextReader xmlReader = new XmlTextReader(fileStream))
                 {
-                    projectPaths = ((ArrayList)ser.Deserialize(stream)).OfType<PData>().ToList();
+                    if (pathDataSerializer.CanDeserialize(xmlReader))
+                    {
+                        collection = (PathDataCollection)pathDataSerializer.Deserialize(xmlReader);
+                    }
+                    else if (pDataSerializer.CanDeserialize(xmlReader))
+                    {
+                        IEnumerable<PData> paths = ((ArrayList)pDataSerializer.Deserialize(xmlReader)).OfType<PData>();
+                        PData last = paths.Last();
+
+                        collection = new PathDataCollection(
+                            paths.Select(pData => pData.ToPathData()).ToList(),
+                            last.SolidFill,
+                            last.Meta);
+                    }
                 }
             }
             catch (Exception ex)
@@ -2224,7 +2272,7 @@ namespace ShapeMaker
                 return;
             }
 
-            if (projectPaths.Count == 0)
+            if (collection.Count == 0)
             {
                 MessageBox.Show("No Project data was found in the file.", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -2232,20 +2280,20 @@ namespace ShapeMaker
 
             ClearAllPaths();
 
-            PData documentProps = projectPaths[projectPaths.Count - 1];
-            this.FigureName.Text = documentProps.Meta;
-            this.solidFillCheckBox.Checked = documentProps.SolidFill;
-            foreach (PData path in projectPaths)
+            this.FigureName.Text = collection.ShapeName;
+            this.solidFillCheckBox.Checked = collection.SolidFill;
+
+            foreach (PathData path in collection.Paths)
             {
                 this.paths.Add(path);
-                this.LineList.Items.Add(lineNames[path.LineType]);
+                this.LineList.Items.Add(lineNames[(int)path.PathType]);
             }
 
             ZoomToFactor(1);
             resetHistory();
             this.canvas.Refresh();
             RefreshPdnCanvas();
-            AddToRecents(projectPath);
+            AddToRecents(projectFile);
         }
 
         private static string GetSanitizedShapeName(string shapeName)
@@ -2287,10 +2335,10 @@ namespace ShapeMaker
 
             if ((this.LineList.Items.Count > 0) && (this.LineList.SelectedIndex < this.paths.Count))
             {
-                PData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath((PathType)selectedPath.LineType, selectedPath.ClosedType, selectedPath.IsLarge, selectedPath.RevSweep, selectedPath.LoopBack);
+                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
+                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
                 this.canvasPoints.Clear();
-                this.canvasPoints.AddRange(selectedPath.Lines);
+                this.canvasPoints.AddRange(selectedPath.Points);
             }
             this.canvas.Refresh();
         }
@@ -2303,7 +2351,7 @@ namespace ShapeMaker
             int itemIndex = e.Index;
             if (itemIndex >= 0 && itemIndex < this.LineList.Items.Count)
             {
-                PData itemPath = this.paths[itemIndex];
+                PathData itemPath = this.paths[itemIndex];
 
                 string itemText;
                 if (itemPath.Alias.Length > 0)
@@ -2315,11 +2363,11 @@ namespace ShapeMaker
                     itemText = this.LineList.Items[itemIndex].ToString();
                 }
 
-                if (itemPath.LoopBack)
+                if (itemPath.CloseType == CloseType.Contiguous)
                 {
                     itemText = "(MZ)" + itemText;
                 }
-                else if (itemPath.ClosedType)
+                else if (itemPath.CloseType == CloseType.Individual)
                 {
                     itemText = "(Z)" + itemText;
                 }
@@ -2330,14 +2378,14 @@ namespace ShapeMaker
 
                 if (isItemSelected)
                 {
-                    using (SolidBrush backgroundColorBrush = new SolidBrush(lineColorsLight[itemPath.LineType]))
+                    using (SolidBrush backgroundColorBrush = new SolidBrush(lineColorsLight[(int)itemPath.PathType]))
                     {
                         e.Graphics.FillRectangle(backgroundColorBrush, e.Bounds);
                     }
                 }
 
                 using (StringFormat vCenter = new StringFormat { LineAlignment = StringAlignment.Center })
-                using (SolidBrush itemTextColorBrush = new SolidBrush(lineColors[itemPath.LineType]))
+                using (SolidBrush itemTextColorBrush = new SolidBrush(lineColors[(int)itemPath.PathType]))
                 {
                     e.Graphics.DrawString(itemText, e.Font, itemTextColorBrush, e.Bounds, vCenter);
                 }
@@ -2374,8 +2422,8 @@ namespace ShapeMaker
 
             setUndo();
 
-            this.paths.Add(new PData(this.canvasPoints.ToArray(), this.ClosePath.Checked, (int)ActivePathType, (this.Arc.CheckState == CheckState.Checked), (this.Sweep.CheckState == CheckState.Checked), string.Empty, this.CloseContPaths.Checked));
-            this.LineList.Items.Add(lineNames[(int)ActivePathType]);
+            this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
+            this.LineList.Items.Add(lineNames[(int)this.PathTypeFromUI]);
             this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 
             this.canvas.Refresh();
@@ -2411,10 +2459,10 @@ namespace ShapeMaker
                 return;
             }
 
-            PData pd1 = this.paths[index];
+            PathData pd1 = this.paths[index];
             string LineTxt1 = this.LineList.Items[index].ToString();
 
-            PData pd2 = this.paths[index + 1];
+            PathData pd2 = this.paths[index + 1];
             string LineTxt2 = this.LineList.Items[index + 1].ToString();
 
             this.paths[index] = pd2;
@@ -2697,13 +2745,12 @@ namespace ShapeMaker
 
                 try
                 {
-                    ArrayList paths = new ArrayList(this.paths);
-                    XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
-                    (paths[paths.Count - 1] as PData).Meta = this.FigureName.Text;
-                    (paths[paths.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
+                    PathDataCollection collection = new PathDataCollection(this.paths, this.solidFillCheckBox.Checked, this.FigureName.Text);
+
+                    XmlSerializer ser = new XmlSerializer(typeof(PathDataCollection));
                     using (StringWriterWithEncoding stringWriter = new StringWriterWithEncoding())
                     {
-                        ser.Serialize(stringWriter, paths);
+                        ser.Serialize(stringWriter, collection);
                         File.WriteAllText(sfd.FileName, stringWriter.ToString());
                     }
                 }
@@ -2946,9 +2993,9 @@ namespace ShapeMaker
 
             if (this.canvasPoints.Count == 0)
             {
-                foreach (PData path in this.paths)
+                foreach (PathData path in this.paths)
                 {
-                    PointF[] pl = path.Lines;
+                    PointF[] pl = path.Points;
 
                     if (isHorizontal)
                     {
@@ -2965,9 +3012,16 @@ namespace ShapeMaker
                         }
                     }
 
-                    if (path.LineType == (int)PathType.Ellipse)
+                    if (path.PathType == PathType.Ellipse)
                     {
-                        path.RevSweep = !path.RevSweep;
+                        if (path.ArcOptions.HasFlag(ArcOptions.PositiveSweep))
+                        {
+                            path.ArcOptions &= ~ArcOptions.PositiveSweep;
+                        }
+                        else
+                        {
+                            path.ArcOptions |= ArcOptions.PositiveSweep;
+                        }
                     }
                 }
             }
@@ -3432,7 +3486,8 @@ namespace ShapeMaker
             string recents = Settings.RecentProjects;
 
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
-            XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
             string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             int count = 1;
             foreach (string projectPath in paths)
@@ -3445,8 +3500,20 @@ namespace ShapeMaker
                 string menuText = $"&{count} {Path.GetFileName(projectPath)}";
                 try
                 {
-                    IReadOnlyList<PData> projectPaths = ((ArrayList)ser.Deserialize(File.OpenRead(projectPath))).OfType<PData>().ToList();
-                    menuText = $"&{count} {projectPaths[projectPaths.Count - 1].Meta} ({Path.GetFileName(projectPath)})";
+                    using (FileStream fileStream = File.OpenRead(projectPath))
+                    using (XmlTextReader xmlReader = new XmlTextReader(fileStream))
+                    {
+                        if (pathDataSerializer.CanDeserialize(xmlReader))
+                        {
+                            PathDataCollection collection = (PathDataCollection)pathDataSerializer.Deserialize(xmlReader);
+                            menuText = $"&{count} {collection.ShapeName} ({Path.GetFileName(projectPath)})";
+                        }
+                        else if (pDataSerializer.CanDeserialize(xmlReader))
+                        {
+                            PData pData = ((ArrayList)pDataSerializer.Deserialize(xmlReader)).OfType<PData>().Last();
+                            menuText = $"&{count} {pData.Meta} ({Path.GetFileName(projectPath)})";
+                        }
+                    }
                 }
                 catch
                 {
