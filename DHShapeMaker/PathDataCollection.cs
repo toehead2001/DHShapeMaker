@@ -94,7 +94,7 @@ namespace ShapeMaker
 
                         if (pts.Count > 1)
                         {
-                            PathData path = new PathData(pathType, pts, closeType, arcOptions, string.Empty);
+                            PathData path = new PathData(pathType, pts, closeType, arcOptions);
                             paths.Add(path);
                         }
 
@@ -357,7 +357,7 @@ namespace ShapeMaker
 
                 if (pts.Count > 1)
                 {
-                    PathData path = new PathData(pathType, pts, closeType, arcOptions, string.Empty);
+                    PathData path = new PathData(pathType, pts, closeType, arcOptions);
                     paths.Add(path);
                 }
 

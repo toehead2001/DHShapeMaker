@@ -389,7 +389,7 @@ namespace ShapeMaker
             this.undoCount++;
             this.undoCount = (this.undoCount > historyMax) ? historyMax : this.undoCount;
             this.undoSelected[this.historyIndex] = deSelected ? InvalidPath : this.LineList.SelectedIndex;
-            this.undoCanvas[this.historyIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty);
+            this.undoCanvas[this.historyIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI);
 
             if (this.undoPaths[this.historyIndex] == null)
             {
@@ -1816,7 +1816,7 @@ namespace ShapeMaker
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
-                this.paths.Add(new PathData(PathType.EllipticalArc, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI, string.Empty));
+                this.paths.Add(new PathData(PathType.EllipticalArc, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI));
                 this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
 
                 PointF[] tmp = new PointF[]
@@ -1828,7 +1828,7 @@ namespace ShapeMaker
                     this.canvasPoints[0]
                 };
 
-                this.paths.Add(new PathData(PathType.EllipticalArc, tmp, CloseType.Contiguous, this.ArcOptionsFromUI, string.Empty));
+                this.paths.Add(new PathData(PathType.EllipticalArc, tmp, CloseType.Contiguous, this.ArcOptionsFromUI));
                 this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
@@ -1844,13 +1844,13 @@ namespace ShapeMaker
                         new PointF(this.canvasPoints[i - 1].X, this.canvasPoints[i - 1].Y)
                     };
 
-                    this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None, string.Empty));
+                    this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None));
                     this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Straight));
                 }
             }
             else
             {
-                this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
+                this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
                 this.LineList.Items.Add(PathTypeUtil.GetName(pathType));
             }
 
@@ -2325,7 +2325,7 @@ namespace ShapeMaker
 
             setUndo();
 
-            this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
+            this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
             this.LineList.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
             this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 

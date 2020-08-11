@@ -20,13 +20,18 @@ namespace ShapeMaker
         }
         public string Alias { get; set; }
 
-        public PathData(PathType pathType, IEnumerable<PointF> points, CloseType closeType, ArcOptions arcOptions, string alias)
+        internal PathData(PathType pathType, IEnumerable<PointF> points, CloseType closeType, ArcOptions arcOptions, string alias)
         {
             this.PathType = pathType;
             this.Points = points.ToArray();
             this.CloseType = closeType;
             this.ArcOptions = arcOptions;
             this.Alias = alias;
+        }
+
+        internal PathData(PathType pathType, IEnumerable<PointF> points, CloseType closeType, ArcOptions arcOptions)
+            : this(pathType, points, closeType, arcOptions, string.Empty)
+        {
         }
 
         public PathData()
