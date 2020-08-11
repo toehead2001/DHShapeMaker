@@ -407,9 +407,7 @@ namespace ShapeMaker
 
             foreach (PathData pd in this.paths)
             {
-                PointF[] tmp = new PointF[pd.Points.Length];
-                Array.Copy(pd.Points, tmp, pd.Points.Length);
-                this.undoPaths[this.historyIndex].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                this.undoPaths[this.historyIndex].Add(pd);
             }
 
             this.historyIndex++;
