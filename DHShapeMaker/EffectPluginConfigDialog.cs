@@ -442,9 +442,6 @@ namespace ShapeMaker
 
             this.Undo.Enabled = (this.undoCount > 0);
             this.Redo.Enabled = true;
-
-            this.canvas.Refresh();
-            RefreshPdnCanvas();
         }
 
         private void Redo_Click(object sender, EventArgs e)
@@ -465,31 +462,22 @@ namespace ShapeMaker
 
             this.Redo.Enabled = (this.redoCount > 0);
             this.Undo.Enabled = true;
-
-            this.canvas.Refresh();
-            RefreshPdnCanvas();
         }
 
         private void PerformUndoOrRedo()
         {
-            this.canvasPoints.Clear();
-            if (this.undoCanvas[this.undoPointer].Points.Length != 0)
-            {
-                this.canvasPoints.AddRange(this.undoCanvas[this.undoPointer].Points);
-            }
-
             this.LineList.Items.Clear();
             this.paths.Clear();
+
             if (this.undoPaths[this.undoPointer].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PathData pd in this.undoPaths[this.undoPointer])
                 {
-                    PointF[] tmp = new PointF[pd.Points.Length];
-                    Array.Copy(pd.Points, tmp, pd.Points.Length);
-                    this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                    this.paths.Add(pd);
                     this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
+
                 if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
                 {
                     this.LineList.SelectedIndex = this.undoSelected[this.undoPointer];
@@ -502,7 +490,7 @@ namespace ShapeMaker
                 ? this.paths[this.LineList.SelectedIndex]
                 : this.undoCanvas[this.undoPointer];
 
-            setUiForPath(path.PathType, path.CloseType, path.ArcOptions);
+            SetUiForPath(path);
         }
 
         private void resetHistory()
@@ -1983,8 +1971,12 @@ namespace ShapeMaker
             }
         }
 
-        private void setUiForPath(PathType pathType, CloseType closeType, ArcOptions arcOptions)
+        private void SetUiForPath(PathData pathData)
         {
+            PathType pathType = pathData.PathType;
+            CloseType closeType = pathData.CloseType;
+            ArcOptions arcOptions = pathData.ArcOptions;
+
             SuspendLayout();
             this.MacroCubic.Checked = false;
             this.MacroCircle.Checked = false;
@@ -2009,6 +2001,12 @@ namespace ShapeMaker
                 this.Sweep.Image = (this.Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
             }
             ResumeLayout();
+
+            this.canvasPoints.Clear();
+            this.canvasPoints.AddRange(pathData.Points);
+
+            this.canvas.Refresh();
+            RefreshPdnCanvas();
         }
 
         private int getNearestPath(Rectangle hit)
@@ -2248,14 +2246,11 @@ namespace ShapeMaker
                 return;
             }
 
-            if ((this.LineList.Items.Count > 0) && (this.LineList.SelectedIndex < this.paths.Count))
+            if (this.LineList.Items.Count > 0 &&
+                this.LineList.SelectedIndex < this.paths.Count)
             {
-                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
-                this.canvasPoints.Clear();
-                this.canvasPoints.AddRange(selectedPath.Points);
+                SetUiForPath(this.paths[this.LineList.SelectedIndex]);
             }
-            this.canvas.Refresh();
         }
 
         private void LineList_DrawItem(object sender, DrawItemEventArgs e)
@@ -3073,6 +3068,7 @@ namespace ShapeMaker
             }
 
             PathTypeToggle();
+            this.canvas.Refresh();
         }
 
         private void PathTypeToggle()
@@ -3085,7 +3081,6 @@ namespace ShapeMaker
                     PointF hold = this.canvasPoints[0];
                     this.canvasPoints.Clear();
                     this.canvasPoints.Add(hold);
-                    this.canvas.Refresh();
                 }
             }
 
