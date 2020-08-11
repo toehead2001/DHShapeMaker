@@ -215,11 +215,11 @@ namespace ShapeMaker
 
             IEnumerable<PathData> tmp = new List<PathData>(token.PathData);
             this.paths.Clear();
-            this.LineList.Items.Clear();
+            this.PathListBox.Items.Clear();
             foreach (PathData p in tmp)
             {
                 this.paths.Add(p);
-                this.LineList.Items.Add(PathTypeUtil.GetName(p.PathType));
+                this.PathListBox.Items.Add(PathTypeUtil.GetName(p.PathType));
             }
 
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
@@ -254,8 +254,8 @@ namespace ShapeMaker
 
             #region DPI fixes
             this.MinimumSize = this.Size;
-            this.LineList.ItemHeight = getDpiSize(this.LineList.ItemHeight);
-            this.LineList.Height = this.upList.Top - this.LineList.Top;
+            this.PathListBox.ItemHeight = getDpiSize(this.PathListBox.ItemHeight);
+            this.PathListBox.Height = this.upList.Top - this.PathListBox.Top;
             this.statusLabelNubsUsed.Width = getDpiSize(this.statusLabelNubsUsed.Width);
             this.statusLabelPathsUsed.Width = getDpiSize(this.statusLabelPathsUsed.Width);
             this.statusLabelNubPos.Width = getDpiSize(this.statusLabelNubPos.Width);
@@ -283,7 +283,7 @@ namespace ShapeMaker
 
             adjustForWindowSize();
 
-            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
+            this.statusLabelPathsUsed.Text = $"{this.PathListBox.Items.Count} Paths";
 
             // Store hotkeys in a Dictionary
             foreach (ToolStripButtonWithKeys button in this.Controls.OfType<ToolStrip>().SelectMany(ts => ts.Items.OfType<ToolStripButtonWithKeys>()))
@@ -317,7 +317,7 @@ namespace ShapeMaker
 
         private void adjustForWindowSize()
         {
-            this.viewport.Width = this.LineList.Left - this.viewport.Left - getDpiSize(32);
+            this.viewport.Width = this.PathListBox.Left - this.viewport.Left - getDpiSize(32);
             this.viewport.Height = this.statusStrip1.Top - this.viewport.Top - getDpiSize(20);
 
             this.horScrollBar.Top = this.viewport.Bottom;
@@ -346,7 +346,7 @@ namespace ShapeMaker
         {
             if (keyData == Keys.Enter)
             {
-                if (this.canvasPoints.Count > 1 && this.LineList.SelectedIndex == InvalidPath)
+                if (this.canvasPoints.Count > 1 && this.PathListBox.SelectedIndex == InvalidPath)
                 {
                     AddNewPath();
                 }
@@ -386,7 +386,7 @@ namespace ShapeMaker
             this.redoCount = 0;
             this.undoCount++;
             this.undoCount = (this.undoCount > historyMax) ? historyMax : this.undoCount;
-            this.undoSelected[this.historyIndex] = deSelected ? InvalidPath : this.LineList.SelectedIndex;
+            this.undoSelected[this.historyIndex] = deSelected ? InvalidPath : this.PathListBox.SelectedIndex;
             this.undoCanvas[this.historyIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI);
 
             if (this.undoPaths[this.historyIndex] == null)
@@ -458,28 +458,28 @@ namespace ShapeMaker
 
         private void PerformUndoOrRedo()
         {
-            this.LineList.Items.Clear();
+            this.PathListBox.Items.Clear();
             this.paths.Clear();
 
             if (this.undoPaths[this.historyIndex].Count != 0)
             {
-                this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PathData pd in this.undoPaths[this.historyIndex])
                 {
                     this.paths.Add(pd);
-                    this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
+                    this.PathListBox.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
 
-                if (this.undoSelected[this.historyIndex] < this.LineList.Items.Count)
+                if (this.undoSelected[this.historyIndex] < this.PathListBox.Items.Count)
                 {
-                    this.LineList.SelectedIndex = this.undoSelected[this.historyIndex];
+                    this.PathListBox.SelectedIndex = this.undoSelected[this.historyIndex];
                 }
 
-                this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
             }
 
-            PathData path = (this.LineList.SelectedIndex != InvalidPath)
-                ? this.paths[this.LineList.SelectedIndex]
+            PathData path = (this.PathListBox.SelectedIndex != InvalidPath)
+                ? this.paths[this.PathListBox.SelectedIndex]
                 : this.undoCanvas[this.historyIndex];
 
             SetUiForPath(path);
@@ -551,7 +551,7 @@ namespace ShapeMaker
             PointF previousEndPoint = new PointF(-9999, -9999);
             bool previousClosed = false;
 
-            bool isNewPath = this.LineList.SelectedIndex == InvalidPath;
+            bool isNewPath = this.PathListBox.SelectedIndex == InvalidPath;
 
             PathType pathType = 0;
             bool closedIndividual = false;
@@ -574,7 +574,7 @@ namespace ShapeMaker
                     continue;
                 }
 
-                bool isActive = j == this.LineList.SelectedIndex;
+                bool isActive = j == this.PathListBox.SelectedIndex;
 
                 if (isActive)
                 {
@@ -908,12 +908,12 @@ namespace ShapeMaker
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (this.LineList.SelectedIndex != InvalidPath)
+            if (this.PathListBox.SelectedIndex != InvalidPath)
             {
-                int bottomIndex = Math.Min(this.LineList.TopIndex + (this.LineList.Height / this.LineList.ItemHeight) - 1, this.LineList.Items.Count - 1);
-                if (this.LineList.SelectedIndex < this.LineList.TopIndex || this.LineList.SelectedIndex > bottomIndex)
+                int bottomIndex = Math.Min(this.PathListBox.TopIndex + (this.PathListBox.Height / this.PathListBox.ItemHeight) - 1, this.PathListBox.Items.Count - 1);
+                if (this.PathListBox.SelectedIndex < this.PathListBox.TopIndex || this.PathListBox.SelectedIndex > bottomIndex)
                 {
-                    this.LineList.TopIndex = this.LineList.SelectedIndex;
+                    this.PathListBox.TopIndex = this.PathListBox.SelectedIndex;
                 }
             }
 
@@ -975,7 +975,7 @@ namespace ShapeMaker
                                 this.canvas.Cursor = Cursors.SizeAll;
                             }
                         }
-                        else if (this.LineList.Items.Count > 0)
+                        else if (this.PathListBox.Items.Count > 0)
                         {
                             setUndo();
                             this.moveFlag = true;
@@ -1040,7 +1040,7 @@ namespace ShapeMaker
                             int clickedPath = getNearestPath(bhit);
                             if (clickedPath != InvalidPath)
                             {
-                                this.LineList.SelectedIndex = clickedPath;
+                                this.PathListBox.SelectedIndex = clickedPath;
 
                                 for (int i = 0; i < this.canvasPoints.Count; i++)
                                 {
@@ -1313,7 +1313,7 @@ namespace ShapeMaker
                         #endregion
                     }
 
-                    if (this.LineList.SelectedIndex != InvalidPath && this.clickedNub != 0)
+                    if (this.PathListBox.SelectedIndex != InvalidPath && this.clickedNub != 0)
                     {
                         UpdateExistingPath();
                     }
@@ -1352,7 +1352,7 @@ namespace ShapeMaker
         {
             if (this.clickedNub != InvalidNub || this.operation != Operation.None)
             {
-                if (this.LineList.SelectedIndex != InvalidPath)
+                if (this.PathListBox.SelectedIndex != InvalidPath)
                 {
                     UpdateExistingPath();
                 }
@@ -1416,7 +1416,7 @@ namespace ShapeMaker
                             float newDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             float scale = newDist / this.initialDist;
 
-                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1445,7 +1445,7 @@ namespace ShapeMaker
                                 radians = degrees.ConstrainToInterval(15) * Math.PI / 180;
                             }
 
-                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1473,7 +1473,7 @@ namespace ShapeMaker
                                 newCoord = PointToCanvasCoord(snapPoint.X, snapPoint.Y);
                             }
 
-                            if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1509,7 +1509,7 @@ namespace ShapeMaker
                             this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, mouseCoord, this.canvasPoints[j]);
                         }
                     }
-                    else if (this.canvasPoints.Count == 0 && this.LineList.Items.Count > 0)
+                    else if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
                     {
                         StatusBarNubLocation(eX, eY);
 
@@ -1734,7 +1734,7 @@ namespace ShapeMaker
             }
             else
             {
-                if (this.LineList.SelectedIndex == InvalidPath && canvasPoints.Count == 1)
+                if (this.PathListBox.SelectedIndex == InvalidPath && canvasPoints.Count == 1)
                 {
                     canvasPoints.Clear();
                 }
@@ -1786,8 +1786,8 @@ namespace ShapeMaker
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
-            this.paths[this.LineList.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.LineList.SelectedIndex].Alias);
-            this.LineList.Items[this.LineList.SelectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
+            this.paths[this.PathListBox.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.PathListBox.SelectedIndex].Alias);
+            this.PathListBox.Items[this.PathListBox.SelectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
 
             RefreshPdnCanvas();
         }
@@ -1814,7 +1814,7 @@ namespace ShapeMaker
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
                 this.paths.Add(new PathData(PathType.EllipticalArc, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI));
-                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
+                this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
 
                 PointF[] tmp = new PointF[]
                 {
@@ -1826,7 +1826,7 @@ namespace ShapeMaker
                 };
 
                 this.paths.Add(new PathData(PathType.EllipticalArc, tmp, CloseType.Contiguous, this.ArcOptionsFromUI));
-                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
+                this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
             {
@@ -1842,13 +1842,13 @@ namespace ShapeMaker
                     };
 
                     this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None));
-                    this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Straight));
+                    this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.Straight));
                 }
             }
             else
             {
                 this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
-                this.LineList.Items.Add(PathTypeUtil.GetName(pathType));
+                this.PathListBox.Items.Add(PathTypeUtil.GetName(pathType));
             }
 
             if (this.LinkedPaths.Checked)
@@ -1868,7 +1868,7 @@ namespace ShapeMaker
 
         private void Deselect()
         {
-            bool isNewPath = this.LineList.SelectedIndex == InvalidPath;
+            bool isNewPath = this.PathListBox.SelectedIndex == InvalidPath;
             if (isNewPath && this.canvasPoints.Count > 1)
             {
                 setUndo();
@@ -1893,7 +1893,7 @@ namespace ShapeMaker
                 this.canvasPoints.Clear();
             }
 
-            this.LineList.SelectedIndex = InvalidPath;
+            this.PathListBox.SelectedIndex = InvalidPath;
             this.canvas.Refresh();
         }
 
@@ -2002,12 +2002,12 @@ namespace ShapeMaker
 
         private int getNearestPath(Rectangle hit)
         {
-            if (this.LineList.Items.Count == 0)
+            if (this.PathListBox.Items.Count == 0)
             {
                 return InvalidPath;
             }
 
-            for (int i = 0; i < this.LineList.Items.Count; i++)
+            for (int i = 0; i < this.PathListBox.Items.Count; i++)
             {
                 PathType pathType = this.paths[i].PathType;
                 PointF[] tmp;
@@ -2090,7 +2090,7 @@ namespace ShapeMaker
             ZoomToFactor(1);
 
             this.paths.AddRange(paths);
-            this.LineList.Items.AddRange(paths.Select(path => PathTypeUtil.GetName(path.PathType)).ToArray());
+            this.PathListBox.Items.AddRange(paths.Select(path => PathTypeUtil.GetName(path.PathType)).ToArray());
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2118,8 +2118,8 @@ namespace ShapeMaker
             this.statusLabelNubPos.Text = "0, 0";
 
             this.paths.Clear();
-            this.LineList.Items.Clear();
-            this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
+            this.PathListBox.Items.Clear();
+            this.statusLabelPathsUsed.Text = $"{this.PathListBox.Items.Count} Paths";
 
             this.canvas.Refresh();
         }
@@ -2190,7 +2190,7 @@ namespace ShapeMaker
             foreach (PathData path in collection.Paths)
             {
                 this.paths.Add(path);
-                this.LineList.Items.Add(PathTypeUtil.GetName(path.PathType));
+                this.PathListBox.Items.Add(PathTypeUtil.GetName(path.PathType));
             }
 
             ZoomToFactor(1);
@@ -2211,15 +2211,15 @@ namespace ShapeMaker
         #region Path List functions
         private void LineList_DoubleClick(object sender, EventArgs e)
         {
-            if (this.LineList.Items.Count == 0 || this.LineList.SelectedItem == null)
+            if (this.PathListBox.Items.Count == 0 || this.PathListBox.SelectedItem == null)
             {
                 return;
             }
 
-            string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name", this.LineList.SelectedItem.ToString(), -1, -1).Trim();
+            string s = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for this path.", "Path Name", this.PathListBox.SelectedItem.ToString(), -1, -1).Trim();
             if (s.Length > 0)
             {
-                this.paths[this.LineList.SelectedIndex].Alias = s;
+                this.paths[this.PathListBox.SelectedIndex].Alias = s;
             }
         }
 
@@ -2232,14 +2232,14 @@ namespace ShapeMaker
 
             this.isNewPath = false;
 
-            if (this.LineList.SelectedIndex == InvalidPath)
+            if (this.PathListBox.SelectedIndex == InvalidPath)
             {
                 return;
             }
 
-            if (this.LineList.SelectedIndex < this.paths.Count)
+            if (this.PathListBox.SelectedIndex < this.paths.Count)
             {
-                SetUiForPath(this.paths[this.LineList.SelectedIndex]);
+                SetUiForPath(this.paths[this.PathListBox.SelectedIndex]);
             }
         }
 
@@ -2249,7 +2249,7 @@ namespace ShapeMaker
 
             bool isItemSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
             int itemIndex = e.Index;
-            if (itemIndex >= 0 && itemIndex < this.LineList.Items.Count)
+            if (itemIndex >= 0 && itemIndex < this.PathListBox.Items.Count)
             {
                 PathData itemPath = this.paths[itemIndex];
 
@@ -2260,7 +2260,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    itemText = this.LineList.Items[itemIndex].ToString();
+                    itemText = this.PathListBox.Items[itemIndex].ToString();
                 }
 
                 if (itemPath.CloseType == CloseType.Contiguous)
@@ -2296,18 +2296,18 @@ namespace ShapeMaker
 
         private void removebtn_Click(object sender, EventArgs e)
         {
-            if (this.LineList.SelectedIndex == InvalidPath || this.LineList.Items.Count == 0 || this.LineList.SelectedIndex >= this.paths.Count)
+            if (this.PathListBox.SelectedIndex == InvalidPath || this.PathListBox.Items.Count == 0 || this.PathListBox.SelectedIndex >= this.paths.Count)
             {
                 return;
             }
 
             setUndo();
 
-            int spi = this.LineList.SelectedIndex;
+            int spi = this.PathListBox.SelectedIndex;
             this.paths.RemoveAt(spi);
-            this.LineList.Items.RemoveAt(spi);
+            this.PathListBox.Items.RemoveAt(spi);
             this.canvasPoints.Clear();
-            this.LineList.SelectedIndex = InvalidPath;
+            this.PathListBox.SelectedIndex = InvalidPath;
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2315,7 +2315,7 @@ namespace ShapeMaker
 
         private void Clonebtn_Click(object sender, EventArgs e)
         {
-            if (this.LineList.SelectedIndex == InvalidPath || this.canvasPoints.Count == 0)
+            if (this.PathListBox.SelectedIndex == InvalidPath || this.canvasPoints.Count == 0)
             {
                 return;
             }
@@ -2323,8 +2323,8 @@ namespace ShapeMaker
             setUndo();
 
             this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
-            this.LineList.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
-            this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
+            this.PathListBox.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
+            this.PathListBox.SelectedIndex = this.PathListBox.Items.Count - 1;
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2332,23 +2332,23 @@ namespace ShapeMaker
 
         private void DNList_Click(object sender, EventArgs e)
         {
-            if (this.LineList.SelectedIndex > InvalidPath && this.LineList.SelectedIndex < this.LineList.Items.Count - 1)
+            if (this.PathListBox.SelectedIndex > InvalidPath && this.PathListBox.SelectedIndex < this.PathListBox.Items.Count - 1)
             {
-                this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                ReOrderPath(this.LineList.SelectedIndex);
-                this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
-                this.LineList.SelectedIndex++;
+                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
+                ReOrderPath(this.PathListBox.SelectedIndex);
+                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedIndex++;
             }
         }
 
         private void upList_Click(object sender, EventArgs e)
         {
-            if (this.LineList.SelectedIndex > 0)
+            if (this.PathListBox.SelectedIndex > 0)
             {
-                this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                ReOrderPath(this.LineList.SelectedIndex - 1);
-                this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
-                this.LineList.SelectedIndex--;
+                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
+                ReOrderPath(this.PathListBox.SelectedIndex - 1);
+                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedIndex--;
             }
         }
 
@@ -2360,31 +2360,31 @@ namespace ShapeMaker
             }
 
             PathData pd1 = this.paths[index];
-            string LineTxt1 = this.LineList.Items[index].ToString();
+            string LineTxt1 = this.PathListBox.Items[index].ToString();
 
             PathData pd2 = this.paths[index + 1];
-            string LineTxt2 = this.LineList.Items[index + 1].ToString();
+            string LineTxt2 = this.PathListBox.Items[index + 1].ToString();
 
             this.paths[index] = pd2;
-            this.LineList.Items[index] = LineTxt2;
+            this.PathListBox.Items[index] = LineTxt2;
 
             this.paths[index + 1] = pd1;
-            this.LineList.Items[index + 1] = LineTxt1;
+            this.PathListBox.Items[index + 1] = LineTxt1;
         }
 
         private void ToggleUpDownButtons()
         {
-            if (this.LineList.Items.Count < 2 || this.LineList.SelectedIndex == InvalidPath)
+            if (this.PathListBox.Items.Count < 2 || this.PathListBox.SelectedIndex == InvalidPath)
             {
                 this.upList.Enabled = false;
                 this.DNList.Enabled = false;
             }
-            else if (this.LineList.SelectedIndex == 0)
+            else if (this.PathListBox.SelectedIndex == 0)
             {
                 this.upList.Enabled = false;
                 this.DNList.Enabled = true;
             }
-            else if (this.LineList.SelectedIndex == this.LineList.Items.Count - 1)
+            else if (this.PathListBox.SelectedIndex == this.PathListBox.Items.Count - 1)
             {
                 this.upList.Enabled = true;
                 this.DNList.Enabled = false;
@@ -2867,13 +2867,13 @@ namespace ShapeMaker
         {
             this.undoMenuItem.Enabled = (this.undoCount > 0);
             this.redoMenuItem.Enabled = (this.redoCount > 0);
-            this.removePathToolStripMenuItem.Enabled = (this.LineList.SelectedIndex > InvalidPath);
-            this.clonePathToolStripMenuItem.Enabled = (this.LineList.SelectedIndex > InvalidPath);
+            this.removePathToolStripMenuItem.Enabled = (this.PathListBox.SelectedIndex > InvalidPath);
+            this.clonePathToolStripMenuItem.Enabled = (this.PathListBox.SelectedIndex > InvalidPath);
             this.loopPathToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1);
-            this.flipHorizontalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
-            this.flipVerticalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
-            this.opBoxMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.LineList.Items.Count > 0);
-            this.autoScaleMenuItem.Enabled = (this.canvasPoints.Count <= 1 && this.LineList.Items.Count > 0);
+            this.flipHorizontalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.PathListBox.Items.Count > 0);
+            this.flipVerticalToolStripMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.PathListBox.Items.Count > 0);
+            this.opBoxMenuItem.Enabled = (this.canvasPoints.Count > 1 || this.PathListBox.Items.Count > 0);
+            this.autoScaleMenuItem.Enabled = (this.canvasPoints.Count <= 1 && this.PathListBox.Items.Count > 0);
         }
 
         private void editToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -2952,7 +2952,7 @@ namespace ShapeMaker
                 this.canvasPoints.Clear();
                 this.canvasPoints.AddRange(tmp);
 
-                if (this.LineList.SelectedIndex != InvalidPath)
+                if (this.PathListBox.SelectedIndex != InvalidPath)
                 {
                     UpdateExistingPath();
                 }
@@ -3134,9 +3134,9 @@ namespace ShapeMaker
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
             this.canvas.Refresh();
-            this.LineList.Invalidate();
+            this.PathListBox.Invalidate();
 
-            if (this.LineList.SelectedIndex != InvalidPath)
+            if (this.PathListBox.SelectedIndex != InvalidPath)
             {
                 UpdateExistingPath();
             }
@@ -3162,7 +3162,7 @@ namespace ShapeMaker
 
             this.canvas.Refresh();
 
-            if (this.LineList.SelectedIndex != InvalidPath)
+            if (this.PathListBox.SelectedIndex != InvalidPath)
             {
                 UpdateExistingPath();
             }
@@ -3266,7 +3266,7 @@ namespace ShapeMaker
         #region Misc Form Controls' event functions
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (this.canvasPoints.Count > 1 && this.LineList.SelectedIndex == InvalidPath)
+            if (this.canvasPoints.Count > 1 && this.PathListBox.SelectedIndex == InvalidPath)
             {
                 AddNewPath();
             }
@@ -3322,7 +3322,7 @@ namespace ShapeMaker
 
             ToggleUpDownButtons();
 
-            bool newPath = this.LineList.SelectedIndex == InvalidPath;
+            bool newPath = this.PathListBox.SelectedIndex == InvalidPath;
             this.clonePathButton.Enabled = !newPath;
             this.removePathButton.Enabled = !newPath;
             this.MacroCircle.Enabled = newPath;
@@ -3344,10 +3344,10 @@ namespace ShapeMaker
                 this.canvas.Refresh();
             }
 
-            if (this.canvasPoints.Count > 0 || this.LineList.Items.Count > 0)
+            if (this.canvasPoints.Count > 0 || this.PathListBox.Items.Count > 0)
             {
                 this.statusLabelNubsUsed.Text = $"{this.canvasPoints.Count}/{maxPoints} Nubs used";
-                this.statusLabelPathsUsed.Text = $"{this.LineList.Items.Count} Paths";
+                this.statusLabelPathsUsed.Text = $"{this.PathListBox.Items.Count} Paths";
             }
 
             if (newPath)

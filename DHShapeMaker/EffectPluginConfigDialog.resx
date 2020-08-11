@@ -630,41 +630,38 @@
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
-  <metadata name="LineList.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="PathListBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="LineList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="PathListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="LineList.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 8.25pt</value>
-  </data>
-  <data name="LineList.ItemHeight" type="System.Int32, mscorlib">
+  <data name="PathListBox.ItemHeight" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="LineList.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PathListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>541, 90</value>
   </data>
-  <data name="LineList.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PathListBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 326</value>
   </data>
-  <data name="LineList.TabIndex" type="System.Int32, mscorlib">
+  <data name="PathListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="LineList.ToolTip" xml:space="preserve">
+  <data name="PathListBox.ToolTip" xml:space="preserve">
     <value>Select Shapes
 Double Click to Rename</value>
   </data>
-  <data name="&gt;&gt;LineList.Name" xml:space="preserve">
-    <value>LineList</value>
+  <data name="&gt;&gt;PathListBox.Name" xml:space="preserve">
+    <value>PathListBox</value>
   </data>
-  <data name="&gt;&gt;LineList.Type" xml:space="preserve">
+  <data name="&gt;&gt;PathListBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LineList.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PathListBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;LineList.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PathListBox.ZOrder" xml:space="preserve">
     <value>27</value>
   </data>
   <metadata name="upList.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

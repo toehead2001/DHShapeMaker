@@ -76,7 +76,7 @@
             this.FigureName = new System.Windows.Forms.TextBox();
             this.DeselectBtn = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.LineList = new System.Windows.Forms.ListBox();
+            this.PathListBox = new System.Windows.Forms.ListBox();
             this.upList = new System.Windows.Forms.Button();
             this.DNList = new System.Windows.Forms.Button();
             this.removePathButton = new System.Windows.Forms.Button();
@@ -497,16 +497,16 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // LineList
+            // PathListBox
             // 
-            resources.ApplyResources(this.LineList, "LineList");
-            this.LineList.BackColor = System.Drawing.Color.White;
-            this.LineList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.LineList.Name = "LineList";
-            this.toolTip1.SetToolTip(this.LineList, resources.GetString("LineList.ToolTip"));
-            this.LineList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
-            this.LineList.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedValueChanged);
-            this.LineList.DoubleClick += new System.EventHandler(this.LineList_DoubleClick);
+            resources.ApplyResources(this.PathListBox, "PathListBox");
+            this.PathListBox.BackColor = System.Drawing.Color.White;
+            this.PathListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.PathListBox.Name = "PathListBox";
+            this.toolTip1.SetToolTip(this.PathListBox, resources.GetString("PathListBox.ToolTip"));
+            this.PathListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
+            this.PathListBox.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedValueChanged);
+            this.PathListBox.DoubleClick += new System.EventHandler(this.LineList_DoubleClick);
             // 
             // upList
             // 
@@ -1101,7 +1101,7 @@
             this.Controls.Add(this.DrawOnCanvas);
             this.Controls.Add(this.viewport);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.LineList);
+            this.Controls.Add(this.PathListBox);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.FitBG);
             this.Controls.Add(this.toolStripOptions);
@@ -1177,7 +1177,7 @@
         private System.Windows.Forms.TextBox FigureName;
         private System.Windows.Forms.Button DeselectBtn;
         private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.ListBox LineList;
+        private System.Windows.Forms.ListBox PathListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button upList;
         private System.Windows.Forms.Button DNList;
