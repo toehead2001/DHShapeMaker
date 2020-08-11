@@ -3435,8 +3435,9 @@ namespace ShapeMaker
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
             XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
             XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
-            string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            IEnumerable<string> paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             int count = 1;
+
             foreach (string projectPath in paths)
             {
                 if (!File.Exists(projectPath))
@@ -3444,7 +3445,8 @@ namespace ShapeMaker
                     continue;
                 }
 
-                string menuText = $"&{count} {Path.GetFileName(projectPath)}";
+                string shapeName = null;
+
                 try
                 {
                     using (FileStream fileStream = File.OpenRead(projectPath))
@@ -3453,18 +3455,22 @@ namespace ShapeMaker
                         if (pathDataSerializer.CanDeserialize(xmlReader))
                         {
                             PathDataCollection collection = (PathDataCollection)pathDataSerializer.Deserialize(xmlReader);
-                            menuText = $"&{count} {collection.ShapeName} ({Path.GetFileName(projectPath)})";
+                            shapeName = collection.ShapeName;
                         }
                         else if (pDataSerializer.CanDeserialize(xmlReader))
                         {
                             PData pData = ((ArrayList)pDataSerializer.Deserialize(xmlReader)).OfType<PData>().Last();
-                            menuText = $"&{count} {pData.Meta} ({Path.GetFileName(projectPath)})";
+                            shapeName = pData.Meta;
                         }
                     }
                 }
                 catch
                 {
                 }
+
+                string menuText = string.IsNullOrWhiteSpace(shapeName)
+                    ? $"&{count} {Path.GetFileName(projectPath)}"
+                    : $"&{count} {shapeName} ({Path.GetFileName(projectPath)})";
 
                 ToolStripMenuItem recentItem = new ToolStripMenuItem();
                 recentItem.Text = menuText;
