@@ -334,7 +334,7 @@ namespace ShapeMaker
                             {
                                 arcOptions |= ArcOptions.LargeArc;
                             }
-                            if (Convert.ToBoolean(dist))
+                            if (Convert.ToBoolean(dist2))
                             {
                                 arcOptions |= ArcOptions.PositiveSweep;
                             }
