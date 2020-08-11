@@ -41,9 +41,8 @@ namespace ShapeMaker
         private readonly List<PointF> canvasPoints = new List<PointF>(maxPoints);
 
         private const int undoMax = 16;
-        private readonly List<PathData>[] undoLines = new List<PathData>[undoMax];
-        private readonly PointF[][] undoPoints = new PointF[undoMax][];
-        private readonly PathType[] undoType = new PathType[undoMax];
+        private readonly List<PathData>[] undoPaths = new List<PathData>[undoMax];
+        private readonly PathData[] undoCanvas = new PathData[undoMax];
         private readonly int[] undoSelected = new int[undoMax];
         private int undoCount = 0;
         private int redoCount = 0;
@@ -394,23 +393,23 @@ namespace ShapeMaker
             this.redoCount = 0;
             this.undoCount++;
             this.undoCount = (this.undoCount > undoMax) ? undoMax : this.undoCount;
-            this.undoType[this.undoPointer] = this.PathTypeFromUI;
-            this.undoSelected[this.undoPointer] = (deSelected) ? InvalidPath : this.LineList.SelectedIndex;
-            this.undoPoints[this.undoPointer] = this.canvasPoints.ToArray();
-            if (this.undoLines[this.undoPointer] == null)
+            this.undoSelected[this.undoPointer] = deSelected ? InvalidPath : this.LineList.SelectedIndex;
+            this.undoCanvas[this.undoPointer] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty);
+
+            if (this.undoPaths[this.undoPointer] == null)
             {
-                this.undoLines[this.undoPointer] = new List<PathData>();
+                this.undoPaths[this.undoPointer] = new List<PathData>();
             }
             else
             {
-                this.undoLines[this.undoPointer].Clear();
+                this.undoPaths[this.undoPointer].Clear();
             }
 
             foreach (PathData pd in this.paths)
             {
                 PointF[] tmp = new PointF[pd.Points.Length];
                 Array.Copy(pd.Points, tmp, pd.Points.Length);
-                this.undoLines[this.undoPointer].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                this.undoPaths[this.undoPointer].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
             }
 
             this.undoPointer++;
@@ -436,17 +435,17 @@ namespace ShapeMaker
             this.undoPointer %= undoMax;
 
             this.canvasPoints.Clear();
-            if (this.undoPoints[this.undoPointer].Length != 0)
+            if (this.undoCanvas[this.undoPointer].Points.Length != 0)
             {
-                this.canvasPoints.AddRange(this.undoPoints[this.undoPointer]);
+                this.canvasPoints.AddRange(this.undoCanvas[this.undoPointer].Points);
             }
 
             this.LineList.Items.Clear();
             this.paths.Clear();
-            if (this.undoLines[this.undoPointer].Count != 0)
+            if (this.undoPaths[this.undoPointer].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PathData pd in this.undoLines[this.undoPointer])
+                foreach (PathData pd in this.undoPaths[this.undoPointer])
                 {
                     PointF[] tmp = new PointF[pd.Points.Length];
                     Array.Copy(pd.Points, tmp, pd.Points.Length);
@@ -461,15 +460,11 @@ namespace ShapeMaker
                 this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
 
-            if (this.LineList.SelectedIndex != InvalidPath)
-            {
-                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
-            }
-            else
-            {
-                setUiForPath(this.undoType[this.undoPointer], CloseType.None, ArcOptions.None);
-            }
+            PathData path = (this.LineList.SelectedIndex != InvalidPath)
+                ? this.paths[this.LineList.SelectedIndex]
+                : this.undoCanvas[this.undoPointer];
+
+            setUiForPath(path.PathType, path.CloseType, path.ArcOptions);
 
             this.undoCount--;
             this.undoCount = (this.undoCount < 0) ? 0 : this.undoCount;
@@ -494,17 +489,17 @@ namespace ShapeMaker
             this.undoPointer %= undoMax;
 
             this.canvasPoints.Clear();
-            if (this.undoPoints[this.undoPointer].Length != 0)
+            if (this.undoCanvas[this.undoPointer].Points.Length != 0)
             {
-                this.canvasPoints.AddRange(this.undoPoints[this.undoPointer]);
+                this.canvasPoints.AddRange(this.undoCanvas[this.undoPointer].Points);
             }
 
             this.LineList.Items.Clear();
             this.paths.Clear();
-            if (this.undoLines[this.undoPointer].Count != 0)
+            if (this.undoPaths[this.undoPointer].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PathData pd in this.undoLines[this.undoPointer])
+                foreach (PathData pd in this.undoPaths[this.undoPointer])
                 {
                     PointF[] tmp = new PointF[pd.Points.Length];
                     Array.Copy(pd.Points, tmp, pd.Points.Length);
@@ -519,15 +514,11 @@ namespace ShapeMaker
                 this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
             }
 
-            if (this.LineList.SelectedIndex != InvalidPath)
-            {
-                PathData selectedPath = this.paths[this.LineList.SelectedIndex];
-                setUiForPath(selectedPath.PathType, selectedPath.CloseType, selectedPath.ArcOptions);
-            }
-            else
-            {
-                setUiForPath(this.undoType[this.undoPointer], CloseType.None, ArcOptions.None);
-            }
+            PathData path = (this.LineList.SelectedIndex != InvalidPath)
+                ? this.paths[this.LineList.SelectedIndex]
+                : this.undoCanvas[this.undoPointer];
+
+            setUiForPath(path.PathType, path.CloseType, path.ArcOptions);
 
             this.undoCount++;
             this.redoCount--;
@@ -1476,14 +1467,14 @@ namespace ShapeMaker
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
                                     PointF[] tmp = this.paths[k].Points;
-                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Points;
+                                    PointF[] originalPoints = this.undoPaths[undoIndex][k].Points;
                                     tmp.Scale(originalPoints, scale, this.averagePoint);
                                 }
                             }
                             else if (this.canvasPoints.Count > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
-                                PointF[] originalPoints = this.undoPoints[undoIndex];
+                                PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
                                 tmp.Scale(originalPoints, scale, this.averagePoint);
 
                                 this.canvasPoints.Clear();
@@ -1505,14 +1496,14 @@ namespace ShapeMaker
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
                                     PointF[] tmp = this.paths[k].Points;
-                                    PointF[] originalPoints = this.undoLines[undoIndex][k].Points;
+                                    PointF[] originalPoints = this.undoPaths[undoIndex][k].Points;
                                     tmp.Rotate(originalPoints, radians, this.averagePoint);
                                 }
                             }
                             else if (this.canvasPoints.Count > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
-                                PointF[] originalPoints = this.undoPoints[undoIndex];
+                                PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
                                 tmp.Rotate(originalPoints, radians, this.averagePoint);
 
                                 this.canvasPoints.Clear();
