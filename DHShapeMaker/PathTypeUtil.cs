@@ -9,7 +9,7 @@ namespace ShapeMaker
         private static readonly IReadOnlyList<string> pathNames = new string[]
         {
             "Straight Lines",
-            "Ellipse",
+            "Elliptical Arc",
             "Cubic Beziers",
             "Smooth Cubic Beziers",
             "Quadratic Beziers",
