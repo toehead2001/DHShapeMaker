@@ -788,7 +788,7 @@ namespace ShapeMaker
                                             }
                                         }
 
-                                        if (j == -1 && (!this.MacroCircle.Checked || !isNewPath))
+                                        if (isActive)
                                         {
                                             using (GraphicsPath gp = new GraphicsPath())
                                             {
