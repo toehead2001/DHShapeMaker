@@ -402,7 +402,8 @@ namespace ShapeMaker
 
             foreach (PathData pd in this.paths)
             {
-                this.undoPaths[this.historyIndex].Add(pd);
+                PathData clonedPath = new PathData(pd.PathType, pd.Points, pd.CloseType, pd.ArcOptions, pd.Alias);
+                this.undoPaths[this.historyIndex].Add(clonedPath);
             }
 
             this.historyIndex++;
