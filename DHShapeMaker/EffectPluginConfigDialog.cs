@@ -30,36 +30,6 @@ namespace ShapeMaker
     internal partial class EffectPluginConfigDialog : Form
 #endif
     {
-        private static readonly IReadOnlyList<string> lineNames = new string[]
-        {
-            "Straight Lines",
-            "Ellipse",
-            "Cubic Beziers",
-            "Smooth Cubic Beziers",
-            "Quadratic Beziers",
-            "Smooth Quadratic Beziers"
-        };
-
-        private static readonly IReadOnlyList<Color> lineColors = new Color[]
-        {
-            Color.Black,
-            Color.Red,
-            Color.Blue,
-            Color.Green,
-            Color.DarkGoldenrod,
-            Color.Purple
-        };
-
-        private static readonly IReadOnlyList<Color> lineColorsLight = new Color[]
-        {
-            Color.FromArgb(204, 204, 204),
-            Color.FromArgb(255, 204, 204),
-            Color.FromArgb(204, 204, 255),
-            Color.FromArgb(204, 230, 204),
-            Color.FromArgb(241, 231, 206),
-            Color.FromArgb(230, 204, 230)
-        };
-
         private PathType activeType;
         private readonly IEnumerable<ToolStripButtonWithKeys> typeButtons;
 
@@ -156,12 +126,12 @@ namespace ShapeMaker
             this.ShowInTaskbar = true;
 #endif
             this.toolStripUndo.Renderer = new ThemeRenderer(Color.White, Color.Silver);
-            this.toolStripBlack.Renderer = new ThemeRenderer(lineColorsLight[0], lineColors[0]);
-            this.toolStripBlue.Renderer = new ThemeRenderer(lineColorsLight[2], lineColors[2]);
-            this.toolStripGreen.Renderer = new ThemeRenderer(lineColorsLight[3], lineColors[3]);
-            this.toolStripYellow.Renderer = new ThemeRenderer(lineColorsLight[4], lineColors[4]);
-            this.toolStripPurple.Renderer = new ThemeRenderer(lineColorsLight[5], lineColors[5]);
-            this.toolStripRed.Renderer = new ThemeRenderer(lineColorsLight[1], lineColors[1]);
+            this.toolStripBlack.Renderer = new ThemeRenderer(PathType.Straight);
+            this.toolStripBlue.Renderer = new ThemeRenderer(PathType.Cubic);
+            this.toolStripGreen.Renderer = new ThemeRenderer(PathType.SmoothCubic);
+            this.toolStripYellow.Renderer = new ThemeRenderer(PathType.Quadratic);
+            this.toolStripPurple.Renderer = new ThemeRenderer(PathType.SmoothQuadratic);
+            this.toolStripRed.Renderer = new ThemeRenderer(PathType.Ellipse);
             this.toolStripOptions.Renderer = new ThemeRenderer(Color.White, Color.Silver);
 
             this.typeButtons = new ToolStripButtonWithKeys[]
@@ -251,7 +221,7 @@ namespace ShapeMaker
             foreach (PathData p in tmp)
             {
                 this.paths.Add(p);
-                this.LineList.Items.Add(lineNames[(int)p.PathType]);
+                this.LineList.Items.Add(PathTypeUtil.GetName(p.PathType));
             }
 
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
@@ -481,7 +451,7 @@ namespace ShapeMaker
                     PointF[] tmp = new PointF[pd.Points.Length];
                     Array.Copy(pd.Points, tmp, pd.Points.Length);
                     this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
-                    this.LineList.Items.Add(lineNames[(int)pd.PathType]);
+                    this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
                 if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
                 {
@@ -539,7 +509,7 @@ namespace ShapeMaker
                     PointF[] tmp = new PointF[pd.Points.Length];
                     Array.Copy(pd.Points, tmp, pd.Points.Length);
                     this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
-                    this.LineList.Items.Add(lineNames[(int)pd.PathType]);
+                    this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
                 if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
                 {
@@ -790,8 +760,9 @@ namespace ShapeMaker
                 #endregion
 
                 #region Draw Paths
-                using (Pen p = new Pen(lineColors[(int)pathType]))
-                using (Pen activePen = new Pen(lineColors[(int)pathType]))
+                Color pathColor = PathTypeUtil.GetColor(pathType);
+                using (Pen p = new Pen(pathColor))
+                using (Pen activePen = new Pen(pathColor))
                 {
                     p.DashStyle = DashStyle.Solid;
                     p.Width = 1;
@@ -1871,7 +1842,7 @@ namespace ShapeMaker
         private void UpdateExistingPath()
         {
             this.paths[this.LineList.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.LineList.SelectedIndex].Alias);
-            this.LineList.Items[this.LineList.SelectedIndex] = lineNames[(int)this.PathTypeFromUI];
+            this.LineList.Items[this.LineList.SelectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
 
             RefreshPdnCanvas();
         }
@@ -1898,7 +1869,7 @@ namespace ShapeMaker
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
                 this.paths.Add(new PathData(PathType.Ellipse, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI, string.Empty));
-                this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
+                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Ellipse));
 
                 PointF[] tmp = new PointF[]
                 {
@@ -1910,7 +1881,7 @@ namespace ShapeMaker
                 };
 
                 this.paths.Add(new PathData(PathType.Ellipse, tmp, CloseType.Contiguous, this.ArcOptionsFromUI, string.Empty));
-                this.LineList.Items.Add(lineNames[(int)PathType.Ellipse]);
+                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Ellipse));
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
             {
@@ -1926,13 +1897,13 @@ namespace ShapeMaker
                     };
 
                     this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None, string.Empty));
-                    this.LineList.Items.Add(lineNames[(int)PathType.Straight]);
+                    this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Straight));
                 }
             }
             else
             {
                 this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
-                this.LineList.Items.Add(lineNames[(int)pathType]);
+                this.LineList.Items.Add(PathTypeUtil.GetName(pathType));
             }
 
             if (this.LinkedPaths.Checked)
@@ -2171,7 +2142,7 @@ namespace ShapeMaker
             ZoomToFactor(1);
 
             this.paths.AddRange(paths);
-            this.LineList.Items.AddRange(paths.Select(path => lineNames[(int)path.PathType]).ToArray());
+            this.LineList.Items.AddRange(paths.Select(path => PathTypeUtil.GetName(path.PathType)).ToArray());
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2271,7 +2242,7 @@ namespace ShapeMaker
             foreach (PathData path in collection.Paths)
             {
                 this.paths.Add(path);
-                this.LineList.Items.Add(lineNames[(int)path.PathType]);
+                this.LineList.Items.Add(PathTypeUtil.GetName(path.PathType));
             }
 
             ZoomToFactor(1);
@@ -2363,14 +2334,14 @@ namespace ShapeMaker
 
                 if (isItemSelected)
                 {
-                    using (SolidBrush backgroundColorBrush = new SolidBrush(lineColorsLight[(int)itemPath.PathType]))
+                    using (SolidBrush backgroundColorBrush = new SolidBrush(PathTypeUtil.GetLightColor(itemPath.PathType)))
                     {
                         e.Graphics.FillRectangle(backgroundColorBrush, e.Bounds);
                     }
                 }
 
                 using (StringFormat vCenter = new StringFormat { LineAlignment = StringAlignment.Center })
-                using (SolidBrush itemTextColorBrush = new SolidBrush(lineColors[(int)itemPath.PathType]))
+                using (SolidBrush itemTextColorBrush = new SolidBrush(PathTypeUtil.GetColor(itemPath.PathType)))
                 {
                     e.Graphics.DrawString(itemText, e.Font, itemTextColorBrush, e.Bounds, vCenter);
                 }
@@ -2408,7 +2379,7 @@ namespace ShapeMaker
             setUndo();
 
             this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty));
-            this.LineList.Items.Add(lineNames[(int)this.PathTypeFromUI]);
+            this.LineList.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
             this.LineList.SelectedIndex = this.LineList.Items.Count - 1;
 
             this.canvas.Refresh();

@@ -7,7 +7,13 @@ namespace ShapeMaker
 {
     internal sealed class ThemeRenderer : ToolStripProfessionalRenderer
     {
-        internal ThemeRenderer(Color backColor, Color borderColor) : base(new ToolColorTable(backColor, borderColor))
+        internal ThemeRenderer(PathType pathType)
+            : this(PathTypeUtil.GetLightColor(pathType), PathTypeUtil.GetColor(pathType))
+        {
+        }
+
+        internal ThemeRenderer(Color backColor, Color borderColor)
+            : base(new ToolColorTable(backColor, borderColor))
         {
             this.RoundedEdges = false;
         }
