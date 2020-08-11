@@ -466,7 +466,8 @@ namespace ShapeMaker
                 this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
                 foreach (PathData pd in this.undoPaths[this.historyIndex])
                 {
-                    this.paths.Add(pd);
+                    PathData clonedPath = new PathData(pd.PathType, pd.Points, pd.CloseType, pd.ArcOptions, pd.Alias);
+                    this.paths.Add(clonedPath);
                     this.PathListBox.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
 
