@@ -40,13 +40,13 @@ namespace ShapeMaker
         private PointF moveStart;
         private readonly List<PointF> canvasPoints = new List<PointF>(maxPoints);
 
-        private const int undoMax = 16;
-        private readonly List<PathData>[] undoPaths = new List<PathData>[undoMax];
-        private readonly PathData[] undoCanvas = new PathData[undoMax];
-        private readonly int[] undoSelected = new int[undoMax];
+        private const int historyMax = 16;
+        private readonly List<PathData>[] undoPaths = new List<PathData>[historyMax];
+        private readonly PathData[] undoCanvas = new PathData[historyMax];
+        private readonly int[] undoSelected = new int[historyMax];
         private int undoCount = 0;
         private int redoCount = 0;
-        private int undoPointer = 0;
+        private int historyIndex = 0;
 
         private bool keyTrak = false;
         private readonly List<PathData> paths = new List<PathData>();
@@ -392,28 +392,28 @@ namespace ShapeMaker
 
             this.redoCount = 0;
             this.undoCount++;
-            this.undoCount = (this.undoCount > undoMax) ? undoMax : this.undoCount;
-            this.undoSelected[this.undoPointer] = deSelected ? InvalidPath : this.LineList.SelectedIndex;
-            this.undoCanvas[this.undoPointer] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty);
+            this.undoCount = (this.undoCount > historyMax) ? historyMax : this.undoCount;
+            this.undoSelected[this.historyIndex] = deSelected ? InvalidPath : this.LineList.SelectedIndex;
+            this.undoCanvas[this.historyIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, string.Empty);
 
-            if (this.undoPaths[this.undoPointer] == null)
+            if (this.undoPaths[this.historyIndex] == null)
             {
-                this.undoPaths[this.undoPointer] = new List<PathData>();
+                this.undoPaths[this.historyIndex] = new List<PathData>();
             }
             else
             {
-                this.undoPaths[this.undoPointer].Clear();
+                this.undoPaths[this.historyIndex].Clear();
             }
 
             foreach (PathData pd in this.paths)
             {
                 PointF[] tmp = new PointF[pd.Points.Length];
                 Array.Copy(pd.Points, tmp, pd.Points.Length);
-                this.undoPaths[this.undoPointer].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
+                this.undoPaths[this.historyIndex].Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
             }
 
-            this.undoPointer++;
-            this.undoPointer %= undoMax;
+            this.historyIndex++;
+            this.historyIndex %= historyMax;
         }
 
         private void Undo_Click(object sender, EventArgs e)
@@ -427,12 +427,12 @@ namespace ShapeMaker
             {
                 setUndo();
                 this.undoCount--;
-                this.undoPointer--;
+                this.historyIndex--;
             }
 
-            this.undoPointer--;
-            this.undoPointer += undoMax;
-            this.undoPointer %= undoMax;
+            this.historyIndex--;
+            this.historyIndex += historyMax;
+            this.historyIndex %= historyMax;
 
             PerformUndoOrRedo();
 
@@ -451,9 +451,9 @@ namespace ShapeMaker
                 return;
             }
 
-            this.undoPointer++;
-            this.undoPointer += undoMax;
-            this.undoPointer %= undoMax;
+            this.historyIndex++;
+            this.historyIndex += historyMax;
+            this.historyIndex %= historyMax;
 
             PerformUndoOrRedo();
 
@@ -469,18 +469,18 @@ namespace ShapeMaker
             this.LineList.Items.Clear();
             this.paths.Clear();
 
-            if (this.undoPaths[this.undoPointer].Count != 0)
+            if (this.undoPaths[this.historyIndex].Count != 0)
             {
                 this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PathData pd in this.undoPaths[this.undoPointer])
+                foreach (PathData pd in this.undoPaths[this.historyIndex])
                 {
                     this.paths.Add(pd);
                     this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
                 }
 
-                if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
+                if (this.undoSelected[this.historyIndex] < this.LineList.Items.Count)
                 {
-                    this.LineList.SelectedIndex = this.undoSelected[this.undoPointer];
+                    this.LineList.SelectedIndex = this.undoSelected[this.historyIndex];
                 }
 
                 this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
@@ -488,7 +488,7 @@ namespace ShapeMaker
 
             PathData path = (this.LineList.SelectedIndex != InvalidPath)
                 ? this.paths[this.LineList.SelectedIndex]
-                : this.undoCanvas[this.undoPointer];
+                : this.undoCanvas[this.historyIndex];
 
             SetUiForPath(path);
         }
@@ -497,7 +497,7 @@ namespace ShapeMaker
         {
             this.undoCount = 0;
             this.redoCount = 0;
-            this.undoPointer = 0;
+            this.historyIndex = 0;
             this.Undo.Enabled = false;
             this.Redo.Enabled = false;
         }
@@ -1414,7 +1414,7 @@ namespace ShapeMaker
                 if (this.operation != Operation.None)
                 {
                     this.operationBox.Location = new Point(e.X - this.clickOffset.Width, e.Y - this.clickOffset.Height);
-                    int undoIndex = (this.undoPointer - 1 + undoMax) % undoMax;
+                    int undoIndex = (this.historyIndex - 1 + historyMax) % historyMax;
 
                     switch (this.operation)
                     {
