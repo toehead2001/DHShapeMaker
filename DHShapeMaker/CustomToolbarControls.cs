@@ -57,7 +57,7 @@ namespace ShapeMaker
                 this.UseSystemColors = false;
             }
 
-            private readonly Color backColor = Color.White;
+            private readonly Color backColor = Color.Transparent;
             private readonly Color borderColor = Color.FromArgb(186, 0, 105, 210);
             private readonly Color hiliteColor = Color.FromArgb(62, 0, 103, 206);
             private readonly Color checkedColor = Color.FromArgb(129, 52, 153, 254);
