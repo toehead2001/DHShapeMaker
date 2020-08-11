@@ -434,37 +434,7 @@ namespace ShapeMaker
             this.undoPointer += undoMax;
             this.undoPointer %= undoMax;
 
-            this.canvasPoints.Clear();
-            if (this.undoCanvas[this.undoPointer].Points.Length != 0)
-            {
-                this.canvasPoints.AddRange(this.undoCanvas[this.undoPointer].Points);
-            }
-
-            this.LineList.Items.Clear();
-            this.paths.Clear();
-            if (this.undoPaths[this.undoPointer].Count != 0)
-            {
-                this.LineList.SelectedValueChanged -= LineList_SelectedValueChanged;
-                foreach (PathData pd in this.undoPaths[this.undoPointer])
-                {
-                    PointF[] tmp = new PointF[pd.Points.Length];
-                    Array.Copy(pd.Points, tmp, pd.Points.Length);
-                    this.paths.Add(new PathData(pd.PathType, tmp, pd.CloseType, pd.ArcOptions, pd.Alias));
-                    this.LineList.Items.Add(PathTypeUtil.GetName(pd.PathType));
-                }
-                if (this.undoSelected[this.undoPointer] < this.LineList.Items.Count)
-                {
-                    this.LineList.SelectedIndex = this.undoSelected[this.undoPointer];
-                }
-
-                this.LineList.SelectedValueChanged += LineList_SelectedValueChanged;
-            }
-
-            PathData path = (this.LineList.SelectedIndex != InvalidPath)
-                ? this.paths[this.LineList.SelectedIndex]
-                : this.undoCanvas[this.undoPointer];
-
-            setUiForPath(path.PathType, path.CloseType, path.ArcOptions);
+            PerformUndoOrRedo();
 
             this.undoCount--;
             this.undoCount = (this.undoCount < 0) ? 0 : this.undoCount;
@@ -488,6 +458,20 @@ namespace ShapeMaker
             this.undoPointer += undoMax;
             this.undoPointer %= undoMax;
 
+            PerformUndoOrRedo();
+
+            this.undoCount++;
+            this.redoCount--;
+
+            this.Redo.Enabled = (this.redoCount > 0);
+            this.Undo.Enabled = true;
+
+            this.canvas.Refresh();
+            RefreshPdnCanvas();
+        }
+
+        private void PerformUndoOrRedo()
+        {
             this.canvasPoints.Clear();
             if (this.undoCanvas[this.undoPointer].Points.Length != 0)
             {
@@ -519,15 +503,6 @@ namespace ShapeMaker
                 : this.undoCanvas[this.undoPointer];
 
             setUiForPath(path.PathType, path.CloseType, path.ArcOptions);
-
-            this.undoCount++;
-            this.redoCount--;
-
-            this.Redo.Enabled = (this.redoCount > 0);
-            this.Undo.Enabled = true;
-
-            this.canvas.Refresh();
-            RefreshPdnCanvas();
         }
 
         private void resetHistory()
