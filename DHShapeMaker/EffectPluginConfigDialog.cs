@@ -2626,11 +2626,11 @@ namespace ShapeMaker
                 return;
             }
 
-            string figure = Regex.Replace(this.FigureName.Text, "[^a-zA-Z0-9 -]", string.Empty);
-            figure = figure.Length == 0 ? "Untitled" : figure;
+            string shapeName = GetSanitizedShapeName(this.FigureName.Text);
+
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.FileName = figure;
+                sfd.FileName = shapeName;
                 sfd.InitialDirectory = Settings.ProjectFolder;
                 sfd.Filter = "Project Files (.dhp)|*.dhp|All Files (*.*)|*.*";
                 sfd.FilterIndex = 1;
