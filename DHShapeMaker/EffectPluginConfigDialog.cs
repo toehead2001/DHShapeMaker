@@ -2043,7 +2043,6 @@ namespace ShapeMaker
                 return InvalidPath;
             }
 
-            int pathIndex = InvalidPath;
             for (int i = 0; i < this.LineList.Items.Count; i++)
             {
                 PathType pathType = this.paths[i].PathType;
@@ -2067,18 +2066,12 @@ namespace ShapeMaker
                     Point p = CanvasCoordToPoint(tmp[j]).Round();
                     if (hit.Contains(p))
                     {
-                        pathIndex = i;
-                        break;
+                        return i;
                     }
-                }
-
-                if (pathIndex > InvalidPath)
-                {
-                    break;
                 }
             }
 
-            return pathIndex;
+            return InvalidPath;
         }
 
         private void StatusBarMouseLocation(int x, int y)
