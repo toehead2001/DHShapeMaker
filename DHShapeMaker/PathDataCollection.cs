@@ -386,7 +386,7 @@ namespace ShapeMaker
                     case StreamGeometryCommand.VerticalLine:
                         return PathType.Straight;
                     case StreamGeometryCommand.EllipticalArc:
-                        return PathType.Ellipse;
+                        return PathType.EllipticalArc;
                     case StreamGeometryCommand.CubicBezierCurve:
                         return PathType.Cubic;
                     case StreamGeometryCommand.SmoothCubicBezierCurve:

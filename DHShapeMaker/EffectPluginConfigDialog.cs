@@ -88,7 +88,7 @@ namespace ShapeMaker
         {
             get
             {
-                if (this.activeType != PathType.Ellipse)
+                if (this.activeType != PathType.EllipticalArc)
                 {
                     return ArcOptions.None;
                 }
@@ -130,7 +130,7 @@ namespace ShapeMaker
             this.toolStripGreen.Renderer = new ThemeRenderer(PathType.SmoothCubic);
             this.toolStripYellow.Renderer = new ThemeRenderer(PathType.Quadratic);
             this.toolStripPurple.Renderer = new ThemeRenderer(PathType.SmoothQuadratic);
-            this.toolStripRed.Renderer = new ThemeRenderer(PathType.Ellipse);
+            this.toolStripRed.Renderer = new ThemeRenderer(PathType.EllipticalArc);
             this.toolStripOptions.Renderer = new ThemeRenderer(Color.White, Color.Silver);
 
             this.typeButtons = new ToolStripButtonWithKeys[]
@@ -693,7 +693,7 @@ namespace ShapeMaker
                             case PathType.Straight:
                                 e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 break;
-                            case PathType.Ellipse:
+                            case PathType.EllipticalArc:
                                 if (i == 4)
                                 {
                                     PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
@@ -794,7 +794,7 @@ namespace ShapeMaker
                                 }
                             }
                             break;
-                        case PathType.Ellipse:
+                        case PathType.EllipticalArc:
                             if (pts.Length == 5)
                             {
                                 PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
@@ -1126,7 +1126,7 @@ namespace ShapeMaker
                             case PathType.Straight:
                                 this.canvasPoints.RemoveAt(this.clickedNub);
                                 break;
-                            case PathType.Ellipse:
+                            case PathType.EllipticalArc:
                                 if (this.clickedNub != 4)
                                 {
                                     return;
@@ -1217,7 +1217,7 @@ namespace ShapeMaker
                             return;
                         }
 
-                        if (pathType == PathType.Ellipse && this.canvasPoints.Count > 2)
+                        if (pathType == PathType.EllipticalArc && this.canvasPoints.Count > 2)
                         {
                             return;
                         }
@@ -1246,7 +1246,7 @@ namespace ShapeMaker
                                     this.canvasPoints.Add(clickedPoint);
 
                                     break;
-                                case PathType.Ellipse:
+                                case PathType.EllipticalArc:
                                     PointF[] ellipsePts = new PointF[5];
                                     ellipsePts[0] = this.canvasPoints[pointCount - 1];
                                     ellipsePts[4] = clickedPoint;
@@ -1582,7 +1582,7 @@ namespace ShapeMaker
                     switch (pathType)
                     {
                         case PathType.Straight:
-                        case PathType.Ellipse:
+                        case PathType.EllipticalArc:
                             this.canvasPoints[nubIndex] = mouseCoord;
                             break;
                         case PathType.Cubic:
@@ -1848,7 +1848,7 @@ namespace ShapeMaker
             setUndo(deSelected);
 
             PathType pathType = this.PathTypeFromUI;
-            if (this.MacroCircle.Checked && pathType == PathType.Ellipse)
+            if (this.MacroCircle.Checked && pathType == PathType.EllipticalArc)
             {
                 if (this.canvasPoints.Count < 5)
                 {
@@ -1859,8 +1859,8 @@ namespace ShapeMaker
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
-                this.paths.Add(new PathData(PathType.Ellipse, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI, string.Empty));
-                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Ellipse));
+                this.paths.Add(new PathData(PathType.EllipticalArc, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI, string.Empty));
+                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
 
                 PointF[] tmp = new PointF[]
                 {
@@ -1871,8 +1871,8 @@ namespace ShapeMaker
                     this.canvasPoints[0]
                 };
 
-                this.paths.Add(new PathData(PathType.Ellipse, tmp, CloseType.Contiguous, this.ArcOptionsFromUI, string.Empty));
-                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.Ellipse));
+                this.paths.Add(new PathData(PathType.EllipticalArc, tmp, CloseType.Contiguous, this.ArcOptionsFromUI, string.Empty));
+                this.LineList.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
             {
@@ -2025,7 +2025,7 @@ namespace ShapeMaker
             this.CloseContPaths.Checked = closeType == CloseType.Contiguous;
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
-            if (pathType == PathType.Ellipse)
+            if (pathType == PathType.EllipticalArc)
             {
                 this.Arc.CheckState = arcOptions.HasFlag(ArcOptions.LargeArc) ? CheckState.Checked : CheckState.Indeterminate;
                 this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
@@ -2959,7 +2959,7 @@ namespace ShapeMaker
                         }
                     }
 
-                    if (path.PathType == PathType.Ellipse)
+                    if (path.PathType == PathType.EllipticalArc)
                     {
                         if (path.ArcOptions.HasFlag(ArcOptions.PositiveSweep))
                         {

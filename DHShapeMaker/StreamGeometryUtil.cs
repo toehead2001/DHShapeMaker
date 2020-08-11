@@ -369,7 +369,7 @@ namespace ShapeMaker
                         }
                         oldx = x; oldy = y;
                         break;
-                    case PathType.Ellipse:
+                    case PathType.EllipticalArc:
                         strPath += " A ";
                         PointF[] pts = new PointF[line.Length];
                         for (int i = 0; i < line.Length; i++)

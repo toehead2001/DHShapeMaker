@@ -30,7 +30,7 @@ namespace ShapeMaker
         {
             switch (pathType)
             {
-                case PathType.Ellipse:
+                case PathType.EllipticalArc:
                     if (nubIndex % 4 != 0)
                     {
                         return true;

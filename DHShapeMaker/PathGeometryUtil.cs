@@ -60,7 +60,7 @@ namespace ShapeMaker
 
                         oldx = x; oldy = y;
                         break;
-                    case PathType.Ellipse:
+                    case PathType.EllipticalArc:
                         strPath += $"\t\t\t\t\t{ExportConsts.PGEllipse}\r\n";
                         PointF[] pts = new PointF[points.Length];
                         for (int i = 0; i < points.Length; i++)

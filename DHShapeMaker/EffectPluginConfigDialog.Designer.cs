@@ -883,7 +883,7 @@
             this.Elliptical.Image = global::ShapeMaker.Properties.Resources.Elliptical;
             this.Elliptical.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.Elliptical.Name = "Elliptical";
-            this.Elliptical.PathType = ShapeMaker.PathType.Ellipse;
+            this.Elliptical.PathType = ShapeMaker.PathType.EllipticalArc;
             resources.ApplyResources(this.Elliptical, "Elliptical");
             this.Elliptical.Click += new System.EventHandler(this.PathTypeToggle);
             // 

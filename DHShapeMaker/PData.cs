@@ -26,7 +26,7 @@ namespace ShapeMaker
             CloseType closeType = this.ClosedType ? CloseType.Individual : this.LoopBack ? CloseType.Contiguous : CloseType.None;
             ArcOptions arcOptions = ArcOptions.None;
 
-            if (pathType == PathType.Ellipse)
+            if (pathType == PathType.EllipticalArc)
             {
                 if (this.IsLarge)
                 {

@@ -15,7 +15,7 @@ namespace ShapeMaker
         public CloseType CloseType { get; set; }
         public ArcOptions ArcOptions
         {
-            get => PathType == PathType.Ellipse ? arcOptions : ArcOptions.None;
+            get => PathType == PathType.EllipticalArc ? arcOptions : ArcOptions.None;
             set => arcOptions = value;
         }
         public string Alias { get; set; }
@@ -37,7 +37,7 @@ namespace ShapeMaker
     public enum PathType
     {
         Straight,
-        Ellipse,
+        EllipticalArc,
         Cubic,
         SmoothCubic,
         Quadratic,
