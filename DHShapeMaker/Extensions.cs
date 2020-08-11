@@ -122,7 +122,7 @@ namespace ShapeMaker
             }
         }
 
-        internal static void Add(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
+        internal static void AddArc(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
         {
             if (start == end)
             {

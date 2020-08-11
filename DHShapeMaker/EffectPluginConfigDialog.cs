@@ -779,7 +779,7 @@ namespace ShapeMaker
 
                                         using (GraphicsPath gp = new GraphicsPath())
                                         {
-                                            gp.Add(pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
+                                            gp.AddArc(pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
                                             e.Graphics.DrawPath(p, gp);
                                             if (isActive)
                                             {
@@ -791,7 +791,7 @@ namespace ShapeMaker
                                         {
                                             using (GraphicsPath gp = new GraphicsPath())
                                             {
-                                                gp.Add(pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
+                                                gp.AddArc(pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
                                                 using (Pen p2 = new Pen(Color.LightGray))
                                                 {
                                                     p2.DashStyle = DashStyle.Dash;
