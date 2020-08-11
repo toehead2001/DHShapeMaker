@@ -1,4 +1,3 @@
-//Elliptical Arc algorithm from svg.codeplex.com
 #if !FASTDEBUG
 using PaintDotNet;
 using PaintDotNet.AppModel;
@@ -381,7 +380,6 @@ namespace ShapeMaker
         #region Undo History functions
         private void setUndo(bool deSelected = false)
         {
-            // set undo
             this.Undo.Enabled = true;
             this.Redo.Enabled = false;
 
@@ -921,7 +919,6 @@ namespace ShapeMaker
 
             this.moveStart = PointToCanvasCoord(e.X, e.Y);
 
-            //identify node selected
             this.clickedNub = InvalidNub;
             Rectangle hit = new Rectangle(e.X - 4, e.Y - 4, 9, 9);
             for (int i = 0; i < this.canvasPoints.Count; i++)
@@ -1065,15 +1062,15 @@ namespace ShapeMaker
                     }
 
                     break;
-                case MouseButtons.Right:  //process add or delete
+                case MouseButtons.Right:  // process add or delete
                     PathType pathType = this.PathTypeFromUI;
 
-                    if (this.clickedNub > InvalidNub) //delete
+                    if (this.clickedNub > InvalidNub)
                     {
                         #region delete
                         if (this.clickedNub == 0)
                         {
-                            return; //don't delete moveto 
+                            return; // don't delete first nub 
                         }
 
                         setUndo();
@@ -1100,7 +1097,7 @@ namespace ShapeMaker
                                 }
 
                                 this.canvasPoints.RemoveAt(this.clickedNub);
-                                //remove control points
+                                // remove control points
                                 this.canvasPoints.RemoveAt(this.clickedNub - 1);
                                 this.canvasPoints.RemoveAt(this.clickedNub - 2);
                                 if (this.MacroCubic.Checked)
@@ -1116,7 +1113,7 @@ namespace ShapeMaker
                                 }
 
                                 this.canvasPoints.RemoveAt(this.clickedNub);
-                                //remove control points
+                                // remove control points
                                 this.canvasPoints.RemoveAt(this.clickedNub - 1);
                                 this.canvasPoints.RemoveAt(this.clickedNub - 2);
                                 break;
@@ -1127,7 +1124,7 @@ namespace ShapeMaker
                                 }
 
                                 this.canvasPoints.RemoveAt(this.clickedNub);
-                                //remove control points
+                                // remove control points
                                 this.canvasPoints.RemoveAt(this.clickedNub - 1);
                                 this.canvasPoints.RemoveAt(this.clickedNub - 2);
                                 for (int i = 1; i < this.canvasPoints.Count; i++)
@@ -1145,7 +1142,7 @@ namespace ShapeMaker
                                 }
 
                                 this.canvasPoints.RemoveAt(this.clickedNub);
-                                //remove control points
+                                // remove control points
                                 this.canvasPoints.RemoveAt(this.clickedNub - 1);
                                 this.canvasPoints.RemoveAt(this.clickedNub - 2);
                                 for (int i = 1; i < this.canvasPoints.Count; i++)
@@ -1162,9 +1159,9 @@ namespace ShapeMaker
                                 break;
                         }
                         this.canvas.Refresh();
-                        #endregion //delete
+                        #endregion
                     }
-                    else //add new
+                    else
                     {
                         #region add
                         int pointCount = this.canvasPoints.Count;
@@ -1191,11 +1188,11 @@ namespace ShapeMaker
                         StatusBarNubLocation(eX, eY);
 
                         PointF clickedPoint = PointToCanvasCoord(eX, eY);
-                        if (pointCount == 0)//first point
+                        if (pointCount == 0)// first point
                         {
                             this.canvasPoints.Add(clickedPoint);
                         }
-                        else//not first point
+                        else // not first point
                         {
                             switch (pathType)
                             {
@@ -1249,14 +1246,14 @@ namespace ShapeMaker
                                     PointF[] quadPts = new PointF[3];
                                     quadPts[2] = clickedPoint;
                                     PointF tmp;
-                                    //add
+                                    // add
                                     if (pointCount > 1)
                                     {
                                         tmp = PointFUtil.AsymRevAverage(this.canvasPoints[pointCount - 4], this.canvasPoints[pointCount - 1], quadPts[2], this.canvasPoints[pointCount - 2]);
                                     }
                                     else
                                     {
-                                        //add end
+                                        // add end
                                         quadPts[1] = PointFUtil.ThirdPoint(this.canvasPoints[pointCount - 1], quadPts[2], true, .5f);
                                         quadPts[0] = PointFUtil.ThirdPoint(quadPts[2], this.canvasPoints[pointCount - 1], false, .5f);
                                         tmp = PointFUtil.PointAverage(quadPts[1], quadPts[0]);
@@ -1269,7 +1266,7 @@ namespace ShapeMaker
                                 case PathType.SmoothCubic:
                                     PointF[] sCubicPts = new PointF[3];
                                     sCubicPts[2] = clickedPoint;
-                                    //startchange
+                                    // startchange
                                     PointF mid6;
                                     if (pointCount > 1)
                                     {
@@ -1313,7 +1310,7 @@ namespace ShapeMaker
                         }
 
                         this.canvas.Refresh();
-                        #endregion //add
+                        #endregion
                     }
 
                     if (this.LineList.SelectedIndex != InvalidPath && this.clickedNub != 0)
@@ -1499,7 +1496,7 @@ namespace ShapeMaker
                             break;
                     }
                 }
-                else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift) //left shift move line or path
+                else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift) // left shift move line or path
                 {
                     if (this.canvasPoints.Count != 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count)
                     {
@@ -1527,7 +1524,7 @@ namespace ShapeMaker
                         this.moveStart = mouseCoord;
                     }
                 }
-                else if (this.canvasPoints.Count > 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count) //no shift movepoint
+                else if (this.canvasPoints.Count > 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count) // no shift movepoint
                 {
                     StatusBarNubLocation(eX, eY);
 
@@ -1687,7 +1684,7 @@ namespace ShapeMaker
                             break;
                     }
                 }
-                else if (this.panFlag) //Pan zoomed
+                else if (this.panFlag)
                 {
                     Pan();
                 }

@@ -64,7 +64,7 @@ namespace ShapeMaker
                 selection.Y :
                 selection.Y - (selection.Width > selection.Height ? (selection.Width - selection.Height) / 2 : 0);
 
-            // Negitive values seem to be treated as half values by Canvas Margin
+            // Negative values seem to be treated as half values by Canvas Margin
             if (xOffset < 0) xOffset *= 2;
             if (yOffset < 0) yOffset *= 2;
 

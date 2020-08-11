@@ -461,8 +461,6 @@ namespace ShapeMaker
 
         private void UpdateColorSliders()
         {
-            // TODO: Updating everything together at the same time is probably not the most optimal. It's already super fast though...
-
             ignore = true;
             //Color RGB = HSVColor.ToColor(MasterAlpha, MasterHue, MasterSat, MasterVal);
             Color RGB = Color.FromArgb((int)redBox.Value, (int)greenBox.Value, (int)blueBox.Value);
