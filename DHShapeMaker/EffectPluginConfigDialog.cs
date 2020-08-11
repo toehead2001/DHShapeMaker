@@ -1986,7 +1986,7 @@ namespace ShapeMaker
             if (pathType == PathType.EllipticalArc)
             {
                 this.Arc.CheckState = arcOptions.HasFlag(ArcOptions.LargeArc) ? CheckState.Checked : CheckState.Indeterminate;
-                this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
+                this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcLarge : Properties.Resources.ArcSmall;
 
                 this.Sweep.CheckState = arcOptions.HasFlag(ArcOptions.PositiveSweep) ? CheckState.Checked : CheckState.Indeterminate;
                 this.Sweep.Image = (this.Sweep.CheckState == CheckState.Checked) ? Properties.Resources.SweepLeft : Properties.Resources.SweepRight;
@@ -3153,7 +3153,7 @@ namespace ShapeMaker
 
             if (sender == this.Arc)
             {
-                this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcSmall : Properties.Resources.ArcLarge;
+                this.Arc.Image = (this.Arc.CheckState == CheckState.Checked) ? Properties.Resources.ArcLarge : Properties.Resources.ArcSmall;
             }
             else if (sender == this.Sweep)
             {
