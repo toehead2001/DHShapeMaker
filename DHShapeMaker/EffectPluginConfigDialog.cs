@@ -463,7 +463,7 @@ namespace ShapeMaker
 
             if (this.undoPaths[this.historyIndex].Count != 0)
             {
-                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
                 foreach (PathData pd in this.undoPaths[this.historyIndex])
                 {
                     PathData clonedPath = new PathData(pd.PathType, pd.Points, pd.CloseType, pd.ArcOptions, pd.Alias);
@@ -476,7 +476,7 @@ namespace ShapeMaker
                     this.PathListBox.SelectedIndex = this.undoSelected[this.historyIndex];
                 }
 
-                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
             }
 
             PathData path = (this.PathListBox.SelectedIndex != InvalidPath)
@@ -2210,7 +2210,7 @@ namespace ShapeMaker
         #endregion
 
         #region Path List functions
-        private void LineList_DoubleClick(object sender, EventArgs e)
+        private void PathListBox_DoubleClick(object sender, EventArgs e)
         {
             if (this.PathListBox.Items.Count == 0 || this.PathListBox.SelectedItem == null)
             {
@@ -2224,7 +2224,7 @@ namespace ShapeMaker
             }
         }
 
-        private void LineList_SelectedValueChanged(object sender, EventArgs e)
+        private void PathListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (this.isNewPath && this.canvasPoints.Count > 1)
             {
@@ -2244,7 +2244,7 @@ namespace ShapeMaker
             }
         }
 
-        private void LineList_DrawItem(object sender, DrawItemEventArgs e)
+        private void LineListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
 
@@ -2335,9 +2335,9 @@ namespace ShapeMaker
         {
             if (this.PathListBox.SelectedIndex > InvalidPath && this.PathListBox.SelectedIndex < this.PathListBox.Items.Count - 1)
             {
-                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
                 ReOrderPath(this.PathListBox.SelectedIndex);
-                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
                 this.PathListBox.SelectedIndex++;
             }
         }
@@ -2346,9 +2346,9 @@ namespace ShapeMaker
         {
             if (this.PathListBox.SelectedIndex > 0)
             {
-                this.PathListBox.SelectedValueChanged -= LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
                 ReOrderPath(this.PathListBox.SelectedIndex - 1);
-                this.PathListBox.SelectedValueChanged += LineList_SelectedValueChanged;
+                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
                 this.PathListBox.SelectedIndex--;
             }
         }

@@ -504,9 +504,9 @@
             this.PathListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.PathListBox.Name = "PathListBox";
             this.toolTip1.SetToolTip(this.PathListBox, resources.GetString("PathListBox.ToolTip"));
-            this.PathListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineList_DrawItem);
-            this.PathListBox.SelectedValueChanged += new System.EventHandler(this.LineList_SelectedValueChanged);
-            this.PathListBox.DoubleClick += new System.EventHandler(this.LineList_DoubleClick);
+            this.PathListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LineListBox_DrawItem);
+            this.PathListBox.SelectedValueChanged += new System.EventHandler(this.PathListBox_SelectedValueChanged);
+            this.PathListBox.DoubleClick += new System.EventHandler(this.PathListBox_DoubleClick);
             // 
             // upList
             // 
