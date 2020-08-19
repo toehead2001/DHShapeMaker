@@ -70,6 +70,7 @@ namespace ShapeMaker
         private Size clickOffset;
         private Operation operation;
         private Rectangle operationBox = Rectangle.Empty;
+        private readonly List<LinkFlags> linkFlagsList = new List<LinkFlags>();
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
@@ -463,7 +464,7 @@ namespace ShapeMaker
 
             if (this.undoPaths[this.historyIndex].Count != 0)
             {
-                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged -= PathListBox_SelectedIndexChanged;
                 foreach (PathData pd in this.undoPaths[this.historyIndex])
                 {
                     PathData clonedPath = new PathData(pd.PathType, pd.Points, pd.CloseType, pd.ArcOptions, pd.Alias);
@@ -476,7 +477,10 @@ namespace ShapeMaker
                     this.PathListBox.SelectedIndex = this.undoSelected[this.historyIndex];
                 }
 
-                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
+
+                this.RebuildLinkFlagsCache();
+                this.PathListBox.Invalidate();
             }
 
             PathData path = (this.PathListBox.SelectedIndex != InvalidPath)
@@ -1790,6 +1794,9 @@ namespace ShapeMaker
             this.paths[this.PathListBox.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.PathListBox.SelectedIndex].Alias);
             this.PathListBox.Items[this.PathListBox.SelectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
 
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
+
             RefreshPdnCanvas();
         }
 
@@ -1862,6 +1869,9 @@ namespace ShapeMaker
             {
                 this.canvasPoints.Clear();
             }
+
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2093,6 +2103,9 @@ namespace ShapeMaker
             this.paths.AddRange(paths);
             this.PathListBox.Items.AddRange(paths.Select(path => PathTypeUtil.GetName(path.PathType)).ToArray());
 
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
+
             this.canvas.Refresh();
             RefreshPdnCanvas();
         }
@@ -2194,6 +2207,9 @@ namespace ShapeMaker
                 this.PathListBox.Items.Add(PathTypeUtil.GetName(path.PathType));
             }
 
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
+
             ZoomToFactor(1);
             resetHistory();
             this.canvas.Refresh();
@@ -2224,7 +2240,7 @@ namespace ShapeMaker
             }
         }
 
-        private void PathListBox_SelectedValueChanged(object sender, EventArgs e)
+        private void PathListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.isNewPath && this.canvasPoints.Count > 1)
             {
@@ -2248,34 +2264,16 @@ namespace ShapeMaker
         {
             e.DrawBackground();
 
-            bool isItemSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            bool isItemSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
             int itemIndex = e.Index;
+
             if (itemIndex >= 0 && itemIndex < this.PathListBox.Items.Count)
             {
                 PathData itemPath = this.paths[itemIndex];
 
-                string itemText;
-                if (itemPath.Alias.Length > 0)
-                {
-                    itemText = itemPath.Alias;
-                }
-                else
-                {
-                    itemText = this.PathListBox.Items[itemIndex].ToString();
-                }
-
-                if (itemPath.CloseType == CloseType.Contiguous)
-                {
-                    itemText = "(MZ)" + itemText;
-                }
-                else if (itemPath.CloseType == CloseType.Individual)
-                {
-                    itemText = "(Z)" + itemText;
-                }
-                else
-                {
-                    itemText = "   " + itemText;
-                }
+                string itemText = (itemPath.Alias.Length > 0)
+                    ? itemPath.Alias
+                    : this.PathListBox.Items[itemIndex].ToString();
 
                 if (isItemSelected)
                 {
@@ -2290,9 +2288,194 @@ namespace ShapeMaker
                 {
                     e.Graphics.DrawString(itemText, e.Font, itemTextColorBrush, e.Bounds, vCenter);
                 }
+
+                const int padding = 4;
+                int linkIndicatorSize = e.Bounds.Height - padding * 2;
+                if (linkIndicatorSize % 2 == 0)
+                {
+                    // should be an odd number
+                    linkIndicatorSize--;
+                }
+
+                Rectangle linkIndicatorRect = new Rectangle(e.Bounds.Right - padding - linkIndicatorSize - 2, e.Bounds.Top + padding, linkIndicatorSize, linkIndicatorSize);
+
+                Rectangle gradientRect = Rectangle.FromLTRB(
+                    linkIndicatorRect.Left - 25,
+                    e.Bounds.Top,
+                    linkIndicatorRect.Left,
+                    e.Bounds.Bottom);
+
+                Color backColor = isItemSelected ? PathTypeUtil.GetLightColor(itemPath.PathType) : Color.White;
+
+                using (LinearGradientBrush gradientBrush = new LinearGradientBrush(new Point(gradientRect.Left - 1, gradientRect.Top), new Point(gradientRect.Right + 1, gradientRect.Top), Color.Transparent, backColor))
+                {
+                    e.Graphics.FillRectangle(gradientBrush, gradientRect);
+                }
+
+                using (SolidBrush backBrush = new SolidBrush(backColor))
+                {
+                    e.Graphics.FillRectangle(backBrush, Rectangle.FromLTRB(linkIndicatorRect.Left - 3, e.Bounds.Top, e.Bounds.Right, e.Bounds.Bottom));
+                }
+
+                e.Graphics.FillRectangle(Brushes.MidnightBlue, linkIndicatorRect);
+
+                if (this.PathListBox.Items.Count != this.linkFlagsList.Count)
+                {
+                    RebuildLinkFlagsCache();
+                }
+
+                LinkFlags linkFlags = this.linkFlagsList[itemIndex];
+
+                if (linkFlags != LinkFlags.None)
+                {
+                    int indicatorX = e.Bounds.Right - padding - (int)Math.Ceiling(linkIndicatorSize / 2f) - 2;
+                    int indicatorY = e.Bounds.Top + padding + (int)Math.Floor(linkIndicatorSize / 2f);
+                    int closedIndicatorX = e.Bounds.Right - 3;// indicatorX + linkIndicatorSize;
+
+                    bool upFlag = linkFlags.HasFlag(LinkFlags.Up);
+                    bool downFlag = linkFlags.HasFlag(LinkFlags.Down);
+                    bool closedFlag = linkFlags.HasFlag(LinkFlags.Closed);
+
+                    if (upFlag)
+                    {
+                        e.Graphics.DrawLine(Pens.MidnightBlue, indicatorX, e.Bounds.Top, indicatorX, indicatorY);
+                    }
+
+                    if (downFlag)
+                    {
+                        e.Graphics.DrawLine(Pens.MidnightBlue, indicatorX, e.Bounds.Bottom, indicatorX, indicatorY);
+                    }
+
+                    if (closedFlag)
+                    {
+                        if (upFlag && downFlag)
+                        {
+                            e.Graphics.DrawLine(Pens.MidnightBlue, closedIndicatorX, e.Bounds.Top, closedIndicatorX, e.Bounds.Bottom);
+                        }
+                        else if (upFlag)
+                        {
+                            int curveTop = indicatorY - 5;
+
+                            PointF[] bezier =
+                            {
+                                new PointF(linkIndicatorRect.Right, indicatorY),
+                                new PointF((closedIndicatorX - linkIndicatorRect.Right) / 2f + linkIndicatorRect.Right, indicatorY),
+                                new PointF(closedIndicatorX, curveTop + (indicatorY - curveTop) / 2f),
+                                new PointF(closedIndicatorX, curveTop)
+                            };
+
+                            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                            e.Graphics.DrawBeziers(Pens.MidnightBlue, bezier);
+                            e.Graphics.SmoothingMode = SmoothingMode.None;
+                            e.Graphics.DrawLine(Pens.MidnightBlue, closedIndicatorX, curveTop, closedIndicatorX, e.Bounds.Top);
+                        }
+                        else if (downFlag)
+                        {
+                            int curveBottom = indicatorY + 5;
+
+                            PointF[] bezier =
+                            {
+                                new PointF(linkIndicatorRect.Right, indicatorY),
+                                new PointF((closedIndicatorX - linkIndicatorRect.Right) / 2f + linkIndicatorRect.Right, indicatorY),
+                                new PointF(closedIndicatorX, curveBottom - (curveBottom - indicatorY) / 2f),
+                                new PointF(closedIndicatorX, curveBottom)
+                            };
+
+                            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                            e.Graphics.DrawBeziers(Pens.MidnightBlue, bezier);
+                            e.Graphics.SmoothingMode = SmoothingMode.None;
+                            e.Graphics.DrawLine(Pens.MidnightBlue, closedIndicatorX, curveBottom, closedIndicatorX, e.Bounds.Bottom);
+                        }
+                        else
+                        {
+                            int topY = linkIndicatorRect.Top - 3;
+                            int bottomY = linkIndicatorRect.Bottom + 2;
+
+                            e.Graphics.DrawLine(Pens.MidnightBlue, indicatorX, topY, indicatorX, indicatorY);
+                            e.Graphics.DrawLine(Pens.MidnightBlue, indicatorX, bottomY, indicatorX, indicatorY);
+
+                            PointF[] bezier =
+                            {
+                                new PointF(indicatorX, topY),
+                                new PointF(closedIndicatorX + 1, topY),
+                                new PointF(closedIndicatorX + 1, bottomY),
+                                new PointF(indicatorX, bottomY)
+                            };
+
+                            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                            e.Graphics.DrawBeziers(Pens.MidnightBlue, bezier);
+                            e.Graphics.SmoothingMode = SmoothingMode.None;
+                        }
+                    }
+                }
             }
 
             e.DrawFocusRectangle();
+        }
+
+        private void RebuildLinkFlagsCache()
+        {
+            this.linkFlagsList.Clear();
+
+            int linkStartIndex = -1;
+            bool linkedToNext = false;
+
+            for (int i = 0; i < paths.Count; i++)
+            {
+                linkFlagsList.Add(LinkFlags.None);
+
+                CloseType closeType = paths[i].CloseType;
+
+                if (closeType == CloseType.Individual)
+                {
+                    linkFlagsList[i] |= LinkFlags.Closed;
+                    linkStartIndex = -1;
+                    continue;
+                }
+
+                bool linkedToPrevious = linkedToNext;
+
+                linkedToNext =
+                    i < this.PathListBox.Items.Count - 1 &&
+                    closeType == CloseType.None &&
+                    this.paths[i + 1].CloseType != CloseType.Individual &&
+                    this.paths[i].Points.Last() == this.paths[i + 1].Points[0];
+
+                if (linkedToPrevious)
+                {
+                    linkFlagsList[i] |= LinkFlags.Up;
+                }
+
+                if (linkedToNext)
+                {
+                    linkFlagsList[i] |= LinkFlags.Down;
+                }
+
+                if (closeType == CloseType.Contiguous)
+                {
+                    if (linkStartIndex != -1)
+                    {
+                        for (int j = i; j >= linkStartIndex; j--)
+                        {
+                            linkFlagsList[j] |= LinkFlags.Closed;
+                        }
+                    }
+                    else
+                    {
+                        linkFlagsList[i] |= LinkFlags.Closed;
+                    }
+
+                }
+
+                if (!linkedToPrevious && linkedToNext)
+                {
+                    linkStartIndex = i;
+                }
+                else if (!linkedToNext)
+                {
+                    linkStartIndex = -1;
+                }
+            }
         }
 
         private void removebtn_Click(object sender, EventArgs e)
@@ -2309,6 +2492,8 @@ namespace ShapeMaker
             this.PathListBox.Items.RemoveAt(spi);
             this.canvasPoints.Clear();
             this.PathListBox.SelectedIndex = InvalidPath;
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2326,6 +2511,8 @@ namespace ShapeMaker
             this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
             this.PathListBox.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
             this.PathListBox.SelectedIndex = this.PathListBox.Items.Count - 1;
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
 
             this.canvas.Refresh();
             RefreshPdnCanvas();
@@ -2335,9 +2522,9 @@ namespace ShapeMaker
         {
             if (this.PathListBox.SelectedIndex > InvalidPath && this.PathListBox.SelectedIndex < this.PathListBox.Items.Count - 1)
             {
-                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged -= PathListBox_SelectedIndexChanged;
                 ReOrderPath(this.PathListBox.SelectedIndex);
-                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex++;
             }
         }
@@ -2346,9 +2533,9 @@ namespace ShapeMaker
         {
             if (this.PathListBox.SelectedIndex > 0)
             {
-                this.PathListBox.SelectedValueChanged -= PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged -= PathListBox_SelectedIndexChanged;
                 ReOrderPath(this.PathListBox.SelectedIndex - 1);
-                this.PathListBox.SelectedValueChanged += PathListBox_SelectedValueChanged;
+                this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex--;
             }
         }
@@ -2371,6 +2558,9 @@ namespace ShapeMaker
 
             this.paths[index + 1] = pd1;
             this.PathListBox.Items[index + 1] = LineTxt1;
+
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
         }
 
         private void ToggleUpDownButtons()
@@ -2395,6 +2585,15 @@ namespace ShapeMaker
                 this.upList.Enabled = true;
                 this.DNList.Enabled = true;
             }
+        }
+
+        [Flags]
+        private enum LinkFlags
+        {
+            None = 0,
+            Up = 1,
+            Down = 2,
+            Closed = 4
         }
         #endregion
 
@@ -3135,7 +3334,6 @@ namespace ShapeMaker
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
             this.canvas.Refresh();
-            this.PathListBox.Invalidate();
 
             if (this.PathListBox.SelectedIndex != InvalidPath)
             {
