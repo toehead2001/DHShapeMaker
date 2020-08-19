@@ -1372,15 +1372,15 @@ namespace ShapeMaker
             this.operation = Operation.None;
             this.drawAverage = false;
             this.clickedNub = InvalidNub;
-            this.canvas.Refresh();
             this.canvas.Cursor = Cursors.Default;
 
             if (!this.operationBox.IsEmpty && !this.canvas.ClientRectangle.Contains(this.operationBox))
             {
                 this.operationBox.X = this.operationBox.X.Clamp(0, this.canvas.ClientSize.Width - this.operationBox.Width);
                 this.operationBox.Y = this.operationBox.Y.Clamp(0, this.canvas.ClientSize.Height - this.operationBox.Height);
-                this.canvas.Invalidate();
             }
+
+            this.canvas.Refresh();
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
