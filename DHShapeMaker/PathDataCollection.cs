@@ -13,7 +13,7 @@ namespace ShapeMaker
         public bool SolidFill { get; set; }
         public List<PathData> Paths { get; set; }
 
-        internal int Count => Paths.Count;
+        internal bool IsEmpty => Paths.Count == 0;
 
         private static readonly PathDataCollection Empty = new PathDataCollection();
 

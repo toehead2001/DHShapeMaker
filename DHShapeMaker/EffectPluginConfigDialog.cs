@@ -2190,7 +2190,7 @@ namespace ShapeMaker
                 return;
             }
 
-            if (collection.Count == 0)
+            if (collection.IsEmpty)
             {
                 MessageBox.Show("No Project data was found in the file.", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
