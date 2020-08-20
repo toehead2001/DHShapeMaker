@@ -941,35 +941,7 @@ namespace ShapeMaker
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    if (Control.ModifierKeys == Keys.Alt)
-                    {
-                        if (this.clickedNub == InvalidNub)
-                        {
-                            this.panFlag = true;
-
-                            if (this.canvas.Width > this.viewport.ClientSize.Width && this.canvas.Height > this.viewport.ClientSize.Height)
-                            {
-                                this.canvas.Cursor = Cursors.NoMove2D;
-                            }
-                            else if (this.canvas.Width > this.viewport.ClientSize.Width)
-                            {
-                                this.canvas.Cursor = Cursors.NoMoveHoriz;
-                            }
-                            else if (this.canvas.Height > this.viewport.ClientSize.Height)
-                            {
-                                this.canvas.Cursor = Cursors.NoMoveVert;
-                            }
-                            else
-                            {
-                                this.panFlag = false;
-                            }
-                        }
-                        else
-                        {
-                            setUndo();
-                        }
-                    }
-                    else if (Control.ModifierKeys == Keys.Shift)
+                    if (Control.ModifierKeys == Keys.Shift)
                     {
                         if (this.canvasPoints.Count != 0)
                         {
@@ -1689,19 +1661,10 @@ namespace ShapeMaker
                             break;
                     }
                 }
-                else if (this.panFlag)
-                {
-                    Pan();
-                }
 
                 this.canvas.Refresh();
             }
             else if (e.Button == MouseButtons.Middle && this.panFlag)
-            {
-                Pan();
-            }
-
-            void Pan()
             {
                 int mpx = (int)(mouseCoord.X * 100);
                 int msx = (int)(this.moveStart.X * 100);
@@ -2600,8 +2563,6 @@ namespace ShapeMaker
         #region Zoom functions
         private void splitButtonZoom_ButtonClick(object sender, EventArgs e)
         {
-            this.panFlag = false;
-
             int zoomFactor = this.canvas.Width / this.canvasBaseSize;
             int delta = ((ModifierKeys & Keys.Alt) == Keys.Alt) ? -1 : 1;
 
