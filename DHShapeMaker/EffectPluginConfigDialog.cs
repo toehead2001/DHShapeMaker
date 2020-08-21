@@ -1507,7 +1507,7 @@ namespace ShapeMaker
 
                     PointF oldPoint = this.canvasPoints[nubIndex];
 
-                    NubType nubType = CanvasUtil.GetNubType(this.clickedNub);
+                    NubType nubType = CanvasUtil.GetNubType(nubIndex);
                     PathType pathType = this.PathTypeFromUI;
 
                     switch (pathType)
