@@ -1503,6 +1503,48 @@ namespace ShapeMaker
                 }
                 else if (this.canvasPoints.Count > 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count) // no shift movepoint
                 {
+                    bool isAltPressed = (Control.ModifierKeys & Keys.Alt) == Keys.Alt;
+
+                    bool moveLinkedLast = false;
+                    bool moveLinkedPrevious = false;
+                    bool moveLinkedNext = false;
+
+                    if (!isAltPressed)
+                    {
+                        int selectedIndex = this.PathListBox.SelectedIndex;
+
+                        if (selectedIndex == InvalidPath)
+                        {
+                            if (nubIndex == 0 && this.PathListBox.Items.Count > 0)
+                            {
+                                int lastPathIndex = this.PathListBox.Items.Count - 1;
+
+                                moveLinkedLast =
+                                    this.CloseTypeFromUI != CloseType.Individual &&
+                                    this.paths[lastPathIndex].CloseType == CloseType.None &&
+                                    this.canvasPoints[nubIndex] == this.paths[lastPathIndex].Points.Last();
+                            }      
+                        }
+                        else if (nubIndex == 0)
+                        {
+                            moveLinkedPrevious =
+                                selectedIndex > 0 &&
+                                selectedIndex < this.paths.Count &&
+                                this.paths[selectedIndex].CloseType != CloseType.Individual &&
+                                this.paths[selectedIndex - 1].CloseType == CloseType.None &&
+                                this.canvasPoints[nubIndex] == this.paths[selectedIndex - 1].Points.Last();
+                        }
+                        else if (nubIndex == this.canvasPoints.Count - 1)
+                        {
+                            moveLinkedNext =
+                                selectedIndex + 1 < this.paths.Count &&
+                                this.paths[selectedIndex].CloseType == CloseType.None &&
+                                this.paths[selectedIndex + 1].CloseType != CloseType.Individual &&
+                                this.canvasPoints[nubIndex] == this.paths[selectedIndex + 1].Points[0];
+                        }
+                    }
+
+
                     StatusBarNubLocation(eX, eY);
 
                     PointF oldPoint = this.canvasPoints[nubIndex];
@@ -1547,8 +1589,6 @@ namespace ShapeMaker
 
                             break;
                         case PathType.Quadratic:
-                            bool isAltPressed = (Control.ModifierKeys & Keys.Alt) == Keys.Alt;
-
                             switch (nubType)
                             {
                                 case NubType.StartPoint:
@@ -1659,6 +1699,23 @@ namespace ShapeMaker
                             }
 
                             break;
+                    }
+
+                    if (moveLinkedLast)
+                    {
+                        int lastPathIndex = this.PathListBox.Items.Count - 1;
+                        int lastPointIndex = this.paths[lastPathIndex].Points.Length - 1;
+                        this.paths[lastPathIndex].Points[lastPointIndex] = this.canvasPoints[nubIndex];
+                    }
+                    else if (moveLinkedPrevious)
+                    {
+                        int previousPathIndex = this.PathListBox.SelectedIndex - 1;
+                        int lastPointIndex = this.paths[previousPathIndex].Points.Length - 1;
+                        this.paths[previousPathIndex].Points[lastPointIndex] = this.canvasPoints[nubIndex];
+                    }
+                    else if (moveLinkedNext)
+                    {
+                        this.paths[this.PathListBox.SelectedIndex + 1].Points[0] = this.canvasPoints[nubIndex];
                     }
                 }
 
