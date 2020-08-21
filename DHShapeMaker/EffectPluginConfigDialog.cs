@@ -1380,6 +1380,7 @@ namespace ShapeMaker
             if (e.Button == MouseButtons.Left)
             {
                 int nubIndex = this.clickedNub;
+                int nubCount = this.canvasPoints.Count;
 
                 if (this.operation != Operation.None)
                 {
@@ -1395,7 +1396,7 @@ namespace ShapeMaker
                             float newDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             float scale = newDist / this.initialDist;
 
-                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
+                            if (nubCount == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1404,7 +1405,7 @@ namespace ShapeMaker
                                     tmp.Scale(originalPoints, scale, this.averagePoint);
                                 }
                             }
-                            else if (this.canvasPoints.Count > 1)
+                            else if (nubCount > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
                                 PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
@@ -1424,7 +1425,7 @@ namespace ShapeMaker
                                 radians = degrees.ConstrainToInterval(15) * Math.PI / 180;
                             }
 
-                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
+                            if (nubCount == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1433,7 +1434,7 @@ namespace ShapeMaker
                                     tmp.Rotate(originalPoints, radians, this.averagePoint);
                                 }
                             }
-                            else if (this.canvasPoints.Count > 1)
+                            else if (nubCount > 1)
                             {
                                 PointF[] tmp = this.canvasPoints.ToArray();
                                 PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
@@ -1452,7 +1453,7 @@ namespace ShapeMaker
                                 newCoord = PointToCanvasCoord(snapPoint.X, snapPoint.Y);
                             }
 
-                            if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
+                            if (nubCount == 0 && this.PathListBox.Items.Count > 0)
                             {
                                 for (int k = 0; k < this.paths.Count; k++)
                                 {
@@ -1464,10 +1465,10 @@ namespace ShapeMaker
                                 }
                                 this.moveStart = mouseCoord;
                             }
-                            else if (this.canvasPoints.Count > 0)
+                            else if (nubCount > 0)
                             {
                                 PointF oldPoint = this.canvasPoints[0];
-                                for (int j = 0; j < this.canvasPoints.Count; j++)
+                                for (int j = 0; j < nubCount; j++)
                                 {
                                     this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, newCoord, this.canvasPoints[j]);
                                 }
@@ -1477,18 +1478,18 @@ namespace ShapeMaker
                 }
                 else if (this.moveFlag && (Control.ModifierKeys & Keys.Shift) == Keys.Shift) // left shift move line or path
                 {
-                    if (this.canvasPoints.Count != 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count)
+                    if (nubCount != 0 && nubIndex > InvalidNub && nubIndex < nubCount)
                     {
                         StatusBarNubLocation(eX, eY);
 
                         PointF oldPoint = this.canvasPoints[nubIndex];
 
-                        for (int j = 0; j < this.canvasPoints.Count; j++)
+                        for (int j = 0; j < nubCount; j++)
                         {
                             this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, mouseCoord, this.canvasPoints[j]);
                         }
                     }
-                    else if (this.canvasPoints.Count == 0 && this.PathListBox.Items.Count > 0)
+                    else if (nubCount == 0 && this.PathListBox.Items.Count > 0)
                     {
                         StatusBarNubLocation(eX, eY);
 
@@ -1503,7 +1504,7 @@ namespace ShapeMaker
                         this.moveStart = mouseCoord;
                     }
                 }
-                else if (this.canvasPoints.Count > 0 && nubIndex > InvalidNub && nubIndex < this.canvasPoints.Count) // no shift movepoint
+                else if (nubCount > 0 && nubIndex > InvalidNub && nubIndex < nubCount) // no shift movepoint
                 {
                     bool isAltPressed = (Control.ModifierKeys & Keys.Alt) == Keys.Alt;
 
@@ -1512,7 +1513,7 @@ namespace ShapeMaker
                     bool moveLinkedNext = false;
 
                     // Nexus Nubs
-                    if (!isAltPressed && !this.magneticallyLinked && this.canvasPoints.Count > 1)
+                    if (!isAltPressed && !this.magneticallyLinked && nubCount > 1)
                     {
                         int selectedIndex = this.PathListBox.SelectedIndex;
 
@@ -1537,7 +1538,7 @@ namespace ShapeMaker
                                 this.paths[selectedIndex - 1].CloseType == CloseType.None &&
                                 this.canvasPoints[nubIndex] == this.paths[selectedIndex - 1].Points.Last();
                         }
-                        else if (nubIndex == this.canvasPoints.Count - 1)
+                        else if (nubIndex == nubCount - 1)
                         {
                             moveLinkedNext =
                                 selectedIndex + 1 < this.paths.Count &&
@@ -1549,7 +1550,7 @@ namespace ShapeMaker
 
                     // Magnetic Nubs
                     if (!isAltPressed && !moveLinkedLast && !moveLinkedPrevious && !moveLinkedNext &&
-                        (nubIndex == 0 || nubIndex == this.canvasPoints.Count - 1))
+                        (nubIndex == 0 || nubIndex == nubCount - 1))
                     {
                         Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
                         int nearestPath = getNearestPath(bhit);
@@ -1589,7 +1590,7 @@ namespace ShapeMaker
                             {
                                 case NubType.StartPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    if (this.canvasPoints.Count > 1)
+                                    if (nubCount > 1)
                                     {
                                         this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
@@ -1601,7 +1602,7 @@ namespace ShapeMaker
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     this.canvasPoints[nubIndex - 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
-                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    if ((nubIndex + 1) < nubCount)
                                     {
                                         this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
@@ -1618,7 +1619,7 @@ namespace ShapeMaker
                             switch (nubType)
                             {
                                 case NubType.StartPoint:
-                                    if (isAltPressed && this.canvasPoints.Count != 1)
+                                    if (isAltPressed && nubCount != 1)
                                     {
                                         PointF rtmp = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex + 1], this.canvasPoints[nubIndex]);
                                         this.canvasPoints[nubIndex] = PointFUtil.OnLinePoint(this.canvasPoints[nubIndex + 1], rtmp, mouseCoord);
@@ -1630,7 +1631,7 @@ namespace ShapeMaker
                                     break;
                                 case NubType.ControlPoint1:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    if ((nubIndex + 1) < nubCount)
                                     {
                                         this.canvasPoints[nubIndex + 1] = this.canvasPoints[nubIndex];
                                     }
@@ -1646,7 +1647,7 @@ namespace ShapeMaker
                                     if (isAltPressed)
                                     {
                                         //online
-                                        PointF point = (nubIndex == this.canvasPoints.Count - 1)
+                                        PointF point = (nubIndex == nubCount - 1)
                                             ? PointFUtil.ReverseAverage(this.canvasPoints[nubIndex - 1], this.canvasPoints[nubIndex])
                                             : this.canvasPoints[nubIndex + 1];
 
@@ -1665,7 +1666,7 @@ namespace ShapeMaker
                             {
                                 case NubType.StartPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    if (this.canvasPoints.Count > 1)
+                                    if (nubCount > 1)
                                     {
                                         this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                         this.canvasPoints[1] = this.canvasPoints[0];
@@ -1684,7 +1685,7 @@ namespace ShapeMaker
                                     break;
                                 case NubType.ControlPoint2:
                                     this.canvasPoints[nubIndex] = mouseCoord;
-                                    if (nubIndex < this.canvasPoints.Count - 2)
+                                    if (nubIndex < nubCount - 2)
                                     {
                                         this.canvasPoints[nubIndex + 2] = PointFUtil.ReverseAverage(this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
@@ -1692,7 +1693,7 @@ namespace ShapeMaker
                                 case NubType.EndPoint:
                                     this.canvasPoints[nubIndex] = mouseCoord;
                                     this.canvasPoints[nubIndex - 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex - 1]);
-                                    if ((nubIndex + 1) < this.canvasPoints.Count)
+                                    if ((nubIndex + 1) < nubCount)
                                     {
                                         this.canvasPoints[nubIndex + 1] = PointFUtil.MovePoint(oldPoint, this.canvasPoints[nubIndex], this.canvasPoints[nubIndex + 1]);
                                     }
@@ -1705,7 +1706,7 @@ namespace ShapeMaker
                             {
                                 case NubType.StartPoint:
                                     this.canvasPoints[0] = mouseCoord;
-                                    if (this.canvasPoints.Count > 1)
+                                    if (nubCount > 1)
                                     {
                                         this.canvasPoints[1] = mouseCoord;
                                     }
@@ -1715,7 +1716,7 @@ namespace ShapeMaker
                                     break;
                             }
 
-                            for (int j = 0; j < this.canvasPoints.Count; j++)
+                            for (int j = 0; j < nubCount; j++)
                             {
                                 if (CanvasUtil.GetNubType(j) == NubType.ControlPoint1 && j > 1)
                                 {
