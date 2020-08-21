@@ -1511,6 +1511,7 @@ namespace ShapeMaker
                     bool moveLinkedPrevious = false;
                     bool moveLinkedNext = false;
 
+                    // Nexus Nubs
                     if (!isAltPressed && !this.magneticallyLinked && this.canvasPoints.Count > 1)
                     {
                         int selectedIndex = this.PathListBox.SelectedIndex;
@@ -1546,6 +1547,7 @@ namespace ShapeMaker
                         }
                     }
 
+                    // Magnetic Nubs
                     if (!isAltPressed && !moveLinkedLast && !moveLinkedPrevious && !moveLinkedNext &&
                         (nubIndex == 0 || nubIndex == this.canvasPoints.Count - 1))
                     {
