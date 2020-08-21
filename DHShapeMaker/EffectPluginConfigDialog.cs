@@ -63,6 +63,7 @@ namespace ShapeMaker
 #endif
         private bool moveFlag = false;
         private bool drawAverage = false;
+        private bool magneticallyLinked = false;
         private PointF averagePoint = new PointF(0.5f, 0.5f);
         private float initialDist;
         private SizeF initialDistSize;
@@ -1341,6 +1342,7 @@ namespace ShapeMaker
 
             this.panFlag = false;
             this.moveFlag = false;
+            this.magneticallyLinked = false;
             this.operation = Operation.None;
             this.drawAverage = false;
             this.clickedNub = InvalidNub;
@@ -1509,7 +1511,7 @@ namespace ShapeMaker
                     bool moveLinkedPrevious = false;
                     bool moveLinkedNext = false;
 
-                    if (!isAltPressed)
+                    if (!isAltPressed && !this.magneticallyLinked && this.canvasPoints.Count > 1)
                     {
                         int selectedIndex = this.PathListBox.SelectedIndex;
 
@@ -1544,6 +1546,28 @@ namespace ShapeMaker
                         }
                     }
 
+                    if (!isAltPressed && !moveLinkedLast && !moveLinkedPrevious && !moveLinkedNext &&
+                        (nubIndex == 0 || nubIndex == this.canvasPoints.Count - 1))
+                    {
+                        Rectangle bhit = new Rectangle(e.X - 10, e.Y - 10, 20, 20);
+                        int nearestPath = getNearestPath(bhit);
+                        if (nearestPath != InvalidPath)
+                        {
+                            PointF otherTerminatingNub = nubIndex == 0
+                                ? this.paths[nearestPath].Points[this.paths[nearestPath].Points.Length - 1]
+                                : this.paths[nearestPath].Points[0];
+
+                            Point nubPoint = CanvasCoordToPoint(otherTerminatingNub).Round();
+                            if (bhit.Contains(nubPoint))
+                            {
+                                eX = nubPoint.X;
+                                eY = nubPoint.Y;
+                                mouseCoord = otherTerminatingNub;
+
+                                this.magneticallyLinked = true;
+                            }
+                        }
+                    }
 
                     StatusBarNubLocation(eX, eY);
 
