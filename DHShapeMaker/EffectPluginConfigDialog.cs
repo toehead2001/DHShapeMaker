@@ -479,9 +479,6 @@ namespace ShapeMaker
                 }
 
                 this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
-
-                this.RebuildLinkFlagsCache();
-                this.PathListBox.Invalidate();
             }
 
             PathData path = (this.PathListBox.SelectedIndex != InvalidPath)
@@ -489,6 +486,9 @@ namespace ShapeMaker
                 : this.undoCanvas[this.historyIndex];
 
             SetUiForPath(path);
+
+            this.RebuildLinkFlagsCache();
+            this.PathListBox.Invalidate();
         }
 
         private void resetHistory()
@@ -2464,14 +2464,19 @@ namespace ShapeMaker
         {
             this.linkFlagsList.Clear();
 
+            int selectedIndex = this.PathListBox.SelectedIndex;
+            int pathCount = this.paths.Count;
+
             int linkStartIndex = -1;
             bool linkedToNext = false;
 
-            for (int i = 0; i < paths.Count; i++)
+            for (int i = 0; i < pathCount; i++)
             {
                 linkFlagsList.Add(LinkFlags.None);
 
-                CloseType closeType = paths[i].CloseType;
+                bool isActive = i == selectedIndex;
+
+                CloseType closeType = isActive ? this.CloseTypeFromUI : this.paths[i].CloseType;
 
                 if (closeType == CloseType.Individual)
                 {
@@ -2482,11 +2487,21 @@ namespace ShapeMaker
 
                 bool linkedToPrevious = linkedToNext;
 
-                linkedToNext =
-                    i < this.PathListBox.Items.Count - 1 &&
-                    closeType == CloseType.None &&
-                    this.paths[i + 1].CloseType != CloseType.Individual &&
-                    this.paths[i].Points.Last() == this.paths[i + 1].Points[0];
+                if (closeType != CloseType.None || i >= pathCount - 1)
+                {
+                    linkedToNext = false;
+                }
+                else
+                {
+                    bool nextIsActive = i + 1 == selectedIndex;
+                    CloseType nextCloseType = nextIsActive ? this.CloseTypeFromUI : this.paths[i + 1].CloseType;
+                    PointF nextFirstPoint = nextIsActive ? this.canvasPoints[0] : this.paths[i + 1].Points[0];
+                    PointF lastPoint = isActive ? this.canvasPoints.Last() : this.paths[i].Points.Last();
+
+                    linkedToNext =
+                        nextCloseType != CloseType.Individual &&
+                        lastPoint == nextFirstPoint;
+                }
 
                 if (linkedToPrevious)
                 {
