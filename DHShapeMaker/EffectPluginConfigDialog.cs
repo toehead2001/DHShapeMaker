@@ -607,6 +607,8 @@ namespace ShapeMaker
                     continue;
                 }
 
+                Color pathColor = PathTypeUtil.GetColor(pathType);
+
                 PointF[] pts = new PointF[pPoints.Count];
                 for (int i = 0; i < pts.Length; i++)
                 {
@@ -614,11 +616,9 @@ namespace ShapeMaker
                     pts[i].Y = this.canvas.ClientSize.Height * pPoints[i].Y;
                 }
 
-                bool isLinked = true;
                 if (previousClosed || !previousEndPoint.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
                 {
                     loopBack = new PointF(pts[0].X, pts[0].Y);
-                    isLinked = false;
                 }
 
                 #region Draw Nubs
@@ -627,27 +627,35 @@ namespace ShapeMaker
                     const int width = 6;
                     const int offset = width / 2;
 
-                    if ((closedIndividual || closedContiguous) && pts.Length > 1)
-                    {
-                        e.Graphics.DrawRectangle(Pens.Teal, loopBack.X - offset, loopBack.Y - offset, width, width);
-                    }
-                    else if (isLinked)
-                    {
-                        PointF[] tri =
-                        {
-                            new PointF(pts[0].X, pts[0].Y - 4f),
-                            new PointF(pts[0].X + 3f, pts[0].Y + 3f),
-                            new PointF(pts[0].X - 4f, pts[0].Y + 3f)
-                        };
+                    LinkFlags linkFlags = (j != InvalidPath) ? this.linkFlagsList[j]
+                        : (!previousClosed && previousEndPoint.Equals(pts[0]) && this.CloseTypeFromUI != CloseType.Individual) ? LinkFlags.Up
+                        : LinkFlags.None;
 
-                        e.Graphics.DrawPolygon(Pens.Teal, tri);
+                    PointF[] startTriangle =
+                    {
+                        new PointF(pts[0].X + 4, pts[0].Y),
+                        new PointF(pts[0].X - 4f, pts[0].Y - 6f),
+                        new PointF(pts[0].X - 4f, pts[0].Y + 5f)
+                    };
+
+                    if (linkFlags.HasFlag(LinkFlags.Up))
+                    {
+                        using (SolidBrush startNubBrush = new SolidBrush(pathColor))
+                        {
+                            e.Graphics.FillPolygon(startNubBrush, startTriangle);
+                        }
                     }
                     else
                     {
-                        e.Graphics.DrawEllipse(Pens.Teal, pts[0].X - offset, pts[0].Y - offset, width, width);
+                        using (Pen startNubPen = new Pen(pathColor))
+                        {
+                            e.Graphics.DrawPolygon(startNubPen, startTriangle);
+                        }
                     }
 
-                    for (int i = 1; i < pts.Length; i++)
+                    int lastIndex = pts.Length - 1;
+
+                    for (int i = 1; i < pts.Length - 1; i++)
                     {
                         switch (pathType)
                         {
@@ -655,10 +663,9 @@ namespace ShapeMaker
                                 e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                 break;
                             case PathType.EllipticalArc:
-                                if (i == 4)
+                                if (i == 3)
                                 {
                                     PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[4].X - offset, pts[4].Y - offset, width, width);
                                     if (!this.MacroCircle.Checked || !isNewPath)
                                     {
                                         e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
@@ -677,7 +684,10 @@ namespace ShapeMaker
                                 {
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    if (i + 2 != lastIndex)
+                                    {
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    }
                                     e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
                                 }
                                 break;
@@ -697,7 +707,10 @@ namespace ShapeMaker
                                     }
 
                                     e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    if (i + 2 != lastIndex)
+                                    {
+                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    }
                                     e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
                                     e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
                                 }
@@ -708,11 +721,42 @@ namespace ShapeMaker
                                 break;
                         }
                     }
+
+                    if (lastIndex != 0)
+                    {
+                        const int terminatorWidth = 8;
+                        const int terminatorOffset = terminatorWidth / 2;
+
+                        PointF[] downTriangle =
+                        {
+                            new PointF(pts[lastIndex].X, pts[lastIndex].Y + 4f),
+                            new PointF(pts[lastIndex].X + 3f, pts[lastIndex].Y - 3f),
+                            new PointF(pts[lastIndex].X - 4f, pts[lastIndex].Y - 3f)
+                        };
+
+                        e.Graphics.SmoothingMode = SmoothingMode.None;
+
+                        if (linkFlags.HasFlag(LinkFlags.Down))
+                        {
+                            using (SolidBrush endNubBrush = new SolidBrush(pathColor))
+                            {
+                                e.Graphics.FillRectangle(endNubBrush, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
+                            }
+                        }
+                        else
+                        {
+                            using (Pen endNubPen = new Pen(pathColor))
+                            {
+                                e.Graphics.DrawRectangle(endNubPen, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
+                            }
+                        }
+
+                        e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    }
                 }
                 #endregion
 
                 #region Draw Paths
-                Color pathColor = PathTypeUtil.GetColor(pathType);
                 using (Pen p = new Pen(pathColor))
                 using (Pen activePen = new Pen(pathColor))
                 {
