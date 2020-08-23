@@ -1679,7 +1679,7 @@ Double Click to Rename</value>
     <value>Linked with Previous Line</value>
   </data>
   <data name="LinkedPaths.ToolTipText" xml:space="preserve">
-    <value>Linked with Previous Line (Ctrl+3)</value>
+    <value>Linked with Previous Path (Ctrl+3)</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 39</value>
