@@ -71,6 +71,7 @@ namespace ShapeMaker
         private Size clickOffset;
         private Operation operation;
         private Rectangle operationBox = Rectangle.Empty;
+        private Tuple<int, int> operationRange = new Tuple<int, int>(-1, -1);
         private readonly List<LinkFlags> linkFlagsList = new List<LinkFlags>();
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
@@ -1044,7 +1045,7 @@ namespace ShapeMaker
                             else if (moveRect.Contains(e.Location))
                             {
                                 PointF clickCoord = PointToCanvasCoord(e.X, e.Y);
-                                PointF originCoord = (this.canvasPoints.Count > 1) ? this.canvasPoints[0] : this.moveStart;
+                                PointF originCoord = this.moveStart;
                                 this.initialDistSize = new SizeF(clickCoord.X - originCoord.X, clickCoord.Y - originCoord.Y);
                                 this.operation = Operation.Move;
                             }
@@ -1054,6 +1055,56 @@ namespace ShapeMaker
                             if (this.operation != Operation.None && this.operation != Operation.NoneRelocate)
                             {
                                 setUndo();
+
+                                operationRange = new Tuple<int, int>(InvalidPath, InvalidPath);
+
+                                if (this.canvasPoints.Count > 1)
+                                {
+                                    int selectedIndex = this.PathListBox.SelectedIndex;
+
+                                    if (selectedIndex == InvalidPath)
+                                    {
+                                        if (this.PathListBox.Items.Count > 0)
+                                        {
+                                            int lastPathIndex = this.PathListBox.Items.Count - 1;
+
+                                            bool linkedtoPrevious =
+                                                this.CloseTypeFromUI != CloseType.Individual &&
+                                                this.paths[lastPathIndex].CloseType == CloseType.None &&
+                                                this.canvasPoints[0] == this.paths[lastPathIndex].Points.Last();
+
+                                            if (linkedtoPrevious)
+                                            {
+                                                int rangeStart = lastPathIndex;
+                                                int rangeEnd = lastPathIndex;
+
+                                                while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
+                                                {
+                                                    rangeStart--;
+                                                }
+
+                                                operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int rangeStart = selectedIndex;
+                                        int rangeEnd = selectedIndex;
+
+                                        while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
+                                        {
+                                            rangeStart--;
+                                        }
+
+                                        while (this.linkFlagsList[rangeEnd].HasFlag(LinkFlags.Down))
+                                        {
+                                            rangeEnd++;
+                                        }
+
+                                        operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
+                                    }
+                                }
                             }
                         }
                         else if (this.clickedNub == InvalidNub)
@@ -1451,6 +1502,16 @@ namespace ShapeMaker
                             }
                             else if (nubCount > 1)
                             {
+                                if (this.operationRange.Item1 != InvalidPath && this.operationRange.Item2 != InvalidPath)
+                                {
+                                    for (int k = this.operationRange.Item1; k <= this.operationRange.Item2; k++)
+                                    {
+                                        PointF[] tmp1 = this.paths[k].Points;
+                                        PointF[] originalPoints1 = this.undoPaths[undoIndex][k].Points;
+                                        tmp1.Scale(originalPoints1, scale, this.averagePoint);
+                                    }
+                                }
+
                                 PointF[] tmp = this.canvasPoints.ToArray();
                                 PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
                                 tmp.Scale(originalPoints, scale, this.averagePoint);
@@ -1480,6 +1541,16 @@ namespace ShapeMaker
                             }
                             else if (nubCount > 1)
                             {
+                                if (this.operationRange.Item1 != InvalidPath && this.operationRange.Item2 != InvalidPath)
+                                {
+                                    for (int k = this.operationRange.Item1; k <= this.operationRange.Item2; k++)
+                                    {
+                                        PointF[] tmp1 = this.paths[k].Points;
+                                        PointF[] originalPoints1 = this.undoPaths[undoIndex][k].Points;
+                                        tmp1.Rotate(originalPoints1, radians, this.averagePoint);
+                                    }
+                                }
+
                                 PointF[] tmp = this.canvasPoints.ToArray();
                                 PointF[] originalPoints = this.undoCanvas[undoIndex].Points;
                                 tmp.Rotate(originalPoints, radians, this.averagePoint);
@@ -1507,15 +1578,29 @@ namespace ShapeMaker
                                         pathPoints[j] = PointFUtil.MovePoint(this.moveStart, newCoord, pathPoints[j]);
                                     }
                                 }
+
                                 this.moveStart = mouseCoord;
                             }
                             else if (nubCount > 0)
                             {
-                                PointF oldPoint = this.canvasPoints[0];
+                                if (this.operationRange.Item1 != InvalidPath && this.operationRange.Item2 != InvalidPath)
+                                {
+                                    for (int k = this.operationRange.Item1; k <= this.operationRange.Item2; k++)
+                                    {
+                                        PointF[] pathPoints = this.paths[k].Points;
+                                        for (int j = 0; j < pathPoints.Length; j++)
+                                        {
+                                            pathPoints[j] = PointFUtil.MovePoint(this.moveStart, newCoord, pathPoints[j]);
+                                        }
+                                    }
+                                }
+
                                 for (int j = 0; j < nubCount; j++)
                                 {
-                                    this.canvasPoints[j] = PointFUtil.MovePoint(oldPoint, newCoord, this.canvasPoints[j]);
+                                    this.canvasPoints[j] = PointFUtil.MovePoint(this.moveStart, newCoord, this.canvasPoints[j]);
                                 }
+
+                                this.moveStart = mouseCoord;
                             }
                             break;
                     }
