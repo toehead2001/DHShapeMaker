@@ -1882,6 +1882,10 @@ namespace ShapeMaker
                     {
                         this.paths[this.PathListBox.SelectedIndex + 1].Points[0] = this.canvasPoints[nubIndex];
                     }
+                    else
+                    {
+                        this.RebuildLinkFlagsCache();
+                    }
                 }
 
                 this.canvas.Refresh();
