@@ -622,141 +622,6 @@ namespace ShapeMaker
                     loopBack = new PointF(pts[0].X, pts[0].Y);
                 }
 
-                #region Draw Nubs
-                if (isActive && !ModifierKeys.HasFlag(Keys.Control))
-                {
-                    const int width = 6;
-                    const int offset = width / 2;
-
-                    LinkFlags linkFlags = (j != InvalidPath) ? this.linkFlagsList[j]
-                        : (!previousClosed && previousEndPoint.Equals(pts[0]) && this.CloseTypeFromUI != CloseType.Individual) ? LinkFlags.Up
-                        : LinkFlags.None;
-
-                    PointF[] startTriangle =
-                    {
-                        new PointF(pts[0].X + 4, pts[0].Y),
-                        new PointF(pts[0].X - 4f, pts[0].Y - 6f),
-                        new PointF(pts[0].X - 4f, pts[0].Y + 5f)
-                    };
-
-                    if (linkFlags.HasFlag(LinkFlags.Up))
-                    {
-                        using (SolidBrush startNubBrush = new SolidBrush(pathColor))
-                        {
-                            e.Graphics.FillPolygon(startNubBrush, startTriangle);
-                        }
-                    }
-                    else
-                    {
-                        using (Pen startNubPen = new Pen(pathColor))
-                        {
-                            e.Graphics.DrawPolygon(startNubPen, startTriangle);
-                        }
-                    }
-
-                    int lastIndex = pts.Length - 1;
-
-                    for (int i = 1; i < pts.Length - 1; i++)
-                    {
-                        switch (pathType)
-                        {
-                            case PathType.Straight:
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                break;
-                            case PathType.EllipticalArc:
-                                if (i == 3)
-                                {
-                                    PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
-                                    if (!this.MacroCircle.Checked || !isNewPath)
-                                    {
-                                        e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
-                                        e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
-                                        e.Graphics.FillRectangle(Brushes.Black, pts[2].X - offset, pts[2].Y - offset, width, width);
-
-                                        e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
-                                        e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
-                                        e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
-                                    }
-                                    e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
-                                }
-                                break;
-                            case PathType.Quadratic:
-                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1)
-                                {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                    e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    if (i + 2 != lastIndex)
-                                    {
-                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
-                                    }
-                                    e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
-                                }
-                                break;
-                            case PathType.SmoothQuadratic:
-                                if (CanvasUtil.GetNubType(i) == NubType.EndPoint)
-                                {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                }
-                                break;
-                            case PathType.Cubic:
-                            case PathType.SmoothCubic:
-                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
-                                {
-                                    if (i != 1 || pathType == PathType.Cubic)
-                                    {
-                                        e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                    }
-
-                                    e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                    if (i + 2 != lastIndex)
-                                    {
-                                        e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
-                                    }
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
-                                    e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
-                                }
-                                else if (CanvasUtil.GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
-                                {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                }
-                                break;
-                        }
-                    }
-
-                    if (lastIndex != 0)
-                    {
-                        const int terminatorWidth = 8;
-                        const int terminatorOffset = terminatorWidth / 2;
-
-                        PointF[] downTriangle =
-                        {
-                            new PointF(pts[lastIndex].X, pts[lastIndex].Y + 4f),
-                            new PointF(pts[lastIndex].X + 3f, pts[lastIndex].Y - 3f),
-                            new PointF(pts[lastIndex].X - 4f, pts[lastIndex].Y - 3f)
-                        };
-
-                        e.Graphics.SmoothingMode = SmoothingMode.None;
-
-                        if (linkFlags.HasFlag(LinkFlags.Down))
-                        {
-                            using (SolidBrush endNubBrush = new SolidBrush(pathColor))
-                            {
-                                e.Graphics.FillRectangle(endNubBrush, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
-                            }
-                        }
-                        else
-                        {
-                            using (Pen endNubPen = new Pen(pathColor))
-                            {
-                                e.Graphics.DrawRectangle(endNubPen, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
-                            }
-                        }
-
-                        e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                    }
-                }
-                #endregion
-
                 #region Draw Paths
                 using (Pen p = new Pen(pathColor))
                 using (Pen activePen = new Pen(pathColor))
@@ -920,6 +785,150 @@ namespace ShapeMaker
                 previousEndPoint = pts[pts.Length - 1];
                 previousClosed = closedIndividual || closedContiguous;
             }
+
+            #region Draw Nubs
+            if (this.canvasPoints.Count > 0 && !ModifierKeys.HasFlag(Keys.Control))
+            {
+                const int width = 6;
+                const int offset = width / 2;
+
+                pathType = this.PathTypeFromUI;
+
+                PointF[] pts = new PointF[this.canvasPoints.Count];
+                for (int i = 0; i < pts.Length; i++)
+                {
+                    pts[i].X = this.canvas.ClientSize.Width * this.canvasPoints[i].X;
+                    pts[i].Y = this.canvas.ClientSize.Height * this.canvasPoints[i].Y;
+                }
+
+                int lastIndex = pts.Length - 1;
+
+                for (int i = 1; i < lastIndex; i++)
+                {
+                    switch (pathType)
+                    {
+                        case PathType.Straight:
+                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                            break;
+                        case PathType.EllipticalArc:
+                            if (i == 3)
+                            {
+                                PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
+                                if (!this.MacroCircle.Checked || !isNewPath)
+                                {
+                                    e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
+                                    e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
+                                    e.Graphics.FillRectangle(Brushes.Black, pts[2].X - offset, pts[2].Y - offset, width, width);
+
+                                    e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
+                                    e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
+                                    e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
+                                }
+                                e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
+                            }
+                            break;
+                        case PathType.Quadratic:
+                            if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1)
+                            {
+                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                                e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
+                                if (i + 2 != lastIndex)
+                                {
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                }
+                                e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
+                            }
+                            break;
+                        case PathType.SmoothQuadratic:
+                            if (CanvasUtil.GetNubType(i) == NubType.EndPoint)
+                            {
+                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                            }
+                            break;
+                        case PathType.Cubic:
+                        case PathType.SmoothCubic:
+                            if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
+                            {
+                                if (i != 1 || pathType == PathType.Cubic)
+                                {
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                                }
+
+                                e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
+                                if (i + 2 != lastIndex)
+                                {
+                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                }
+                                e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
+                                e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
+                            }
+                            else if (CanvasUtil.GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
+                            {
+                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                            }
+                            break;
+                    }
+                }
+
+                // Terminating Nubs
+
+                int selectedIndex = this.PathListBox.SelectedIndex;
+                int lastPathIndex = this.paths.Count - 1;
+
+                LinkFlags linkFlags = (selectedIndex != InvalidPath) ? this.linkFlagsList[selectedIndex]
+                    : (this.paths.Count > 0 && this.paths[lastPathIndex].CloseType == CloseType.None && this.paths[lastPathIndex].Points.Last().Equals(this.canvasPoints[0]) && this.CloseTypeFromUI != CloseType.Individual) ? LinkFlags.Up
+                    : LinkFlags.None;
+
+                PointF[] startTriangle =
+                {
+                    new PointF(pts[0].X + 4, pts[0].Y),
+                    new PointF(pts[0].X - 4f, pts[0].Y - 6f),
+                    new PointF(pts[0].X - 4f, pts[0].Y + 5f)
+                };
+
+                Color pathColor = PathTypeUtil.GetColor(this.PathTypeFromUI);
+
+                if (linkFlags.HasFlag(LinkFlags.Up))
+                {
+                    using (SolidBrush startNubBrush = new SolidBrush(pathColor))
+                    {
+                        e.Graphics.FillPolygon(startNubBrush, startTriangle);
+                    }
+                }
+                else
+                {
+                    using (Pen startNubPen = new Pen(pathColor))
+                    {
+                        e.Graphics.DrawPolygon(startNubPen, startTriangle);
+                    }
+                }
+
+                if (lastIndex != 0)
+                {
+                    const int terminatorWidth = 8;
+                    const int terminatorOffset = terminatorWidth / 2;
+
+                    e.Graphics.SmoothingMode = SmoothingMode.None;
+
+                    if (linkFlags.HasFlag(LinkFlags.Down))
+                    {
+                        using (SolidBrush endNubBrush = new SolidBrush(pathColor))
+                        {
+                            e.Graphics.FillRectangle(endNubBrush, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
+                        }
+                    }
+                    else
+                    {
+                        using (Pen endNubPen = new Pen(pathColor))
+                        {
+                            e.Graphics.DrawRectangle(endNubPen, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
+                        }
+                    }
+
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                }
+            }
+            #endregion
 
             // render average point for when Scaling and Rotation
             if (this.drawAverage)
