@@ -968,12 +968,14 @@ namespace ShapeMaker
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (this.PathListBox.SelectedIndex != InvalidPath)
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            if (selectedIndex != InvalidPath)
             {
                 int bottomIndex = Math.Min(this.PathListBox.TopIndex + (this.PathListBox.Height / this.PathListBox.ItemHeight) - 1, this.PathListBox.Items.Count - 1);
-                if (this.PathListBox.SelectedIndex < this.PathListBox.TopIndex || this.PathListBox.SelectedIndex > bottomIndex)
+                if (selectedIndex < this.PathListBox.TopIndex || selectedIndex > bottomIndex)
                 {
-                    this.PathListBox.TopIndex = this.PathListBox.SelectedIndex;
+                    this.PathListBox.TopIndex = selectedIndex;
                 }
             }
 
@@ -1069,8 +1071,6 @@ namespace ShapeMaker
 
                                 if (this.canvasPoints.Count > 1)
                                 {
-                                    int selectedIndex = this.PathListBox.SelectedIndex;
-
                                     if (selectedIndex == InvalidPath)
                                     {
                                         if (IsNewPathLinked())
@@ -1385,7 +1385,7 @@ namespace ShapeMaker
                         #endregion
                     }
 
-                    if (this.PathListBox.SelectedIndex != InvalidPath && this.clickedNub != 0)
+                    if (selectedIndex != InvalidPath && this.clickedNub != 0)
                     {
                         UpdateExistingPath();
                     }
