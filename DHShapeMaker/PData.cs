@@ -40,5 +40,22 @@ namespace ShapeMaker
 
             return new PathData(pathType, this.Lines, closeType, arcOptions, this.Alias);
         }
+
+        internal static PData FromPathData(PathData pathData)
+        {
+            PointF[] points = new PointF[pathData.Points.Length];
+            Array.Copy(pathData.Points, points, pathData.Points.Length);
+
+            return new PData
+            {
+                Lines = points,
+                LineType = (int)pathData.PathType,
+                ClosedType = pathData.CloseType == CloseType.Individual,
+                IsLarge = pathData.ArcOptions.HasFlag(ArcOptions.LargeArc),
+                RevSweep = pathData.ArcOptions.HasFlag(ArcOptions.PositiveSweep),
+                Alias = pathData.Alias,
+                LoopBack = pathData.CloseType == CloseType.Contiguous
+            };
+        }
     }
 }

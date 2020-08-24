@@ -3043,9 +3043,15 @@ namespace ShapeMaker
 
                 try
                 {
-                    PathDataCollection collection = new PathDataCollection(this.paths, this.solidFillCheckBox.Checked, this.FigureName.Text);
+                    ArrayList collection = new ArrayList(this.paths.Select(pathData => PData.FromPathData(pathData)).ToArray());
+                    (collection[collection.Count - 1] as PData).Meta = this.FigureName.Text;
+                    (collection[collection.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
 
-                    XmlSerializer ser = new XmlSerializer(typeof(PathDataCollection));
+                    XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+
+                    //PathDataCollection collection = new PathDataCollection(this.paths, this.solidFillCheckBox.Checked, this.FigureName.Text);
+
+                    //XmlSerializer ser = new XmlSerializer(typeof(PathDataCollection));
                     using (StringWriterWithEncoding stringWriter = new StringWriterWithEncoding())
                     {
                         ser.Serialize(stringWriter, collection);
