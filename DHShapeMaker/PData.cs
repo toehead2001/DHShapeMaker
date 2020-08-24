@@ -22,7 +22,7 @@ namespace ShapeMaker
 
         internal PathData ToPathData()
         {
-            PathType pathType = (PathType)this.LineType;
+            PathType pathType = Enum.IsDefined(typeof(PathType), this.LineType) ? (PathType)this.LineType : PathType.Straight;
             CloseType closeType = this.ClosedType ? CloseType.Individual : this.LoopBack ? CloseType.Contiguous : CloseType.None;
             ArcOptions arcOptions = ArcOptions.None;
 
