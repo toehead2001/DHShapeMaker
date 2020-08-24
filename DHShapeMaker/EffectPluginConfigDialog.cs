@@ -1990,12 +1990,14 @@ namespace ShapeMaker
                     return;
                 }
 
+                string arcName = PathTypeUtil.GetName(PathType.EllipticalArc);
+
                 PointF mid = PointFUtil.PointAverage(this.canvasPoints[0], this.canvasPoints[4]);
                 this.canvasPoints[1] = this.canvasPoints[0];
                 this.canvasPoints[2] = this.canvasPoints[4];
                 this.canvasPoints[3] = mid;
                 this.paths.Add(new PathData(PathType.EllipticalArc, this.canvasPoints, CloseType.None, this.ArcOptionsFromUI));
-                this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
+                this.PathListBox.Items.Add(arcName);
 
                 PointF[] tmp = new PointF[]
                 {
@@ -2007,7 +2009,7 @@ namespace ShapeMaker
                 };
 
                 this.paths.Add(new PathData(PathType.EllipticalArc, tmp, CloseType.Contiguous, this.ArcOptionsFromUI));
-                this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.EllipticalArc));
+                this.PathListBox.Items.Add(arcName);
             }
             else if (this.MacroRect.Checked && pathType == PathType.Straight)
             {
@@ -2454,17 +2456,19 @@ namespace ShapeMaker
             {
                 PathData itemPath = this.paths[itemIndex];
 
-                string itemText = (itemPath.Alias.Length > 0)
-                    ? itemPath.Alias
-                    : this.PathListBox.Items[itemIndex].ToString();
+                Color backColor = isItemSelected ? PathTypeUtil.GetLightColor(itemPath.PathType) : Color.White;
 
                 if (isItemSelected)
                 {
-                    using (SolidBrush backgroundColorBrush = new SolidBrush(PathTypeUtil.GetLightColor(itemPath.PathType)))
+                    using (SolidBrush backgroundColorBrush = new SolidBrush(backColor))
                     {
                         e.Graphics.FillRectangle(backgroundColorBrush, e.Bounds);
                     }
                 }
+
+                string itemText = (itemPath.Alias.Length > 0)
+                    ? itemPath.Alias
+                    : this.PathListBox.Items[itemIndex].ToString();
 
                 using (StringFormat vCenter = new StringFormat { LineAlignment = StringAlignment.Center })
                 using (SolidBrush itemTextColorBrush = new SolidBrush(PathTypeUtil.GetColor(itemPath.PathType)))
@@ -2487,8 +2491,6 @@ namespace ShapeMaker
                     e.Bounds.Top,
                     linkIndicatorRect.Left,
                     e.Bounds.Bottom);
-
-                Color backColor = isItemSelected ? PathTypeUtil.GetLightColor(itemPath.PathType) : Color.White;
 
                 using (LinearGradientBrush gradientBrush = new LinearGradientBrush(new Point(gradientRect.Left - 1, gradientRect.Top), new Point(gradientRect.Right + 1, gradientRect.Top), Color.Transparent, backColor))
                 {
