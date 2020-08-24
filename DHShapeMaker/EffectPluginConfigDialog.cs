@@ -563,8 +563,8 @@ namespace ShapeMaker
             PathType pathType = 0;
             bool closedIndividual = false;
             bool closedContiguous = false;
-            bool isLarge = false;
-            bool revSweep = false;
+            bool largeArc = false;
+            bool positiveSweep = false;
             IReadOnlyList<PointF> pPoints;
 
             int j;
@@ -589,8 +589,8 @@ namespace ShapeMaker
                     pathType = this.PathTypeFromUI;
                     closedIndividual = this.ClosePath.Checked;
                     closedContiguous = this.CloseContPaths.Checked;
-                    isLarge = (this.Arc.CheckState == CheckState.Checked);
-                    revSweep = (this.Sweep.CheckState == CheckState.Checked);
+                    largeArc = (this.Arc.CheckState == CheckState.Checked);
+                    positiveSweep = (this.Sweep.CheckState == CheckState.Checked);
                 }
                 else
                 {
@@ -599,8 +599,8 @@ namespace ShapeMaker
                     pathType = itemPath.PathType;
                     closedIndividual = itemPath.CloseType == CloseType.Individual;
                     closedContiguous = itemPath.CloseType == CloseType.Contiguous;
-                    isLarge = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
-                    revSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
+                    largeArc = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
+                    positiveSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
                 }
 
                 if (pPoints.Count == 0)
@@ -677,10 +677,10 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-                                    float l = PointFUtil.Pythag(mid, pts[1]);
-                                    float h = PointFUtil.Pythag(mid, pts[2]);
+                                    float radiusX = PointFUtil.Pythag(mid, pts[1]);
+                                    float radiusY = PointFUtil.Pythag(mid, pts[2]);
 
-                                    if ((int)h == 0 || (int)l == 0)
+                                    if ((int)radiusY == 0 || (int)radiusX == 0)
                                     {
                                         PointF[] nullLine = { pts[0], pts[4] };
                                         e.Graphics.DrawLines(p, nullLine);
@@ -691,11 +691,11 @@ namespace ShapeMaker
                                     }
                                     else
                                     {
-                                        float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
+                                        float angle = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
 
                                         using (GraphicsPath gp = new GraphicsPath())
                                         {
-                                            gp.AddArc(pts[0], l, h, a, (isLarge) ? 1 : 0, (revSweep) ? 1 : 0, pts[4]);
+                                            gp.AddArc(pts[0], radiusX, radiusY, angle, largeArc, positiveSweep, pts[4]);
                                             e.Graphics.DrawPath(p, gp);
                                             if (isActive)
                                             {
@@ -707,7 +707,7 @@ namespace ShapeMaker
                                         {
                                             using (GraphicsPath gp = new GraphicsPath())
                                             {
-                                                gp.AddArc(pts[0], l, h, a, (isLarge) ? 0 : 1, (revSweep) ? 0 : 1, pts[4]);
+                                                gp.AddArc(pts[0], radiusX, radiusY, angle, !largeArc, !positiveSweep, pts[4]);
                                                 using (Pen p2 = new Pen(Color.LightGray))
                                                 {
                                                     p2.DashStyle = DashStyle.Dash;

@@ -122,7 +122,7 @@ namespace ShapeMaker
             }
         }
 
-        internal static void AddArc(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, int size, int sweep, PointF end)
+        internal static void AddArc(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, bool largeArc, bool positiveSweep, PointF end)
         {
             if (start == end)
             {
@@ -160,7 +160,7 @@ namespace ShapeMaker
             }
             else
             {
-                root = ((size == 1 && sweep == 1) || (size == 0 && sweep == 0) ? -1.0 : 1.0) * Math.Sqrt(numerator / (radiusX * radiusX * y1dash * y1dash + radiusY * radiusY * x1dash * x1dash));
+                root = ((largeArc && positiveSweep) || (!largeArc && !positiveSweep) ? -1.0 : 1.0) * Math.Sqrt(numerator / (radiusX * radiusX * y1dash * y1dash + radiusY * radiusY * x1dash * x1dash));
             }
 
             double cxdash = root * rx * y1dash / ry;
@@ -172,11 +172,11 @@ namespace ShapeMaker
             double theta1 = VectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
             double dtheta = VectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
 
-            if (sweep == 0 && dtheta > 0)
+            if (!positiveSweep && dtheta > 0)
             {
                 dtheta -= TwoPI;
             }
-            else if (sweep == 1 && dtheta < 0)
+            else if (positiveSweep && dtheta < 0)
             {
                 dtheta += TwoPI;
             }
