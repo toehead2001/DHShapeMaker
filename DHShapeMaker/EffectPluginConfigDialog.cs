@@ -876,7 +876,7 @@ namespace ShapeMaker
                 int lastPathIndex = this.paths.Count - 1;
 
                 LinkFlags linkFlags = (selectedIndex != InvalidPath) ? this.linkFlagsList[selectedIndex]
-                    : (this.paths.Count > 0 && this.paths[lastPathIndex].CloseType == CloseType.None && this.paths[lastPathIndex].Points.Last().Equals(this.canvasPoints[0]) && this.CloseTypeFromUI != CloseType.Individual) ? LinkFlags.Up
+                    : IsNewPathLinked() ? LinkFlags.Up
                     : LinkFlags.None;
 
                 PointF[] startTriangle =
@@ -1073,27 +1073,17 @@ namespace ShapeMaker
 
                                     if (selectedIndex == InvalidPath)
                                     {
-                                        if (this.PathListBox.Items.Count > 0)
+                                        if (IsNewPathLinked())
                                         {
-                                            int lastPathIndex = this.PathListBox.Items.Count - 1;
+                                            int rangeEnd = this.PathListBox.Items.Count - 1;
+                                            int rangeStart = rangeEnd;
 
-                                            bool linkedtoPrevious =
-                                                this.CloseTypeFromUI != CloseType.Individual &&
-                                                this.paths[lastPathIndex].CloseType == CloseType.None &&
-                                                this.canvasPoints[0] == this.paths[lastPathIndex].Points.Last();
-
-                                            if (linkedtoPrevious)
+                                            while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
                                             {
-                                                int rangeStart = lastPathIndex;
-                                                int rangeEnd = lastPathIndex;
-
-                                                while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
-                                                {
-                                                    rangeStart--;
-                                                }
-
-                                                operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
+                                                rangeStart--;
                                             }
+
+                                            operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
                                         }
                                     }
                                     else
@@ -1657,15 +1647,9 @@ namespace ShapeMaker
 
                         if (selectedIndex == InvalidPath)
                         {
-                            if (nubIndex == 0 && this.PathListBox.Items.Count > 0)
-                            {
-                                int lastPathIndex = this.PathListBox.Items.Count - 1;
-
-                                moveLinkedLast =
-                                    this.CloseTypeFromUI != CloseType.Individual &&
-                                    this.paths[lastPathIndex].CloseType == CloseType.None &&
-                                    this.canvasPoints[nubIndex] == this.paths[lastPathIndex].Points.Last();
-                            }      
+                            moveLinkedLast =
+                                nubIndex == 0 &&
+                                IsNewPathLinked();
                         }
                         else if (nubIndex == 0)
                         {
@@ -2404,6 +2388,16 @@ namespace ShapeMaker
             this.canvas.Refresh();
             RefreshPdnCanvas();
             AddToRecents(projectFile);
+        }
+
+        private bool IsNewPathLinked()
+        {
+            int lastPathIndex = this.PathListBox.Items.Count - 1;
+
+            return this.paths.Count > 0 &&
+                this.CloseTypeFromUI != CloseType.Individual &&
+                this.paths[lastPathIndex].CloseType == CloseType.None &&
+                this.paths[lastPathIndex].Points.Last() == this.canvasPoints[0];
         }
 
         private static string GetSanitizedShapeName(string shapeName)
