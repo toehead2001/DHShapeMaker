@@ -977,7 +977,7 @@
             this.ClosePath.Name = "ClosePath";
             this.ClosePath.PathType = ShapeMaker.PathType.Straight;
             resources.ApplyResources(this.ClosePath, "ClosePath");
-            this.ClosePath.Click += new System.EventHandler(this.Loops_Click);
+            this.ClosePath.Click += new System.EventHandler(this.ClosePath_Click);
             // 
             // CloseContPaths
             // 
@@ -987,7 +987,7 @@
             this.CloseContPaths.Name = "CloseContPaths";
             this.CloseContPaths.PathType = ShapeMaker.PathType.Straight;
             resources.ApplyResources(this.CloseContPaths, "CloseContPaths");
-            this.CloseContPaths.Click += new System.EventHandler(this.Loops_Click);
+            this.CloseContPaths.Click += new System.EventHandler(this.ClosePath_Click);
             // 
             // toolStripUndo
             // 

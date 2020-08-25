@@ -3507,7 +3507,7 @@ namespace ShapeMaker
             this.canvas.Refresh();
         }
 
-        private void Loops_Click(object sender, EventArgs e)
+        private void ClosePath_Click(object sender, EventArgs e)
         {
             setUndo();
 
