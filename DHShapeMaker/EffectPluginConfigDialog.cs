@@ -3533,12 +3533,12 @@ namespace ShapeMaker
             this.ClosePath.Image = (this.ClosePath.Checked) ? Properties.Resources.ClosePathOn : Properties.Resources.ClosePathOff;
             this.CloseContPaths.Image = (this.CloseContPaths.Checked) ? Properties.Resources.ClosePathsOn : Properties.Resources.ClosePathsOff;
 
-            this.canvas.Refresh();
-
             if (this.PathListBox.SelectedIndex != InvalidPath)
             {
                 UpdateExistingPath();
             }
+
+            this.canvas.Refresh();
         }
 
         private void Property_Click(object sender, EventArgs e)
