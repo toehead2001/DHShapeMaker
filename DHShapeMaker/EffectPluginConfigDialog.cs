@@ -897,7 +897,7 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    using (Pen startNubPen = new Pen(pathColor))
+                    using (Pen startNubPen = new Pen(pathColor, 1.6f))
                     {
                         e.Graphics.DrawPolygon(startNubPen, startTriangle);
                     }
@@ -908,8 +908,6 @@ namespace ShapeMaker
                     const int terminatorWidth = 8;
                     const int terminatorOffset = terminatorWidth / 2;
 
-                    e.Graphics.SmoothingMode = SmoothingMode.None;
-
                     if (linkFlags.HasFlag(LinkFlags.Down))
                     {
                         using (SolidBrush endNubBrush = new SolidBrush(pathColor))
@@ -919,13 +917,11 @@ namespace ShapeMaker
                     }
                     else
                     {
-                        using (Pen endNubPen = new Pen(pathColor))
+                        using (Pen endNubPen = new Pen(pathColor, 1.6f))
                         {
                             e.Graphics.DrawRectangle(endNubPen, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
                         }
                     }
-
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 }
             }
             #endregion
