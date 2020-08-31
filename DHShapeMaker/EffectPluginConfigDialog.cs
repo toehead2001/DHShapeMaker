@@ -73,6 +73,7 @@ namespace ShapeMaker
         private Rectangle operationBox = Rectangle.Empty;
         private Tuple<int, int> operationRange = new Tuple<int, int>(-1, -1);
         private readonly List<LinkFlags> linkFlagsList = new List<LinkFlags>();
+        private int oldPathListBoxIndex = -1;
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
@@ -554,6 +555,8 @@ namespace ShapeMaker
             }
 #endif
 
+            Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
+
             PointF loopBack = new PointF(-9999, -9999);
             PointF previousEndPoint = new PointF(-9999, -9999);
             bool previousClosed = false;
@@ -609,6 +612,10 @@ namespace ShapeMaker
                 }
 
                 Color pathColor = PathTypeUtil.GetColor(pathType);
+                Color pathLightColor = PathTypeUtil.GetLightColor(pathType);
+
+                bool partOfOperation = !this.operationBox.IsEmpty &&
+                    ((this.PathListBox.SelectedIndex == InvalidPath && this.canvasPoints.Count > 1) || (j >= this.operationRange.Item1 && j <= this.operationRange.Item2));
 
                 PointF[] pts = new PointF[pPoints.Count];
                 for (int i = 0; i < pts.Length; i++)
@@ -630,7 +637,7 @@ namespace ShapeMaker
                     p.Width = 1;
 
                     activePen.Width = 5f;
-                    activePen.Color = Color.FromArgb(51, p.Color);
+                    activePen.Color = partOfOperation ? pathLightColor : Color.FromArgb(51, p.Color);
                     activePen.LineJoin = LineJoin.Bevel;
 
                     switch (pathType)
@@ -657,11 +664,18 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-                                    e.Graphics.DrawLines(p, pts);
+
+                                    if (partOfOperation)
+                                    {
+                                        e.Graphics.DrawLines(operationPen, pts);
+                                    }
+
                                     if (isActive)
                                     {
                                         e.Graphics.DrawLines(activePen, pts);
                                     }
+
+                                    e.Graphics.DrawLines(p, pts);
                                 }
                             }
                             break;
@@ -683,11 +697,18 @@ namespace ShapeMaker
                                     if ((int)radiusY == 0 || (int)radiusX == 0)
                                     {
                                         PointF[] nullLine = { pts[0], pts[4] };
-                                        e.Graphics.DrawLines(p, nullLine);
+
+                                        if (partOfOperation)
+                                        {
+                                            e.Graphics.DrawLines(operationPen, nullLine);
+                                        }
+
                                         if (isActive)
                                         {
                                             e.Graphics.DrawLines(activePen, nullLine);
                                         }
+
+                                        e.Graphics.DrawLines(p, nullLine);
                                     }
                                     else
                                     {
@@ -696,11 +717,18 @@ namespace ShapeMaker
                                         using (GraphicsPath gp = new GraphicsPath())
                                         {
                                             gp.AddArc(pts[0], radiusX, radiusY, angle, largeArc, positiveSweep, pts[4]);
-                                            e.Graphics.DrawPath(p, gp);
+
+                                            if (partOfOperation)
+                                            {
+                                                e.Graphics.DrawPath(operationPen, gp);
+                                            }
+
                                             if (isActive)
                                             {
                                                 e.Graphics.DrawPath(activePen, gp);
                                             }
+
+                                            e.Graphics.DrawPath(p, gp);
                                         }
 
                                         if (isActive)
@@ -723,11 +751,17 @@ namespace ShapeMaker
                         case PathType.SmoothCubic:
                             if (pts.Length > 3)
                             {
-                                e.Graphics.DrawBeziers(p, pts);
+                                if (partOfOperation)
+                                {
+                                    e.Graphics.DrawBeziers(operationPen, pts);
+                                }
+
                                 if (isActive)
                                 {
                                     e.Graphics.DrawBeziers(activePen, pts);
                                 }
+
+                                e.Graphics.DrawBeziers(p, pts);
                             }
                             break;
                         case PathType.Quadratic:
@@ -756,11 +790,17 @@ namespace ShapeMaker
                                 }
                                 #endregion
 
-                                e.Graphics.DrawBeziers(p, Qpts);
+                                if (partOfOperation)
+                                {
+                                    e.Graphics.DrawBeziers(operationPen, Qpts);
+                                }
+
                                 if (isActive)
                                 {
                                     e.Graphics.DrawBeziers(activePen, Qpts);
                                 }
+
+                                e.Graphics.DrawBeziers(p, Qpts);
                             }
                             break;
                     }
@@ -1016,7 +1056,7 @@ namespace ShapeMaker
                     {
                         if (this.clickedNub != InvalidNub && this.canvasPoints.Count > 1)
                         {
-                            ToggleOpBox(true, this.canvasPoints[this.clickedNub]);
+                            ShowOpBox(this.canvasPoints[this.clickedNub]);
                             opBoxInit = true;
                         }
                     }
@@ -1062,44 +1102,6 @@ namespace ShapeMaker
                             if (this.operation != Operation.None && this.operation != Operation.NoneRelocate)
                             {
                                 setUndo();
-
-                                operationRange = new Tuple<int, int>(InvalidPath, InvalidPath);
-
-                                if (this.canvasPoints.Count > 1)
-                                {
-                                    if (selectedIndex == InvalidPath)
-                                    {
-                                        if (IsNewPathLinked())
-                                        {
-                                            int rangeEnd = this.PathListBox.Items.Count - 1;
-                                            int rangeStart = rangeEnd;
-
-                                            while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
-                                            {
-                                                rangeStart--;
-                                            }
-
-                                            operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        int rangeStart = selectedIndex;
-                                        int rangeEnd = selectedIndex;
-
-                                        while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
-                                        {
-                                            rangeStart--;
-                                        }
-
-                                        while (this.linkFlagsList[rangeEnd].HasFlag(LinkFlags.Down))
-                                        {
-                                            rangeEnd++;
-                                        }
-
-                                        operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
-                                    }
-                                }
                             }
                         }
                         else if (this.clickedNub == InvalidNub)
@@ -1412,7 +1414,7 @@ namespace ShapeMaker
 
             if (!opBoxInit && this.operation == Operation.None)
             {
-                this.operationBox = Rectangle.Empty;
+                this.HideOpBox();
             }
         }
 
@@ -1899,49 +1901,80 @@ namespace ShapeMaker
             }
         }
 
-        private void ToggleOpBox()
+        private void HideOpBox()
         {
-            PointF coord;
-            if (!this.operationBox.IsEmpty)
-            {
-                coord = Point.Empty;
-            }
-            else
-            {
-                if (this.PathListBox.SelectedIndex == InvalidPath && canvasPoints.Count == 1)
-                {
-                    canvasPoints.Clear();
-                }
-
-                RectangleF bounds = (canvasPoints.Count > 1)
-                    ? canvasPoints.Bounds()
-                    : paths.Bounds();
-
-                coord = new PointF(bounds.Right, bounds.Bottom);
-            }
-
-            ToggleOpBox(this.operationBox.IsEmpty, coord);
+            this.operationBox = Rectangle.Empty;
+            this.operationRange = new Tuple<int, int>(InvalidPath, InvalidPath);
         }
 
-        private void ToggleOpBox(bool enable, PointF coord)
+        private void ShowOpBox()
         {
-            if (enable)
+            if (this.PathListBox.SelectedIndex == InvalidPath && canvasPoints.Count == 1)
             {
-                Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(68, 20));
-                opBoxRect.X += 5;
-                opBoxRect.Y += 5;
-
-                if (!this.canvas.ClientRectangle.Contains(opBoxRect))
-                {
-                    opBoxRect.X = opBoxRect.X.Clamp(0, this.canvas.ClientSize.Width - opBoxRect.Width);
-                    opBoxRect.Y = opBoxRect.Y.Clamp(0, this.canvas.ClientSize.Height - opBoxRect.Height);
-                }
-
-                this.operationBox = opBoxRect;
+                canvasPoints.Clear();
             }
-            else
+
+            RectangleF bounds = (canvasPoints.Count > 1)
+                ? canvasPoints.Bounds()
+                : paths.Bounds();
+
+            PointF coord = new PointF(bounds.Right, bounds.Bottom);
+
+            ShowOpBox(coord);
+        }
+
+        private void ShowOpBox(PointF coord)
+        {
+            Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(68, 20));
+            opBoxRect.X += 5;
+            opBoxRect.Y += 5;
+
+            if (!this.canvas.ClientRectangle.Contains(opBoxRect))
             {
-                this.operationBox = Rectangle.Empty;
+                opBoxRect.X = opBoxRect.X.Clamp(0, this.canvas.ClientSize.Width - opBoxRect.Width);
+                opBoxRect.Y = opBoxRect.Y.Clamp(0, this.canvas.ClientSize.Height - opBoxRect.Height);
+            }
+
+            this.operationBox = opBoxRect;
+
+            this.operationRange = new Tuple<int, int>(InvalidPath, InvalidPath);
+
+            if (this.canvasPoints.Count > 1)
+            {
+                int selectedIndex = this.PathListBox.SelectedIndex;
+
+                if (selectedIndex == InvalidPath)
+                {
+                    if (IsNewPathLinked())
+                    {
+                        int rangeEnd = this.PathListBox.Items.Count - 1;
+                        int rangeStart = rangeEnd;
+
+                        while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
+                        {
+                            rangeStart--;
+                        }
+
+                        operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
+                    }
+                }
+                else
+                {
+                    int rangeStart = selectedIndex;
+                    int rangeEnd = selectedIndex;
+
+                    while (this.linkFlagsList[rangeStart].HasFlag(LinkFlags.Up))
+                    {
+                        rangeStart--;
+                    }
+
+                    while (this.linkFlagsList[rangeEnd].HasFlag(LinkFlags.Down))
+                    {
+                        rangeEnd++;
+                    }
+
+                    operationRange = new Tuple<int, int>(rangeStart, rangeEnd);
+                }
             }
 
             this.canvas.Invalidate();
@@ -2056,7 +2089,7 @@ namespace ShapeMaker
                 setUndo();
             }
 
-            this.operationBox = Rectangle.Empty;
+            this.HideOpBox();
             this.drawAverage = false;
 
             if (this.canvasPoints.Count == 0)
@@ -2423,6 +2456,15 @@ namespace ShapeMaker
 
         private void PathListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            if (selectedIndex == this.oldPathListBoxIndex)
+            {
+                return;
+            }
+
+            this.oldPathListBoxIndex = selectedIndex;
+
             if (this.isNewPath && this.canvasPoints.Count > 1)
             {
                 AddNewPath(true);
@@ -2430,14 +2472,19 @@ namespace ShapeMaker
 
             this.isNewPath = false;
 
-            if (this.PathListBox.SelectedIndex == InvalidPath)
+            if (selectedIndex == InvalidPath)
             {
                 return;
             }
 
-            if (this.PathListBox.SelectedIndex < this.paths.Count)
+            if (selectedIndex < this.paths.Count)
             {
-                SetUiForPath(this.paths[this.PathListBox.SelectedIndex]);
+                SetUiForPath(this.paths[selectedIndex]);
+            }
+
+            if (this.operationBox != Rectangle.Empty)
+            {
+                ShowOpBox();
             }
         }
 
@@ -3372,7 +3419,14 @@ namespace ShapeMaker
 
         private void opBoxMenuItem_Click(object sender, EventArgs e)
         {
-            ToggleOpBox();
+            if (!this.operationBox.IsEmpty)
+            {
+                HideOpBox();
+            }
+            else
+            {
+                ShowOpBox();
+            }
         }
 
         private void autoScaleMenuItem_Click(object sender, EventArgs e)
