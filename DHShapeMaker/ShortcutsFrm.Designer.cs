@@ -277,7 +277,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(139, 60);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 13);
+            this.label8.Size = new System.Drawing.Size(69, 13);
             this.label8.TabIndex = 7;
             this.label8.Text = "Cubic Bézier";
             // 
@@ -317,7 +317,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(139, 100);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(113, 13);
+            this.label12.Size = new System.Drawing.Size(112, 13);
             this.label12.TabIndex = 11;
             this.label12.Text = "Smooth Cubic Bézier";
             // 
@@ -337,7 +337,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(139, 120);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(92, 13);
+            this.label14.Size = new System.Drawing.Size(90, 13);
             this.label14.TabIndex = 13;
             this.label14.Text = "Quadratic Bézier";
             // 
@@ -357,7 +357,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(139, 140);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(135, 13);
+            this.label16.Size = new System.Drawing.Size(133, 13);
             this.label16.TabIndex = 15;
             this.label16.Text = "Smooth Quadratic Bézier";
             // 
@@ -557,7 +557,7 @@
             this.label70.AutoSize = true;
             this.label70.Location = new System.Drawing.Point(139, 380);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(87, 13);
+            this.label70.Size = new System.Drawing.Size(86, 13);
             this.label70.TabIndex = 37;
             this.label70.Text = "Operations Box";
             // 
@@ -736,9 +736,9 @@
             this.label46.AutoSize = true;
             this.label46.Location = new System.Drawing.Point(139, 190);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(198, 26);
+            this.label46.Size = new System.Drawing.Size(191, 26);
             this.label46.TabIndex = 13;
-            this.label46.Text = "(when Zoom is active) pans the entire work area.";
+            this.label46.Text = "Disables Magnetic Nubs and Nexus Nubs.";
             // 
             // label47
             // 
@@ -755,7 +755,7 @@
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(139, 224);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(187, 26);
+            this.label48.Size = new System.Drawing.Size(185, 26);
             this.label48.TabIndex = 15;
             this.label48.Text = "(on a Quadratic Bezier Nub) moves nubs along control lines.";
             // 
