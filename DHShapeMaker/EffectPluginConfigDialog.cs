@@ -2273,22 +2273,19 @@ namespace ShapeMaker
 
         private string GenerateStreamGeometry()
         {
-            const int size = 500;
-            return StreamGeometryUtil.GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, size, size);
+            return StreamGeometryUtil.GenerateStreamGeometry(this.paths, this.solidFillCheckBox.Checked, CanvasUtil.CanvasSize, CanvasUtil.CanvasSize);
         }
 
         private string GeneratePathGeometry()
         {
-            const int size = 500;
-            return PathGeometryUtil.GeneratePathGeometry(this.paths, size, size);
+            return PathGeometryUtil.GeneratePathGeometry(this.paths, CanvasUtil.CanvasSize, CanvasUtil.CanvasSize);
         }
 
         private string GenerateSvg()
         {
-            const int size = 500;
             return string.Format(
                 ExportConsts.SvgFile,
-                StreamGeometryUtil.GenerateStreamGeometry(this.paths, false, size, size));
+                StreamGeometryUtil.GenerateStreamGeometry(this.paths, false, CanvasUtil.CanvasSize, CanvasUtil.CanvasSize));
         }
 
         private void LoadStreamGeometry(string streamGeometry)

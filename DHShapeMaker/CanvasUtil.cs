@@ -6,9 +6,11 @@ namespace ShapeMaker
 {
     internal static class CanvasUtil
     {
+        internal const int CanvasSize = 500;
+
         internal static PointF PointToCanvasCoord1x(float x, float y)
         {
-            return PointToCanvasCoord(x, y, 500, 500);
+            return PointToCanvasCoord(x, y, CanvasSize, CanvasSize);
         }
 
         internal static PointF PointToCanvasCoord(float x, float y, int width, int height)
@@ -18,7 +20,7 @@ namespace ShapeMaker
 
         internal static PointF CanvasCoordToPoint1x(PointF coord)
         {
-            return CanvasCoordToPoint(coord.X, coord.Y, 500, 500);
+            return CanvasCoordToPoint(coord.X, coord.Y, CanvasSize, CanvasSize);
         }
 
         internal static PointF CanvasCoordToPoint(float x, float y, int width, int height)
