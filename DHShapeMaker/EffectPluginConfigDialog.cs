@@ -2036,6 +2036,8 @@ namespace ShapeMaker
 
             setUndo(deSelected);
 
+            this.HideOpBox();
+
             PathType pathType = this.PathTypeFromUI;
             if (this.MacroCircle.Checked && pathType == PathType.EllipticalArc)
             {
