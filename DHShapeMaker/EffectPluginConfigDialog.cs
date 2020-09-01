@@ -555,6 +555,8 @@ namespace ShapeMaker
             }
 #endif
             int selectedIndex = this.PathListBox.SelectedIndex;
+
+            #region Draw Paths
             Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
 
             PointF loopBack = new PointF(-9999, -9999);
@@ -653,7 +655,6 @@ namespace ShapeMaker
                     loopBack = new PointF(pts[0].X, pts[0].Y);
                 }
 
-                #region Draw Paths
                 using (Pen p = new Pen(pathColor))
                 using (Pen activePen = new Pen(pathColor))
                 {
@@ -844,11 +845,11 @@ namespace ShapeMaker
                         loopBack = pts[pts.Length - 1];
                     }
                 }
-                #endregion
 
                 previousEndPoint = pts[pts.Length - 1];
                 previousClosed = closedIndividual || closedContiguous;
             }
+            #endregion
 
             #region Draw Nubs
             if (this.canvasPoints.Count > 0 && !ModifierKeys.HasFlag(Keys.Control))
