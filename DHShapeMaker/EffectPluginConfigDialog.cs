@@ -614,8 +614,32 @@ namespace ShapeMaker
                 Color pathColor = PathTypeUtil.GetColor(pathType);
                 Color pathLightColor = PathTypeUtil.GetLightColor(pathType);
 
-                bool partOfOperation = !this.operationBox.IsEmpty &&
-                    ((this.PathListBox.SelectedIndex == InvalidPath && this.canvasPoints.Count > 1) || (j >= this.operationRange.Item1 && j <= this.operationRange.Item2));
+                bool partOfOperation = false;
+                if (!this.operationBox.IsEmpty)
+                {
+                    if (isActive)
+                    {
+                        partOfOperation = true;
+                    }
+                    else if (this.PathListBox.SelectedIndex == InvalidPath)
+                    {
+                        if (this.canvasPoints.Count > 1)
+                        {
+                            if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
+                            {
+                                partOfOperation = true;
+                            }
+                        }
+                        else
+                        {
+                            partOfOperation = true;
+                        }
+                    }
+                    else if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
+                    {
+                        partOfOperation = true;
+                    }
+                }
 
                 PointF[] pts = new PointF[pPoints.Count];
                 for (int i = 0; i < pts.Length; i++)
