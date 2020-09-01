@@ -2018,8 +2018,10 @@ namespace ShapeMaker
         #region Misc Helper functions
         private void UpdateExistingPath()
         {
-            this.paths[this.PathListBox.SelectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[this.PathListBox.SelectedIndex].Alias);
-            this.PathListBox.Items[this.PathListBox.SelectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            this.paths[selectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[selectedIndex].Alias);
+            this.PathListBox.Items[selectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
 
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
@@ -2747,16 +2749,17 @@ namespace ShapeMaker
 
         private void removebtn_Click(object sender, EventArgs e)
         {
-            if (this.PathListBox.SelectedIndex == InvalidPath || this.PathListBox.Items.Count == 0 || this.PathListBox.SelectedIndex >= this.paths.Count)
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            if (selectedIndex == InvalidPath || this.PathListBox.Items.Count == 0 || selectedIndex >= this.paths.Count)
             {
                 return;
             }
 
             setUndo();
 
-            int spi = this.PathListBox.SelectedIndex;
-            this.paths.RemoveAt(spi);
-            this.PathListBox.Items.RemoveAt(spi);
+            this.paths.RemoveAt(selectedIndex);
+            this.PathListBox.Items.RemoveAt(selectedIndex);
             this.canvasPoints.Clear();
             this.PathListBox.SelectedIndex = InvalidPath;
             this.RebuildLinkFlagsCache();
@@ -2787,10 +2790,12 @@ namespace ShapeMaker
 
         private void DNList_Click(object sender, EventArgs e)
         {
-            if (this.PathListBox.SelectedIndex > InvalidPath && this.PathListBox.SelectedIndex < this.PathListBox.Items.Count - 1)
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            if (selectedIndex > InvalidPath && selectedIndex < this.PathListBox.Items.Count - 1)
             {
                 this.PathListBox.SelectedIndexChanged -= PathListBox_SelectedIndexChanged;
-                ReOrderPath(this.PathListBox.SelectedIndex);
+                ReOrderPath(selectedIndex);
                 this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex++;
             }
@@ -2798,10 +2803,12 @@ namespace ShapeMaker
 
         private void upList_Click(object sender, EventArgs e)
         {
-            if (this.PathListBox.SelectedIndex > 0)
+            int selectedIndex = this.PathListBox.SelectedIndex;
+
+            if (selectedIndex > 0)
             {
                 this.PathListBox.SelectedIndexChanged -= PathListBox_SelectedIndexChanged;
-                ReOrderPath(this.PathListBox.SelectedIndex - 1);
+                ReOrderPath(selectedIndex - 1);
                 this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex--;
             }
@@ -2832,17 +2839,20 @@ namespace ShapeMaker
 
         private void ToggleUpDownButtons()
         {
-            if (this.PathListBox.Items.Count < 2 || this.PathListBox.SelectedIndex == InvalidPath)
+            int selectedIndex = this.PathListBox.SelectedIndex;
+            int itemCount = this.PathListBox.Items.Count;
+
+            if (itemCount < 2 || selectedIndex == InvalidPath)
             {
                 this.upList.Enabled = false;
                 this.DNList.Enabled = false;
             }
-            else if (this.PathListBox.SelectedIndex == 0)
+            else if (selectedIndex == 0)
             {
                 this.upList.Enabled = false;
                 this.DNList.Enabled = true;
             }
-            else if (this.PathListBox.SelectedIndex == this.PathListBox.Items.Count - 1)
+            else if (selectedIndex == itemCount - 1)
             {
                 this.upList.Enabled = true;
                 this.DNList.Enabled = false;
