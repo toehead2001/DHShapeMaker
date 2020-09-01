@@ -554,14 +554,14 @@ namespace ShapeMaker
                 }
             }
 #endif
-
+            int selectedIndex = this.PathListBox.SelectedIndex;
             Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
 
             PointF loopBack = new PointF(-9999, -9999);
             PointF previousEndPoint = new PointF(-9999, -9999);
             bool previousClosed = false;
 
-            bool isNewPath = this.PathListBox.SelectedIndex == InvalidPath;
+            bool isNewPath = selectedIndex == InvalidPath;
 
             PathType pathType = 0;
             bool closedIndividual = false;
@@ -584,7 +584,7 @@ namespace ShapeMaker
                     continue;
                 }
 
-                bool isActive = j == this.PathListBox.SelectedIndex;
+                bool isActive = j == selectedIndex;
 
                 if (isActive)
                 {
@@ -621,7 +621,7 @@ namespace ShapeMaker
                     {
                         partOfOperation = true;
                     }
-                    else if (this.PathListBox.SelectedIndex == InvalidPath)
+                    else if (selectedIndex == InvalidPath)
                     {
                         if (this.canvasPoints.Count > 1)
                         {
@@ -936,7 +936,6 @@ namespace ShapeMaker
 
                 // Terminating Nubs
 
-                int selectedIndex = this.PathListBox.SelectedIndex;
                 int lastPathIndex = this.paths.Count - 1;
 
                 LinkFlags linkFlags = (selectedIndex != InvalidPath) ? this.linkFlagsList[selectedIndex]
