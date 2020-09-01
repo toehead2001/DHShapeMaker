@@ -947,8 +947,8 @@ namespace ShapeMaker
                 PointF[] startTriangle =
                 {
                     new PointF(pts[0].X + 4, pts[0].Y),
-                    new PointF(pts[0].X - 4f, pts[0].Y - 6f),
-                    new PointF(pts[0].X - 4f, pts[0].Y + 5f)
+                    new PointF(pts[0].X - 4f, pts[0].Y - 5f),
+                    new PointF(pts[0].X - 4f, pts[0].Y + 4f)
                 };
 
                 Color pathColor = PathTypeUtil.GetColor(this.PathTypeFromUI);
