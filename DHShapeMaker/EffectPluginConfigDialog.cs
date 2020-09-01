@@ -555,6 +555,7 @@ namespace ShapeMaker
             }
 #endif
             int selectedIndex = this.PathListBox.SelectedIndex;
+            int canvasPointCount = this.canvasPoints.Count;
 
             #region Draw Paths
             Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
@@ -613,9 +614,6 @@ namespace ShapeMaker
                     continue;
                 }
 
-                Color pathColor = PathTypeUtil.GetColor(pathType);
-                Color pathLightColor = PathTypeUtil.GetLightColor(pathType);
-
                 bool partOfOperation = false;
                 if (!this.operationBox.IsEmpty)
                 {
@@ -625,7 +623,7 @@ namespace ShapeMaker
                     }
                     else if (selectedIndex == InvalidPath)
                     {
-                        if (this.canvasPoints.Count > 1)
+                        if (canvasPointCount > 1)
                         {
                             if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
                             {
@@ -654,6 +652,9 @@ namespace ShapeMaker
                 {
                     loopBack = new PointF(pts[0].X, pts[0].Y);
                 }
+
+                Color pathColor = PathTypeUtil.GetColor(pathType);
+                Color pathLightColor = PathTypeUtil.GetLightColor(pathType);
 
                 using (Pen p = new Pen(pathColor))
                 using (Pen activePen = new Pen(pathColor))
@@ -852,14 +853,14 @@ namespace ShapeMaker
             #endregion
 
             #region Draw Nubs
-            if (this.canvasPoints.Count > 0 && !ModifierKeys.HasFlag(Keys.Control))
+            if (canvasPointCount > 0 && !ModifierKeys.HasFlag(Keys.Control))
             {
                 const int width = 6;
                 const int offset = width / 2;
 
                 pathType = this.PathTypeFromUI;
 
-                PointF[] pts = new PointF[this.canvasPoints.Count];
+                PointF[] pts = new PointF[canvasPointCount];
                 for (int i = 0; i < pts.Length; i++)
                 {
                     pts[i].X = this.canvas.ClientSize.Width * this.canvasPoints[i].X;
