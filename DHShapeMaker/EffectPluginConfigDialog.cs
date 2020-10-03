@@ -695,7 +695,6 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-
                                     if (partOfOperation)
                                     {
                                         e.Graphics.DrawLines(operationPen, pts);
@@ -3814,6 +3813,8 @@ namespace ShapeMaker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // ToDo: get rid of this timer
+
             if (!this.Elliptical.Checked)
             {
                 this.MacroCircle.Checked = false;
@@ -3837,8 +3838,9 @@ namespace ShapeMaker
             this.MacroCircle.Enabled = newPath;
             this.MacroRect.Enabled = newPath;
             this.MacroCubic.Enabled = newPath;
-            this.ClosePath.Enabled = !((this.MacroCircle.Checked && this.MacroCircle.Enabled) || (this.MacroRect.Checked && this.MacroRect.Enabled));
-            this.CloseContPaths.Enabled = !((this.MacroCircle.Checked && this.MacroCircle.Enabled) || (this.MacroRect.Checked && this.MacroRect.Enabled));
+            bool enableCloseButtons = !(this.MacroCircle.Checked || this.MacroRect.Checked);
+            this.ClosePath.Enabled = enableCloseButtons;
+            this.CloseContPaths.Enabled = enableCloseButtons;
             this.DeselectBtn.Enabled = (!newPath && this.canvasPoints.Count != 0);
             this.AddBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
             this.DiscardBtn.Enabled = (newPath && this.canvasPoints.Count > 1);
