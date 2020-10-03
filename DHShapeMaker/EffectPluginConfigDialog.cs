@@ -3606,8 +3606,13 @@ namespace ShapeMaker
                 this.MacroCircle.Checked = state;
             }
 
-            this.Arc.Enabled = (this.Elliptical.Checked && !this.MacroCircle.Checked);
-            this.Sweep.Enabled = (this.Elliptical.Checked && !this.MacroCircle.Checked);
+            bool enableArcButtons = (this.Elliptical.Checked && !this.MacroCircle.Checked);
+            this.Arc.Enabled = enableArcButtons;
+            this.Sweep.Enabled = enableArcButtons;
+
+            bool enableCloseButtons = !(this.MacroCircle.Checked || this.MacroRect.Checked);
+            this.ClosePath.Enabled = enableCloseButtons;
+            this.CloseContPaths.Enabled = enableCloseButtons;
 
             this.canvas.Refresh();
         }
