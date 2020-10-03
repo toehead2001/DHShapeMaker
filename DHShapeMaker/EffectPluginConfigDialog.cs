@@ -891,7 +891,9 @@ namespace ShapeMaker
                             if (i == 3)
                             {
                                 PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
-                                if (!this.MacroCircle.Checked || !isNewPath)
+                                bool isMacro = this.MacroCircle.Checked;
+
+                                if (!isMacro || !isNewPath)
                                 {
                                     e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
                                     e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
@@ -901,7 +903,11 @@ namespace ShapeMaker
                                     e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
                                     e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
                                 }
-                                e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
+
+                                if (isMacro || this.CloseTypeFromUI == CloseType.None)
+                                {
+                                    e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
+                                }
                             }
                             break;
                         case PathType.Quadratic:
