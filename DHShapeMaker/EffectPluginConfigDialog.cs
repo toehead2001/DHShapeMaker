@@ -773,7 +773,7 @@ namespace ShapeMaker
                                             using (GraphicsPath gp = new GraphicsPath())
                                             {
                                                 gp.AddArc(pts[0], radiusX, radiusY, angle, !largeArc, !positiveSweep, pts[4]);
-                                                using (Pen p2 = new Pen(Color.LightGray))
+                                                using (Pen p2 = new Pen(Color.Silver))
                                                 {
                                                     p2.DashStyle = DashStyle.Dash;
                                                     e.Graphics.DrawPath(p2, gp);
