@@ -890,7 +890,6 @@ namespace ShapeMaker
                         case PathType.EllipticalArc:
                             if (i == 3)
                             {
-                                PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                 bool isMacro = this.MacroCircle.Checked;
 
                                 if (!isMacro || !isNewPath)
@@ -899,6 +898,7 @@ namespace ShapeMaker
                                     e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
                                     e.Graphics.FillRectangle(Brushes.Black, pts[2].X - offset, pts[2].Y - offset, width, width);
 
+                                    PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                     e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
                                     e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
                                     e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
