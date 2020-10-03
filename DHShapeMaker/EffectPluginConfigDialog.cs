@@ -684,8 +684,13 @@ namespace ShapeMaker
                                             new PointF(pts[i - 1].X, pts[i - 1].Y)
                                         };
 
-                                        e.Graphics.DrawLines(p, rectPts);
+                                        if (partOfOperation)
+                                        {
+                                            e.Graphics.DrawLines(operationPen, rectPts);
+                                        }
+
                                         e.Graphics.DrawLines(activePen, rectPts);
+                                        e.Graphics.DrawLines(p, rectPts);
                                     }
                                 }
                                 else
@@ -712,8 +717,14 @@ namespace ShapeMaker
                                 if (this.MacroCircle.Checked && j == -1 && isNewPath)
                                 {
                                     float far = PointFUtil.Pythag(pts[0], pts[4]);
-                                    e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+
+                                    if (partOfOperation)
+                                    {
+                                        e.Graphics.DrawEllipse(operationPen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                                    }
+
                                     e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                                    e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
                                 }
                                 else
                                 {
