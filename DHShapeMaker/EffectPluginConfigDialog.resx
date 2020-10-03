@@ -2306,13 +2306,13 @@ Double Click to Rename</value>
     <value>StraightLine</value>
   </data>
   <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
     <value>MacroRect</value>
   </data>
   <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
     <value>toolStripSeparator12</value>
@@ -2324,13 +2324,13 @@ Double Click to Rename</value>
     <value>CubicBezier</value>
   </data>
   <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
     <value>MacroCubic</value>
   </data>
   <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
     <value>toolStripSeparator13</value>
@@ -2342,7 +2342,7 @@ Double Click to Rename</value>
     <value>SCubicBezier</value>
   </data>
   <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
     <value>toolStripSeparator14</value>
@@ -2354,7 +2354,7 @@ Double Click to Rename</value>
     <value>QuadBezier</value>
   </data>
   <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
     <value>toolStripSeparator15</value>
@@ -2366,7 +2366,7 @@ Double Click to Rename</value>
     <value>SQuadBezier</value>
   </data>
   <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
     <value>toolStripSeparator16</value>
@@ -2378,25 +2378,25 @@ Double Click to Rename</value>
     <value>Elliptical</value>
   </data>
   <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Arc.Name" xml:space="preserve">
     <value>Arc</value>
   </data>
   <data name="&gt;&gt;Arc.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
     <value>Sweep</value>
   </data>
   <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
     <value>MacroCircle</value>
   </data>
   <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
     <value>toolStripSeparator17</value>
@@ -2408,13 +2408,13 @@ Double Click to Rename</value>
     <value>Snap</value>
   </data>
   <data name="&gt;&gt;Snap.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
     <value>LinkedPaths</value>
   </data>
   <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
     <value>toolStripSeparator8</value>
@@ -2426,13 +2426,13 @@ Double Click to Rename</value>
     <value>ClosePath</value>
   </data>
   <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
     <value>CloseContPaths</value>
   </data>
   <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Undo.Name" xml:space="preserve">
     <value>Undo</value>
