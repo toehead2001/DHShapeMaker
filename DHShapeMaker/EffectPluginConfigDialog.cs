@@ -2814,6 +2814,10 @@ namespace ShapeMaker
                 ReOrderPath(selectedIndex);
                 this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex++;
+
+                this.RebuildLinkFlagsCache();
+                this.PathListBox.Invalidate();
+                this.canvas.Refresh();
             }
         }
 
@@ -2827,6 +2831,10 @@ namespace ShapeMaker
                 ReOrderPath(selectedIndex - 1);
                 this.PathListBox.SelectedIndexChanged += PathListBox_SelectedIndexChanged;
                 this.PathListBox.SelectedIndex--;
+
+                this.RebuildLinkFlagsCache();
+                this.PathListBox.Invalidate();
+                this.canvas.Refresh();
             }
         }
 
@@ -2848,9 +2856,6 @@ namespace ShapeMaker
 
             this.paths[index + 1] = pd1;
             this.PathListBox.Items[index + 1] = LineTxt1;
-
-            this.RebuildLinkFlagsCache();
-            this.PathListBox.Invalidate();
         }
 
         private void ToggleUpDownButtons()
