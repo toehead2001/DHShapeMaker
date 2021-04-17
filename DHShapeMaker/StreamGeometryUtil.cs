@@ -290,7 +290,7 @@ namespace ShapeMaker
 
         internal static string TryGetValidatedStreamGeometry(string streamGeometry)
         {
-            return TryParseStreamGeometry(streamGeometry)?.ToString();
+            return TryParseStreamGeometry(streamGeometry)?.ToString(CultureInfo.InvariantCulture);
         }
 
         internal static StreamGeometry TryParseStreamGeometry(string streamGeometry)
@@ -311,7 +311,7 @@ namespace ShapeMaker
         private static string StreamGeometryFromGeometry(Geometry geometry)
         {
             PathGeometry pathGeometry = PathGeometry.CreateFromGeometry(geometry);
-            return pathGeometry.Figures.ToString();
+            return pathGeometry.Figures.ToString(CultureInfo.InvariantCulture);
         }
 
         internal static string GenerateStreamGeometry(IReadOnlyList<PathData> paths, bool solidFill, float width, float height)
