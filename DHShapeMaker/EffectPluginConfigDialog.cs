@@ -2716,10 +2716,14 @@ namespace ShapeMaker
                 }
                 else
                 {
-                    bool nextIsActive = i + 1 == selectedIndex;
-                    CloseType nextCloseType = nextIsActive ? this.CloseTypeFromUI : this.paths[i + 1].CloseType;
-                    PointF nextFirstPoint = nextIsActive ? this.canvasPoints[0] : this.paths[i + 1].Points[0];
-                    PointF lastPoint = isActive ? this.canvasPoints.Last() : this.paths[i].Points.Last();
+                    //bool nextIsActive = i + 1 == selectedIndex;
+                    //CloseType nextCloseType = nextIsActive ? this.CloseTypeFromUI : this.paths[i + 1].CloseType;
+                    //PointF nextFirstPoint = nextIsActive ? this.canvasPoints[0] : this.paths[i + 1].Points[0];
+                    //PointF lastPoint = isActive ? this.canvasPoints.Last() : this.paths[i].Points.Last();
+
+                    CloseType nextCloseType = this.paths[i + 1].CloseType;
+                    PointF nextFirstPoint = this.paths[i + 1].Points[0];
+                    PointF lastPoint = this.paths[i].Points.Last();
 
                     linkedToNext =
                         nextCloseType != CloseType.Individual &&
