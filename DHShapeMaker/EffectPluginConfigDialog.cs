@@ -2406,7 +2406,7 @@ namespace ShapeMaker
         {
             PathDataCollection collection = null;
 
-            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayListEx), new Type[] { typeof(PData) });
             XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
 
             try
@@ -2420,7 +2420,7 @@ namespace ShapeMaker
                     }
                     else if (pDataSerializer.CanDeserialize(xmlReader))
                     {
-                        IEnumerable<PData> paths = ((ArrayList)pDataSerializer.Deserialize(xmlReader)).OfType<PData>();
+                        IEnumerable<PData> paths = ((ArrayListEx)pDataSerializer.Deserialize(xmlReader)).OfType<PData>();
                         PData last = paths.Last();
 
                         collection = new PathDataCollection(
@@ -3145,11 +3145,11 @@ namespace ShapeMaker
 
                 try
                 {
-                    ArrayList collection = new ArrayList(this.paths.Select(pathData => PData.FromPathData(pathData)).ToArray());
+                    ArrayListEx collection = new ArrayListEx(this.paths.Select(pathData => PData.FromPathData(pathData)).ToArray());
                     (collection[collection.Count - 1] as PData).Meta = this.FigureName.Text;
                     (collection[collection.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
 
-                    XmlSerializer ser = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+                    XmlSerializer ser = new XmlSerializer(typeof(ArrayListEx), new Type[] { typeof(PData) });
 
                     //PathDataCollection collection = new PathDataCollection(this.paths, this.solidFillCheckBox.Checked, this.FigureName.Text);
 
@@ -3906,7 +3906,7 @@ namespace ShapeMaker
             string recents = Settings.RecentProjects;
 
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
-            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(PData) });
+            XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayListEx), new Type[] { typeof(PData) });
             XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
             IEnumerable<string> paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             int count = 1;
@@ -3932,7 +3932,7 @@ namespace ShapeMaker
                         }
                         else if (pDataSerializer.CanDeserialize(xmlReader))
                         {
-                            PData pData = ((ArrayList)pDataSerializer.Deserialize(xmlReader)).OfType<PData>().Last();
+                            PData pData = ((ArrayListEx)pDataSerializer.Deserialize(xmlReader)).OfType<PData>().Last();
                             shapeName = pData.Meta;
                         }
                     }
