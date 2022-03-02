@@ -1,64 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+﻿<root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -117,72 +57,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="canvas.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="newProjectMenuItem.Text" xml:space="preserve">
     <value>&amp;Neues Projekt</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 6</value>
+    <value>183, 6</value>
   </data>
   <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="openProject.Text" xml:space="preserve">
     <value>Projekt &amp;öffnen...</value>
   </data>
   <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="saveProject.Text" xml:space="preserve">
     <value>Projekt &amp;speichern...</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 6</value>
+    <value>183, 6</value>
   </data>
-  <data name="importPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+  <data name="importGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 22</value>
   </data>
-  <data name="importPDNShapeToolStripMenuItem.Text" xml:space="preserve">
-    <value>PDN Form &amp;importieren...</value>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 6</value>
   </data>
-  <data name="exportPDNShapeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
-  </data>
-  <data name="exportPDNShapeToolStripMenuItem.Text" xml:space="preserve">
-    <value>PDN Form exportieren...</value>
+  <data name="exportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 22</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 6</value>
+    <value>183, 6</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Pfadgruppe einfügen</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
+    <value>186, 22</value>
   </data>
   <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Pfadgruppe kopieren</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 6</value>
-  </data>
-  <data name="exportPathGeometryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 22</value>
-  </data>
-  <data name="exportPathGeometryToolStripMenuItem.Text" xml:space="preserve">
-    <value>PathGeometry exportieren...</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 20</value>
@@ -190,50 +115,23 @@
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Datei</value>
   </data>
-  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
-  </data>
   <data name="undoMenuItem.Text" xml:space="preserve">
     <value>&amp;Rückgängig</value>
-  </data>
-  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
   </data>
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>&amp;Wiederholen</value>
   </data>
-  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 6</value>
-  </data>
-  <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
-  </data>
   <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Pfad löschen</value>
-  </data>
-  <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
   </data>
   <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Pfad klonen</value>
   </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 6</value>
-  </data>
-  <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
-  </data>
   <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Schleifenpfad</value>
   </data>
-  <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
-  </data>
   <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Horizontal spiegeln</value>
-  </data>
-  <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
   </data>
   <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Vertikal spiegeln</value>
@@ -271,26 +169,32 @@
   <data name="HelpMenu.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
   </data>
-  <data name="menuStrip1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
+    <value>703, 263</value>
   </data>
   <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 17</value>
+    <value>142, 19</value>
   </data>
   <data name="FitBG.Text" xml:space="preserve">
     <value>Hintergrund ausfüllen</value>
   </data>
   <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>717, 459</value>
+    <value>703, 388</value>
   </data>
   <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 17</value>
+    <value>149, 19</value>
   </data>
   <data name="DrawOnCanvas.Text" xml:space="preserve">
     <value>Auf Leinwand zeichnen</value>
   </data>
   <data name="DrawOnCanvas.ToolTip" xml:space="preserve">
     <value>Vorschau auf Ebene</value>
+  </data>
+  <data name="AddBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>529, 541</value>
+  </data>
+  <data name="AddBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 30</value>
   </data>
   <data name="AddBtn.Text" xml:space="preserve">
     <value>hinzufügen</value>
@@ -325,29 +229,35 @@
   <data name="clonePathButton.ToolTip" xml:space="preserve">
     <value>Pfad klonen</value>
   </data>
-  <data name="viewport.ToolTip" xml:space="preserve">
+  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fillColorPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="drawModeBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 13</value>
+    <value>90, 15</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Name der Form</value>
   </data>
-  <data name="label4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>704, 218</value>
+    <value>690, 216</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 13</value>
+    <value>165, 15</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Deckkraft beim Nachzeichnen</value>
-  </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="statusLabelNubsUsed.Text" xml:space="preserve">
     <value>0/255 Knoten benutzt</value>
@@ -361,12 +271,6 @@
   <data name="statusLabelMousePos.ToolTipText" xml:space="preserve">
     <value>Position Mauszeiger</value>
   </data>
-  <data name="statusStrip1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pathListLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="StraightLine.Text" xml:space="preserve">
     <value>Gerade Linien</value>
   </data>
@@ -378,9 +282,6 @@
   </data>
   <data name="MacroRect.ToolTipText" xml:space="preserve">
     <value>Auto Rechteck (STRG+R)</value>
-  </data>
-  <data name="toolStripBlack.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="CubicBezier.Text" xml:space="preserve">
     <value>Kubische Bezierkurve</value>
@@ -394,17 +295,11 @@
   <data name="MacroCubic.ToolTipText" xml:space="preserve">
     <value>Kubische Splinekurve (STRG+P)</value>
   </data>
-  <data name="toolStripBlue.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="SCubicBezier.Text" xml:space="preserve">
     <value>Kubische Bezierkurve glätten</value>
   </data>
   <data name="SCubicBezier.ToolTipText" xml:space="preserve">
     <value>Kubische Bezierkurve glätten (STRG+UMSCH+B)</value>
-  </data>
-  <data name="toolStripGreen.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="QuadBezier.Text" xml:space="preserve">
     <value>Quadratische Bezierkurve</value>
@@ -412,17 +307,11 @@
   <data name="QuadBezier.ToolTipText" xml:space="preserve">
     <value>Quadratische Bezierkurve (STRG+Q)</value>
   </data>
-  <data name="toolStripYellow.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="SQuadBezier.Text" xml:space="preserve">
     <value>Quadratische Bezierkurve glätten</value>
   </data>
   <data name="SQuadBezier.ToolTipText" xml:space="preserve">
     <value>Quadratische Bezierkurve glätten (STRG+UMSCH+Q)</value>
-  </data>
-  <data name="toolStripPurple.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="Elliptical.Text" xml:space="preserve">
     <value>Elliptischer Bogen</value>
@@ -441,9 +330,6 @@
   </data>
   <data name="MacroCircle.ToolTipText" xml:space="preserve">
     <value>Auto Kreis (STRG+I)</value>
-  </data>
-  <data name="toolStripRed.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="Snap.Text" xml:space="preserve">
     <value>Am Raster ausrichten</value>
@@ -469,9 +355,6 @@
   <data name="CloseContPaths.ToolTipText" xml:space="preserve">
     <value>Angrenzenden Pfad schließen (STRG+UMSCH+2)</value>
   </data>
-  <data name="toolStripOptions.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="Undo.Text" xml:space="preserve">
     <value>Rückgängig </value>
   </data>
@@ -481,61 +364,25 @@
   <data name="Redo.Text" xml:space="preserve">
     <value>Wiederholen (STRG+Y)</value>
   </data>
-  <data name="toolStripUndo.ToolTip" xml:space="preserve">
-    <value />
+  <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>703, 288</value>
   </data>
   <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 17</value>
+    <value>97, 19</value>
   </data>
   <data name="traceLayer.Text" xml:space="preserve">
     <value>Ebene in PDN</value>
   </data>
-  <data name="traceLayer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>703, 313</value>
   </data>
   <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 17</value>
+    <value>110, 19</value>
   </data>
   <data name="traceClipboard.Text" xml:space="preserve">
     <value>Zwischenablage</value>
   </data>
-  <data name="traceClipboard.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="verScrollBar.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="horScrollBar.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="DiscardBtn.Text" xml:space="preserve">
     <value>verwerfen</value>
-  </data>
-  <data name="DiscardBtn.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="newPathLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="fillColorPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="drawModeBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="refreshCanvas.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

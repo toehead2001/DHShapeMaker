@@ -832,7 +832,7 @@ namespace ShapeMaker
         private Color color = Color.Black;
         private int activeIndex = -1;
 
-        private const int colorSize = 12;
+        private int colorSize = 12;
         private const int colorsPerRow = 16;
 
         public event EventHandler ColorClicked;
@@ -861,6 +861,9 @@ namespace ShapeMaker
             {
                 return;
             }
+
+            float dpi = e.Graphics.DpiX / 96f;
+            colorSize = (int)Math.Round(12 * dpi);
 
             for (int i = 0; i < this.Colors.Count; i++)
             {
