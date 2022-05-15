@@ -3512,7 +3512,12 @@ namespace ShapeMaker
 
             try
             {
-                Process.Start(pdfPath);
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = pdfPath,
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
             }
             catch (Exception ex)
             {
