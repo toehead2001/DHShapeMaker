@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace ShapeMaker
 {
@@ -426,7 +427,7 @@ namespace ShapeMaker
             {
                 const string commands = "fmlacsqthvz";
                 const string numbers = "e.-0123456789";
-                string TMP = string.Empty;
+                StringBuilder sb = new StringBuilder();
                 bool alpha = false;
                 bool blank = false;
 
@@ -435,9 +436,9 @@ namespace ShapeMaker
                     bool isNumber = numbers.Contains(mychar);
                     bool isCommand = commands.Contains(mychar);
 
-                    if (TMP.Length == 0)
+                    if (sb.Length == 0)
                     {
-                        TMP += mychar;
+                        sb.Append(mychar);
                         alpha = true;
                         blank = false;
                     }
@@ -448,30 +449,30 @@ namespace ShapeMaker
                     }
                     else if (isCommand && (!alpha || blank))
                     {
-                        TMP += "," + mychar;
+                        sb.Append(',').Append(mychar);
                         alpha = true;
                         blank = false;
                     }
                     else if (isCommand)
                     {
-                        TMP += mychar;
+                        sb.Append(mychar);
                         alpha = true;
                         blank = false;
                     }
                     else if (isNumber && (alpha || blank))
                     {
-                        TMP += "," + mychar;
+                        sb.Append(',').Append(mychar);
                         alpha = false;
                         blank = false;
                     }
                     else if (isNumber)
                     {
-                        TMP += mychar;
+                        sb.Append(mychar);
                         alpha = false;
                         blank = false;
                     }
                 }
-                return TMP;
+                return sb.ToString();
             }
         }
     }
