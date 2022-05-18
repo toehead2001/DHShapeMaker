@@ -33,14 +33,14 @@ namespace ShapeMaker
             "    </GeometryGroup>\r\n" +
             "</ps:SimpleGeometryShape>\r\n";
 
-        internal const string PGBezier = "<BezierSegment Point1=\"~1\" Point2=\"~2\" Point3=\"~3\" />";
+        internal const string PGBezier = "<BezierSegment Point1=\"{0}\" Point2=\"{1}\" Point3=\"{2}\" />";
 
-        internal const string PGEllipse = "<ArcSegment Size=\"~1\" RotationAngle=\"~2\" IsLargeArc=\"~3\" SweepDirection=\"~4\" Point=\"~5\" />";
+        internal const string PGEllipse = "<ArcSegment Size=\"{0}\" RotationAngle=\"{1}\" IsLargeArc=\"{2}\" SweepDirection=\"{3}\" Point=\"{4}\" />";
 
-        internal const string PGLine = "<LineSegment Point=\"~1\" />";
+        internal const string PGLine = "<LineSegment Point=\"{0}\" />";
 
-        internal const string PGMove = "<PathFigure IsClosed=\"~0\" IsFilled=\"True\" StartPoint=\"~1\">";
+        internal const string PGMove = "<PathFigure IsClosed=\"{0}\" IsFilled=\"True\" StartPoint=\"{1}\">";
 
-        internal const string PGQuad = "<QuadraticBezierSegment Point1=\"~1\" Point2=\"~2\" />";
+        internal const string PGQuad = "<QuadraticBezierSegment Point1=\"{0}\" Point2=\"{1}\" />";
     }
 }

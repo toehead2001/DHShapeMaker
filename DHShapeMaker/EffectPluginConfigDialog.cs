@@ -2323,7 +2323,7 @@ namespace ShapeMaker
 
         private string GeneratePathGeometry()
         {
-            return PathGeometryUtil.GeneratePathGeometry(this.paths, CanvasUtil.CanvasSize, CanvasUtil.CanvasSize);
+            return PathGeometryUtil.GeneratePathGeometry(this.paths, this.linkFlagsList, CanvasUtil.CanvasSize, CanvasUtil.CanvasSize);
         }
 
         private string GenerateSvg()
@@ -2890,7 +2890,7 @@ namespace ShapeMaker
         }
 
         [Flags]
-        private enum LinkFlags
+        internal enum LinkFlags
         {
             None = 0,
             Up = 1,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -316,9 +317,14 @@ namespace ShapeMaker
 
         internal static string GenerateStreamGeometry(IReadOnlyList<PathData> paths, bool solidFill, float width, float height)
         {
-            string strPath = solidFill ? "F1 " : string.Empty; // "F0 "
+            StringBuilder sb = new StringBuilder();
             float oldx = 0, oldy = 0;
             bool previousClosed = false;
+
+            if (solidFill)
+            {
+                sb.Append("F1 ");
+            }
 
             for (int index = 0; index < paths.Count; index++)
             {
@@ -342,35 +348,37 @@ namespace ShapeMaker
                 {
                     if (index > 0)
                     {
-                        strPath += " ";
+                        sb.Append(' ');
                     }
 
-                    strPath += "M ";
-                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                    strPath += ",";
-                    strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                    sb.Append("M ")
+                        .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                        .Append(',')
+                        .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
                 }
 
                 switch (pathType)
                 {
                     case PathType.Straight:
-                        strPath += " L ";
+                        sb.Append(" L ");
                         for (int i = 1; i < line.Length; i++)
                         {
                             x = width * line[i].X;
                             y = height * line[i].Y;
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                            strPath += ",";
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
+                            sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                                .Append(',')
+                                .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
                             if (i < line.Length - 1)
                             {
-                                strPath += ",";
+                                sb.Append(',');
                             }
                         }
                         oldx = x; oldy = y;
                         break;
                     case PathType.EllipticalArc:
-                        strPath += " A ";
+                        sb.Append(" A ");
                         PointF[] pts = new PointF[line.Length];
                         for (int i = 0; i < line.Length; i++)
                         {
@@ -384,53 +392,59 @@ namespace ShapeMaker
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
                         float b = (islarge) ? 1 : 0;
                         float s = (revsweep) ? 1 : 0;
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", l);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", h);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", b);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0}", s);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].X);
-                        strPath += ",";
-                        strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].Y);
+
+                        sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", l)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", h)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", a)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0}", b)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0}", s)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].X)
+                            .Append(',')
+                            .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", pts[4].Y);
+
                         oldx = pts[4].X;
                         oldy = pts[4].Y;
                         break;
                     case PathType.Cubic:
-                        strPath += " C ";
+                        sb.Append(" C ");
                         for (int i = 1; i < line.Length; i++)
                         {
                             x = width * line[i].X;
                             y = height * line[i].Y;
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                            strPath += ",";
-                            strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
+                            sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                                .Append(',')
+                                .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
                             if (i < line.Length - 1)
                             {
-                                strPath += ",";
+                                sb.Append(',');
                             }
 
                             oldx = x; oldy = y;
                         }
                         break;
                     case PathType.Quadratic:
-                        strPath += " Q ";
+                        sb.Append(" Q ");
                         for (int i = 1; i < line.Length; i++)
                         {
                             if (CanvasUtil.GetNubType(i) != NubType.ControlPoint2)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
+                                sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                                    .Append(',')
+                                    .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
                                 if (i < line.Length - 1)
                                 {
-                                    strPath += ",";
+                                    sb.Append(',');
                                 }
 
                                 oldx = x; oldy = y;
@@ -438,19 +452,21 @@ namespace ShapeMaker
                         }
                         break;
                     case PathType.SmoothCubic:
-                        strPath += " S ";
+                        sb.Append(" S ");
                         for (int i = 1; i < line.Length; i++)
                         {
                             if (CanvasUtil.GetNubType(i) != NubType.ControlPoint1)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
+                                sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                                    .Append(',')
+                                    .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
                                 if (i < line.Length - 1)
                                 {
-                                    strPath += ",";
+                                    sb.Append(',');
                                 }
 
                                 oldx = x; oldy = y;
@@ -458,19 +474,20 @@ namespace ShapeMaker
                         }
                         break;
                     case PathType.SmoothQuadratic:
-                        strPath += " T ";
+                        sb.Append(" T ");
                         for (int i = 1; i < line.Length; i++)
                         {
                             if (CanvasUtil.GetNubType(i) != NubType.ControlPoint2 && CanvasUtil.GetNubType(i) != NubType.ControlPoint1)
                             {
                                 x = width * line[i].X;
                                 y = height * line[i].Y;
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", x);
-                                strPath += ",";
-                                strPath += string.Format(CultureInfo.InvariantCulture, "{0:0.##}", y);
+                                sb.AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", x)
+                                    .Append(',')
+                                    .AppendFormat(CultureInfo.InvariantCulture, "{0:0.##}", y);
+
                                 if (i < line.Length - 1)
                                 {
-                                    strPath += ",";
+                                    sb.Append(',');
                                 }
 
                                 oldx = x; oldy = y;
@@ -481,7 +498,7 @@ namespace ShapeMaker
 
                 if (currentPath.CloseType != CloseType.None)
                 {
-                    strPath += " Z";
+                    sb.Append(" Z");
                     if (currentPath.CloseType == CloseType.Individual)
                     {
                         oldx += 10;
@@ -496,7 +513,7 @@ namespace ShapeMaker
                 }
             }
 
-            return strPath;
+            return sb.ToString();
         }
     }
 }

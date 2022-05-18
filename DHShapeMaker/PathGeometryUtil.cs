@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
+using System.Text;
 
 namespace ShapeMaker
 {
     internal static class PathGeometryUtil
     {
-        internal static string GeneratePathGeometry(IReadOnlyList<PathData> paths, float width, float height)
+        internal static string GeneratePathGeometry(IReadOnlyList<PathData> paths, IReadOnlyList<EffectPluginConfigDialog.LinkFlags> linkFlags, float width, float height)
         {
-            string strPath = string.Empty;
-            float oldx = 0, oldy = 0;
-            string[] repstr = { "~1", "~2", "~3" };
-            string tmpstr = string.Empty;
+            StringBuilder sb = new StringBuilder();
 
             for (int index = 0; index < paths.Count; index++)
             {
@@ -31,37 +30,44 @@ namespace ShapeMaker
                 x = width * points[0].X;
                 y = height * points[0].Y;
 
+                EffectPluginConfigDialog.LinkFlags pathLinks = linkFlags[index];
+
                 if (index == 0)
                 {
-                    strPath += $"\t\t\t\t{ExportConsts.PGMove}\r\n";
-                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
+                    string isClosed = pathLinks.HasFlag(EffectPluginConfigDialog.LinkFlags.Closed) ? "True" : "False";
+                    string movePoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
+
+                    sb.Append("\t\t\t\t")
+                        .AppendFormat(ExportConsts.PGMove, isClosed, movePoint)
+                        .AppendLine();
                 }
-                else if (currentPath.CloseType == CloseType.Individual || (x != oldx || y != oldy))//mod 091515
+                else if (!pathLinks.HasFlag(EffectPluginConfigDialog.LinkFlags.Up))
                 {
-                    strPath = strPath.Replace("~0", "False");
-                    strPath += "\t\t\t\t</PathFigure>\r\n";
-                    strPath += $"\t\t\t\t{ExportConsts.PGMove}\r\n";
-                    strPath = strPath.Replace("~1", $"{x:0.##},{y:0.##}");
+                    string isClosed = pathLinks.HasFlag(EffectPluginConfigDialog.LinkFlags.Closed) ? "True" : "False";
+                    string movePoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
+
+                    sb.Append("\t\t\t\t</PathFigure>\r\n\t\t\t\t")
+                        .AppendFormat(ExportConsts.PGMove, isClosed, movePoint)
+                        .AppendLine();
                 }
 
                 switch (pathType)
                 {
                     case PathType.Straight:
-                        tmpstr = string.Empty;
                         for (int i = 1; i < points.Length; i++)
                         {
-                            strPath += $"\t\t\t\t\t{ExportConsts.PGLine}\r\n";
                             x = width * points[i].X;
                             y = height * points[i].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
 
-                            strPath = strPath.Replace("~1", tmpstr);
+                            string straightPoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
+
+                            sb.Append("\t\t\t\t\t")
+                                .AppendFormat(ExportConsts.PGLine, straightPoint)
+                                .AppendLine();
                         }
 
-                        oldx = x; oldy = y;
                         break;
                     case PathType.EllipticalArc:
-                        strPath += $"\t\t\t\t\t{ExportConsts.PGEllipse}\r\n";
                         PointF[] pts = new PointF[points.Length];
                         for (int i = 0; i < points.Length; i++)
                         {
@@ -69,74 +75,69 @@ namespace ShapeMaker
                             y = height * points[i].Y;
                             pts[i] = new PointF(x, y);
                         }
+
                         PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                         float l = PointFUtil.Pythag(mid, pts[1]);
                         float h = PointFUtil.Pythag(mid, pts[2]);
                         float a = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
 
-                        tmpstr = $"{l:0.##}";
-                        tmpstr += ",";
-                        tmpstr += $"{h:0.##}";
-                        strPath = strPath.Replace("~1", tmpstr);
-                        strPath = strPath.Replace("~2", $"{a:0.##}");
-                        strPath = strPath.Replace("~3", (islarge) ? "True" : "False");
-                        strPath = strPath.Replace("~4", (revsweep) ? "Clockwise" : "CounterClockwise");
+                        string arcSize = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", l, h);
+                        string arcAngle = string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
+                        string arcPoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", pts[4].X, pts[4].Y);
 
-                        tmpstr = $"{pts[4].X:0.##},{pts[4].Y:0.##}";
-                        strPath = strPath.Replace("~5", tmpstr);
-                        oldx = pts[4].X; oldy = pts[4].Y;
+                        sb.Append("\t\t\t\t\t")
+                            .AppendFormat(
+                                ExportConsts.PGEllipse,
+                                arcSize,
+                                arcAngle,
+                                (islarge) ? "True" : "False",
+                                (revsweep) ? "Clockwise" : "CounterClockwise",
+                                arcPoint)
+                            .AppendLine();
+
                         break;
                     case PathType.SmoothCubic:
                     case PathType.Cubic:
-
                         for (int i = 1; i < points.Length - 1; i += 3)
                         {
-                            strPath += $"\t\t\t\t\t{ExportConsts.PGBezier}\r\n";
+                            string[] cubicPoints = new string[3];
+
                             for (int j = 0; j < 3; j++)
                             {
                                 x = width * points[j + i].X;
                                 y = height * points[j + i].Y;
-                                tmpstr = $"{x:0.##},{y:0.##}";
-                                strPath = strPath.Replace(repstr[j], tmpstr);
+                                cubicPoints[j] = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
                             }
+
+                            sb.Append("\t\t\t\t\t")
+                                .AppendFormat(ExportConsts.PGBezier, cubicPoints)
+                                .AppendLine();
                         }
 
-                        oldx = x; oldy = y;
                         break;
                     case PathType.SmoothQuadratic:
                     case PathType.Quadratic:
-
                         for (int i = 1; i < points.Length - 1; i += 3)
                         {
-                            strPath += $"\t\t\t\t\t{ExportConsts.PGQuad}\r\n";
-
                             x = width * points[i].X;
                             y = height * points[i].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
-                            strPath = strPath.Replace("~1", tmpstr);
+                            string p1 = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
                             x = width * points[i + 2].X;
                             y = height * points[i + 2].Y;
-                            tmpstr = $"{x:0.##},{y:0.##}";
-                            strPath = strPath.Replace("~2", tmpstr);
+                            string p2 = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
+
+                            sb.Append("\t\t\t\t\t")
+                                .AppendFormat(ExportConsts.PGQuad, p1, p2)
+                                .AppendLine();
                         }
 
-                        oldx = x; oldy = y;
                         break;
-                }
-
-                if (currentPath.CloseType != CloseType.None)
-                {
-                    strPath = strPath.Replace("~0", "True");
-                    oldx += 10;
-                    oldy += 10;
                 }
             }
 
-            strPath += "\t\t\t\t</PathFigure>\r\n";
-            strPath = strPath.Replace("~0", "False");
-            strPath += "\r\n";
+            sb.Append("\t\t\t\t</PathFigure>");
 
-            return strPath;
+            return sb.ToString();
         }
     }
 }
