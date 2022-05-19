@@ -23,14 +23,14 @@ namespace ShapeMaker
 
         internal const string PdnPathGeometryFile =
             "<ps:SimpleGeometryShape\r\n" +
-            "        xmlns=\"clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework\"\r\n" +
-            "        xmlns:ps=\"clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework\"\r\n" +
-            "        DisplayName=\"{0}\">\r\n" +
-            "    <GeometryGroup FillRule=\"{1}\">\r\n" +
-            "        <PathGeometry>\r\n" +
+            "\t\txmlns=\"clr-namespace:PaintDotNet.UI.Media;assembly=PaintDotNet.Framework\"\r\n" +
+            "\t\txmlns:ps=\"clr-namespace:PaintDotNet.Shapes;assembly=PaintDotNet.Framework\"\r\n" +
+            "\t\tDisplayName=\"{0}\">\r\n" +
+            "\t<GeometryGroup FillRule=\"{1}\">\r\n" +
+            "\t\t<PathGeometry>\r\n" +
             "{2}\r\n" +
-            "        </PathGeometry>\r\n" +
-            "    </GeometryGroup>\r\n" +
+            "\t\t</PathGeometry>\r\n" +
+            "\t</GeometryGroup>\r\n" +
             "</ps:SimpleGeometryShape>\r\n";
 
         internal const string PGBezier = "<BezierSegment Point1=\"{0}\" Point2=\"{1}\" Point3=\"{2}\" />";

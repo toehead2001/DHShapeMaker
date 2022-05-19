@@ -37,7 +37,7 @@ namespace ShapeMaker
                     string isClosed = pathLinks.HasFlag(EffectPluginConfigDialog.LinkFlags.Closed) ? "True" : "False";
                     string movePoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
 
-                    sb.Append("\t\t\t\t")
+                    sb.Append("\t\t\t")
                         .AppendFormat(ExportConsts.PGMove, isClosed, movePoint)
                         .AppendLine();
                 }
@@ -46,7 +46,7 @@ namespace ShapeMaker
                     string isClosed = pathLinks.HasFlag(EffectPluginConfigDialog.LinkFlags.Closed) ? "True" : "False";
                     string movePoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
 
-                    sb.Append("\t\t\t\t</PathFigure>\r\n\t\t\t\t")
+                    sb.Append("\t\t\t</PathFigure>\r\n\t\t\t")
                         .AppendFormat(ExportConsts.PGMove, isClosed, movePoint)
                         .AppendLine();
                 }
@@ -61,7 +61,7 @@ namespace ShapeMaker
 
                             string straightPoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
 
-                            sb.Append("\t\t\t\t\t")
+                            sb.Append("\t\t\t\t")
                                 .AppendFormat(ExportConsts.PGLine, straightPoint)
                                 .AppendLine();
                         }
@@ -85,7 +85,7 @@ namespace ShapeMaker
                         string arcAngle = string.Format(CultureInfo.InvariantCulture, "{0:0.##}", a);
                         string arcPoint = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", pts[4].X, pts[4].Y);
 
-                        sb.Append("\t\t\t\t\t")
+                        sb.Append("\t\t\t\t")
                             .AppendFormat(
                                 ExportConsts.PGEllipse,
                                 arcSize,
@@ -109,7 +109,7 @@ namespace ShapeMaker
                                 cubicPoints[j] = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
                             }
 
-                            sb.Append("\t\t\t\t\t")
+                            sb.Append("\t\t\t\t")
                                 .AppendFormat(ExportConsts.PGBezier, cubicPoints)
                                 .AppendLine();
                         }
@@ -126,7 +126,7 @@ namespace ShapeMaker
                             y = height * points[i + 2].Y;
                             string p2 = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", x, y);
 
-                            sb.Append("\t\t\t\t\t")
+                            sb.Append("\t\t\t\t")
                                 .AppendFormat(ExportConsts.PGQuad, p1, p2)
                                 .AppendLine();
                         }
@@ -135,7 +135,7 @@ namespace ShapeMaker
                 }
             }
 
-            sb.Append("\t\t\t\t</PathFigure>");
+            sb.Append("\t\t\t</PathFigure>");
 
             return sb.ToString();
         }
