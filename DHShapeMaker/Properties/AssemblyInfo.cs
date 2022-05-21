@@ -29,5 +29,5 @@ using System.Runtime.Versioning;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.7.0.3")]
+[assembly: AssemblyVersion("1.7.0.4")]
 [assembly: SupportedOSPlatform("Windows")]
