@@ -214,29 +214,6 @@ namespace ShapeMaker
             }
         }
 
-#if FASTDEBUG
-        internal static int Clamp(this int value, int min, int max)
-        {
-            if (min > max)
-            {
-                throw new Exception(nameof(min) + "is larger than" + nameof(max));
-            }
-
-            if (value < min)
-            {
-                return min;
-            }
-            else if (value > max)
-            {
-                return max;
-            }
-            else
-            {
-                return value;
-            }
-        }
-#endif
-
         private const double RadPerDeg = Math.PI / 180.0;
         private const double TwoPI = Math.PI * 2.0;
 

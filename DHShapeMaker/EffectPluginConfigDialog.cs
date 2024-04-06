@@ -1483,8 +1483,8 @@ namespace ShapeMaker
 
             if (!this.operationBox.IsEmpty && !this.canvas.ClientRectangle.Contains(this.operationBox))
             {
-                this.operationBox.X = this.operationBox.X.Clamp(0, this.canvas.ClientSize.Width - this.operationBox.Width);
-                this.operationBox.Y = this.operationBox.Y.Clamp(0, this.canvas.ClientSize.Height - this.operationBox.Height);
+                this.operationBox.X = Math.Clamp(this.operationBox.X, 0, this.canvas.ClientSize.Width - this.operationBox.Width);
+                this.operationBox.Y = Math.Clamp(this.operationBox.Y, 0, this.canvas.ClientSize.Height - this.operationBox.Height);
             }
 
             this.canvas.Refresh();
@@ -1972,8 +1972,8 @@ namespace ShapeMaker
 
             if (!this.canvas.ClientRectangle.Contains(opBoxRect))
             {
-                opBoxRect.X = opBoxRect.X.Clamp(0, this.canvas.ClientSize.Width - opBoxRect.Width);
-                opBoxRect.Y = opBoxRect.Y.Clamp(0, this.canvas.ClientSize.Height - opBoxRect.Height);
+                opBoxRect.X = Math.Clamp(opBoxRect.X, 0, this.canvas.ClientSize.Width - opBoxRect.Width);
+                opBoxRect.Y = Math.Clamp(opBoxRect.Y, 0, this.canvas.ClientSize.Height - opBoxRect.Height);
             }
 
             this.operationBox = opBoxRect;
@@ -2957,11 +2957,11 @@ namespace ShapeMaker
             // Clamp the canvas location; we're not overscrolling... yet
             int minX = (this.viewport.ClientSize.Width > newDimension) ? (this.viewport.ClientSize.Width - newDimension) / 2 : this.viewport.ClientSize.Width - newDimension;
             int maxX = (this.viewport.ClientSize.Width > newDimension) ? (this.viewport.ClientSize.Width - newDimension) / 2 : 0;
-            zoomedCanvasPos.X = zoomedCanvasPos.X.Clamp(minX, maxX);
+            zoomedCanvasPos.X = Math.Clamp(zoomedCanvasPos.X, minX, maxX);
 
             int minY = (this.viewport.ClientSize.Height > newDimension) ? (this.viewport.ClientSize.Height - newDimension) / 2 : this.viewport.ClientSize.Height - newDimension;
             int maxY = (this.viewport.ClientSize.Height > newDimension) ? (this.viewport.ClientSize.Height - newDimension) / 2 : 0;
-            zoomedCanvasPos.Y = zoomedCanvasPos.Y.Clamp(minY, maxY);
+            zoomedCanvasPos.Y = Math.Clamp(zoomedCanvasPos.Y, minY, maxY);
 
             // to avoid flicker, the order of execution is important
             if (oldZoomFactor > zoomFactor) // Zooming Out
@@ -3041,7 +3041,7 @@ namespace ShapeMaker
 
             int newZoomIndex = wrapAround
                 ? (((oldZoomIndex + delta) % 4) + 4) % 4
-                : (oldZoomIndex + delta).Clamp(0, 3);
+                : Math.Clamp(oldZoomIndex + delta, 0, 3);
 
             return zoomFactors[newZoomIndex];
         }
