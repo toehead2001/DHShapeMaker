@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PaintDotNet.Effects;
+using PaintDotNet.Imaging;
+using PaintDotNet.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -228,6 +231,26 @@ namespace ShapeMaker
             }
 
             return TwoPI - (ta - tb);
+        }
+
+        /// <inheritdoc cref="PaintDotNet.Effects.EffectDocumentInfoExtensions.GetBitmapBgra32" />
+        internal static unsafe Bitmap CreateAliasedBitmap(this IEffectDocumentInfo document, RectInt32 rect)
+        {
+            using IEffectInputBitmap<ColorBgra32> bitmap = document.GetBitmapBgra32();
+            using IBitmapLock<ColorBgra32> bitmapLock = bitmap.Lock(rect);
+
+            SizeInt32 bitmapSize = bitmapLock.Size;
+            return new Bitmap(bitmapSize.Width, bitmapSize.Height, bitmapLock.BufferStride, System.Drawing.Imaging.PixelFormat.Format32bppArgb, (IntPtr)bitmapLock.Buffer);
+        }
+
+        /// <inheritdoc cref="PaintDotNet.Effects.EffectEnvironmentExtensions.GetSourceBitmapBgra32" />
+        internal static unsafe Bitmap CreateAliasedBitmap(this IEffectEnvironment environment, RectInt32 rect)
+        {
+            using IEffectInputBitmap<ColorBgra32> bitmap = environment.GetSourceBitmapBgra32();
+            using IBitmapLock<ColorBgra32> bitmapLock = bitmap.Lock(rect);
+
+            SizeInt32 bitmapSize = bitmapLock.Size;
+            return new Bitmap(bitmapSize.Width, bitmapSize.Height, bitmapLock.BufferStride, System.Drawing.Imaging.PixelFormat.Format32bppArgb, (IntPtr)bitmapLock.Buffer);
         }
     }
 }

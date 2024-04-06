@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ShapeMaker
 {
-    internal class EffectPluginConfigToken : EffectConfigToken
+    public class EffectPluginConfigToken : EffectConfigToken
     {
         public string GeometryCode { get; set; }
         internal List<PathData> PathData { get; set; }

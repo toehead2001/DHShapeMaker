@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 namespace ShapeMaker
 {
 #if !FASTDEBUG
-    internal partial class EffectPluginConfigDialog : EffectConfigDialog
+    internal partial class EffectPluginConfigDialog : EffectConfigForm<EffectPlugin, EffectPluginConfigToken>
 #else
     internal partial class EffectPluginConfigDialog : Form
 #endif
@@ -147,59 +147,51 @@ namespace ShapeMaker
             };
         }
 
+        protected override bool UseAppThemeColorsDefault => false;
+
 #if !FASTDEBUG
         #region Effect Token functions
-        protected override void InitialInitToken()
+        protected override EffectConfigToken OnCreateInitialToken()
         {
-            this.theEffectToken = new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Zero, ColorBgra.Zero, 0, DrawModes.Stroke);
+            return new EffectPluginConfigToken(this.geometryForPdnCanvas, this.paths, false, 100, true, "Untitled", false, ColorBgra.Zero, ColorBgra.Zero, 0, DrawModes.Stroke);
         }
 
-        protected override void InitTokenFromDialog()
+        protected override void OnUpdateTokenFromDialog(EffectPluginConfigToken dstToken)
         {
-            EffectPluginConfigToken token = (EffectPluginConfigToken)this.EffectToken;
-            token.GeometryCode = this.geometryForPdnCanvas;
-            token.PathData = this.paths;
-            token.Draw = this.DrawOnCanvas.Checked;
-            token.ShapeName = this.FigureName.Text;
-            token.SnapTo = this.Snap.Checked;
-            token.SolidFill = this.solidFillCheckBox.Checked;
-            token.StrokeColor = this.strokeColorPanel.BackColor;
-            token.FillColor = this.fillColorPanel.BackColor;
-            token.StrokeThickness = (float)this.strokeThicknessBox.Value;
+            dstToken.GeometryCode = this.geometryForPdnCanvas;
+            dstToken.PathData = this.paths;
+            dstToken.Draw = this.DrawOnCanvas.Checked;
+            dstToken.ShapeName = this.FigureName.Text;
+            dstToken.SnapTo = this.Snap.Checked;
+            dstToken.SolidFill = this.solidFillCheckBox.Checked;
+            dstToken.StrokeColor = this.strokeColorPanel.BackColor;
+            dstToken.FillColor = this.fillColorPanel.BackColor;
+            dstToken.StrokeThickness = (float)this.strokeThicknessBox.Value;
 
-            switch (this.drawModeBox.SelectedIndex)
+            dstToken.DrawMode = this.drawModeBox.SelectedIndex switch
             {
-                case 0:
-                    token.DrawMode = DrawModes.Stroke;
-                    break;
-                case 1:
-                    token.DrawMode = DrawModes.Fill;
-                    break;
-                case 2:
-                    token.DrawMode = DrawModes.Stroke | DrawModes.Fill;
-                    break;
-                default:
-                    token.DrawMode = DrawModes.Stroke;
-                    break;
-            }
+                0 => DrawModes.Stroke,
+                1 => DrawModes.Fill,
+                2 => DrawModes.Stroke | DrawModes.Fill,
+                _ => DrawModes.Stroke,
+            };
 
             if (this.fitCanvasBox.Checked)
             {
-                token.DrawMode |= DrawModes.Fit;
+                dstToken.DrawMode |= DrawModes.Fit;
             }
         }
 
-        protected override void InitDialogFromToken(EffectConfigToken effectTokenCopy)
+        protected override void OnUpdateDialogFromToken(EffectPluginConfigToken token)
         {
-            EffectPluginConfigToken token = (EffectPluginConfigToken)effectTokenCopy;
             this.DrawOnCanvas.Checked = token.Draw;
             this.FigureName.Text = token.ShapeName;
             this.Snap.Checked = token.SnapTo;
             this.solidFillCheckBox.Checked = token.SolidFill;
-            this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.EnvironmentParameters.PrimaryColor : token.StrokeColor;
-            this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.EnvironmentParameters.SecondaryColor : token.FillColor;
+            this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.Environment.PrimaryColor : token.StrokeColor;
+            this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.Environment.SecondaryColor : token.FillColor;
             this.strokeThicknessBox.Value = Math.Clamp(
-                (token.StrokeThickness == 0) ? (decimal)this.EnvironmentParameters.BrushWidth : (decimal)token.StrokeThickness,
+                (token.StrokeThickness == 0) ? (decimal)this.Environment.BrushSize : (decimal)token.StrokeThickness,
                 this.strokeThicknessBox.Minimum,
                 this.strokeThicknessBox.Maximum);
 
@@ -528,7 +520,7 @@ namespace ShapeMaker
 #if !FASTDEBUG
             if (this.drawClippingArea)
             {
-                Size selSize = this.EnvironmentParameters.SelectionBounds.Size;
+                Size selSize = this.Environment.Selection.RenderBounds.Size;
                 if (selSize.Width != selSize.Height)
                 {
                     Rectangle canvasRect = this.canvas.ClientRectangle;
@@ -3700,8 +3692,8 @@ namespace ShapeMaker
 #if !FASTDEBUG
             if (this.traceLayer.Checked)
             {
-                Rectangle selection = this.EnvironmentParameters.SelectionBounds;
-                this.canvas.BackgroundImage = this.EnvironmentParameters.SourceSurface.CreateAliasedBitmap(selection);
+                Rectangle selection = this.Environment.Selection.RenderBounds;
+                this.canvas.BackgroundImage = this.Environment.CreateAliasedBitmap(selection);
             }
             else
             {
@@ -4097,7 +4089,7 @@ namespace ShapeMaker
                 GenerateStreamGeometry() :
                 null;
 
-            FinishTokenUpdate();
+            UpdateTokenFromDialog();
 #endif
         }
         #endregion
