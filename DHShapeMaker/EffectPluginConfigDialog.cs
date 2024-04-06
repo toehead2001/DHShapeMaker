@@ -198,7 +198,10 @@ namespace ShapeMaker
             this.solidFillCheckBox.Checked = token.SolidFill;
             this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.EnvironmentParameters.PrimaryColor : token.StrokeColor;
             this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.EnvironmentParameters.SecondaryColor : token.FillColor;
-            this.strokeThicknessBox.Value = (token.StrokeThickness == 0) ? (decimal)this.EnvironmentParameters.BrushWidth : (decimal)token.StrokeThickness;
+            this.strokeThicknessBox.Value = Math.Clamp(
+                (token.StrokeThickness == 0) ? (decimal)this.EnvironmentParameters.BrushWidth : (decimal)token.StrokeThickness,
+                this.strokeThicknessBox.Minimum,
+                this.strokeThicknessBox.Maximum);
 
             DrawModes drawMode = token.DrawMode;
             if (drawMode.HasFlag(DrawModes.Stroke) &&
