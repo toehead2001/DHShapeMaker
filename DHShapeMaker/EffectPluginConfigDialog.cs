@@ -3695,7 +3695,12 @@ namespace ShapeMaker
                 Rectangle selection = this.Environment.Selection.RenderBounds;
                 this.canvas.BackgroundImage = this.Environment.CreateAliasedBitmap(selection);
             }
-            else
+            else if (this.traceImage.Checked)
+            {
+                Rectangle selection = this.Environment.Selection.RenderBounds;
+                this.canvas.BackgroundImage = this.Environment.Document.CreateAliasedBitmap(selection);
+            }
+            else if (this.traceClipboard.Checked)
             {
                 using (Surface surface = this.Services.GetService<IClipboardService>().TryGetSurface())
                 {

@@ -142,6 +142,7 @@
             this.horScrollBar = new System.Windows.Forms.HScrollBar();
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
+            this.traceImage = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)this.canvas).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.opacitySlider).BeginInit();
@@ -988,10 +989,18 @@
             resources.ApplyResources(this.newPathLabel, "newPathLabel");
             this.newPathLabel.Name = "newPathLabel";
             // 
+            // traceImage
+            // 
+            resources.ApplyResources(this.traceImage, "traceImage");
+            this.traceImage.Name = "traceImage";
+            this.traceImage.UseVisualStyleBackColor = true;
+            this.traceImage.CheckedChanged += traceSource_CheckedChanged;
+            // 
             // EffectPluginConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.traceImage);
             this.Controls.Add(this.fitCanvasBox);
             this.Controls.Add(this.drawModeBox);
             this.Controls.Add(this.strokeThicknessBox);
@@ -1179,5 +1188,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exportSvgMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.RadioButton traceImage;
     }
 }
