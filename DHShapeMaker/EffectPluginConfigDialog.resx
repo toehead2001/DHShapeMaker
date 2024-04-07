@@ -1,4 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -57,2191 +117,534 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;upList.Name" xml:space="preserve">
-    <value>upList</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlack.ZOrder" xml:space="preserve">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;DNList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlue.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
-    <value>StraightLine</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="removePathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Del</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>734, 541</value>
-  </data>
-  <data name="&gt;&gt;splitButtonZoom.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripPurple.Name" xml:space="preserve">
-    <value>toolStripPurple</value>
-  </data>
-  <data name="Snap.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="newPathLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 15</value>
-  </data>
-  <data name="CubicBezier.Text" xml:space="preserve">
-    <value>Cubic Bezier</value>
-  </data>
-  <data name="&gt;&gt;DiscardBtn.Name" xml:space="preserve">
-    <value>DiscardBtn</value>
-  </data>
-  <data name="xToolStripMenuZoom5x.Text" xml:space="preserve">
-    <value>5x</value>
-  </data>
-  <data name="&gt;&gt;toolStripPurple.ZOrder" xml:space="preserve">
-    <value>33</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="xToolStripMenuZoom1x.Text" xml:space="preserve">
-    <value>1x</value>
-  </data>
-  <data name="pathListLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>586, 72</value>
-  </data>
-  <data name="traceClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="SCubicBezier.Text" xml:space="preserve">
-    <value>Smooth Cubic Bezier</value>
-  </data>
-  <data name="&gt;&gt;opBoxMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="xToolStripMenuZoom5x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 22</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="toolStripOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="PathListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="removePathButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="Elliptical.ToolTipText" xml:space="preserve">
-    <value>Elliptical Arc (Ctrl+E)</value>
-  </data>
-  <data name="&gt;&gt;keyboardShortcutsToolStripMenuItem.Name" xml:space="preserve">
-    <value>keyboardShortcutsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;verScrollBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.VScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom2x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom2x</value>
-  </data>
-  <data name="&gt;&gt;DiscardBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="drawModeBox.Items" xml:space="preserve">
-    <value>Outline</value>
-  </data>
-  <data name="splitButtonZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
-  </data>
-  <data name="AddBtn.ToolTip" xml:space="preserve">
-    <value>Add Path (Enter)</value>
-  </data>
-  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
-    <value>timer1</value>
-  </data>
-  <data name="toolStripBlack.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="statusLabelNubPos.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 17</value>
-  </data>
-  <data name="toolStripBlack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 39</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>PaintDotNet.Effects.EffectConfigDialog, PaintDotNet.Effects, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;newPathLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removePathToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
-    <value>Fill Mode</value>
+  <data name="canvas.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
   </data>
   <data name="canvas.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="verScrollBar.Visible" type="System.Boolean, mscorlib">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="canvas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="canvas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>500, 500</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="canvas.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;canvas.Name" xml:space="preserve">
+    <value>canvas</value>
+  </data>
+  <data name="&gt;&gt;canvas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;canvas.Parent" xml:space="preserve">
+    <value>viewport</value>
+  </data>
+  <data name="&gt;&gt;canvas.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1054, 17</value>
+  </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1141, 17</value>
+  </metadata>
+  <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="newProjectMenuItem.Text" xml:space="preserve">
+    <value>&amp;New Project</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="openProject.Text" xml:space="preserve">
+    <value>&amp;Open Project...</value>
+  </data>
+  <data name="toolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;toolStripBlue.Name" xml:space="preserve">
-    <value>toolStripBlue</value>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
   </data>
-  <data name="&gt;&gt;toolStripPurple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>No Recent Projects</value>
   </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+  <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="openRecentProject.Text" xml:space="preserve">
+    <value>Open &amp;Recent Project</value>
+  </data>
+  <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="saveProject.Text" xml:space="preserve">
+    <value>&amp;Save Project...</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="importGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="importGeometryMenuItem.Text" xml:space="preserve">
+    <value>&amp;Import Geometry...</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 22</value>
+  </data>
+  <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
+    <value>PDN Shape (&amp;StreamGeometry)...</value>
+  </data>
+  <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 22</value>
+  </data>
+  <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
+    <value>PDN Shape (&amp;PathGeometry)...</value>
+  </data>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 6</value>
+  </data>
+  <data name="exportSvgMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 22</value>
+  </data>
+  <data name="exportSvgMenuItem.Text" xml:space="preserve">
+    <value>SVG...</value>
+  </data>
+  <data name="exportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="exportMenuItem.Text" xml:space="preserve">
+    <value>&amp;Export</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Paste StreamGeometry</value>
+  </data>
+  <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Copy StreamGeometry</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="undoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="undoMenuItem.Text" xml:space="preserve">
+    <value>&amp;Undo</value>
+  </data>
+  <data name="redoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Y</value>
+  </data>
+  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="redoMenuItem.Text" xml:space="preserve">
+    <value>&amp;Redo</value>
+  </data>
+  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 6</value>
+  </data>
+  <data name="removePathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Del</value>
+  </data>
+  <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Delete Path</value>
+  </data>
+  <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Clone Path</value>
+  </data>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 6</value>
+  </data>
+  <data name="loopPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+1</value>
+  </data>
+  <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Loop Path</value>
+  </data>
+  <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
+    <value>Flip &amp;Horizontal</value>
+  </data>
+  <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
+    <value>Flip &amp;Vertical</value>
+  </data>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 6</value>
+  </data>
+  <data name="opBoxMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+M</value>
+  </data>
+  <data name="opBoxMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="opBoxMenuItem.Text" xml:space="preserve">
+    <value>Operations Box</value>
+  </data>
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 6</value>
+  </data>
+  <data name="autoScaleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="autoScaleMenuItem.Text" xml:space="preserve">
+    <value>Auto Scale Shape</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 20</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="usersManualToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="usersManualToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;User's Manual</value>
+  </data>
+  <data name="QuickStartStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="QuickStartStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Quick Start Guide</value>
+  </data>
+  <data name="keyboardShortcutsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="keyboardShortcutsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Keyboard Shortcuts</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;About ShapeMaker</value>
+  </data>
+  <data name="HelpMenu.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="HelpMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="HelpMenu.Text" xml:space="preserve">
+    <value>&amp;Help</value>
+  </data>
+  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 24</value>
+  </data>
+  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="menuStrip1.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;toolStripBlack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
+    <value>26</value>
   </data>
-  <data name="toolStripBlack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;strokeThicknessBox.Name" xml:space="preserve">
-    <value>strokeThicknessBox</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
-    <value>Elliptical</value>
-  </data>
-  <data name="statusLabelPathsUsed.Text" xml:space="preserve">
-    <value>0/100 Paths used</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="strokeThicknessBox.ToolTip" xml:space="preserve">
-    <value>Outline Width</value>
-  </data>
-  <data name="fitCanvasBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1256, 17</value>
+  </metadata>
+  <data name="FitBG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="&gt;&gt;DNList.Name" xml:space="preserve">
-    <value>DNList</value>
+  <data name="FitBG.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;undoMenuItem.Name" xml:space="preserve">
-    <value>undoMenuItem</value>
+  <data name="FitBG.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="newPathLabel.Text" xml:space="preserve">
-    <value>New Path</value>
+  <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 263</value>
   </data>
-  <data name="toolStripBlue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 39</value>
+  <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 19</value>
+  </data>
+  <data name="FitBG.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="FitBG.Text" xml:space="preserve">
+    <value>Fit Background</value>
+  </data>
+  <data name="FitBG.ToolTip" xml:space="preserve">
+    <value>Scale Background Image</value>
+  </data>
+  <data name="&gt;&gt;FitBG.Name" xml:space="preserve">
+    <value>FitBG</value>
+  </data>
+  <data name="&gt;&gt;FitBG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FitBG.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;FitBG.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="DrawOnCanvas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="DrawOnCanvas.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DrawOnCanvas.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 388</value>
+  </data>
+  <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 19</value>
+  </data>
+  <data name="DrawOnCanvas.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="DrawOnCanvas.Text" xml:space="preserve">
+    <value>Draw on Canvas</value>
+  </data>
+  <data name="DrawOnCanvas.ToolTip" xml:space="preserve">
+    <value>Preview on Layer</value>
+  </data>
+  <data name="&gt;&gt;DrawOnCanvas.Name" xml:space="preserve">
+    <value>DrawOnCanvas</value>
+  </data>
+  <data name="&gt;&gt;DrawOnCanvas.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrawOnCanvas.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DrawOnCanvas.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="AddBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="AddBtn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="AddBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AddBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>541, 541</value>
+  </data>
+  <data name="AddBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 30</value>
+  </data>
+  <data name="AddBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="AddBtn.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddBtn.ToolTip" xml:space="preserve">
+    <value>Add Path (Enter)</value>
+  </data>
+  <data name="&gt;&gt;AddBtn.Name" xml:space="preserve">
+    <value>AddBtn</value>
+  </data>
+  <data name="&gt;&gt;AddBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;AddBtn.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="FigureName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="FigureName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 90</value>
+  </data>
+  <data name="FigureName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="FigureName.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="FigureName.Text" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="FigureName.ToolTip" xml:space="preserve">
+    <value>Enter Shape Name</value>
+  </data>
+  <data name="&gt;&gt;FigureName.Name" xml:space="preserve">
+    <value>FigureName</value>
+  </data>
+  <data name="&gt;&gt;FigureName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FigureName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;FigureName.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="DeselectBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="DeselectBtn.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DeselectBtn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="DeselectBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DeselectBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>541, 460</value>
+  </data>
+  <data name="DeselectBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 30</value>
+  </data>
+  <data name="DeselectBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="DeselectBtn.Text" xml:space="preserve">
+    <value>Deselect</value>
+  </data>
+  <data name="DeselectBtn.ToolTip" xml:space="preserve">
+    <value>Deselect (Esc)</value>
+  </data>
+  <data name="&gt;&gt;DeselectBtn.Name" xml:space="preserve">
+    <value>DeselectBtn</value>
+  </data>
+  <data name="&gt;&gt;DeselectBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeselectBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DeselectBtn.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="buttonOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonOK.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>734, 541</value>
+  </data>
+  <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 30</value>
+  </data>
+  <data name="buttonOK.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="buttonOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="buttonOK.ToolTip" xml:space="preserve">
+    <value>Return to PDN</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="PathListBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="PathListBox.ItemHeight" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="PathListBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>541, 90</value>
+  </data>
+  <data name="PathListBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 326</value>
+  </data>
+  <data name="PathListBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="PathListBox.ToolTip" xml:space="preserve">
     <value>Select Shapes
 Double Click to Rename</value>
   </data>
-  <data name="&gt;&gt;PathListBox.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveProject.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="opBoxMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="&gt;&gt;flipVerticalToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SCubicBezier.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="toolStripBlue.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="StraightLine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;DeselectBtn.Name" xml:space="preserve">
-    <value>DeselectBtn</value>
-  </data>
-  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;pathListLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
-    <value>Primary Color</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Image Tracing Opacity</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="buttonOK.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="toolStripYellow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 39</value>
-  </data>
-  <data name="Redo.Text" xml:space="preserve">
-    <value>Redo (Ctrl+Y)</value>
-  </data>
-  <data name="drawModeBox.Items2" xml:space="preserve">
-    <value>Outline &amp; Fill</value>
-  </data>
-  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 592</value>
-  </data>
-  <data name="toolStripOptions.Text" xml:space="preserve">
-    <value>toolStrip7</value>
-  </data>
-  <data name="statusLabelNubsUsed.Text" xml:space="preserve">
-    <value>0/255 Nubs used</value>
-  </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 6</value>
-  </data>
-  <data name="toolStripUndo.Text" xml:space="preserve">
-    <value>toolStrip8</value>
-  </data>
-  <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 313</value>
-  </data>
-  <data name="&gt;&gt;removePathButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="horScrollBar.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;viewport.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;traceClipboard.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="pdnPathGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 22</value>
-  </data>
-  <data name="toolStripYellow.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="viewport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 70</value>
-  </data>
-  <data name="pasteStreamGeomentyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="opacitySlider.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;viewport.Name" xml:space="preserve">
-    <value>viewport</value>
-  </data>
-  <data name="MacroCircle.ToolTipText" xml:space="preserve">
-    <value>Auto Circle (Ctrl+I)</value>
-  </data>
-  <data name="opacitySlider.Location" type="System.Drawing.Point, System.Drawing">
-    <value>703, 234</value>
-  </data>
-  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="pathListLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ClosePath.Text" xml:space="preserve">
-    <value>Close Individual Path</value>
-  </data>
-  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;importGeometryMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AddBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="usersManualToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomCenter</value>
-  </data>
-  <data name="Undo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="FitBG.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="keyboardShortcutsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="removePathButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="toolStripRed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 24</value>
-  </data>
-  <data name="toolStripPurple.Text" xml:space="preserve">
-    <value>toolStrip5</value>
-  </data>
-  <data name="&gt;&gt;toolStripRed.ZOrder" xml:space="preserve">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Name" xml:space="preserve">
-    <value>fitCanvasBox</value>
-  </data>
-  <data name="toolStripPurple.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="HelpMenu.ShowShortcutKeys" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="redoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Y</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
-    <value>buttonOK</value>
-  </data>
-  <data name="MacroCircle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="opBoxMenuItem.Text" xml:space="preserve">
-    <value>Operations Box</value>
-  </data>
-  <data name="&gt;&gt;traceClipboard.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="DrawOnCanvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 388</value>
-  </data>
-  <data name="FitBG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 19</value>
-  </data>
-  <data name="traceClipboard.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="AddBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;canvas.Parent" xml:space="preserve">
-    <value>viewport</value>
-  </data>
-  <data name="FigureName.ToolTip" xml:space="preserve">
-    <value>Enter Shape Name</value>
-  </data>
-  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="statusLabelPathsUsed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;editToolStripMenuItem.Name" xml:space="preserve">
-    <value>editToolStripMenuItem</value>
-  </data>
-  <data name="QuickStartStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Quick Start Guide</value>
-  </data>
-  <data name="MacroCircle.Text" xml:space="preserve">
-    <value>Auto Circle</value>
-  </data>
-  <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 17</value>
-  </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
-    <value>No Recent Projects</value>
-  </data>
-  <data name="&gt;&gt;statusLabelNubPos.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;FigureName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="PathListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="openRecentProject.Text" xml:space="preserve">
-    <value>Open &amp;Recent Project</value>
-  </data>
-  <data name="exportSvgMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 22</value>
-  </data>
-  <data name="&gt;&gt;statusLabelNubsUsed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DeselectBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fillColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;HelpMenu.Name" xml:space="preserve">
-    <value>HelpMenu</value>
-  </data>
-  <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 119</value>
-  </data>
   <data name="&gt;&gt;PathListBox.Name" xml:space="preserve">
     <value>PathListBox</value>
-  </data>
-  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="newPathLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="clonePathToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Clone Path</value>
-  </data>
-  <data name="buttonOK.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HelpMenu.Text" xml:space="preserve">
-    <value>&amp;Help</value>
-  </data>
-  <data name="ClosePath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;AddBtn.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;toolStripOptions.Name" xml:space="preserve">
-    <value>toolStripOptions</value>
-  </data>
-  <data name="clonePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="clonePathButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="Redo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;toolStripUndo.ZOrder" xml:space="preserve">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom5x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom5x</value>
-  </data>
-  <data name="DiscardBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>617, 542</value>
-  </data>
-  <data name="&gt;&gt;pasteStreamGeomentyToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="importGeometryMenuItem.Text" xml:space="preserve">
-    <value>&amp;Import Geometry...</value>
-  </data>
-  <data name="&gt;&gt;opacitySlider.Name" xml:space="preserve">
-    <value>opacitySlider</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
-    <value>toolStripSeparator15</value>
-  </data>
-  <data name="opacitySlider.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="DiscardBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 30</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;pathListLabel.Name" xml:space="preserve">
-    <value>pathListLabel</value>
-  </data>
-  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
-    <value>CubicBezier</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="removePathButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="loopPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="traceLayer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="DNList.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="FigureName.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="pasteStreamGeomentyToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Paste StreamGeometry</value>
-  </data>
-  <data name="&gt;&gt;DeselectBtn.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;upList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DiscardBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="Elliptical.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="flipVerticalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="PathListBox.ItemHeight" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="opacitySlider.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="DeselectBtn.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;AddBtn.Name" xml:space="preserve">
-    <value>AddBtn</value>
-  </data>
-  <data name="toolStripRed.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="FitBG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 263</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;QuickStartStripMenuItem.Name" xml:space="preserve">
-    <value>QuickStartStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="Elliptical.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="traceClipboard.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripRed.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ClosePath.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+2</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 20</value>
-  </data>
-  <data name="&gt;&gt;viewport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripGreen.ZOrder" xml:space="preserve">
-    <value>35</value>
-  </data>
-  <data name="&gt;&gt;openProject.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="opBoxMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+M</value>
-  </data>
-  <data name="horScrollBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>502, 17</value>
-  </data>
-  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="&gt;&gt;FitBG.ZOrder" xml:space="preserve">
-    <value>29</value>
-  </data>
-  <data name="toolStripUndo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="HelpMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="MacroRect.Text" xml:space="preserve">
-    <value>Auto Rectangle</value>
-  </data>
-  <data name="&gt;&gt;DeselectBtn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="statusLabelMousePos.ToolTipText" xml:space="preserve">
-    <value>Cursor Location</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="keyboardShortcutsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Keyboard Shortcuts</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
-    <value>LinkedPaths</value>
-  </data>
-  <data name="CloseContPaths.ToolTipText" xml:space="preserve">
-    <value>Close Contiguous Path (Ctrl+Shift+2)</value>
-  </data>
-  <data name="pdnStreamGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 22</value>
-  </data>
-  <data name="&gt;&gt;clonePathButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="xToolStripMenuZoom1x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 22</value>
-  </data>
-  <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
-    <value>fileToolStripMenuItem</value>
-  </data>
-  <data name="StraightLine.ToolTipText" xml:space="preserve">
-    <value>Straight Lines (Ctrl+L)</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
-  </data>
-  <data name="MacroCubic.Text" xml:space="preserve">
-    <value>Cubic Spline</value>
-  </data>
-  <data name="&gt;&gt;QuickStartStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DiscardBtn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="drawModeBox.ToolTip" xml:space="preserve">
-    <value>Draw Mode</value>
-  </data>
-  <data name="toolStripYellow.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="CubicBezier.ToolTipText" xml:space="preserve">
-    <value>Cubic Bezier (Ctrl+B)</value>
-  </data>
-  <data name="&gt;&gt;opacitySlider.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="strokeColorPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 22</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;DrawOnCanvas.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traceLayer.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Arc.Text" xml:space="preserve">
-    <value>Large/Small Arc Selector</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;exportSvgMenuItem.Name" xml:space="preserve">
-    <value>exportSvgMenuItem</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="&gt;&gt;removePathButton.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="usersManualToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;User's Manual</value>
-  </data>
-  <data name="&gt;&gt;strokeThicknessBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;clonePathButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="DiscardBtn.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="DrawOnCanvas.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 19</value>
-  </data>
-  <data name="CloseContPaths.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+2</value>
-  </data>
-  <data name="DiscardBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="StraightLine.Text" xml:space="preserve">
-    <value>Straight Lines</value>
-  </data>
-  <data name="&gt;&gt;pathListLabel.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="clonePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="&gt;&gt;pasteStreamGeomentyToolStripMenuItem.Name" xml:space="preserve">
-    <value>pasteStreamGeomentyToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;opacitySlider.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="drawModeBox.Items1" xml:space="preserve">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;traceLayer.Name" xml:space="preserve">
-    <value>traceLayer</value>
-  </data>
-  <data name="&gt;&gt;toolStripOptions.ZOrder" xml:space="preserve">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;traceLayer.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="statusLabelNubsUsed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="Sweep.ToolTipText" xml:space="preserve">
-    <value>Sweep Direction</value>
-  </data>
-  <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="&gt;&gt;openRecentProject.Name" xml:space="preserve">
-    <value>openRecentProject</value>
-  </data>
-  <data name="&gt;&gt;clonePathToolStripMenuItem.Name" xml:space="preserve">
-    <value>clonePathToolStripMenuItem</value>
-  </data>
-  <data name="saveProject.Text" xml:space="preserve">
-    <value>&amp;Save Project...</value>
-  </data>
-  <data name="toolStripUndo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="horScrollBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 572</value>
-  </data>
-  <data name="statusStrip1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;statusLabelMousePos.Name" xml:space="preserve">
-    <value>statusLabelMousePos</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;strokeThicknessBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
-    <value>MacroCircle</value>
-  </data>
-  <data name="&gt;&gt;FigureName.Name" xml:space="preserve">
-    <value>FigureName</value>
-  </data>
-  <data name="SQuadBezier.ToolTipText" xml:space="preserve">
-    <value>Smooth Quad Bezier (Ctrl+Shift+Q)</value>
-  </data>
-  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="statusLabelMousePos.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="strokeThicknessBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>771, 413</value>
-  </data>
-  <data name="&gt;&gt;newProjectMenuItem.Name" xml:space="preserve">
-    <value>newProjectMenuItem</value>
-  </data>
-  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
-    <value>Sweep</value>
-  </data>
-  <data name="Undo.ToolTipText" xml:space="preserve">
-    <value>Undo (Ctrl+Z)</value>
-  </data>
-  <data name="&gt;&gt;traceClipboard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 288</value>
-  </data>
-  <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="pathListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="newProjectMenuItem.Text" xml:space="preserve">
-    <value>&amp;New Project</value>
-  </data>
-  <data name="CubicBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+B</value>
-  </data>
-  <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="upList.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;FigureName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
-    <value>toolStripSeparator7</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="FitBG.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;clonePathButton.Name" xml:space="preserve">
-    <value>clonePathButton</value>
-  </data>
-  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
-    <value>QuadBezier</value>
-  </data>
-  <data name="Snap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="AddBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;traceClipboard.Name" xml:space="preserve">
-    <value>traceClipboard</value>
-  </data>
-  <data name="toolStripRed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 39</value>
-  </data>
-  <data name="&gt;&gt;horScrollBar.Name" xml:space="preserve">
-    <value>horScrollBar</value>
-  </data>
-  <data name="FigureName.Text" xml:space="preserve">
-    <value>Untitled</value>
-  </data>
-  <data name="QuadBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Q</value>
-  </data>
-  <data name="Undo.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="DrawOnCanvas.ToolTip" xml:space="preserve">
-    <value>Preview on Layer</value>
-  </data>
-  <data name="newPathLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 6</value>
-  </data>
-  <data name="&gt;&gt;horScrollBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="toolStripRed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="upList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="loopPathToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Loop Path</value>
-  </data>
-  <data name="&gt;&gt;saveProject.Name" xml:space="preserve">
-    <value>saveProject</value>
-  </data>
-  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 6</value>
-  </data>
-  <data name="DNList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>714, 216</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="verScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="toolStripBlue.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;verScrollBar.Name" xml:space="preserve">
-    <value>verScrollBar</value>
-  </data>
-  <data name="DrawOnCanvas.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlue.ZOrder" xml:space="preserve">
-    <value>36</value>
-  </data>
-  <data name="redoMenuItem.Text" xml:space="preserve">
-    <value>&amp;Redo</value>
-  </data>
-  <data name="&gt;&gt;pathListLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;HelpMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pathListLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="DeselectBtn.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripYellow.Text" xml:space="preserve">
-    <value>toolStrip4</value>
-  </data>
-  <data name="strokeThicknessBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 23</value>
-  </data>
-  <data name="toolStripPurple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>356, 24</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Name" xml:space="preserve">
-    <value>fillColorPanel</value>
-  </data>
-  <data name="drawModeBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="SCubicBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+B</value>
-  </data>
-  <data name="&gt;&gt;statusLabelPathsUsed.Name" xml:space="preserve">
-    <value>statusLabelPathsUsed</value>
-  </data>
-  <data name="copyPathStreamToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Copy StreamGeometry</value>
-  </data>
-  <data name="viewport.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Name" xml:space="preserve">
-    <value>strokeColorPanel</value>
-  </data>
-  <data name="DrawOnCanvas.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;toolStripRed.Name" xml:space="preserve">
-    <value>toolStripRed</value>
-  </data>
-  <data name="fitCanvasBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 470</value>
-  </data>
-  <data name="&gt;&gt;removePathToolStripMenuItem.Name" xml:space="preserve">
-    <value>removePathToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;traceLayer.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="clonePathButton.ToolTip" xml:space="preserve">
-    <value>Clone Path</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="removePathToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Delete Path</value>
-  </data>
-  <data name="&gt;&gt;exportMenuItem.Name" xml:space="preserve">
-    <value>exportMenuItem</value>
-  </data>
-  <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="loopPathToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+1</value>
-  </data>
-  <data name="&gt;&gt;undoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 15</value>
-  </data>
-  <data name="strokeColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="StraightLine.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="Snap.Text" xml:space="preserve">
-    <value>Snap to Grid</value>
-  </data>
-  <data name="&gt;&gt;AddBtn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="strokeColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 413</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
-    <value>toolStripSeparator5</value>
-  </data>
-  <data name="&gt;&gt;FitBG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripYellow.Name" xml:space="preserve">
-    <value>toolStripYellow</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 15</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
-    <value>CloseContPaths</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="LinkedPaths.ToolTipText" xml:space="preserve">
-    <value>Linked with Previous Path (Ctrl+3)</value>
-  </data>
-  <data name="xToolStripMenuZoom10x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 22</value>
-  </data>
-  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="traceLayer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="verScrollBar.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="openRecentProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="canvas.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;statusLabelMousePos.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;traceLayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;upList.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
-    <value>toolStripSeparator13</value>
-  </data>
-  <data name="undoMenuItem.Text" xml:space="preserve">
-    <value>&amp;Undo</value>
-  </data>
-  <data name="clonePathButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="strokeThicknessBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="traceClipboard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="toolStripBlack.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStripOptions.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="xToolStripMenuZoom10x.Text" xml:space="preserve">
-    <value>10x</value>
-  </data>
-  <data name="&gt;&gt;usersManualToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DrawOnCanvas.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="horScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="autoScaleMenuItem.Text" xml:space="preserve">
-    <value>Auto Scale Shape</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>850, 22</value>
-  </data>
-  <data name="removePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="PathListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 90</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom1x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom1x</value>
-  </data>
-  <data name="traceLayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
-    <value>toolStripSeparator9</value>
-  </data>
-  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
-    <value>Snap</value>
-  </data>
-  <data name="statusLabelPathsUsed.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="SQuadBezier.Text" xml:space="preserve">
-    <value>Smooth Quad Bezier</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
-    <value>toolStripSeparator6</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom5x.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="LinkedPaths.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="buttonOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="clonePathButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>617, 422</value>
-  </data>
-  <data name="&gt;&gt;removePathButton.Name" xml:space="preserve">
-    <value>removePathButton</value>
-  </data>
-  <data name="&gt;&gt;clonePathButton.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="traceClipboard.Text" xml:space="preserve">
-    <value>Clipboard</value>
-  </data>
-  <data name="verScrollBar.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
-    <value>MacroRect</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DeselectBtn.ToolTip" xml:space="preserve">
-    <value>Deselect (Esc)</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;canvas.Name" xml:space="preserve">
-    <value>canvas</value>
-  </data>
-  <data name="DNList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="fitCanvasBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="MacroCubic.ToolTipText" xml:space="preserve">
-    <value>Cubic Spline (Ctrl+P)</value>
-  </data>
-  <data name="pdnPathGeometryMenuItem.Text" xml:space="preserve">
-    <value>PDN Shape (&amp;PathGeometry)...</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;autoScaleMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FigureName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 90</value>
-  </data>
-  <data name="toolStripBlue.Text" xml:space="preserve">
-    <value>toolStrip2</value>
-  </data>
-  <data name="&gt;&gt;fillColorPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="newPathLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fitCanvasBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 19</value>
-  </data>
-  <data name="&gt;&gt;DNList.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
-  </data>
-  <data name="SQuadBezier.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="toolStripOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="DeselectBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>726, 72</value>
-  </data>
-  <data name="statusLabelMousePos.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 17</value>
-  </data>
-  <data name="toolStripBlack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>92, 24</value>
-  </data>
-  <data name="clonePathButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>48</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>28</value>
-  </data>
-  <data name="&gt;&gt;exportMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 39</value>
-  </data>
-  <data name="fitCanvasBox.Text" xml:space="preserve">
-    <value>Fit to Canvas</value>
-  </data>
-  <data name="MacroRect.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+R</value>
-  </data>
-  <data name="saveProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Undo.Name" xml:space="preserve">
-    <value>Undo</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;About ShapeMaker</value>
-  </data>
-  <data name="MacroCubic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
-    <value>MacroCubic</value>
-  </data>
-  <data name="undoMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Z</value>
-  </data>
-  <data name="toolStripBlue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 24</value>
-  </data>
-  <data name="newProjectMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="&gt;&gt;toolStripRed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DrawOnCanvas.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="buttonOK.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;toolStripUndo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="statusLabelNubPos.Text" xml:space="preserve">
-    <value>0, 0</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator10.Name" xml:space="preserve">
-    <value>toolStripSeparator10</value>
-  </data>
-  <data name="DNList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>579, 422</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
-    <value>toolStripSeparator14</value>
-  </data>
-  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;canvas.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 19</value>
-  </data>
-  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;toolStripRed.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="canvas.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="&gt;&gt;DNList.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="Arc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 6</value>
-  </data>
-  <data name="statusLabelMousePos.Text" xml:space="preserve">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
-    <value>aboutToolStripMenuItem</value>
-  </data>
-  <data name="solidFillCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="Undo.Text" xml:space="preserve">
-    <value>Undo</value>
-  </data>
-  <data name="DeselectBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 30</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="MacroCircle.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="exportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="QuadBezier.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PathListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 326</value>
-  </data>
-  <data name="DeselectBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="LinkedPaths.Text" xml:space="preserve">
-    <value>Linked with Previous Line</value>
-  </data>
-  <data name="&gt;&gt;toolStripPurple.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="opacitySlider.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlack.Name" xml:space="preserve">
-    <value>toolStripBlack</value>
-  </data>
-  <data name="statusLabelNubPos.ToolTipText" xml:space="preserve">
-    <value>Nub Location</value>
-  </data>
-  <data name="canvas.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="buttonOK.ToolTip" xml:space="preserve">
-    <value>Return to PDN</value>
-  </data>
-  <data name="toolStripUndo.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Name" xml:space="preserve">
-    <value>pdnStreamGeometryMenuItem</value>
-  </data>
-  <data name="&gt;&gt;DrawOnCanvas.Name" xml:space="preserve">
-    <value>DrawOnCanvas</value>
-  </data>
-  <data name="&gt;&gt;loopPathToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripBlack.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="toolStripBlack.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="toolStripGreen.Text" xml:space="preserve">
-    <value>toolStrip3</value>
-  </data>
-  <data name="fitCanvasBox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;removePathButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripRed.Text" xml:space="preserve">
-    <value>toolStrip6</value>
-  </data>
-  <data name="toolStripPurple.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
-    <value>toolTip1</value>
-  </data>
-  <data name="AddBtn.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="newPathLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>586, 524</value>
-  </data>
-  <data name="DrawOnCanvas.Text" xml:space="preserve">
-    <value>Draw on Canvas</value>
-  </data>
-  <data name="toolStripGreen.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;opBoxMenuItem.Name" xml:space="preserve">
-    <value>opBoxMenuItem</value>
-  </data>
-  <data name="toolStripUndo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 39</value>
-  </data>
-  <data name="toolStripGreen.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;flipHorizontalToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom2x.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripPurple.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;FitBG.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="FitBG.Text" xml:space="preserve">
-    <value>Fit Background</value>
-  </data>
-  <data name="importGeometryMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
-    <value>drawModeBox</value>
-  </data>
-  <data name="DrawOnCanvas.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;canvas.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusLabelNubPos.Name" xml:space="preserve">
-    <value>statusLabelNubPos</value>
-  </data>
-  <data name="canvas.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="statusLabelNubsUsed.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;FitBG.Name" xml:space="preserve">
-    <value>FitBG</value>
-  </data>
-  <data name="Redo.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ClosePath.ToolTipText" xml:space="preserve">
-    <value>Close Individual Path (Ctrl+2)</value>
-  </data>
-  <data name="DeselectBtn.Text" xml:space="preserve">
-    <value>Deselect</value>
-  </data>
-  <data name="menuStrip1.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="MacroRect.ToolTipText" xml:space="preserve">
-    <value>Auto Rectangle (Ctrl+R)</value>
-  </data>
-  <data name="&gt;&gt;opacitySlider.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fitCanvasBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="toolStripGreen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 24</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;keyboardShortcutsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="DNList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="DiscardBtn.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;DrawOnCanvas.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="CloseContPaths.Text" xml:space="preserve">
-    <value>Close Contiguous Path</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Arc.ToolTipText" xml:space="preserve">
-    <value>Large/Small Arc Selector</value>
-  </data>
-  <data name="&gt;&gt;pdnPathGeometryMenuItem.Name" xml:space="preserve">
-    <value>pdnPathGeometryMenuItem</value>
-  </data>
-  <data name="openProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fitCanvasBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="removePathButton.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="AddBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 30</value>
-  </data>
-  <data name="statusLabelNubsUsed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 17</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
-    <value>toolStripSeparator16</value>
-  </data>
-  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 6</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="strokeThicknessBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="Snap.ToolTipText" xml:space="preserve">
-    <value>Snap to Grid (Ctrl+S)</value>
-  </data>
-  <data name="toolStripGreen.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="xToolStripMenuZoom2x.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 22</value>
-  </data>
-  <data name="newPathLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
-    <value>ClosePath</value>
-  </data>
-  <data name="&gt;&gt;Redo.Name" xml:space="preserve">
-    <value>Redo</value>
-  </data>
-  <data name="DeselectBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
-    <value>solidFillCheckBox</value>
-  </data>
-  <data name="DeselectBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 460</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="toolStripYellow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 24</value>
-  </data>
-  <data name="toolStripBlue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;toolStripUndo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Sweep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DNList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
-    <value>Arc</value>
-  </data>
-  <data name="verScrollBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>509, 70</value>
-  </data>
-  <data name="upList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="upList.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;loopPathToolStripMenuItem.Name" xml:space="preserve">
-    <value>loopPathToolStripMenuItem</value>
-  </data>
-  <data name="removePathButton.ToolTip" xml:space="preserve">
-    <value>Delete Path</value>
-  </data>
-  <data name="verScrollBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>17, 502</value>
-  </data>
-  <data name="traceClipboard.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
-    <value>Scale Mode</value>
-  </data>
-  <data name="statusLabelNubPos.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripUndo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 24</value>
-  </data>
-  <data name="&gt;&gt;clonePathToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="canvas.Size" type="System.Drawing.Size, System.Drawing">
-    <value>500, 500</value>
-  </data>
-  <data name="&gt;&gt;Redo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;importGeometryMenuItem.Name" xml:space="preserve">
-    <value>importGeometryMenuItem</value>
-  </data>
-  <data name="CubicBezier.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="AddBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>541, 541</value>
-  </data>
-  <data name="Elliptical.Text" xml:space="preserve">
-    <value>Elliptical Arc</value>
-  </data>
-  <data name="solidFillCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="flipHorizontalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="toolStripGreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 39</value>
-  </data>
-  <data name="horScrollBar.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;PathListBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="CloseContPaths.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;PathListBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="DiscardBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="&gt;&gt;PathListBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PathListBox.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="upList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="FigureName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="&gt;&gt;newPathLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="strokeThicknessBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>EffectPluginConfigDialog</value>
-  </data>
-  <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Name" xml:space="preserve">
-    <value>copyPathStreamToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;toolStripYellow.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="upList.ToolTip" xml:space="preserve">
-    <value>Move Path Up</value>
-  </data>
-  <data name="&gt;&gt;verScrollBar.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;verScrollBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;upList.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom10x.Name" xml:space="preserve">
-    <value>xToolStripMenuZoom10x</value>
-  </data>
-  <data name="&gt;&gt;exportSvgMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
-    <value>toolStripSeparator8</value>
-  </data>
-  <data name="QuickStartStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="&gt;&gt;usersManualToolStripMenuItem.Name" xml:space="preserve">
-    <value>usersManualToolStripMenuItem</value>
-  </data>
-  <data name="traceLayer.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
-    <value>SQuadBezier</value>
-  </data>
-  <data name="SCubicBezier.ToolTipText" xml:space="preserve">
-    <value>Smooth Cubic Bezier (Ctrl+Shift+B)</value>
-  </data>
-  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="statusLabelMousePos.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;statusLabelPathsUsed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom1x.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="splitButtonZoom.Text" xml:space="preserve">
-    <value>Zoom 1x</value>
-  </data>
-  <data name="DNList.ToolTip" xml:space="preserve">
-    <value>Move Path Down</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="&gt;&gt;toolStripUndo.Name" xml:space="preserve">
-    <value>toolStripUndo</value>
-  </data>
-  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pdnPathGeometryMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;strokeThicknessBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Undo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="autoScaleMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Shape Name</value>
-  </data>
-  <data name="flipVerticalToolStripMenuItem.Text" xml:space="preserve">
-    <value>Flip &amp;Vertical</value>
-  </data>
-  <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 30</value>
-  </data>
-  <data name="toolStripOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>564, 24</value>
-  </data>
-  <data name="statusLabelPathsUsed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 17</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
-    <value>toolStripSeparator11</value>
-  </data>
-  <data name="MacroCubic.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="openProject.Text" xml:space="preserve">
-    <value>&amp;Open Project...</value>
-  </data>
-  <data name="DiscardBtn.Text" xml:space="preserve">
-    <value>Discard</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>850, 614</value>
-  </data>
-  <data name="removePathButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>655, 422</value>
-  </data>
-  <data name="opacitySlider.ToolTip" xml:space="preserve">
-    <value>25%</value>
-  </data>
-  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="traceLayer.Text" xml:space="preserve">
-    <value>PDN Layer</value>
-  </data>
-  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
-    <value>ShapeMaker.ToolStripButtonWithKeys, DHShapeMaker, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;horScrollBar.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="AddBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="SQuadBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+Q</value>
-  </data>
-  <data name="exportSvgMenuItem.Text" xml:space="preserve">
-    <value>SVG...</value>
-  </data>
-  <data name="pathListLabel.Text" xml:space="preserve">
-    <value>Path List</value>
-  </data>
-  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
-    <value>SCubicBezier</value>
-  </data>
-  <data name="&gt;&gt;toolStripGreen.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStripGreen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
-    <value>toolStripSeparator12</value>
-  </data>
-  <data name="&gt;&gt;toolStripYellow.ZOrder" xml:space="preserve">
-    <value>34</value>
-  </data>
-  <data name="FitBG.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="copyPathStreamToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 22</value>
-  </data>
-  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FitBG.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;openRecentProject.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;drawModeBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripPurple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 39</value>
-  </data>
-  <data name="&gt;&gt;autoScaleMenuItem.Name" xml:space="preserve">
-    <value>autoScaleMenuItem</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Name" xml:space="preserve">
-    <value>redoMenuItem</value>
-  </data>
-  <data name="LinkedPaths.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+3</value>
-  </data>
-  <data name="clonePathButton.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;editToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FigureName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="MacroRect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 36</value>
-  </data>
-  <data name="exportMenuItem.Text" xml:space="preserve">
-    <value>&amp;Export</value>
-  </data>
-  <data name="pathListLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
-  </data>
-  <data name="&gt;&gt;openProject.Name" xml:space="preserve">
-    <value>openProject</value>
-  </data>
-  <data name="label4.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;flipVerticalToolStripMenuItem.Name" xml:space="preserve">
-    <value>flipVerticalToolStripMenuItem</value>
-  </data>
-  <data name="QuadBezier.Text" xml:space="preserve">
-    <value>Quadratic Bezier</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>866, 652</value>
-  </data>
-  <data name="&gt;&gt;xToolStripMenuZoom10x.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;strokeColorPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fillColorPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 22</value>
-  </data>
-  <data name="solidFillCheckBox.Text" xml:space="preserve">
-    <value>Solid Fill</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="&gt;&gt;toolStripGreen.Name" xml:space="preserve">
-    <value>toolStripGreen</value>
-  </data>
-  <data name="newPathLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;flipHorizontalToolStripMenuItem.Name" xml:space="preserve">
-    <value>flipHorizontalToolStripMenuItem</value>
-  </data>
-  <data name="flipHorizontalToolStripMenuItem.Text" xml:space="preserve">
-    <value>Flip &amp;Horizontal</value>
-  </data>
-  <data name="FitBG.ToolTip" xml:space="preserve">
-    <value>Scale Background Image</value>
-  </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>850, 24</value>
-  </data>
-  <data name="pathListLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="removePathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="Sweep.Text" xml:space="preserve">
-    <value>Sweep Direction</value>
-  </data>
-  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="AddBtn.Enabled" type="System.Boolean, mscorlib">
+  <data name="upList.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;splitButtonZoom.Name" xml:space="preserve">
-    <value>splitButtonZoom</value>
-  </data>
-  <data name="toolStripYellow.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
-  </data>
-  <data name="&gt;&gt;newProjectMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="menuStrip1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
-  </data>
-  <data name="&gt;&gt;toolStripOptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripOptions.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="pathListLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="viewport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>502, 502</value>
-  </data>
-  <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>711, 441</value>
+  <data name="upList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="upList.Location" type="System.Drawing.Point, System.Drawing">
     <value>541, 422</value>
@@ -2249,106 +652,1691 @@ Double Click to Rename</value>
   <data name="upList.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 32</value>
   </data>
-  <data name="&gt;&gt;newPathLabel.Parent" xml:space="preserve">
+  <data name="upList.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="upList.ToolTip" xml:space="preserve">
+    <value>Move Path Up</value>
+  </data>
+  <data name="&gt;&gt;upList.Name" xml:space="preserve">
+    <value>upList</value>
+  </data>
+  <data name="&gt;&gt;upList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;upList.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;upList.ZOrder" xml:space="preserve">
+    <value>22</value>
   </data>
-  <data name="viewport.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;DiscardBtn.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="xToolStripMenuZoom2x.Text" xml:space="preserve">
-    <value>2x</value>
-  </data>
-  <data name="&gt;&gt;viewport.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStripYellow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;horScrollBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fillColorPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>739, 413</value>
-  </data>
-  <data name="drawModeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="DNList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="fillColorPanel.ToolTip" xml:space="preserve">
-    <value>Secondary Color</value>
+  <data name="DNList.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="horScrollBar.TabIndex" type="System.Int32, mscorlib">
-    <value>63</value>
+  <data name="DNList.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="pdnStreamGeometryMenuItem.Text" xml:space="preserve">
-    <value>PDN Shape (&amp;StreamGeometry)...</value>
+  <data name="DNList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>579, 422</value>
+  </data>
+  <data name="DNList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="DNList.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="DNList.ToolTip" xml:space="preserve">
+    <value>Move Path Down</value>
+  </data>
+  <data name="&gt;&gt;DNList.Name" xml:space="preserve">
+    <value>DNList</value>
+  </data>
+  <data name="&gt;&gt;DNList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DNList.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DNList.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="removePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="removePathButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="removePathButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="removePathButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>655, 422</value>
+  </data>
+  <data name="removePathButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="removePathButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="removePathButton.ToolTip" xml:space="preserve">
+    <value>Delete Path</value>
+  </data>
+  <data name="&gt;&gt;removePathButton.Name" xml:space="preserve">
+    <value>removePathButton</value>
+  </data>
+  <data name="&gt;&gt;removePathButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removePathButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;removePathButton.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="clonePathButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="clonePathButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="clonePathButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="clonePathButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>617, 422</value>
+  </data>
+  <data name="clonePathButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="clonePathButton.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="clonePathButton.ToolTip" xml:space="preserve">
+    <value>Clone Path</value>
+  </data>
+  <data name="&gt;&gt;clonePathButton.Name" xml:space="preserve">
+    <value>clonePathButton</value>
+  </data>
+  <data name="&gt;&gt;clonePathButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clonePathButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;clonePathButton.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="opacitySlider.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="opacitySlider.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="opacitySlider.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="opacitySlider.Location" type="System.Drawing.Point, System.Drawing">
+    <value>703, 234</value>
   </data>
   <data name="opacitySlider.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 23</value>
   </data>
+  <data name="opacitySlider.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="opacitySlider.ToolTip" xml:space="preserve">
+    <value>25%</value>
+  </data>
+  <data name="&gt;&gt;opacitySlider.Name" xml:space="preserve">
+    <value>opacitySlider</value>
+  </data>
+  <data name="&gt;&gt;opacitySlider.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opacitySlider.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;opacitySlider.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="strokeThicknessBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="strokeThicknessBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>771, 413</value>
+  </data>
+  <data name="strokeThicknessBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 23</value>
+  </data>
+  <data name="strokeThicknessBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="strokeThicknessBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="strokeThicknessBox.ToolTip" xml:space="preserve">
+    <value>Outline Width</value>
+  </data>
+  <data name="&gt;&gt;strokeThicknessBox.Name" xml:space="preserve">
+    <value>strokeThicknessBox</value>
+  </data>
+  <data name="&gt;&gt;strokeThicknessBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;strokeThicknessBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;strokeThicknessBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="solidFillCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="solidFillCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="solidFillCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 119</value>
+  </data>
+  <data name="solidFillCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="solidFillCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="solidFillCheckBox.Text" xml:space="preserve">
+    <value>Solid Fill</value>
+  </data>
+  <data name="solidFillCheckBox.ToolTip" xml:space="preserve">
+    <value>Fill Mode</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Name" xml:space="preserve">
+    <value>solidFillCheckBox</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;solidFillCheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="strokeColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="strokeColorPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 413</value>
+  </data>
+  <data name="strokeColorPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 22</value>
+  </data>
+  <data name="strokeColorPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="strokeColorPanel.ToolTip" xml:space="preserve">
+    <value>Primary Color</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Name" xml:space="preserve">
+    <value>strokeColorPanel</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;strokeColorPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="fillColorPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fillColorPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>739, 413</value>
+  </data>
+  <data name="fillColorPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 22</value>
+  </data>
+  <data name="fillColorPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="fillColorPanel.ToolTip" xml:space="preserve">
+    <value>Secondary Color</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Name" xml:space="preserve">
+    <value>fillColorPanel</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fillColorPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="drawModeBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="drawModeBox.Items" xml:space="preserve">
+    <value>Outline</value>
+  </data>
+  <data name="drawModeBox.Items1" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="drawModeBox.Items2" xml:space="preserve">
+    <value>Outline &amp; Fill</value>
+  </data>
+  <data name="drawModeBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 441</value>
+  </data>
+  <data name="drawModeBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="drawModeBox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="drawModeBox.ToolTip" xml:space="preserve">
+    <value>Draw Mode</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Name" xml:space="preserve">
+    <value>drawModeBox</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;drawModeBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fitCanvasBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fitCanvasBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fitCanvasBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fitCanvasBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 470</value>
+  </data>
+  <data name="fitCanvasBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 19</value>
+  </data>
+  <data name="fitCanvasBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="fitCanvasBox.Text" xml:space="preserve">
+    <value>Fit to Canvas</value>
+  </data>
+  <data name="fitCanvasBox.ToolTip" xml:space="preserve">
+    <value>Scale Mode</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Name" xml:space="preserve">
+    <value>fitCanvasBox</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fitCanvasBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="viewport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 70</value>
+  </data>
+  <data name="viewport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>502, 502</value>
+  </data>
+  <data name="viewport.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;viewport.Name" xml:space="preserve">
+    <value>viewport</value>
+  </data>
+  <data name="&gt;&gt;viewport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;viewport.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;viewport.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>726, 72</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 15</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Shape Name</value>
+  </data>
+  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>714, 216</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Image Tracing Opacity</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1353, 17</value>
+  </metadata>
+  <data name="statusLabelNubsUsed.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="statusLabelNubsUsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="statusLabelNubsUsed.Text" xml:space="preserve">
+    <value>0/255 Nubs used</value>
+  </data>
+  <data name="statusLabelNubsUsed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statusLabelPathsUsed.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="statusLabelPathsUsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="statusLabelPathsUsed.Text" xml:space="preserve">
+    <value>0/100 Paths used</value>
+  </data>
+  <data name="statusLabelPathsUsed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statusLabelNubPos.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="statusLabelNubPos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="statusLabelNubPos.Text" xml:space="preserve">
+    <value>0, 0</value>
+  </data>
   <data name="statusLabelNubPos.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;statusLabelNubsUsed.Name" xml:space="preserve">
-    <value>statusLabelNubsUsed</value>
+  <data name="statusLabelNubPos.ToolTipText" xml:space="preserve">
+    <value>Nub Location</value>
   </data>
-  <data name="&gt;&gt;FigureName.ZOrder" xml:space="preserve">
-    <value>18</value>
+  <data name="statusLabelMousePos.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="QuadBezier.ToolTipText" xml:space="preserve">
-    <value>Quadratic Bezier (Ctrl+Q)</value>
+  <data name="statusLabelMousePos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
   </data>
-  <data name="&gt;&gt;newPathLabel.Name" xml:space="preserve">
-    <value>newPathLabel</value>
+  <data name="statusLabelMousePos.Text" xml:space="preserve">
+    <value>0, 0</value>
+  </data>
+  <data name="statusLabelMousePos.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statusLabelMousePos.ToolTipText" xml:space="preserve">
+    <value>Cursor Location</value>
+  </data>
+  <data name="xToolStripMenuZoom10x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
+  </data>
+  <data name="xToolStripMenuZoom10x.Text" xml:space="preserve">
+    <value>10x</value>
+  </data>
+  <data name="xToolStripMenuZoom5x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
+  </data>
+  <data name="xToolStripMenuZoom5x.Text" xml:space="preserve">
+    <value>5x</value>
+  </data>
+  <data name="xToolStripMenuZoom2x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
+  </data>
+  <data name="xToolStripMenuZoom2x.Text" xml:space="preserve">
+    <value>2x</value>
+  </data>
+  <data name="xToolStripMenuZoom1x.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 22</value>
+  </data>
+  <data name="xToolStripMenuZoom1x.Text" xml:space="preserve">
+    <value>1x</value>
+  </data>
+  <data name="splitButtonZoom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 20</value>
+  </data>
+  <data name="splitButtonZoom.Text" xml:space="preserve">
+    <value>Zoom 1x</value>
+  </data>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 592</value>
+  </data>
+  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 22</value>
+  </data>
+  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="pathListLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="pathListLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="pathListLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pathListLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>586, 72</value>
+  </data>
+  <data name="pathListLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 15</value>
+  </data>
+  <data name="pathListLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="pathListLabel.Text" xml:space="preserve">
+    <value>Path List</value>
+  </data>
+  <data name="&gt;&gt;pathListLabel.Name" xml:space="preserve">
+    <value>pathListLabel</value>
+  </data>
+  <data name="&gt;&gt;pathListLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pathListLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pathListLabel.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <metadata name="toolStripBlack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="toolStripBlack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="StraightLine.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="StraightLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="StraightLine.Text" xml:space="preserve">
+    <value>Straight Lines</value>
+  </data>
+  <data name="StraightLine.ToolTipText" xml:space="preserve">
+    <value>Straight Lines (Ctrl+L)</value>
+  </data>
+  <data name="MacroRect.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+R</value>
+  </data>
+  <data name="MacroRect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="MacroRect.Text" xml:space="preserve">
+    <value>Auto Rectangle</value>
+  </data>
+  <data name="MacroRect.ToolTipText" xml:space="preserve">
+    <value>Auto Rectangle (Ctrl+R)</value>
+  </data>
+  <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripBlack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 24</value>
+  </data>
+  <data name="toolStripBlack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 39</value>
+  </data>
+  <data name="toolStripBlack.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="toolStripBlack.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlack.Name" xml:space="preserve">
+    <value>toolStripBlack</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlack.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlack.ZOrder" xml:space="preserve">
+    <value>37</value>
   </data>
   <metadata name="toolStripBlue.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>144, 17</value>
   </metadata>
-  <metadata name="toolStripOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>784, 17</value>
+  <data name="toolStripBlue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="CubicBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+B</value>
+  </data>
+  <data name="CubicBezier.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="CubicBezier.Text" xml:space="preserve">
+    <value>Cubic Bezier</value>
+  </data>
+  <data name="CubicBezier.ToolTipText" xml:space="preserve">
+    <value>Cubic Bezier (Ctrl+B)</value>
+  </data>
+  <data name="MacroCubic.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="MacroCubic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="MacroCubic.Text" xml:space="preserve">
+    <value>Cubic Spline</value>
+  </data>
+  <data name="MacroCubic.ToolTipText" xml:space="preserve">
+    <value>Cubic Spline (Ctrl+P)</value>
+  </data>
+  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripBlue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 24</value>
+  </data>
+  <data name="toolStripBlue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 39</value>
+  </data>
+  <data name="toolStripBlue.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="toolStripBlue.Text" xml:space="preserve">
+    <value>toolStrip2</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlue.Name" xml:space="preserve">
+    <value>toolStripBlue</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripBlue.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <metadata name="toolStripGreen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>266, 17</value>
   </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1353, 17</value>
+  <data name="toolStripGreen.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="SCubicBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+B</value>
+  </data>
+  <data name="SCubicBezier.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="SCubicBezier.Text" xml:space="preserve">
+    <value>Smooth Cubic Bezier</value>
+  </data>
+  <data name="SCubicBezier.ToolTipText" xml:space="preserve">
+    <value>Smooth Cubic Bezier (Ctrl+Shift+B)</value>
+  </data>
+  <data name="toolStripSeparator14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripGreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 24</value>
+  </data>
+  <data name="toolStripGreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 39</value>
+  </data>
+  <data name="toolStripGreen.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="toolStripGreen.Text" xml:space="preserve">
+    <value>toolStrip3</value>
+  </data>
+  <data name="&gt;&gt;toolStripGreen.Name" xml:space="preserve">
+    <value>toolStripGreen</value>
+  </data>
+  <data name="&gt;&gt;toolStripGreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripGreen.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripGreen.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <metadata name="toolStripYellow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>397, 17</value>
   </metadata>
+  <data name="toolStripYellow.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="QuadBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Q</value>
+  </data>
+  <data name="QuadBezier.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="QuadBezier.Text" xml:space="preserve">
+    <value>Quadratic Bezier</value>
+  </data>
+  <data name="QuadBezier.ToolTipText" xml:space="preserve">
+    <value>Quadratic Bezier (Ctrl+Q)</value>
+  </data>
+  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripYellow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 24</value>
+  </data>
+  <data name="toolStripYellow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 39</value>
+  </data>
+  <data name="toolStripYellow.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="toolStripYellow.Text" xml:space="preserve">
+    <value>toolStrip4</value>
+  </data>
+  <data name="&gt;&gt;toolStripYellow.Name" xml:space="preserve">
+    <value>toolStripYellow</value>
+  </data>
+  <data name="&gt;&gt;toolStripYellow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripYellow.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripYellow.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
   <metadata name="toolStripPurple.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>531, 17</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1256, 17</value>
+  <data name="toolStripPurple.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="SQuadBezier.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+Q</value>
+  </data>
+  <data name="SQuadBezier.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="SQuadBezier.Text" xml:space="preserve">
+    <value>Smooth Quad Bezier</value>
+  </data>
+  <data name="SQuadBezier.ToolTipText" xml:space="preserve">
+    <value>Smooth Quad Bezier (Ctrl+Shift+Q)</value>
+  </data>
+  <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripPurple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>356, 24</value>
+  </data>
+  <data name="toolStripPurple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 39</value>
+  </data>
+  <data name="toolStripPurple.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="toolStripPurple.Text" xml:space="preserve">
+    <value>toolStrip5</value>
+  </data>
+  <data name="&gt;&gt;toolStripPurple.Name" xml:space="preserve">
+    <value>toolStripPurple</value>
+  </data>
+  <data name="&gt;&gt;toolStripPurple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripPurple.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripPurple.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <metadata name="toolStripRed.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>664, 17</value>
   </metadata>
+  <data name="toolStripRed.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="Elliptical.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="Elliptical.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Elliptical.Text" xml:space="preserve">
+    <value>Elliptical Arc</value>
+  </data>
+  <data name="Elliptical.ToolTipText" xml:space="preserve">
+    <value>Elliptical Arc (Ctrl+E)</value>
+  </data>
+  <data name="Arc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Arc.Text" xml:space="preserve">
+    <value>Large/Small Arc Selector</value>
+  </data>
+  <data name="Arc.ToolTipText" xml:space="preserve">
+    <value>Large/Small Arc Selector</value>
+  </data>
+  <data name="Sweep.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Sweep.Text" xml:space="preserve">
+    <value>Sweep Direction</value>
+  </data>
+  <data name="Sweep.ToolTipText" xml:space="preserve">
+    <value>Sweep Direction</value>
+  </data>
+  <data name="MacroCircle.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+I</value>
+  </data>
+  <data name="MacroCircle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="MacroCircle.Text" xml:space="preserve">
+    <value>Auto Circle</value>
+  </data>
+  <data name="MacroCircle.ToolTipText" xml:space="preserve">
+    <value>Auto Circle (Ctrl+I)</value>
+  </data>
+  <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripRed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>403, 24</value>
+  </data>
+  <data name="toolStripRed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 39</value>
+  </data>
+  <data name="toolStripRed.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="toolStripRed.Text" xml:space="preserve">
+    <value>toolStrip6</value>
+  </data>
+  <data name="&gt;&gt;toolStripRed.Name" xml:space="preserve">
+    <value>toolStripRed</value>
+  </data>
+  <data name="&gt;&gt;toolStripRed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripRed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripRed.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <metadata name="toolStripOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>784, 17</value>
+  </metadata>
+  <data name="toolStripOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="Snap.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
+  </data>
+  <data name="Snap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Snap.Text" xml:space="preserve">
+    <value>Snap to Grid</value>
+  </data>
+  <data name="Snap.ToolTipText" xml:space="preserve">
+    <value>Snap to Grid (Ctrl+S)</value>
+  </data>
+  <data name="LinkedPaths.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+3</value>
+  </data>
+  <data name="LinkedPaths.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="LinkedPaths.Text" xml:space="preserve">
+    <value>Linked with Previous Line</value>
+  </data>
+  <data name="LinkedPaths.ToolTipText" xml:space="preserve">
+    <value>Linked with Previous Path (Ctrl+3)</value>
+  </data>
+  <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="ClosePath.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+2</value>
+  </data>
+  <data name="ClosePath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="ClosePath.Text" xml:space="preserve">
+    <value>Close Individual Path</value>
+  </data>
+  <data name="ClosePath.ToolTipText" xml:space="preserve">
+    <value>Close Individual Path (Ctrl+2)</value>
+  </data>
+  <data name="CloseContPaths.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+2</value>
+  </data>
+  <data name="CloseContPaths.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="CloseContPaths.Text" xml:space="preserve">
+    <value>Close Contiguous Path</value>
+  </data>
+  <data name="CloseContPaths.ToolTipText" xml:space="preserve">
+    <value>Close Contiguous Path (Ctrl+Shift+2)</value>
+  </data>
+  <data name="toolStripOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 24</value>
+  </data>
+  <data name="toolStripOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 39</value>
+  </data>
+  <data name="toolStripOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="toolStripOptions.Text" xml:space="preserve">
+    <value>toolStrip7</value>
+  </data>
+  <data name="&gt;&gt;toolStripOptions.Name" xml:space="preserve">
+    <value>toolStripOptions</value>
+  </data>
+  <data name="&gt;&gt;toolStripOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripOptions.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <metadata name="toolStripUndo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>926, 17</value>
+  </metadata>
+  <data name="toolStripUndo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="Undo.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Undo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Undo.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Undo.ToolTipText" xml:space="preserve">
+    <value>Undo (Ctrl+Z)</value>
+  </data>
+  <data name="Redo.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Redo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 36</value>
+  </data>
+  <data name="Redo.Text" xml:space="preserve">
+    <value>Redo (Ctrl+Y)</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="toolStripUndo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 24</value>
+  </data>
+  <data name="toolStripUndo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 39</value>
+  </data>
+  <data name="toolStripUndo.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="toolStripUndo.Text" xml:space="preserve">
+    <value>toolStrip8</value>
+  </data>
+  <data name="&gt;&gt;toolStripUndo.Name" xml:space="preserve">
+    <value>toolStripUndo</value>
+  </data>
+  <data name="&gt;&gt;toolStripUndo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripUndo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStripUndo.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="traceLayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="traceLayer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="traceLayer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="traceLayer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 288</value>
+  </data>
+  <data name="traceLayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 19</value>
+  </data>
+  <data name="traceLayer.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="traceLayer.Text" xml:space="preserve">
+    <value>PDN Layer</value>
+  </data>
+  <data name="&gt;&gt;traceLayer.Name" xml:space="preserve">
+    <value>traceLayer</value>
+  </data>
+  <data name="&gt;&gt;traceLayer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;traceLayer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;traceLayer.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="traceClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="traceClipboard.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="traceClipboard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="traceClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>711, 313</value>
+  </data>
+  <data name="traceClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 19</value>
+  </data>
+  <data name="traceClipboard.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="traceClipboard.Text" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="&gt;&gt;traceClipboard.Name" xml:space="preserve">
+    <value>traceClipboard</value>
+  </data>
+  <data name="&gt;&gt;traceClipboard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;traceClipboard.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;traceClipboard.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="verScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="verScrollBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>509, 70</value>
+  </data>
+  <data name="verScrollBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 502</value>
+  </data>
+  <data name="verScrollBar.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="verScrollBar.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;verScrollBar.Name" xml:space="preserve">
+    <value>verScrollBar</value>
+  </data>
+  <data name="&gt;&gt;verScrollBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.VScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;verScrollBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;verScrollBar.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="horScrollBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="horScrollBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 572</value>
+  </data>
+  <data name="horScrollBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>502, 17</value>
+  </data>
+  <data name="horScrollBar.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="horScrollBar.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;horScrollBar.Name" xml:space="preserve">
+    <value>horScrollBar</value>
+  </data>
+  <data name="&gt;&gt;horScrollBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HScrollBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;horScrollBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;horScrollBar.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="DiscardBtn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="DiscardBtn.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="DiscardBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DiscardBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>617, 542</value>
+  </data>
+  <data name="DiscardBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 30</value>
+  </data>
+  <data name="DiscardBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="DiscardBtn.Text" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="&gt;&gt;DiscardBtn.Name" xml:space="preserve">
+    <value>DiscardBtn</value>
+  </data>
+  <data name="&gt;&gt;DiscardBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DiscardBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DiscardBtn.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="newPathLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="newPathLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="newPathLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="newPathLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>586, 524</value>
+  </data>
+  <data name="newPathLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 15</value>
+  </data>
+  <data name="newPathLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="newPathLabel.Text" xml:space="preserve">
+    <value>New Path</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Name" xml:space="preserve">
+    <value>newPathLabel</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;newPathLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="toolStripYellow.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>397, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>66</value>
   </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>de</value>
-  </metadata>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1141, 17</value>
-  </metadata>
-  <metadata name="toolStripBlack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="toolStripRed.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>664, 17</value>
-  </metadata>
-  <metadata name="toolStripUndo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>926, 17</value>
-  </metadata>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1054, 17</value>
-  </metadata>
-  <metadata name="toolStripGreen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>266, 17</value>
-  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>850, 614</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>866, 652</value>
+  </data>
+  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
+    <value>timer1</value>
+  </data>
+  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
+    <value>fileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;newProjectMenuItem.Name" xml:space="preserve">
+    <value>newProjectMenuItem</value>
+  </data>
+  <data name="&gt;&gt;newProjectMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openProject.Name" xml:space="preserve">
+    <value>openProject</value>
+  </data>
+  <data name="&gt;&gt;openProject.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openRecentProject.Name" xml:space="preserve">
+    <value>openRecentProject</value>
+  </data>
+  <data name="&gt;&gt;openRecentProject.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveProject.Name" xml:space="preserve">
+    <value>saveProject</value>
+  </data>
+  <data name="&gt;&gt;saveProject.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;importGeometryMenuItem.Name" xml:space="preserve">
+    <value>importGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;importGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportMenuItem.Name" xml:space="preserve">
+    <value>exportMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Name" xml:space="preserve">
+    <value>pdnStreamGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pdnStreamGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pdnPathGeometryMenuItem.Name" xml:space="preserve">
+    <value>pdnPathGeometryMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pdnPathGeometryMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Name" xml:space="preserve">
+    <value>toolStripSeparator10</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportSvgMenuItem.Name" xml:space="preserve">
+    <value>exportSvgMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportSvgMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pasteStreamGeomentyToolStripMenuItem.Name" xml:space="preserve">
+    <value>pasteStreamGeomentyToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pasteStreamGeomentyToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Name" xml:space="preserve">
+    <value>copyPathStreamToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;copyPathStreamToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;editToolStripMenuItem.Name" xml:space="preserve">
+    <value>editToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;editToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;undoMenuItem.Name" xml:space="preserve">
+    <value>undoMenuItem</value>
+  </data>
+  <data name="&gt;&gt;undoMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;redoMenuItem.Name" xml:space="preserve">
+    <value>redoMenuItem</value>
+  </data>
+  <data name="&gt;&gt;redoMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
+    <value>toolStripSeparator7</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removePathToolStripMenuItem.Name" xml:space="preserve">
+    <value>removePathToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;removePathToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clonePathToolStripMenuItem.Name" xml:space="preserve">
+    <value>clonePathToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clonePathToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
+    <value>toolStripSeparator6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loopPathToolStripMenuItem.Name" xml:space="preserve">
+    <value>loopPathToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;loopPathToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flipHorizontalToolStripMenuItem.Name" xml:space="preserve">
+    <value>flipHorizontalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flipHorizontalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flipVerticalToolStripMenuItem.Name" xml:space="preserve">
+    <value>flipVerticalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flipVerticalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;opBoxMenuItem.Name" xml:space="preserve">
+    <value>opBoxMenuItem</value>
+  </data>
+  <data name="&gt;&gt;opBoxMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
+    <value>toolStripSeparator9</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoScaleMenuItem.Name" xml:space="preserve">
+    <value>autoScaleMenuItem</value>
+  </data>
+  <data name="&gt;&gt;autoScaleMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HelpMenu.Name" xml:space="preserve">
+    <value>HelpMenu</value>
+  </data>
+  <data name="&gt;&gt;HelpMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usersManualToolStripMenuItem.Name" xml:space="preserve">
+    <value>usersManualToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;usersManualToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;QuickStartStripMenuItem.Name" xml:space="preserve">
+    <value>QuickStartStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;QuickStartStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;keyboardShortcutsToolStripMenuItem.Name" xml:space="preserve">
+    <value>keyboardShortcutsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;keyboardShortcutsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
+    <value>aboutToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusLabelNubsUsed.Name" xml:space="preserve">
+    <value>statusLabelNubsUsed</value>
+  </data>
+  <data name="&gt;&gt;statusLabelNubsUsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusLabelPathsUsed.Name" xml:space="preserve">
+    <value>statusLabelPathsUsed</value>
+  </data>
+  <data name="&gt;&gt;statusLabelPathsUsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusLabelNubPos.Name" xml:space="preserve">
+    <value>statusLabelNubPos</value>
+  </data>
+  <data name="&gt;&gt;statusLabelNubPos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusLabelMousePos.Name" xml:space="preserve">
+    <value>statusLabelMousePos</value>
+  </data>
+  <data name="&gt;&gt;statusLabelMousePos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitButtonZoom.Name" xml:space="preserve">
+    <value>splitButtonZoom</value>
+  </data>
+  <data name="&gt;&gt;splitButtonZoom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom10x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom10x</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom10x.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom5x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom5x</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom5x.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom2x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom2x</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom2x.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom1x.Name" xml:space="preserve">
+    <value>xToolStripMenuZoom1x</value>
+  </data>
+  <data name="&gt;&gt;xToolStripMenuZoom1x.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StraightLine.Name" xml:space="preserve">
+    <value>StraightLine</value>
+  </data>
+  <data name="&gt;&gt;StraightLine.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Name" xml:space="preserve">
+    <value>MacroRect</value>
+  </data>
+  <data name="&gt;&gt;MacroRect.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
+    <value>toolStripSeparator12</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Name" xml:space="preserve">
+    <value>CubicBezier</value>
+  </data>
+  <data name="&gt;&gt;CubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Name" xml:space="preserve">
+    <value>MacroCubic</value>
+  </data>
+  <data name="&gt;&gt;MacroCubic.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
+    <value>toolStripSeparator13</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SCubicBezier.Name" xml:space="preserve">
+    <value>SCubicBezier</value>
+  </data>
+  <data name="&gt;&gt;SCubicBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Name" xml:space="preserve">
+    <value>toolStripSeparator14</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Name" xml:space="preserve">
+    <value>QuadBezier</value>
+  </data>
+  <data name="&gt;&gt;QuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
+    <value>toolStripSeparator15</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SQuadBezier.Name" xml:space="preserve">
+    <value>SQuadBezier</value>
+  </data>
+  <data name="&gt;&gt;SQuadBezier.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Name" xml:space="preserve">
+    <value>toolStripSeparator16</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Name" xml:space="preserve">
+    <value>Elliptical</value>
+  </data>
+  <data name="&gt;&gt;Elliptical.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Arc.Name" xml:space="preserve">
+    <value>Arc</value>
+  </data>
+  <data name="&gt;&gt;Arc.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Name" xml:space="preserve">
+    <value>Sweep</value>
+  </data>
+  <data name="&gt;&gt;Sweep.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Name" xml:space="preserve">
+    <value>MacroCircle</value>
+  </data>
+  <data name="&gt;&gt;MacroCircle.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
+    <value>toolStripSeparator17</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Snap.Name" xml:space="preserve">
+    <value>Snap</value>
+  </data>
+  <data name="&gt;&gt;Snap.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Name" xml:space="preserve">
+    <value>LinkedPaths</value>
+  </data>
+  <data name="&gt;&gt;LinkedPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
+    <value>toolStripSeparator8</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Name" xml:space="preserve">
+    <value>ClosePath</value>
+  </data>
+  <data name="&gt;&gt;ClosePath.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Name" xml:space="preserve">
+    <value>CloseContPaths</value>
+  </data>
+  <data name="&gt;&gt;CloseContPaths.Type" xml:space="preserve">
+    <value>ShapeMaker.ToolStripButtonWithKeys, ShapeMaker, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;Undo.Name" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="&gt;&gt;Undo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Redo.Name" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="&gt;&gt;Redo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
+    <value>toolStripSeparator11</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>EffectPluginConfigDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
