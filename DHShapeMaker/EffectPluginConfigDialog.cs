@@ -3,9 +3,9 @@ using PaintDotNet;
 using PaintDotNet.AppModel;
 using PaintDotNet.Clipboard;
 using PaintDotNet.Effects;
+using PaintDotNet.Imaging;
 #endif
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -147,9 +147,9 @@ namespace ShapeMaker
             };
         }
 
+#if !FASTDEBUG
         protected override bool UseAppThemeColorsDefault => false;
 
-#if !FASTDEBUG
         #region Effect Token functions
         protected override EffectConfigToken OnCreateInitialToken()
         {
@@ -188,8 +188,8 @@ namespace ShapeMaker
             this.FigureName.Text = token.ShapeName;
             this.Snap.Checked = token.SnapTo;
             this.solidFillCheckBox.Checked = token.SolidFill;
-            this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.Environment.PrimaryColor : token.StrokeColor;
-            this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.Environment.SecondaryColor : token.FillColor;
+            this.strokeColorPanel.BackColor = (token.StrokeColor == ColorBgra.Zero) ? this.Environment.PrimaryColor.GetSrgb() : token.StrokeColor;
+            this.fillColorPanel.BackColor = (token.FillColor == ColorBgra.Zero) ? this.Environment.SecondaryColor.GetSrgb() : token.FillColor;
             this.strokeThicknessBox.Value = Math.Clamp(
                 (token.StrokeThickness == 0) ? (decimal)this.Environment.BrushSize : (decimal)token.StrokeThickness,
                 this.strokeThicknessBox.Minimum,

@@ -48,6 +48,7 @@ namespace ShapeMaker
 
         #region Control Properties
         [Category(nameof(CategoryAttribute.Data))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color Color
         {
             get => HSVColor.ToColor(MasterAlpha, MasterHue, MasterSat, MasterVal);
@@ -66,6 +67,7 @@ namespace ShapeMaker
         }
 
         [Category(nameof(CategoryAttribute.Behavior))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowAlpha
         {
             get => showAlpha;
@@ -89,6 +91,7 @@ namespace ShapeMaker
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal IReadOnlyList<Color> PaletteColors
         {
             get => this.palette1.Colors;
@@ -618,6 +621,7 @@ namespace ShapeMaker
     {
         #region Properties
         [Category(nameof(CategoryAttribute.Data))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public float Value
         {
             get => this.value;
@@ -630,6 +634,7 @@ namespace ShapeMaker
         }
 
         [Category(nameof(CategoryAttribute.Behavior))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int MaxValue
         {
             get => this.maxValue;
@@ -637,6 +642,7 @@ namespace ShapeMaker
         }
 
         [Category(nameof(CategoryAttribute.Appearance))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color[] Colors
         {
             get => this.colors;
@@ -827,6 +833,7 @@ namespace ShapeMaker
     [DefaultProperty(nameof(Color))]
     public class Palette : Panel
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         internal IReadOnlyList<Color> Colors { get; set; }
         internal Color Color => color;
         private Color color = Color.Black;
