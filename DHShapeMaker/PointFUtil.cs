@@ -109,7 +109,7 @@ namespace ShapeMaker
 
         internal static float Pythag(PointF p1, PointF p2)
         {
-            return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+            return float.Hypot(p1.X - p2.X, p1.Y - p2.Y);
         }
 
         internal static double XYToRadians(PointF xy, PointF center)
