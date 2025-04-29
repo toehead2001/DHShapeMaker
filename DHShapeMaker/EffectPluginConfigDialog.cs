@@ -565,6 +565,7 @@ namespace ShapeMaker
 #endif
             int selectedIndex = this.PathListBox.SelectedIndex;
             int canvasPointCount = this.canvasPoints.Count;
+            Size canvasSize = this.canvas.ClientSize;
 
             #region Draw Paths
             Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
@@ -653,9 +654,11 @@ namespace ShapeMaker
                 PointF[] pts = new PointF[pPoints.Count];
                 for (int i = 0; i < pts.Length; i++)
                 {
-                    pts[i].X = this.canvas.ClientSize.Width * pPoints[i].X;
-                    pts[i].Y = this.canvas.ClientSize.Height * pPoints[i].Y;
+                    pts[i].X = canvasSize.Width * pPoints[i].X;
+                    pts[i].Y = canvasSize.Height * pPoints[i].Y;
                 }
+
+                int lastIndex = pts.Length - 1;
 
                 if (previousClosed || !previousEndPoint.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
                 {
@@ -854,19 +857,19 @@ namespace ShapeMaker
                     if ((closedContiguous || closedIndividual) && pts.Length > 1 &&
                         !(j == -1 && ((this.MacroCircle.Checked && this.Elliptical.Checked) || (this.MacroRect.Checked && this.StraightLine.Checked))))
                     {
-                        PointF pointA = closedIndividual ? pts[0] : pts[pts.Length - 1];
-                        PointF pointB = closedIndividual ? pts[pts.Length - 1] : loopBack;
+                        PointF pointA = closedIndividual ? pts[0] : pts[lastIndex];
+                        PointF pointB = closedIndividual ? pts[lastIndex] : loopBack;
 
                         p.Color = Color.DimGray;
                         p.DashStyle = DashStyle.Dash;
 
                         e.Graphics.DrawLine(p, pointA, pointB);
 
-                        loopBack = pts[pts.Length - 1];
+                        loopBack = pts[lastIndex];
                     }
                 }
 
-                previousEndPoint = pts[pts.Length - 1];
+                previousEndPoint = pts[lastIndex];
                 previousClosed = closedIndividual || closedContiguous;
             }
             #endregion
@@ -882,8 +885,8 @@ namespace ShapeMaker
                 PointF[] pts = new PointF[canvasPointCount];
                 for (int i = 0; i < pts.Length; i++)
                 {
-                    pts[i].X = this.canvas.ClientSize.Width * this.canvasPoints[i].X;
-                    pts[i].Y = this.canvas.ClientSize.Height * this.canvasPoints[i].Y;
+                    pts[i].X = canvasSize.Width * this.canvasPoints[i].X;
+                    pts[i].Y = canvasSize.Height * this.canvasPoints[i].Y;
                 }
 
                 int lastIndex = pts.Length - 1;
@@ -962,8 +965,6 @@ namespace ShapeMaker
                 }
 
                 // Terminating Nubs
-
-                int lastPathIndex = this.paths.Count - 1;
 
                 LinkFlags linkFlags = (selectedIndex != InvalidPath) ? this.linkFlagsList[selectedIndex]
                     : IsNewPathLinked() ? LinkFlags.Up
@@ -3908,7 +3909,7 @@ namespace ShapeMaker
             {
                 recents = filePath + "|" + recents;
 
-                string[] paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToArray();
+                string[] paths = recents.Split('|', StringSplitOptions.RemoveEmptyEntries).Distinct().ToArray();
 
                 int length = Math.Min(8, paths.Length);
                 recents = string.Join("|", paths, 0, length);
