@@ -74,6 +74,7 @@ namespace ShapeMaker
         private Tuple<int, int> operationRange = new Tuple<int, int>(-1, -1);
         private readonly List<LinkFlags> linkFlagsList = new List<LinkFlags>();
         private int oldPathListBoxIndex = -1;
+        private static readonly IList<int> zoomFactors = [1, 2, 5, 10];
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
@@ -145,6 +146,19 @@ namespace ShapeMaker
                 this.QuadBezier,
                 this.SQuadBezier
             };
+
+            // Zoom drop down
+            ZoomMenuItem[] zoomMenuItems = zoomFactors
+                .Reverse()
+                .Select(zf => new ZoomMenuItem($"{zf}x", zf, ZoomDropDownItem_Click))
+                .ToArray();
+
+            splitButtonZoom.DropDownItems.AddRange(zoomMenuItems);
+
+            if (splitButtonZoom.DropDown is ToolStripDropDownMenu menu)
+            {
+                menu.ShowImageMargin = false;
+            }
         }
 
 #if !FASTDEBUG
@@ -2905,24 +2919,12 @@ namespace ShapeMaker
             ZoomToFactor(newZoomFactor);
         }
 
-        private void xToolStripMenuZoom1x_Click(object sender, EventArgs e)
+        private void ZoomDropDownItem_Click(object sender, EventArgs e)
         {
-            ZoomToFactor(1);
-        }
-
-        private void xToolStripMenuZoom2x_Click(object sender, EventArgs e)
-        {
-            ZoomToFactor(2);
-        }
-
-        private void xToolStripMenuZoom5x_Click(object sender, EventArgs e)
-        {
-            ZoomToFactor(5);
-        }
-
-        private void xToolStripMenuZoom10x_Click(object sender, EventArgs e)
-        {
-            ZoomToFactor(10);
+            if (sender is ZoomMenuItem zoomItem)
+            {
+                ZoomToFactor(zoomItem.ZoomFactor);
+            }
         }
 
         private void ZoomToFactor(int zoomFactor)
@@ -3011,7 +3013,7 @@ namespace ShapeMaker
             }
 
             int oldZoomFactor = this.canvas.Width / this.canvasBaseSize;
-            if ((delta > 0 && oldZoomFactor == 10) || (delta < 0 && oldZoomFactor == 1))
+            if ((delta > 0 && oldZoomFactor == zoomFactors[^1]) || (delta < 0 && oldZoomFactor == zoomFactors[0]))
             {
                 return;
             }
@@ -3026,19 +3028,30 @@ namespace ShapeMaker
 
         private static int GetNewZoomFactor(int oldZoomFactor, int delta, bool wrapAround)
         {
-            List<int> zoomFactors = new List<int> { 1, 2, 5, 10 };
-
             int oldZoomIndex = zoomFactors.IndexOf(oldZoomFactor);
             if (oldZoomIndex == -1)
             {
-                return (delta > 0) ? 10 : 1;
+                return (delta > 0) ? zoomFactors[^1] : zoomFactors[0];
             }
 
+            int factorCount = zoomFactors.Count;
+
             int newZoomIndex = wrapAround
-                ? (((oldZoomIndex + delta) % 4) + 4) % 4
-                : Math.Clamp(oldZoomIndex + delta, 0, 3);
+                ? (((oldZoomIndex + delta) % factorCount) + factorCount) % factorCount
+                : Math.Clamp(oldZoomIndex + delta, 0, factorCount - 1);
 
             return zoomFactors[newZoomIndex];
+        }
+
+        private sealed class ZoomMenuItem : ToolStripMenuItem
+        {
+            internal int ZoomFactor { get; }
+
+            internal ZoomMenuItem(string text, int zoomFactor, EventHandler onClick)
+                : base(text, null, onClick)
+            {
+                ZoomFactor = zoomFactor;
+            }
         }
         #endregion
 

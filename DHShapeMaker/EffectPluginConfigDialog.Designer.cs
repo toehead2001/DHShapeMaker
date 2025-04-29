@@ -98,10 +98,6 @@
             this.statusLabelNubPos = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelMousePos = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitButtonZoom = new System.Windows.Forms.ToolStripSplitButton();
-            this.xToolStripMenuZoom10x = new System.Windows.Forms.ToolStripMenuItem();
-            this.xToolStripMenuZoom5x = new System.Windows.Forms.ToolStripMenuItem();
-            this.xToolStripMenuZoom2x = new System.Windows.Forms.ToolStripMenuItem();
-            this.xToolStripMenuZoom1x = new System.Windows.Forms.ToolStripMenuItem();
             this.pathListLabel = new System.Windows.Forms.Label();
             this.toolStripBlack = new System.Windows.Forms.ToolStrip();
             this.StraightLine = new ToolStripButtonWithKeys();
@@ -626,38 +622,9 @@
             // 
             this.splitButtonZoom.AutoToolTip = false;
             this.splitButtonZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.splitButtonZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.xToolStripMenuZoom10x, this.xToolStripMenuZoom5x, this.xToolStripMenuZoom2x, this.xToolStripMenuZoom1x });
             this.splitButtonZoom.Name = "splitButtonZoom";
             resources.ApplyResources(this.splitButtonZoom, "splitButtonZoom");
             this.splitButtonZoom.ButtonClick += splitButtonZoom_ButtonClick;
-            // 
-            // xToolStripMenuZoom10x
-            // 
-            this.xToolStripMenuZoom10x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.xToolStripMenuZoom10x.Name = "xToolStripMenuZoom10x";
-            resources.ApplyResources(this.xToolStripMenuZoom10x, "xToolStripMenuZoom10x");
-            this.xToolStripMenuZoom10x.Click += xToolStripMenuZoom10x_Click;
-            // 
-            // xToolStripMenuZoom5x
-            // 
-            this.xToolStripMenuZoom5x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.xToolStripMenuZoom5x.Name = "xToolStripMenuZoom5x";
-            resources.ApplyResources(this.xToolStripMenuZoom5x, "xToolStripMenuZoom5x");
-            this.xToolStripMenuZoom5x.Click += xToolStripMenuZoom5x_Click;
-            // 
-            // xToolStripMenuZoom2x
-            // 
-            this.xToolStripMenuZoom2x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.xToolStripMenuZoom2x.Name = "xToolStripMenuZoom2x";
-            resources.ApplyResources(this.xToolStripMenuZoom2x, "xToolStripMenuZoom2x");
-            this.xToolStripMenuZoom2x.Click += xToolStripMenuZoom2x_Click;
-            // 
-            // xToolStripMenuZoom1x
-            // 
-            this.xToolStripMenuZoom1x.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.xToolStripMenuZoom1x.Name = "xToolStripMenuZoom1x";
-            resources.ApplyResources(this.xToolStripMenuZoom1x, "xToolStripMenuZoom1x");
-            this.xToolStripMenuZoom1x.Click += xToolStripMenuZoom1x_Click;
             // 
             // pathListLabel
             // 
@@ -1113,10 +1080,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSplitButton splitButtonZoom;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom10x;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom5x;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom2x;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuZoom1x;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelPathsUsed;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelNubPos;
