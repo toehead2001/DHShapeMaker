@@ -727,7 +727,7 @@ namespace ShapeMaker
                                 PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                 if (this.MacroCircle.Checked && j == -1 && isNewPath)
                                 {
-                                    float far = PointFUtil.Pythag(pts[0], pts[4]);
+                                    float far = PointFUtil.Hypot(pts[0], pts[4]);
 
                                     if (partOfOperation)
                                     {
@@ -739,8 +739,8 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-                                    float radiusX = PointFUtil.Pythag(mid, pts[1]);
-                                    float radiusY = PointFUtil.Pythag(mid, pts[2]);
+                                    float radiusX = PointFUtil.Hypot(mid, pts[1]);
+                                    float radiusY = PointFUtil.Hypot(mid, pts[2]);
 
                                     if ((int)radiusY == 0 || (int)radiusX == 0)
                                     {
@@ -1131,7 +1131,7 @@ namespace ShapeMaker
                             }
                             else if (scaleRect.Contains(e.Location))
                             {
-                                this.initialDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                                this.initialDist = PointFUtil.Hypot(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                                 this.operation = Operation.Scale;
                             }
                             else if (rotateRect.Contains(e.Location))
@@ -1536,7 +1536,7 @@ namespace ShapeMaker
                             // Do Nothing
                             break;
                         case Operation.Scale:
-                            float newDist = PointFUtil.Pythag(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
+                            float newDist = PointFUtil.Hypot(PointToCanvasCoord(e.X, e.Y), this.averagePoint);
                             float scale = newDist / this.initialDist;
 
                             if (nubCount == 0 && this.PathListBox.Items.Count > 0)

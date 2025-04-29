@@ -299,7 +299,7 @@ namespace ShapeMaker
 
                             PointF mid = PointFUtil.PointAverage(From, To);
                             PointF mid2 = PointFUtil.ThirdPoint(From, mid, true, 1f);
-                            float far = PointFUtil.Pythag(From, mid);
+                            float far = PointFUtil.Hypot(From, mid);
                             float atan = (float)Math.Atan2(mid2.Y - mid.Y, mid2.X - mid.X);
 
                             pts.Add(pointOrbit(mid, atan - (float)Math.PI / 4f, dist));

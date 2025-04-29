@@ -39,7 +39,7 @@ namespace ShapeMaker
             {
                 PointF test = new PointF(ep.X * i + sp.X - sp.X * i, ep.Y * i + sp.Y - sp.Y * i);
 
-                float tmp = Pythag(mt, test);
+                float tmp = Hypot(mt, test);
                 if (tmp < dist)
                 {
                     dist = tmp;
@@ -90,8 +90,8 @@ namespace ShapeMaker
         internal static PointF AsymRevAverage(PointF p0, PointF p1, PointF p2, PointF c1)
         {
             PointF tmp = ReverseAverage(c1, p1);
-            float py1 = Pythag(p0, p1);
-            float py2 = Pythag(p2, p1);
+            float py1 = Hypot(p0, p1);
+            float py2 = Hypot(p2, p1);
             float norm = (py1 + py2) / (py1 * 2f + .00001f);
             tmp.X = (tmp.X - c1.X) * norm + c1.X;
             tmp.Y = (tmp.Y - c1.Y) * norm + c1.Y;
@@ -107,7 +107,7 @@ namespace ShapeMaker
             };
         }
 
-        internal static float Pythag(PointF p1, PointF p2)
+        internal static float Hypot(PointF p1, PointF p2)
         {
             return float.Hypot(p1.X - p2.X, p1.Y - p2.Y);
         }

@@ -77,8 +77,8 @@ namespace ShapeMaker
                         }
 
                         PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
-                        float l = PointFUtil.Pythag(mid, pts[1]);
-                        float h = PointFUtil.Pythag(mid, pts[2]);
+                        float l = PointFUtil.Hypot(mid, pts[1]);
+                        float h = PointFUtil.Hypot(mid, pts[2]);
                         float a = (float)double.RadiansToDegrees(double.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X));
 
                         string arcSize = string.Format(CultureInfo.InvariantCulture, "{0:0.##},{1:0.##}", l, h);
