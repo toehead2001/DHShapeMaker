@@ -312,8 +312,8 @@ namespace ShapeMaker
 
                             pts.Add(pointOrbit(mid, atan + (float)Math.PI / 4f, dist));
                             errorFlagX = float.TryParse(str[i + 2], NumberStyles.Float, CultureInfo.InvariantCulture, out dist);
-                            float rot = dist * (float)Math.PI / 180f; //ROT
-                            pts.Add(pointOrbit(mid, rot, far));
+                            float angle = float.DegreesToRadians(dist);
+                            pts.Add(pointOrbit(mid, angle, far));
 
                             pts.Add(LastPos); //ENDPOINT
 
@@ -416,10 +416,10 @@ namespace ShapeMaker
                 None = -1
             }
 
-            private static PointF pointOrbit(PointF center, float rotation, float distance)
+            private static PointF pointOrbit(PointF center, float angle, float distance)
             {
-                float x = (float)Math.Cos(rotation) * distance;
-                float y = (float)Math.Sin(rotation) * distance;
+                float x = (float)Math.Cos(angle) * distance;
+                float y = (float)Math.Sin(angle) * distance;
                 return CanvasUtil.PointToCanvasCoord1x(center.X + x, center.Y + y);
             }
 

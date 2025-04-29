@@ -148,8 +148,8 @@ namespace ShapeMaker
                 return;
             }
 
-            double sinPhi = Math.Sin(angle * RadPerDeg);
-            double cosPhi = Math.Cos(angle * RadPerDeg);
+            double sinPhi = Math.Sin(angle);
+            double cosPhi = Math.Cos(angle);
 
             double x1dash = cosPhi * (start.X - end.X) / 2.0 + sinPhi * (start.Y - end.Y) / 2.0;
             double y1dash = -sinPhi * (start.X - end.X) / 2.0 + cosPhi * (start.Y - end.Y) / 2.0;
@@ -224,7 +224,6 @@ namespace ShapeMaker
             }
         }
 
-        private const double RadPerDeg = Math.PI / 180.0;
         private const double TwoPI = Math.PI * 2.0;
 
         private static double VectorAngle(double ux, double uy, double vx, double vy)

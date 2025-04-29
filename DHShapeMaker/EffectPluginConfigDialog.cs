@@ -760,7 +760,7 @@ namespace ShapeMaker
                                     }
                                     else
                                     {
-                                        float angle = (float)(Math.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X) * 180 / Math.PI);
+                                        float angle = float.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X);
 
                                         using (GraphicsPath gp = new GraphicsPath())
                                         {
@@ -1574,8 +1574,8 @@ namespace ShapeMaker
 
                             if (ModifierKeys.HasFlag(Keys.Shift))
                             {
-                                double degrees = radians * 180 / Math.PI;
-                                radians = degrees.ConstrainToInterval(15) * Math.PI / 180;
+                                double constrainedDegrees = double.RadiansToDegrees(radians).ConstrainToInterval(15);
+                                radians = double.RadiansToDegrees(constrainedDegrees);
                             }
 
                             if (nubCount == 0 && this.PathListBox.Items.Count > 0)
