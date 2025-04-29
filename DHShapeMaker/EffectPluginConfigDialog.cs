@@ -2131,7 +2131,7 @@ namespace ShapeMaker
 
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
-
+            this.PathListBox.Focus();
             this.canvas.Refresh();
             RefreshPdnCanvas();
         }
@@ -2164,6 +2164,7 @@ namespace ShapeMaker
             }
 
             this.PathListBox.SelectedIndex = InvalidPath;
+            this.PathListBox.Focus();
             this.canvas.Refresh();
         }
 
@@ -2794,7 +2795,7 @@ namespace ShapeMaker
             this.PathListBox.SelectedIndex = InvalidPath;
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
-
+            this.PathListBox.Focus();
             this.canvas.Refresh();
             RefreshPdnCanvas();
         }
@@ -2813,7 +2814,7 @@ namespace ShapeMaker
             this.PathListBox.SelectedIndex = this.PathListBox.Items.Count - 1;
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
-
+            this.PathListBox.Focus();
             this.canvas.Refresh();
             RefreshPdnCanvas();
         }
@@ -2831,6 +2832,7 @@ namespace ShapeMaker
 
                 this.RebuildLinkFlagsCache();
                 this.PathListBox.Invalidate();
+                this.PathListBox.Focus();
                 this.canvas.Refresh();
             }
         }
@@ -2848,6 +2850,7 @@ namespace ShapeMaker
 
                 this.RebuildLinkFlagsCache();
                 this.PathListBox.Invalidate();
+                this.PathListBox.Focus();
                 this.canvas.Refresh();
             }
         }
