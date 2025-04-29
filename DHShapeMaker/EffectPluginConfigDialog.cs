@@ -3025,7 +3025,7 @@ namespace ShapeMaker
             int newZoomFactor = GetNewZoomFactor(oldZoomFactor, delta, false);
             Point mousePosition = new Point(e.X - this.viewport.Location.X, e.Y - this.viewport.Location.Y);
 
-            ZoomToFactor(newZoomFactor, mousePosition);
+            ZoomToFactor(newZoomFactor, mousePosition.ConstrainToInterval(10));
 
             base.OnMouseWheel(e);
         }

@@ -21,6 +21,13 @@ namespace ShapeMaker
             return (int)(Math.Round(amount / interval) * interval);
         }
 
+        internal static Point ConstrainToInterval(this Point point, int interval)
+        {
+            return new Point(
+                ConstrainToInterval((float)point.X, interval),
+                ConstrainToInterval((float)point.Y, interval));
+        }
+
         internal static Point ConstrainToInterval(this PointF point, int interval)
         {
             return new Point(
