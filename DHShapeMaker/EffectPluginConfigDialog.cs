@@ -74,7 +74,7 @@ namespace ShapeMaker
         private Tuple<int, int> operationRange = new Tuple<int, int>(-1, -1);
         private readonly List<LinkFlags> linkFlagsList = new List<LinkFlags>();
         private int oldPathListBoxIndex = -1;
-        private static readonly IList<int> zoomFactors = [1, 2, 5, 10];
+        private static readonly IList<int> zoomFactors = [1, 2, 5, 10, 15, 20];
 
         private readonly Dictionary<Keys, ToolStripButtonWithKeys> hotKeys = new Dictionary<Keys, ToolStripButtonWithKeys>();
 
