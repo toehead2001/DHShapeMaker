@@ -4,39 +4,39 @@ using System.Drawing;
 
 namespace ShapeMaker
 {
-    internal static class PathTypeUtil
+    internal static class PathTypeExtensions
     {
-        private static readonly IReadOnlyList<string> pathNames = new string[]
-        {
+        private static readonly IReadOnlyList<string> pathNames =
+        [
             "Straight Lines",
             "Elliptical Arc",
             "Cubic Beziers",
             "Smooth Cubic Beziers",
             "Quadratic Beziers",
             "Smooth Quadratic Beziers"
-        };
+        ];
 
-        private static readonly IReadOnlyList<Color> pathColors = new Color[]
-        {
+        private static readonly IReadOnlyList<Color> pathColors =
+        [
             Color.Black,
             Color.Red,
             Color.Blue,
             Color.Green,
             Color.DarkGoldenrod,
             Color.Purple
-        };
+        ];
 
-        private static readonly IReadOnlyList<Color> lightPathColors = new Color[]
-        {
+        private static readonly IReadOnlyList<Color> lightPathColors =
+        [
             Color.FromArgb(204, 204, 204),
             Color.FromArgb(255, 204, 204),
             Color.FromArgb(204, 204, 255),
             Color.FromArgb(204, 230, 204),
             Color.FromArgb(241, 231, 206),
             Color.FromArgb(230, 204, 230)
-        };
+        ];
 
-        internal static string GetName(PathType pathType)
+        internal static string GetName(this PathType pathType)
         {
             if (pathType == PathType.None)
             {
@@ -46,7 +46,7 @@ namespace ShapeMaker
             return pathNames[(int)pathType];
         }
 
-        internal static Color GetColor(PathType pathType)
+        internal static Color GetColor(this PathType pathType)
         {
             if (pathType == PathType.None)
             {
@@ -56,7 +56,7 @@ namespace ShapeMaker
             return pathColors[(int)pathType];
         }
 
-        internal static Color GetLightColor(PathType pathType)
+        internal static Color GetLightColor(this PathType pathType)
         {
             if (pathType == PathType.None)
             {

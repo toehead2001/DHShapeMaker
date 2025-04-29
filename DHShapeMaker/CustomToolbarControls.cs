@@ -8,7 +8,7 @@ namespace ShapeMaker
     internal sealed class ThemeRenderer : ToolStripProfessionalRenderer
     {
         internal ThemeRenderer(PathType pathType)
-            : this(PathTypeUtil.GetLightColor(pathType), PathTypeUtil.GetColor(pathType))
+            : this(pathType.GetLightColor(), pathType.GetColor())
         {
         }
 

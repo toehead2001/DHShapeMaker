@@ -232,7 +232,7 @@ namespace ShapeMaker
             foreach (PathData p in tmp)
             {
                 this.paths.Add(p);
-                this.PathListBox.Items.Add(PathTypeUtil.GetName(p.PathType));
+                this.PathListBox.Items.Add(p.PathType.GetName());
             }
 
             this.drawClippingArea = this.DrawOnCanvas.Checked && !this.fitCanvasBox.Checked;
@@ -481,7 +481,7 @@ namespace ShapeMaker
                 {
                     PathData clonedPath = new PathData(pd.PathType, pd.Points, pd.CloseType, pd.ArcOptions, pd.Alias);
                     this.paths.Add(clonedPath);
-                    this.PathListBox.Items.Add(PathTypeUtil.GetName(pd.PathType));
+                    this.PathListBox.Items.Add(pd.PathType.GetName());
                 }
 
                 if (this.undoSelected[this.historyIndex] < this.PathListBox.Items.Count)
@@ -662,8 +662,8 @@ namespace ShapeMaker
                     loopBack = new PointF(pts[0].X, pts[0].Y);
                 }
 
-                Color pathColor = PathTypeUtil.GetColor(pathType);
-                Color pathLightColor = PathTypeUtil.GetLightColor(pathType);
+                Color pathColor = pathType.GetColor();
+                Color pathLightColor = pathType.GetLightColor();
 
                 using (Pen p = new Pen(pathColor))
                 using (Pen activePen = new Pen(pathColor))
@@ -976,7 +976,7 @@ namespace ShapeMaker
                     new PointF(pts[0].X - 4f, pts[0].Y + 4f)
                 };
 
-                Color pathColor = PathTypeUtil.GetColor(this.PathTypeFromUI);
+                Color pathColor = this.PathTypeFromUI.GetColor();
 
                 if (linkFlags.HasFlag(LinkFlags.Up))
                 {
@@ -2046,7 +2046,7 @@ namespace ShapeMaker
             int selectedIndex = this.PathListBox.SelectedIndex;
 
             this.paths[selectedIndex] = new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI, this.paths[selectedIndex].Alias);
-            this.PathListBox.Items[selectedIndex] = PathTypeUtil.GetName(this.PathTypeFromUI);
+            this.PathListBox.Items[selectedIndex] = this.PathTypeFromUI.GetName();
 
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
@@ -2073,7 +2073,7 @@ namespace ShapeMaker
                     return;
                 }
 
-                string arcName = PathTypeUtil.GetName(PathType.EllipticalArc);
+                string arcName = PathType.EllipticalArc.GetName();
 
                 PointF mid = PointFUtil.PointAverage(this.canvasPoints[0], this.canvasPoints[4]);
                 this.canvasPoints[1] = this.canvasPoints[0];
@@ -2108,13 +2108,13 @@ namespace ShapeMaker
                     };
 
                     this.paths.Add(new PathData(PathType.Straight, tmp, CloseType.None, ArcOptions.None));
-                    this.PathListBox.Items.Add(PathTypeUtil.GetName(PathType.Straight));
+                    this.PathListBox.Items.Add(PathType.Straight.GetName());
                 }
             }
             else
             {
                 this.paths.Add(new PathData(pathType, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
-                this.PathListBox.Items.Add(PathTypeUtil.GetName(pathType));
+                this.PathListBox.Items.Add(pathType.GetName());
             }
 
             if (this.LinkedPaths.Checked)
@@ -2356,7 +2356,7 @@ namespace ShapeMaker
             ZoomToFactor(1);
 
             this.paths.AddRange(paths);
-            this.PathListBox.Items.AddRange(paths.Select(path => PathTypeUtil.GetName(path.PathType)).ToArray());
+            this.PathListBox.Items.AddRange(paths.Select(path => path.PathType.GetName()).ToArray());
 
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
@@ -2459,7 +2459,7 @@ namespace ShapeMaker
             foreach (PathData path in collection.Paths)
             {
                 this.paths.Add(path);
-                this.PathListBox.Items.Add(PathTypeUtil.GetName(path.PathType));
+                this.PathListBox.Items.Add(path.PathType.GetName());
             }
 
             this.RebuildLinkFlagsCache();
@@ -2550,7 +2550,7 @@ namespace ShapeMaker
             {
                 PathData itemPath = this.paths[itemIndex];
 
-                Color backColor = isItemSelected ? PathTypeUtil.GetLightColor(itemPath.PathType) : Color.White;
+                Color backColor = isItemSelected ? itemPath.PathType.GetLightColor() : Color.White;
 
                 if (isItemSelected)
                 {
@@ -2565,7 +2565,7 @@ namespace ShapeMaker
                     : this.PathListBox.Items[itemIndex].ToString();
 
                 using (StringFormat vCenter = new StringFormat { LineAlignment = StringAlignment.Center })
-                using (SolidBrush itemTextColorBrush = new SolidBrush(PathTypeUtil.GetColor(itemPath.PathType)))
+                using (SolidBrush itemTextColorBrush = new SolidBrush(itemPath.PathType.GetColor()))
                 {
                     e.Graphics.DrawString(itemText, e.Font, itemTextColorBrush, e.Bounds, vCenter);
                 }
@@ -2808,7 +2808,7 @@ namespace ShapeMaker
             setUndo();
 
             this.paths.Add(new PathData(this.PathTypeFromUI, this.canvasPoints, this.CloseTypeFromUI, this.ArcOptionsFromUI));
-            this.PathListBox.Items.Add(PathTypeUtil.GetName(this.PathTypeFromUI));
+            this.PathListBox.Items.Add(this.PathTypeFromUI.GetName());
             this.PathListBox.SelectedIndex = this.PathListBox.Items.Count - 1;
             this.RebuildLinkFlagsCache();
             this.PathListBox.Invalidate();
