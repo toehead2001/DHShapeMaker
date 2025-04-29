@@ -1575,7 +1575,7 @@ namespace ShapeMaker
                             if (ModifierKeys.HasFlag(Keys.Shift))
                             {
                                 double constrainedDegrees = double.RadiansToDegrees(radians).ConstrainToInterval(15);
-                                radians = double.RadiansToDegrees(constrainedDegrees);
+                                radians = double.DegreesToRadians(constrainedDegrees);
                             }
 
                             if (nubCount == 0 && this.PathListBox.Items.Count > 0)
