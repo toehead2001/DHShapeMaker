@@ -65,7 +65,11 @@ namespace ShapeMaker
             IDirect2DFactory d2dFactory = this.Services.GetService<IDirect2DFactory>();
             using IGeometry d2dGeometry = d2dFactory.CreateGeometryFromWpfGeometry(wpfGeometry);
 
-            RectFloat geoBounds = fit ? d2dGeometry.GetWidenedBounds(strokeThickness) : new RectFloat(0, 0, 500, 500);
+            RectFloat geoBounds = !fit
+                ? new RectFloat(0, 0, 500, 500) : stroke
+                ? d2dGeometry.GetWidenedBounds(strokeThickness / 2f)
+                : d2dGeometry.GetBounds();
+
             RectInt32 selBounds = this.Environment.Selection.RenderBounds;
 
             float scale;
@@ -92,13 +96,19 @@ namespace ShapeMaker
 
             using ITransformedGeometry transformedGeometry = d2dFactory.CreateTransformedGeometry(d2dGeometry, matrix);
 
-            using ISolidColorBrush strokeBrush = dc.CreateSolidColorBrush(stroke ? primaryColor : LinearColors.Transparent);
-            using ISolidColorBrush fillBrush = dc.CreateSolidColorBrush(!stroke ? primaryColor : fill ? secondaryColor : LinearColors.Transparent);
-
             using (dc.UseTranslateTransform(0.5f, 0.5f))
             {
-                dc.FillGeometry(transformedGeometry, fillBrush);
-                dc.DrawGeometry(transformedGeometry, strokeBrush, strokeThickness);
+                if (fill)
+                {
+                    using ISolidColorBrush fillBrush = dc.CreateSolidColorBrush(!stroke ? primaryColor : secondaryColor);
+                    dc.FillGeometry(transformedGeometry, fillBrush);
+                }
+
+                if (stroke)
+                {
+                    using ISolidColorBrush strokeBrush = dc.CreateSolidColorBrush(primaryColor);
+                    dc.DrawGeometry(transformedGeometry, strokeBrush, strokeThickness);
+                }
             }
         }
     }
