@@ -526,7 +526,7 @@
             this.strokeThicknessBox.Name = "strokeThicknessBox";
             this.toolTip1.SetToolTip(this.strokeThicknessBox, resources.GetString("strokeThicknessBox.ToolTip"));
             this.strokeThicknessBox.Value = new decimal(new int[] { 2, 0, 0, 0 });
-            this.strokeThicknessBox.ValueChanged += DrawOnCanvasPropChanged;
+            this.strokeThicknessBox.ValueChanged += strokeThicknessBox_ValueChanged;
             // 
             // solidFillCheckBox
             // 
@@ -560,7 +560,7 @@
             this.drawModeBox.Items.AddRange(new object[] { resources.GetString("drawModeBox.Items"), resources.GetString("drawModeBox.Items1"), resources.GetString("drawModeBox.Items2") });
             this.drawModeBox.Name = "drawModeBox";
             this.toolTip1.SetToolTip(this.drawModeBox, resources.GetString("drawModeBox.ToolTip"));
-            this.drawModeBox.SelectedIndexChanged += DrawOnCanvasPropChanged;
+            this.drawModeBox.SelectedIndexChanged += drawModeBox_SelectedIndexChanged;
             // 
             // fitCanvasBox
             // 

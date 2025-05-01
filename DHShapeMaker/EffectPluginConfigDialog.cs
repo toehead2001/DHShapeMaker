@@ -4074,10 +4074,18 @@ namespace ShapeMaker
         private void DrawOnCanvas_CheckedChanged(object sender, EventArgs e)
         {
 #if !FASTDEBUG
+            DrawModes drawModes = this.drawModeBox.SelectedIndex switch
+            {
+                0 => DrawModes.Stroke,
+                1 => DrawModes.Fill,
+                2 => DrawModes.Stroke | DrawModes.Fill,
+                _ => DrawModes.Stroke,
+            };
+
             bool enable = this.DrawOnCanvas.Checked;
             this.strokeColorPanel.Enabled = enable;
-            this.fillColorPanel.Enabled = enable;
-            this.strokeThicknessBox.Enabled = enable;
+            this.fillColorPanel.Enabled = enable && drawModes.HasFlag(DrawModes.Stroke) && drawModes.HasFlag(DrawModes.Fill);
+            this.strokeThicknessBox.Enabled = enable && drawModes.HasFlag(DrawModes.Stroke);
             this.drawModeBox.Enabled = enable;
             this.fitCanvasBox.Enabled = enable;
             this.drawClippingArea = enable && !this.fitCanvasBox.Checked;
@@ -4087,9 +4095,29 @@ namespace ShapeMaker
 #endif
         }
 
-        private void DrawOnCanvasPropChanged(object sender, EventArgs e)
+        private void strokeThicknessBox_ValueChanged(object sender, EventArgs e)
         {
 #if !FASTDEBUG
+            RefreshPdnCanvas();
+#endif
+        }
+
+        private void drawModeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+#if !FASTDEBUG
+            bool enable = this.DrawOnCanvas.Checked;
+
+            DrawModes drawModes = this.drawModeBox.SelectedIndex switch
+            {
+                0 => DrawModes.Stroke,
+                1 => DrawModes.Fill,
+                2 => DrawModes.Stroke | DrawModes.Fill,
+                _ => DrawModes.Stroke,
+            };
+
+            this.fillColorPanel.Enabled = enable && drawModes.HasFlag(DrawModes.Stroke) && drawModes.HasFlag(DrawModes.Fill);
+            this.strokeThicknessBox.Enabled = enable && drawModes.HasFlag(DrawModes.Stroke);
+
             RefreshPdnCanvas();
 #endif
         }
