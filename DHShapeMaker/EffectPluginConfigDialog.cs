@@ -5,12 +5,15 @@ using PaintDotNet.Clipboard;
 using PaintDotNet.Effects;
 using PaintDotNet.Imaging;
 #endif
+using PaintDotNet.Controls;
+using PaintDotNet.Direct2D1;
+using PaintDotNet.Direct2D1.Effects;
+using PaintDotNet.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -513,54 +516,92 @@ namespace ShapeMaker
         #endregion
 
         #region Canvas functions
-        private void canvas_Paint(object sender, PaintEventArgs e)
+        private void Canvas_RenderForeground(object sender, RenderEventArgs e)
         {
-            Image gridImg = Properties.Resources.bg;
-            ImageAttributes attr = new ImageAttributes();
-            ColorMatrix mx = new ColorMatrix
-            {
-                Matrix33 = (101f - this.opacitySlider.Value) / 100f
-            };
-            attr.SetColorMatrix(mx);
-            using (TextureBrush texture = new TextureBrush(gridImg, new Rectangle(Point.Empty, gridImg.Size), attr))
-            {
-                texture.WrapMode = WrapMode.Tile;
-                e.Graphics.FillRectangle(texture, e.ClipRectangle);
-            }
-            attr.Dispose();
+            #region Grid
+            using ICommandList gridCmdList = e.DeviceContext.CreateCommandList();
 
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using (gridCmdList.UseBeginDraw(e.DeviceContext))
+            using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
+            using (e.DeviceContext.UsePrimitiveBlend(PrimitiveBlend.Copy))
+            {
+                int left = (int)Math.Floor(e.ClipRect.Left);
+                int top = (int)Math.Floor(e.ClipRect.Top);
+                int right = (int)Math.Ceiling(e.ClipRect.Right);
+                int bottom = (int)Math.Ceiling(e.ClipRect.Bottom);
+
+                RectInt32 clipRectInt32 = RectInt32.FromEdges(left - (left % 50) - 1, top - (top % 50) - 1, right, bottom);
+                float opacity = (100 - this.opacitySlider.Value) / 100f;
+
+                using IDeviceBrush bgBrush = e.DeviceContext.CreateSolidColorBrush(new ColorRgb24(255, 255, 255), opacity);
+                e.DeviceContext.FillRectangle(clipRectInt32, bgBrush);
+
+                using IDeviceBrush tenBrush = e.DeviceContext.CreateSolidColorBrush(new ColorRgb24(224, 224, 224), opacity);
+                using IDeviceBrush fiftyBrush = e.DeviceContext.CreateSolidColorBrush(new ColorRgb24(181, 181, 181), opacity);
+
+                for (int x = clipRectInt32.Left; x < clipRectInt32.Right; x += 10)
+                {
+                    e.DeviceContext.DrawLine(x, clipRectInt32.Top, x, clipRectInt32.Bottom, tenBrush);
+                }
+
+                for (int y = clipRectInt32.Top; y < clipRectInt32.Bottom; y += 10)
+                {
+                    e.DeviceContext.DrawLine(clipRectInt32.Left, y, clipRectInt32.Right, y, tenBrush);
+                }
+
+                for (int x = clipRectInt32.Left; x < clipRectInt32.Right; x += 50)
+                {
+                    e.DeviceContext.DrawLine(x, clipRectInt32.Top, x, clipRectInt32.Bottom, fiftyBrush);
+                }
+
+                for (int y = clipRectInt32.Top; y < clipRectInt32.Bottom; y += 50)
+                {
+                    e.DeviceContext.DrawLine(clipRectInt32.Left, y, clipRectInt32.Right, y, fiftyBrush);
+                }
+            }
+
+            e.DeviceContext.DrawImage(gridCmdList);
+            #endregion
 
 #if !FASTDEBUG
             if (this.drawClippingArea)
             {
-                Size selSize = this.Environment.Selection.RenderBounds.Size;
-                if (selSize.Width != selSize.Height)
+                RectInt32 hatchRect = new RectInt32(0, 0, 8, 8);
+
+                using ICommandList hatchCmdList = e.DeviceContext.CreateCommandList();
+
+                using (hatchCmdList.UseBeginDraw(e.DeviceContext))
                 {
-                    Rectangle canvasRect = this.canvas.ClientRectangle;
-                    float ratio = (float)selSize.Width / selSize.Height;
+                    using IDeviceBrush whiteBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.White);
+                    e.DeviceContext.FillRectangle(hatchRect, whiteBrush);
 
-                    Size ratioSize = canvasRect.Size;
-                    if (ratioSize.Width < ratioSize.Height * ratio)
-                    {
-                        ratioSize.Height = (int)Math.Round(canvasRect.Width / ratio);
-                    }
-                    else if (ratioSize.Width > ratioSize.Height * ratio)
-                    {
-                        ratioSize.Width = (int)Math.Round(canvasRect.Height * ratio);
-                    }
+                    using IDeviceBrush grayBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Gray);
 
-                    Point selOffset = new Point((canvasRect.Width - ratioSize.Width) / 2, (canvasRect.Height - ratioSize.Height) / 2);
-                    Rectangle selection = new Rectangle(selOffset, ratioSize);
-
-                    using (GraphicsPath fillPath = new GraphicsPath())
-                    using (HatchBrush hatch = new HatchBrush(HatchStyle.DiagonalCross, Color.Gray, Color.White))
-                    {
-                        fillPath.AddRectangles(new Rectangle[] { canvasRect, selection });
-                        e.Graphics.FillPath(hatch, fillPath);
-                        e.Graphics.DrawRectangle(Pens.Gray, selection);
-                    }
+                    e.DeviceContext.DrawLine(hatchRect.TopLeft, hatchRect.BottomRight, grayBrush);
+                    e.DeviceContext.DrawLine(hatchRect.TopRight, hatchRect.BottomLeft, grayBrush);
                 }
+
+                using IImageBrush hatchBrush = e.DeviceContext.CreateImageBrush(hatchCmdList, hatchRect, ExtendMode.Wrap, ExtendMode.Wrap);
+
+                using IPathGeometry geometry = e.DeviceContext.Factory.CreatePathGeometry();
+                using IGeometrySink sink = geometry.Open();
+
+                ReadOnlySpan<Point2Float> clipPoints = e.ClipRect.ToPoints();
+                ReadOnlySpan<Point2Float> bmpPoints = e.BitmapRect.ToPoints();
+
+                sink.BeginFigure(clipPoints[0], FigureBegin.Filled);
+                sink.AddLines(clipPoints[1..]);
+                sink.EndFigure(FigureEnd.Closed);
+
+                sink.BeginFigure(bmpPoints[0], FigureBegin.Filled);
+                sink.AddLines(bmpPoints[1..]);
+                sink.EndFigure(FigureEnd.Closed);
+                sink.Close();
+
+                e.DeviceContext.FillGeometry(geometry, hatchBrush);
+
+                using var bmpOutlineBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Gray);
+                e.DeviceContext.DrawRectangle(e.BitmapRect, bmpOutlineBrush);
             }
 #endif
             int selectedIndex = this.PathListBox.SelectedIndex;
@@ -568,7 +609,24 @@ namespace ShapeMaker
             Size canvasSize = this.canvas.ClientSize;
 
             #region Draw Paths
-            Pen operationPen = new Pen(Color.FromArgb(85, Color.Yellow), 15f);
+            const int normalStrokeWidth = 1;
+            const int activeStrokeWidth = 5;
+            const int operationStrokeWidth = 15;
+
+            using ISolidColorBrush operationBrush = e.DeviceContext.CreateSolidColorBrush(Color.FromArgb(85, Color.Yellow));
+
+            using IStrokeStyle strokeStyle = e.DeviceContext.Factory.CreateStrokeStyle(
+                StrokeStyleProperties.Default with
+                {
+                    LineJoin = PaintDotNet.Direct2D1.LineJoin.Round
+                });
+
+            using IStrokeStyle dashedStrokeStyle = e.DeviceContext.Factory.CreateStrokeStyle(
+                StrokeStyleProperties.Default with
+                {
+                    LineJoin = PaintDotNet.Direct2D1.LineJoin.Round,
+                    DashStyle = PaintDotNet.Direct2D1.DashStyle.Dash
+                });
 
             PointF loopBack = new PointF(-9999, -9999);
             PointF previousEndPoint = new PointF(-9999, -9999);
@@ -583,100 +641,96 @@ namespace ShapeMaker
             bool positiveSweep = false;
             IReadOnlyList<PointF> pPoints;
 
-            int j;
-            for (int jj = -1; jj < this.paths.Count; jj++)
+            using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
             {
-                j = jj + 1;
-                if (j == this.paths.Count && isNewPath)
+                int j;
+                for (int jj = -1; jj < this.paths.Count; jj++)
                 {
-                    j = -1;
-                }
+                    j = jj + 1;
+                    if (j == this.paths.Count && isNewPath)
+                    {
+                        j = -1;
+                    }
 
-                if (j >= this.paths.Count)
-                {
-                    continue;
-                }
+                    if (j >= this.paths.Count)
+                    {
+                        continue;
+                    }
 
-                bool isActive = j == selectedIndex;
+                    bool isActive = j == selectedIndex;
 
-                if (isActive)
-                {
-                    pPoints = this.canvasPoints;
-                    pathType = this.PathTypeFromUI;
-                    closedIndividual = this.ClosePath.Checked;
-                    closedContiguous = this.CloseContPaths.Checked;
-                    largeArc = (this.Arc.CheckState == CheckState.Checked);
-                    positiveSweep = (this.Sweep.CheckState == CheckState.Checked);
-                }
-                else
-                {
-                    PathData itemPath = this.paths[j];
-                    pPoints = itemPath.Points;
-                    pathType = itemPath.PathType;
-                    closedIndividual = itemPath.CloseType == CloseType.Individual;
-                    closedContiguous = itemPath.CloseType == CloseType.Contiguous;
-                    largeArc = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
-                    positiveSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
-                }
-
-                if (pPoints.Count == 0)
-                {
-                    continue;
-                }
-
-                bool partOfOperation = false;
-                if (!this.operationBox.IsEmpty)
-                {
                     if (isActive)
                     {
-                        partOfOperation = true;
+                        pPoints = this.canvasPoints;
+                        pathType = this.PathTypeFromUI;
+                        closedIndividual = this.ClosePath.Checked;
+                        closedContiguous = this.CloseContPaths.Checked;
+                        largeArc = (this.Arc.CheckState == CheckState.Checked);
+                        positiveSweep = (this.Sweep.CheckState == CheckState.Checked);
                     }
-                    else if (selectedIndex == InvalidPath)
+                    else
                     {
-                        if (canvasPointCount > 1)
+                        PathData itemPath = this.paths[j];
+                        pPoints = itemPath.Points;
+                        pathType = itemPath.PathType;
+                        closedIndividual = itemPath.CloseType == CloseType.Individual;
+                        closedContiguous = itemPath.CloseType == CloseType.Contiguous;
+                        largeArc = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
+                        positiveSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
+                    }
+
+                    if (pPoints.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    bool partOfOperation = false;
+                    if (!this.operationBox.IsEmpty)
+                    {
+                        if (isActive)
                         {
-                            if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
+                            partOfOperation = true;
+                        }
+                        else if (selectedIndex == InvalidPath)
+                        {
+                            if (canvasPointCount > 1)
+                            {
+                                if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
+                                {
+                                    partOfOperation = true;
+                                }
+                            }
+                            else
                             {
                                 partOfOperation = true;
                             }
                         }
-                        else
+                        else if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
                         {
                             partOfOperation = true;
                         }
                     }
-                    else if (j >= this.operationRange.Item1 && j <= this.operationRange.Item2)
+
+                    Point2Float[] pts = new Point2Float[pPoints.Count];
+                    for (int i = 0; i < pts.Length; i++)
                     {
-                        partOfOperation = true;
+                        pts[i].X = canvasSize.Width * pPoints[i].X;
+                        pts[i].Y = canvasSize.Height * pPoints[i].Y;
                     }
-                }
 
-                PointF[] pts = new PointF[pPoints.Count];
-                for (int i = 0; i < pts.Length; i++)
-                {
-                    pts[i].X = canvasSize.Width * pPoints[i].X;
-                    pts[i].Y = canvasSize.Height * pPoints[i].Y;
-                }
+                    int lastIndex = pts.Length - 1;
 
-                int lastIndex = pts.Length - 1;
+                    if (previousClosed || !previousEndPoint.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
+                    {
+                        loopBack = new PointF(pts[0].X, pts[0].Y);
+                    }
 
-                if (previousClosed || !previousEndPoint.Equals(pts[0]) || (isActive && this.ClosePath.Checked))
-                {
-                    loopBack = new PointF(pts[0].X, pts[0].Y);
-                }
+                    Color pathColor = pathType.GetColor();
+                    Color pathLightColor = pathType.GetLightColor();
+                    Color activeColor = partOfOperation ? pathLightColor : Color.FromArgb(51, pathColor);
 
-                Color pathColor = pathType.GetColor();
-                Color pathLightColor = pathType.GetLightColor();
-
-                using (Pen p = new Pen(pathColor))
-                using (Pen activePen = new Pen(pathColor))
-                {
-                    p.DashStyle = DashStyle.Solid;
-                    p.Width = 1;
-
-                    activePen.Width = 5f;
-                    activePen.Color = partOfOperation ? pathLightColor : Color.FromArgb(51, p.Color);
-                    activePen.LineJoin = LineJoin.Bevel;
+                    using ISolidColorBrush baseBrush = e.DeviceContext.CreateSolidColorBrush(pathColor);
+                    using ISolidColorBrush activeBrush = e.DeviceContext.CreateSolidColorBrush(activeColor);
 
                     switch (pathType)
                     {
@@ -687,7 +741,7 @@ namespace ShapeMaker
                                 {
                                     for (int i = 1; i < pts.Length; i++)
                                     {
-                                        PointF[] rectPts =
+                                        Point2Float[] rectPts =
                                         {
                                             new PointF(pts[i - 1].X, pts[i - 1].Y),
                                             new PointF(pts[i].X, pts[i - 1].Y),
@@ -696,28 +750,32 @@ namespace ShapeMaker
                                             new PointF(pts[i - 1].X, pts[i - 1].Y)
                                         };
 
+                                        using IPathGeometry rectGeometry = e.DeviceContext.Factory.CreateLinesPathGeometry(rectPts);
+
                                         if (partOfOperation)
                                         {
-                                            e.Graphics.DrawLines(operationPen, rectPts);
+                                            e.DeviceContext.DrawGeometry(rectGeometry, operationBrush, operationStrokeWidth);
                                         }
 
-                                        e.Graphics.DrawLines(activePen, rectPts);
-                                        e.Graphics.DrawLines(p, rectPts);
+                                        e.DeviceContext.DrawGeometry(rectGeometry, activeBrush, activeStrokeWidth);
+                                        e.DeviceContext.DrawGeometry(rectGeometry, baseBrush, normalStrokeWidth);
                                     }
                                 }
                                 else
                                 {
+                                    using IPathGeometry linesGeometry = e.DeviceContext.Factory.CreateLinesPathGeometry(pts);
+
                                     if (partOfOperation)
                                     {
-                                        e.Graphics.DrawLines(operationPen, pts);
+                                        e.DeviceContext.DrawGeometry(linesGeometry, operationBrush, operationStrokeWidth, strokeStyle);
                                     }
 
                                     if (isActive)
                                     {
-                                        e.Graphics.DrawLines(activePen, pts);
+                                        e.DeviceContext.DrawGeometry(linesGeometry, activeBrush, activeStrokeWidth, strokeStyle);
                                     }
 
-                                    e.Graphics.DrawLines(p, pts);
+                                    e.DeviceContext.DrawGeometry(linesGeometry, baseBrush, normalStrokeWidth, strokeStyle);
                                 }
                             }
                             break;
@@ -727,69 +785,64 @@ namespace ShapeMaker
                                 PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
                                 if (this.MacroCircle.Checked && j == -1 && isNewPath)
                                 {
-                                    float far = PointFUtil.Hypot(pts[0], pts[4]);
+                                    float radius = PointFUtil.Hypot(pts[0], pts[4]) / 2f;
+                                    Ellipse ellipse = new Ellipse(mid, radius);
 
                                     if (partOfOperation)
                                     {
-                                        e.Graphics.DrawEllipse(operationPen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                                        e.DeviceContext.DrawEllipse(ellipse, operationBrush, operationStrokeWidth);
                                     }
 
-                                    e.Graphics.DrawEllipse(activePen, mid.X - far / 2f, mid.Y - far / 2f, far, far);
-                                    e.Graphics.DrawEllipse(p, mid.X - far / 2f, mid.Y - far / 2f, far, far);
+                                    e.DeviceContext.DrawEllipse(ellipse, activeBrush, activeStrokeWidth);
+                                    e.DeviceContext.DrawEllipse(ellipse, baseBrush, normalStrokeWidth);
                                 }
                                 else
                                 {
                                     float radiusX = PointFUtil.Hypot(mid, pts[1]);
                                     float radiusY = PointFUtil.Hypot(mid, pts[2]);
+                                    Point2Float start = pts[0];
+                                    Point2Float end = pts[4];
 
                                     if ((int)radiusY == 0 || (int)radiusX == 0)
                                     {
-                                        PointF[] nullLine = { pts[0], pts[4] };
-
                                         if (partOfOperation)
                                         {
-                                            e.Graphics.DrawLines(operationPen, nullLine);
+                                            e.DeviceContext.DrawLine(start, end, operationBrush, operationStrokeWidth);
                                         }
 
                                         if (isActive)
                                         {
-                                            e.Graphics.DrawLines(activePen, nullLine);
+                                            e.DeviceContext.DrawLine(start, end, activeBrush, activeStrokeWidth);
                                         }
 
-                                        e.Graphics.DrawLines(p, nullLine);
+                                        e.DeviceContext.DrawLine(start, end, baseBrush, normalStrokeWidth);
                                     }
-                                    else
+                                    else if (start != end)
                                     {
                                         float angle = float.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X);
 
-                                        using (GraphicsPath gp = new GraphicsPath())
+                                        IPathGeometry arcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
+                                            start, radiusX, radiusY, angle, largeArc, positiveSweep, end);
+
+                                        if (partOfOperation)
                                         {
-                                            gp.AddArc(pts[0], radiusX, radiusY, angle, largeArc, positiveSweep, pts[4]);
-
-                                            if (partOfOperation)
-                                            {
-                                                e.Graphics.DrawPath(operationPen, gp);
-                                            }
-
-                                            if (isActive)
-                                            {
-                                                e.Graphics.DrawPath(activePen, gp);
-                                            }
-
-                                            e.Graphics.DrawPath(p, gp);
+                                            e.DeviceContext.DrawGeometry(arcGeometry, operationBrush, operationStrokeWidth);
                                         }
 
                                         if (isActive)
                                         {
-                                            using (GraphicsPath gp = new GraphicsPath())
-                                            {
-                                                gp.AddArc(pts[0], radiusX, radiusY, angle, !largeArc, !positiveSweep, pts[4]);
-                                                using (Pen p2 = new Pen(Color.Silver))
-                                                {
-                                                    p2.DashStyle = DashStyle.Dash;
-                                                    e.Graphics.DrawPath(p2, gp);
-                                                }
-                                            }
+                                            e.DeviceContext.DrawGeometry(arcGeometry, activeBrush, activeStrokeWidth);
+                                        }
+
+                                        e.DeviceContext.DrawGeometry(arcGeometry, baseBrush, normalStrokeWidth);
+
+                                        if (isActive)
+                                        {
+                                            IGeometry activeArcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
+                                                start, radiusX, radiusY, angle, !largeArc, !positiveSweep, end);
+
+                                            using ISolidColorBrush activeArcBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Silver);
+                                            e.DeviceContext.DrawGeometry(activeArcGeometry, activeArcBrush, normalStrokeWidth, dashedStrokeStyle);
                                         }
                                     }
                                 }
@@ -799,17 +852,19 @@ namespace ShapeMaker
                         case PathType.SmoothCubic:
                             if (pts.Length > 3)
                             {
+                                using IPathGeometry cubicGeometry = e.DeviceContext.Factory.CreateBeziersPathGeometry(pts);
+
                                 if (partOfOperation)
                                 {
-                                    e.Graphics.DrawBeziers(operationPen, pts);
+                                    e.DeviceContext.DrawGeometry(cubicGeometry, operationBrush, operationStrokeWidth);
                                 }
 
                                 if (isActive)
                                 {
-                                    e.Graphics.DrawBeziers(activePen, pts);
+                                    e.DeviceContext.DrawGeometry(cubicGeometry, activeBrush, activeStrokeWidth);
                                 }
 
-                                e.Graphics.DrawBeziers(p, pts);
+                                e.DeviceContext.DrawGeometry(cubicGeometry, baseBrush, normalStrokeWidth);
                             }
                             break;
                         case PathType.Quadratic:
@@ -817,7 +872,7 @@ namespace ShapeMaker
                             if (pts.Length > 3)
                             {
                                 #region cube to quad
-                                PointF[] Qpts = new PointF[pts.Length];
+                                Point2Float[] Qpts = new Point2Float[pts.Length];
                                 for (int i = 0; i < pts.Length; i++)
                                 {
                                     switch (CanvasUtil.GetNubType(i))
@@ -838,17 +893,19 @@ namespace ShapeMaker
                                 }
                                 #endregion
 
+                                using IPathGeometry quadGeometry = e.DeviceContext.Factory.CreateBeziersPathGeometry(Qpts);
+
                                 if (partOfOperation)
                                 {
-                                    e.Graphics.DrawBeziers(operationPen, Qpts);
+                                    e.DeviceContext.DrawGeometry(quadGeometry, operationBrush, operationStrokeWidth);
                                 }
 
                                 if (isActive)
                                 {
-                                    e.Graphics.DrawBeziers(activePen, Qpts);
+                                    e.DeviceContext.DrawGeometry(quadGeometry, activeBrush, activeStrokeWidth);
                                 }
 
-                                e.Graphics.DrawBeziers(p, Qpts);
+                                e.DeviceContext.DrawGeometry(quadGeometry, baseBrush, normalStrokeWidth);
                             }
                             break;
                     }
@@ -860,25 +917,22 @@ namespace ShapeMaker
                         PointF pointA = closedIndividual ? pts[0] : pts[lastIndex];
                         PointF pointB = closedIndividual ? pts[lastIndex] : loopBack;
 
-                        p.Color = Color.DimGray;
-                        p.DashStyle = DashStyle.Dash;
-
-                        e.Graphics.DrawLine(p, pointA, pointB);
+                        using ISolidColorBrush closedBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.DimGray);
+                        e.DeviceContext.DrawLine(pointA, pointB, closedBrush, normalStrokeWidth, dashedStrokeStyle);
 
                         loopBack = pts[lastIndex];
                     }
-                }
 
-                previousEndPoint = pts[lastIndex];
-                previousClosed = closedIndividual || closedContiguous;
+                    previousEndPoint = pts[lastIndex];
+                    previousClosed = closedIndividual || closedContiguous;
+                }
             }
             #endregion
 
             #region Draw Nubs
             if (canvasPointCount > 0 && !ModifierKeys.HasFlag(Keys.Control))
             {
-                const int width = 6;
-                const int offset = width / 2;
+                const int radius = 3;
 
                 pathType = this.PathTypeFromUI;
 
@@ -891,127 +945,119 @@ namespace ShapeMaker
 
                 int lastIndex = pts.Length - 1;
 
-                for (int i = 1; i < lastIndex; i++)
+                using (ISolidColorBrush nubBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Black))
+                using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
                 {
-                    switch (pathType)
+                    for (int i = 1; i < lastIndex; i++)
                     {
-                        case PathType.Straight:
-                            e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                            break;
-                        case PathType.EllipticalArc:
-                            if (i == 3)
-                            {
-                                bool isMacro = this.MacroCircle.Checked;
+                        switch (pathType)
+                        {
+                            case PathType.Straight:
+                                e.DeviceContext.DrawEllipse(pts[i], radius, nubBrush);
+                                break;
+                            case PathType.EllipticalArc:
+                                if (i == 3)
+                                {
+                                    bool isMacro = this.MacroCircle.Checked;
 
-                                if (!isMacro || !isNewPath)
-                                {
-                                    e.Graphics.DrawRectangle(Pens.Black, pts[1].X - offset, pts[1].Y - offset, width, width);
-                                    e.Graphics.FillEllipse(Brushes.Black, pts[3].X - offset, pts[3].Y - offset, width, width);
-                                    e.Graphics.FillRectangle(Brushes.Black, pts[2].X - offset, pts[2].Y - offset, width, width);
+                                    if (!isMacro || !isNewPath)
+                                    {
+                                        e.DeviceContext.DrawSquare(pts[1], radius, nubBrush);
+                                        e.DeviceContext.FillEllipse(pts[3], radius, nubBrush);
+                                        e.DeviceContext.FillSquare(pts[2], radius, nubBrush);
 
-                                    PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
-                                    e.Graphics.DrawLine(Pens.Black, mid, pts[1]);
-                                    e.Graphics.DrawLine(Pens.Black, mid, pts[2]);
-                                    e.Graphics.DrawLine(Pens.Black, mid, pts[3]);
-                                }
+                                        PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
+                                        e.DeviceContext.DrawLine(mid, pts[1], nubBrush);
+                                        e.DeviceContext.DrawLine(mid, pts[2], nubBrush);
+                                        e.DeviceContext.DrawLine(mid, pts[3], nubBrush);
+                                    }
 
-                                if (isMacro || this.CloseTypeFromUI == CloseType.None)
-                                {
-                                    e.Graphics.DrawLine(Pens.Black, pts[0], pts[4]);
+                                    if (isMacro || this.CloseTypeFromUI == CloseType.None)
+                                    {
+                                        e.DeviceContext.DrawLine(pts[0], pts[4], nubBrush);
+                                    }
                                 }
-                            }
-                            break;
-                        case PathType.Quadratic:
-                            if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1)
-                            {
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                                e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                if (i + 2 != lastIndex)
+                                break;
+                            case PathType.Quadratic:
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1)
                                 {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    e.DeviceContext.DrawEllipse(pts[i], radius, nubBrush);
+                                    e.DeviceContext.DrawLine(pts[i - 1], pts[i], nubBrush);
+                                    if (i + 2 != lastIndex)
+                                    {
+                                        e.DeviceContext.DrawEllipse(pts[i + 2], radius, nubBrush);
+                                    }
+                                    e.DeviceContext.DrawLine(pts[i], pts[i + 2], nubBrush);
                                 }
-                                e.Graphics.DrawLine(Pens.Black, pts[i], pts[i + 2]);
-                            }
-                            break;
-                        case PathType.SmoothQuadratic:
-                            if (CanvasUtil.GetNubType(i) == NubType.EndPoint)
-                            {
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                            }
-                            break;
-                        case PathType.Cubic:
-                        case PathType.SmoothCubic:
-                            if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
-                            {
-                                if (i != 1 || pathType == PathType.Cubic)
+                                break;
+                            case PathType.SmoothQuadratic:
+                                if (CanvasUtil.GetNubType(i) == NubType.EndPoint)
                                 {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
+                                    e.DeviceContext.DrawEllipse(pts[i], radius, nubBrush);
                                 }
+                                break;
+                            case PathType.Cubic:
+                            case PathType.SmoothCubic:
+                                if (CanvasUtil.GetNubType(i) == NubType.ControlPoint1 && !this.MacroCubic.Checked)
+                                {
+                                    if (i != 1 || pathType == PathType.Cubic)
+                                    {
+                                        e.DeviceContext.DrawEllipse(pts[i], radius, nubBrush);
+                                    }
 
-                                e.Graphics.DrawLine(Pens.Black, pts[i - 1], pts[i]);
-                                if (i + 2 != lastIndex)
-                                {
-                                    e.Graphics.DrawEllipse(Pens.Black, pts[i + 2].X - offset, pts[i + 2].Y - offset, width, width);
+                                    e.DeviceContext.DrawLine(pts[i - 1], pts[i], nubBrush);
+                                    if (i + 2 != lastIndex)
+                                    {
+                                        e.DeviceContext.DrawEllipse(pts[i + 2], radius, nubBrush);
+                                    }
+                                    e.DeviceContext.DrawEllipse(pts[i + 1], radius, nubBrush);
+                                    e.DeviceContext.DrawLine(pts[i + 1], pts[i + 2], nubBrush);
                                 }
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i + 1].X - offset, pts[i + 1].Y - offset, width, width);
-                                e.Graphics.DrawLine(Pens.Black, pts[i + 1], pts[i + 2]);
-                            }
-                            else if (CanvasUtil.GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
-                            {
-                                e.Graphics.DrawEllipse(Pens.Black, pts[i].X - offset, pts[i].Y - offset, width, width);
-                            }
-                            break;
+                                else if (CanvasUtil.GetNubType(i) == NubType.EndPoint && this.MacroCubic.Checked)
+                                {
+                                    e.DeviceContext.DrawEllipse(pts[i], radius, nubBrush);
+                                }
+                                break;
+                        }
                     }
                 }
 
                 // Terminating Nubs
+                const float terminatorStrokeWidth = 1.5f;
+                Color pathColor = this.PathTypeFromUI.GetColor();
+                using ISolidColorBrush terminatorNubBrush = e.DeviceContext.CreateSolidColorBrush(pathColor);
 
                 LinkFlags linkFlags = (selectedIndex != InvalidPath) ? this.linkFlagsList[selectedIndex]
                     : IsNewPathLinked() ? LinkFlags.Up
                     : LinkFlags.None;
 
-                PointF[] startTriangle =
+                Point2Float[] startTriangle =
                 {
                     new PointF(pts[0].X + 4, pts[0].Y),
                     new PointF(pts[0].X - 4f, pts[0].Y - 5f),
                     new PointF(pts[0].X - 4f, pts[0].Y + 4f)
                 };
 
-                Color pathColor = this.PathTypeFromUI.GetColor();
-
                 if (linkFlags.HasFlag(LinkFlags.Up))
                 {
-                    using (SolidBrush startNubBrush = new SolidBrush(pathColor))
-                    {
-                        e.Graphics.FillPolygon(startNubBrush, startTriangle);
-                    }
+                    e.DeviceContext.FillPolygon(startTriangle, terminatorNubBrush);
                 }
                 else
                 {
-                    using (Pen startNubPen = new Pen(pathColor, 1.6f))
-                    {
-                        e.Graphics.DrawPolygon(startNubPen, startTriangle);
-                    }
+                    e.DeviceContext.DrawPolygon(startTriangle, terminatorNubBrush, terminatorStrokeWidth);
                 }
 
                 if (lastIndex != 0)
                 {
-                    const int terminatorWidth = 8;
-                    const int terminatorOffset = terminatorWidth / 2;
+                    const int terminatorRadius = 4;
 
                     if (linkFlags.HasFlag(LinkFlags.Down))
                     {
-                        using (SolidBrush endNubBrush = new SolidBrush(pathColor))
-                        {
-                            e.Graphics.FillRectangle(endNubBrush, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
-                        }
+                        e.DeviceContext.FillSquare(pts[lastIndex], terminatorRadius, terminatorNubBrush);
                     }
                     else
                     {
-                        using (Pen endNubPen = new Pen(pathColor, 1.6f))
-                        {
-                            e.Graphics.DrawRectangle(endNubPen, pts[lastIndex].X - terminatorOffset, pts[lastIndex].Y - terminatorOffset, terminatorWidth, terminatorWidth);
-                        }
+                        e.DeviceContext.DrawSquare(pts[lastIndex], terminatorRadius, terminatorNubBrush, terminatorStrokeWidth);
                     }
                 }
             }
@@ -1021,8 +1067,13 @@ namespace ShapeMaker
             if (this.drawAverage)
             {
                 Point tmpPoint = CanvasCoordToPoint(this.averagePoint).Round();
-                e.Graphics.DrawLine(Pens.Red, tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y);
-                e.Graphics.DrawLine(Pens.Red, tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3);
+
+                using ISolidColorBrush averageBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Red);
+                using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
+                {
+                    e.DeviceContext.DrawLine(tmpPoint.X - 3, tmpPoint.Y, tmpPoint.X + 3, tmpPoint.Y, averageBrush);
+                    e.DeviceContext.DrawLine(tmpPoint.X, tmpPoint.Y - 3, tmpPoint.X, tmpPoint.Y + 3, averageBrush);
+                }
             }
 
             if (!this.operationBox.IsEmpty)
@@ -1034,22 +1085,28 @@ namespace ShapeMaker
                 Rectangle rotateRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth, this.operationBox.Top, opWidth, this.operationBox.Height);
                 Rectangle moveRect = new Rectangle(this.operationBox.Left + gripWidth + opWidth * 2, this.operationBox.Top, opWidth, this.operationBox.Height);
 
-                ImageAttributes activeattributes = new ImageAttributes();
-                ImageAttributes inactiveattributes = new ImageAttributes();
-                ColorMatrix colorMatrix = new ColorMatrix { Matrix33 = 0.25f };
-                inactiveattributes.SetColorMatrix(colorMatrix);
+                const float activeOpacity = 1.0f;
+                const float inactiveOpacity = 0.25f;
+                float gripOpacity = (this.operation == Operation.None || this.operation == Operation.NoneRelocate) ? activeOpacity : inactiveOpacity;
+                float scaleOpacity = (this.operation == Operation.None || this.operation == Operation.Scale) ? activeOpacity : inactiveOpacity;
+                float rotateOpacity = (this.operation == Operation.None || this.operation == Operation.Rotate) ? activeOpacity : inactiveOpacity;
+                float moveOpacity = (this.operation == Operation.None || this.operation == Operation.Move) ? activeOpacity : inactiveOpacity;
 
-                e.Graphics.DrawImage(Properties.Resources.Grip, gripRect, 0, 0, 8, 20, GraphicsUnit.Pixel,
-                    (this.operation == Operation.None || this.operation == Operation.NoneRelocate) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Resize, scaleRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
-                    (this.operation == Operation.None || this.operation == Operation.Scale) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Rotate, rotateRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
-                    (this.operation == Operation.None || this.operation == Operation.Rotate) ? activeattributes : inactiveattributes);
-                e.Graphics.DrawImage(Properties.Resources.Move, moveRect, 0, 0, 20, 20, GraphicsUnit.Pixel,
-                    (this.operation == Operation.None || this.operation == Operation.Move) ? activeattributes : inactiveattributes);
+                using IDeviceImage gripImage = e.DeviceContext.CreateImageFromGdiBitmap(Properties.Resources.Grip);
+                using OpacityEffect gripOpacityEffect = new OpacityEffect(e.DeviceContext, gripImage, gripOpacity);
+                e.DeviceContext.DrawImage(gripOpacityEffect, gripRect);
 
-                activeattributes.Dispose();
-                inactiveattributes.Dispose();
+                using IDeviceImage scaleImage = e.DeviceContext.CreateImageFromGdiBitmap(Properties.Resources.Resize);
+                using OpacityEffect scaleOpacityEffect = new OpacityEffect(e.DeviceContext, scaleImage, scaleOpacity);
+                e.DeviceContext.DrawImage(scaleOpacityEffect, scaleRect);
+
+                using IDeviceImage rotateImage = e.DeviceContext.CreateImageFromGdiBitmap(Properties.Resources.Rotate);
+                using OpacityEffect rotateOpacityEffect = new OpacityEffect(e.DeviceContext, rotateImage, rotateOpacity);
+                e.DeviceContext.DrawImage(rotateOpacityEffect, rotateRect);
+
+                using IDeviceImage moveImage = e.DeviceContext.CreateImageFromGdiBitmap(Properties.Resources.Move);
+                using OpacityEffect moveOpacityEffect = new OpacityEffect(e.DeviceContext, moveImage, moveOpacity);
+                e.DeviceContext.DrawImage(moveOpacityEffect, moveRect);
             }
         }
 
@@ -3709,27 +3766,27 @@ namespace ShapeMaker
 #if !FASTDEBUG
             if (this.traceLayer.Checked)
             {
-                Rectangle selection = this.Environment.Selection.RenderBounds;
-                this.canvas.BackgroundImage = this.Environment.CreateAliasedBitmap(selection);
+                this.canvas.Bitmap = this.Environment
+                    .GetSourceBitmapBgra32()
+                    .CreateClipper(this.Environment.Selection.RenderBounds);
             }
             else if (this.traceImage.Checked)
             {
-                Rectangle selection = this.Environment.Selection.RenderBounds;
-                this.canvas.BackgroundImage = this.Environment.Document.CreateAliasedBitmap(selection);
+                this.canvas.Bitmap = this.Environment.Document
+                    .GetBitmapBgra32()
+                    .CreateClipper(this.Environment.Selection.RenderBounds);
             }
             else if (this.traceClipboard.Checked)
             {
-                using (Surface surface = this.Services.GetService<IClipboardService>().TryGetSurface())
+                IClipboardImage<ColorBgra32> bitmap = this.Services.GetService<IClipboardService>().TryGetImageBgra32();
+                if (bitmap == null)
                 {
-                    if (surface == null)
-                    {
-                        this.traceLayer.Focus();
-                        MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    this.canvas.BackgroundImage = new Bitmap(surface.CreateAliasedBitmap());
+                    this.traceLayer.Focus();
+                    MessageBox.Show("Couldn't load an image from the clipboard.", "Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                this.canvas.Bitmap = bitmap;
             }
 #else
             if (this.traceClipboard.Checked)
@@ -3797,7 +3854,7 @@ namespace ShapeMaker
 
         private void FitBG_CheckedChanged(object sender, EventArgs e)
         {
-            this.canvas.BackgroundImageLayout = (this.FitBG.Checked) ? ImageLayout.Zoom : ImageLayout.Center;
+            this.canvas.SizeMode = (this.FitBG.Checked) ? Direct2DPictureBoxSizeMode.Zoom : Direct2DPictureBoxSizeMode.Normal;
             this.canvas.Refresh();
         }
         #endregion

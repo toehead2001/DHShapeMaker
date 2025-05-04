@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EffectPluginConfigDialog));
-            this.canvas = new System.Windows.Forms.PictureBox();
+            this.canvas = new ShapeCanvas();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +139,6 @@
             this.DiscardBtn = new System.Windows.Forms.Button();
             this.newPathLabel = new System.Windows.Forms.Label();
             this.traceImage = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)this.canvas).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.opacitySlider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.strokeThicknessBox).BeginInit();
@@ -161,7 +160,7 @@
             resources.ApplyResources(this.canvas, "canvas");
             this.canvas.Name = "canvas";
             this.canvas.TabStop = false;
-            this.canvas.Paint += canvas_Paint;
+            this.canvas.RenderForeground += Canvas_RenderForeground;
             this.canvas.MouseDown += canvas_MouseDown;
             this.canvas.MouseEnter += canvas_MouseEnter;
             this.canvas.MouseLeave += canvas_MouseLeave;
@@ -1013,7 +1012,6 @@
             this.Name = "EffectPluginConfigDialog";
             this.Load += EffectPluginConfigDialog_Load;
             this.Resize += EffectPluginConfigDialog_Resize;
-            ((System.ComponentModel.ISupportInitialize)this.canvas).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)this.opacitySlider).EndInit();
@@ -1043,7 +1041,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox canvas;
+        private ShapeCanvas canvas;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;

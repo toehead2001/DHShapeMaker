@@ -1,11 +1,12 @@
-﻿using PaintDotNet.Effects;
+﻿using PaintDotNet;
+using PaintDotNet.Direct2D1;
 using PaintDotNet.Imaging;
 using PaintDotNet.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
+using IDeviceContext = PaintDotNet.Direct2D1.IDeviceContext;
 
 namespace ShapeMaker
 {
@@ -132,11 +133,11 @@ namespace ShapeMaker
             }
         }
 
-        internal static void AddArc(this GraphicsPath graphicsPath, PointF start, float radiusX, float radiusY, float angle, bool largeArc, bool positiveSweep, PointF end)
+        internal static IPathGeometry CreateArcPathGeometry(this IDirect2DFactory factory, PointF start, float radiusX, float radiusY, float angle, bool largeArc, bool positiveSweep, PointF end)
         {
             if (start == end)
             {
-                return;
+                throw new ArgumentException("The end point can't be equal to the start point.", nameof(end));
             }
 
             radiusX = Math.Abs(radiusX);
@@ -144,8 +145,7 @@ namespace ShapeMaker
 
             if (radiusX == 0.0f && radiusY == 0.0f)
             {
-                graphicsPath.AddLine(start, end);
-                return;
+                return factory.CreateLinePathGeometry(start, end);
             }
 
             double sinPhi = Math.Sin(angle);
@@ -198,6 +198,8 @@ namespace ShapeMaker
             double startX = start.X;
             double startY = start.Y;
 
+            List<Point2Float> bezierPoints = new List<Point2Float>();
+
             for (int i = 0; i < segments; ++i)
             {
                 double cosTheta1 = Math.Cos(theta1);
@@ -215,13 +217,20 @@ namespace ShapeMaker
                 double dxe = t * (cosPhi * rx * sinTheta2 + sinPhi * ry * cosTheta2);
                 double dye = t * (sinPhi * rx * sinTheta2 - cosPhi * ry * cosTheta2);
 
-                graphicsPath.AddBezier((float)startX, (float)startY, (float)(startX + dx1), (float)(startY + dy1),
-                    (float)(endpointX + dxe), (float)(endpointY + dye), (float)endpointX, (float)endpointY);
+                bezierPoints.AddRange([
+                    new Point2Float((float)startX, (float)startY),
+                    new Point2Float((float)(startX + dx1), (float)(startY + dy1)),
+                    new Point2Float((float)(endpointX + dxe), (float)(endpointY + dye))
+                ]);
 
                 theta1 = theta2;
                 startX = (float)endpointX;
                 startY = (float)endpointY;
             }
+
+            bezierPoints.Add(new Point2Float((float)startX, (float)startY));
+
+            return factory.CreateBeziersPathGeometry(bezierPoints.ToArray());
         }
 
         private const double TwoPI = Math.PI * 2.0;
@@ -239,24 +248,28 @@ namespace ShapeMaker
             return TwoPI - (ta - tb);
         }
 
-        /// <inheritdoc cref="PaintDotNet.Effects.EffectDocumentInfoExtensions.GetBitmapBgra32" />
-        internal static unsafe Bitmap CreateAliasedBitmap(this IEffectDocumentInfo document, RectInt32 rect)
+        internal static ReadOnlySpan<Point2Float> ToPoints(this RectFloat rectFloat)
         {
-            using IEffectInputBitmap<ColorBgra32> bitmap = document.GetBitmapBgra32();
-            using IBitmapLock<ColorBgra32> bitmapLock = bitmap.Lock(rect);
-
-            SizeInt32 bitmapSize = bitmapLock.Size;
-            return new Bitmap(bitmapSize.Width, bitmapSize.Height, bitmapLock.BufferStride, System.Drawing.Imaging.PixelFormat.Format32bppArgb, (IntPtr)bitmapLock.Buffer);
+            return new Point2Float[] { rectFloat.TopLeft, rectFloat.TopRight, rectFloat.BottomRight, rectFloat.BottomLeft };
         }
 
-        /// <inheritdoc cref="PaintDotNet.Effects.EffectEnvironmentExtensions.GetSourceBitmapBgra32" />
-        internal static unsafe Bitmap CreateAliasedBitmap(this IEffectEnvironment environment, RectInt32 rect)
+        internal static IDeviceImage CreateImageFromGdiBitmap(this IDeviceContext deviceContext, Bitmap gdiBitmap)
         {
-            using IEffectInputBitmap<ColorBgra32> bitmap = environment.GetSourceBitmapBgra32();
-            using IBitmapLock<ColorBgra32> bitmapLock = bitmap.Lock(rect);
+            using Surface surface = Surface.CopyFromBitmap(gdiBitmap);
+            using IBitmapSource bitmapSource = surface.CreateSharedBitmap();
+            return deviceContext.CreateImageFromBitmap(bitmapSource);
+        }
 
-            SizeInt32 bitmapSize = bitmapLock.Size;
-            return new Bitmap(bitmapSize.Width, bitmapSize.Height, bitmapLock.BufferStride, System.Drawing.Imaging.PixelFormat.Format32bppArgb, (IntPtr)bitmapLock.Buffer);
+        public static void DrawSquare(this IDeviceContext deviceContext, Point2Float center, float radius, IDeviceBrush brush, float strokeWidth = 1f, IStrokeStyle? strokeStyle = null)
+        {
+            RectFloat squareRect = new RectFloat(center.X - radius, center.Y - radius, radius * 2, radius * 2);
+            deviceContext.DrawRectangle(squareRect, brush, strokeWidth, strokeStyle);
+        }
+
+        public static void FillSquare(this IDeviceContext deviceContext, Point2Float center, float radius, IDeviceBrush brush)
+        {
+            RectFloat squareRect = new RectFloat(center.X - radius, center.Y - radius, radius * 2, radius * 2);
+            deviceContext.FillRectangle(squareRect, brush);
         }
     }
 }

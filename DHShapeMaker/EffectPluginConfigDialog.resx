@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="canvas.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="canvas.SizeMode" type="PaintDotNet.Controls.Direct2DPictureBoxSizeMode, PaintDotNet.Framework">
     <value>Zoom</value>
   </data>
   <data name="canvas.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
