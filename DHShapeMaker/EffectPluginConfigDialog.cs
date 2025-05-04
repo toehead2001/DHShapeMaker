@@ -1988,12 +1988,9 @@ namespace ShapeMaker
             }
             else if (e.Button == MouseButtons.Middle && this.panFlag)
             {
-                int mpx = (int)(mouseCoord.X * 100);
-                int msx = (int)(this.moveStart.X * 100);
-                int mpy = (int)(mouseCoord.Y * 100);
-                int msy = (int)(this.moveStart.Y * 100);
-                int tx = 10 * (mpx - msx);
-                int ty = 10 * (mpy - msy);
+                Point moveStartPoint = CanvasCoordToPoint(this.moveStart);
+                int tx = e.X - moveStartPoint.X;
+                int ty = e.Y - moveStartPoint.Y;
 
                 int maxMoveX = this.canvas.Width - this.viewport.ClientSize.Width;
                 int maxMoveY = this.canvas.Height - this.viewport.ClientSize.Height;
