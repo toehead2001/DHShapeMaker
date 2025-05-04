@@ -2438,6 +2438,7 @@ namespace ShapeMaker
 
             this.paths.Clear();
             this.PathListBox.Items.Clear();
+            this.oldPathListBoxIndex = InvalidPath;
             this.statusLabelPathsUsed.Text = $"{this.PathListBox.Items.Count} Paths";
 
             this.canvas.Refresh();
