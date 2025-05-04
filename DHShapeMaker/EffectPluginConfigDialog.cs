@@ -1978,21 +1978,20 @@ namespace ShapeMaker
             else if (e.Button == MouseButtons.Middle && this.panFlag)
             {
                 Point moveStartPoint = CanvasCoordToPoint(this.moveStart);
-                int tx = e.X - moveStartPoint.X;
-                int ty = e.Y - moveStartPoint.Y;
-
-                int maxMoveX = this.canvas.Width - this.viewport.ClientSize.Width;
-                int maxMoveY = this.canvas.Height - this.viewport.ClientSize.Height;
 
                 Point pannedCanvasPos = this.canvas.Location;
                 if (this.canvas.Width > this.viewport.ClientSize.Width)
                 {
-                    pannedCanvasPos.X = (this.canvas.Location.X + tx < -maxMoveX) ? -maxMoveX : (this.canvas.Location.X + tx > 0) ? 0 : this.canvas.Location.X + tx;
+                    int deltaX = e.X - moveStartPoint.X;
+                    int minX = this.viewport.ClientSize.Width - this.canvas.Width;
+                    pannedCanvasPos.X = Math.Clamp(pannedCanvasPos.X + deltaX, minX, 0);
                 }
 
                 if (this.canvas.Height > this.viewport.ClientSize.Height)
                 {
-                    pannedCanvasPos.Y = (this.canvas.Location.Y + ty < -maxMoveY) ? -maxMoveY : (this.canvas.Location.Y + ty > 0) ? 0 : this.canvas.Location.Y + ty;
+                    int deltaY = e.Y - moveStartPoint.Y;
+                    int minY = this.viewport.ClientSize.Height - this.canvas.Height;
+                    pannedCanvasPos.Y = Math.Clamp(pannedCanvasPos.Y + deltaY, minY, 0);
                 }
 
                 this.canvas.Location = pannedCanvasPos;
