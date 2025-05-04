@@ -142,13 +142,13 @@ namespace ShapeMaker
 
         public static void DrawSquare(this IDeviceContext deviceContext, Point2Float center, float radius, IDeviceBrush brush, float strokeWidth = 1f, IStrokeStyle? strokeStyle = null)
         {
-            RectFloat squareRect = new RectFloat(center.X - radius, center.Y - radius, radius * 2, radius * 2);
+            RectFloat squareRect = RectFloat.FromCenter(center, radius * 2);
             deviceContext.DrawRectangle(squareRect, brush, strokeWidth, strokeStyle);
         }
 
         public static void FillSquare(this IDeviceContext deviceContext, Point2Float center, float radius, IDeviceBrush brush)
         {
-            RectFloat squareRect = new RectFloat(center.X - radius, center.Y - radius, radius * 2, radius * 2);
+            RectFloat squareRect = RectFloat.FromCenter(center, radius * 2);
             deviceContext.FillRectangle(squareRect, brush);
         }
     }
