@@ -71,7 +71,7 @@ namespace ShapeMaker
                     dataStrings.Add(streamGeometry);
                 }
 
-                return dataStrings.Any()
+                return dataStrings.Count != 0
                     ? string.Join(" ", dataStrings)
                     : null;
             }
@@ -119,7 +119,7 @@ namespace ShapeMaker
                     dataStrings.Add(streamGeometry);
                 }
 
-                return dataStrings.Any()
+                return dataStrings.Count != 0
                     ? string.Join(" ", dataStrings)
                     : null;
             }
@@ -132,7 +132,7 @@ namespace ShapeMaker
 
                     string xElementText = firstElement.ToString();
                     int xmlnsStartIndex = xElementText.IndexOf(" xmlns=");
-                    int xmlnsEndIndex = xElementText.IndexOf(">");
+                    int xmlnsEndIndex = xElementText.IndexOf('>');
 
                     if (firstElement.IsEmpty)
                     {
@@ -249,7 +249,7 @@ namespace ShapeMaker
                     }
                 }
 
-                return dataStrings.Any()
+                return dataStrings.Count != 0
                     ? string.Join(" ", dataStrings)
                     : null;
             }

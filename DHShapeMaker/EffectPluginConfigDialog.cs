@@ -376,10 +376,8 @@ namespace ShapeMaker
                 return true;
             }
 
-            if (this.hotKeys.ContainsKey(keyData))
+            if (this.hotKeys.TryGetValue(keyData, out ToolStripButtonWithKeys button))
             {
-                ToolStripButtonWithKeys button = this.hotKeys[keyData];
-
                 if (button.Enabled)
                 {
                     button.PerformClick();
@@ -1270,7 +1268,7 @@ namespace ShapeMaker
                                     return;
                                 }
 
-                                PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
+                                PointF hold = this.canvasPoints[^1];
                                 this.canvasPoints.Clear();
                                 this.canvasPoints.Add(hold);
                                 break;
@@ -1759,7 +1757,7 @@ namespace ShapeMaker
                                 selectedIndex < this.paths.Count &&
                                 this.paths[selectedIndex].CloseType != CloseType.Individual &&
                                 this.paths[selectedIndex - 1].CloseType == CloseType.None &&
-                                this.canvasPoints[nubIndex] == this.paths[selectedIndex - 1].Points.Last();
+                                this.canvasPoints[nubIndex] == this.paths[selectedIndex - 1].Points[^1];
                         }
                         else if (nubIndex == nubCount - 1)
                         {
@@ -1780,7 +1778,7 @@ namespace ShapeMaker
                         if (nearestPath != InvalidPath)
                         {
                             PointF otherTerminatingNub = nubIndex == 0
-                                ? this.paths[nearestPath].Points[this.paths[nearestPath].Points.Length - 1]
+                                ? this.paths[nearestPath].Points[^1]
                                 : this.paths[nearestPath].Points[0];
 
                             Point nubPoint = CanvasCoordToPoint(otherTerminatingNub);
@@ -2168,7 +2166,7 @@ namespace ShapeMaker
 
             if (this.LinkedPaths.Checked)
             {
-                PointF hold = this.canvasPoints[this.canvasPoints.Count - 1];
+                PointF hold = this.canvasPoints[^1];
                 this.canvasPoints.Clear();
                 this.canvasPoints.Add(hold);
             }
@@ -2394,7 +2392,7 @@ namespace ShapeMaker
 
         private void LoadStreamGeometry(string streamGeometry)
         {
-            IReadOnlyCollection<PathData> paths = PathDataCollection.FromStreamGeometry(streamGeometry).Paths;
+            List<PathData> paths = PathDataCollection.FromStreamGeometry(streamGeometry).Paths;
 
             if (paths.Count == 0)
             {
@@ -2530,7 +2528,7 @@ namespace ShapeMaker
             return this.paths.Count > 0 &&
                 this.CloseTypeFromUI != CloseType.Individual &&
                 this.paths[lastPathIndex].CloseType == CloseType.None &&
-                this.paths[lastPathIndex].Points.Last() == this.canvasPoints[0];
+                this.paths[lastPathIndex].Points[^1] == this.canvasPoints[0];
         }
 
         private static string GetSanitizedShapeName(string shapeName)
@@ -2584,7 +2582,7 @@ namespace ShapeMaker
                 SetUiForPath(this.paths[selectedIndex]);
             }
 
-            if (this.operationBox != Rectangle.Empty)
+            if (!this.operationBox.IsEmpty)
             {
                 ShowOpBox();
             }
@@ -2783,7 +2781,7 @@ namespace ShapeMaker
 
                     CloseType nextCloseType = this.paths[i + 1].CloseType;
                     PointF nextFirstPoint = this.paths[i + 1].Points[0];
-                    PointF lastPoint = this.paths[i].Points.Last();
+                    PointF lastPoint = this.paths[i].Points[^1];
 
                     linkedToNext =
                         nextCloseType != CloseType.Individual &&
@@ -2813,7 +2811,6 @@ namespace ShapeMaker
                     {
                         linkFlagsList[i] |= LinkFlags.Closed;
                     }
-
                 }
 
                 if (!linkedToPrevious && linkedToNext)
@@ -3207,8 +3204,8 @@ namespace ShapeMaker
                 try
                 {
                     ArrayListEx collection = new ArrayListEx(this.paths.Select(pathData => PData.FromPathData(pathData)).ToArray());
-                    (collection[collection.Count - 1] as PData).Meta = this.FigureName.Text;
-                    (collection[collection.Count - 1] as PData).SolidFill = this.solidFillCheckBox.Checked;
+                    (collection[^1] as PData).Meta = this.FigureName.Text;
+                    (collection[^1] as PData).SolidFill = this.solidFillCheckBox.Checked;
 
                     XmlSerializer ser = new XmlSerializer(typeof(ArrayListEx), new Type[] { typeof(PData) });
 
@@ -3532,7 +3529,7 @@ namespace ShapeMaker
             if (this.canvasPoints.Count > 2 && !this.Elliptical.Checked)
             {
                 setUndo();
-                this.canvasPoints[this.canvasPoints.Count - 1] = this.canvasPoints[0];
+                this.canvasPoints[^1] = this.canvasPoints[0];
                 this.canvas.Refresh();
             }
         }
@@ -3949,7 +3946,7 @@ namespace ShapeMaker
         #endregion
 
         #region Recent Items functions
-        private void AddToRecents(string filePath)
+        private static void AddToRecents(string filePath)
         {
             string recents = Settings.RecentProjects;
 
@@ -3979,7 +3976,7 @@ namespace ShapeMaker
             List<ToolStripItem> recentsList = new List<ToolStripItem>();
             XmlSerializer pDataSerializer = new XmlSerializer(typeof(ArrayListEx), new Type[] { typeof(PData) });
             XmlSerializer pathDataSerializer = new XmlSerializer(typeof(PathDataCollection));
-            IEnumerable<string> paths = recents.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            IEnumerable<string> paths = recents.Split('|', StringSplitOptions.RemoveEmptyEntries);
             int count = 1;
 
             foreach (string projectPath in paths)
