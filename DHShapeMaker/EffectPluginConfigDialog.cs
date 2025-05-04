@@ -637,8 +637,8 @@ namespace ShapeMaker
             PathType pathType = 0;
             bool closedIndividual = false;
             bool closedContiguous = false;
-            bool largeArc = false;
-            bool positiveSweep = false;
+            ArcSize arcSize = ArcSize.Small;
+            SweepDirection sweepDirection = SweepDirection.Counterclockwise;
             IReadOnlyList<PointF> pPoints;
 
             using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
@@ -665,8 +665,8 @@ namespace ShapeMaker
                         pathType = this.PathTypeFromUI;
                         closedIndividual = this.ClosePath.Checked;
                         closedContiguous = this.CloseContPaths.Checked;
-                        largeArc = (this.Arc.CheckState == CheckState.Checked);
-                        positiveSweep = (this.Sweep.CheckState == CheckState.Checked);
+                        arcSize = (this.Arc.CheckState == CheckState.Checked) ? ArcSize.Large : ArcSize.Small;
+                        sweepDirection = (this.Sweep.CheckState == CheckState.Checked) ? SweepDirection.Clockwise : SweepDirection.Counterclockwise;
                     }
                     else
                     {
@@ -675,8 +675,8 @@ namespace ShapeMaker
                         pathType = itemPath.PathType;
                         closedIndividual = itemPath.CloseType == CloseType.Individual;
                         closedContiguous = itemPath.CloseType == CloseType.Contiguous;
-                        largeArc = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc);
-                        positiveSweep = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep);
+                        arcSize = itemPath.ArcOptions.HasFlag(ArcOptions.LargeArc) ? ArcSize.Large : ArcSize.Small;
+                        sweepDirection = itemPath.ArcOptions.HasFlag(ArcOptions.PositiveSweep) ? SweepDirection.Clockwise : SweepDirection.Counterclockwise;
                     }
 
                     if (pPoints.Count == 0)
@@ -782,11 +782,14 @@ namespace ShapeMaker
                         case PathType.EllipticalArc:
                             if (pts.Length == 5)
                             {
-                                PointF mid = PointFUtil.PointAverage(pts[0], pts[4]);
+                                Point2Float start = pts[0];
+                                Point2Float end = pts[4];
+                                PointF center = PointFUtil.PointAverage(start, end);
+
                                 if (this.MacroCircle.Checked && j == -1 && isNewPath)
                                 {
-                                    float radius = PointFUtil.Hypot(pts[0], pts[4]) / 2f;
-                                    Ellipse ellipse = new Ellipse(mid, radius);
+                                    float radius = PointFUtil.Hypot(start, end) / 2f;
+                                    Ellipse ellipse = new Ellipse(center, radius);
 
                                     if (partOfOperation)
                                     {
@@ -798,12 +801,11 @@ namespace ShapeMaker
                                 }
                                 else
                                 {
-                                    float radiusX = PointFUtil.Hypot(mid, pts[1]);
-                                    float radiusY = PointFUtil.Hypot(mid, pts[2]);
-                                    Point2Float start = pts[0];
-                                    Point2Float end = pts[4];
+                                    SizeFloat radius = new SizeFloat(
+                                        PointFUtil.Hypot(center, pts[1]),
+                                        PointFUtil.Hypot(center, pts[2]));
 
-                                    if ((int)radiusY == 0 || (int)radiusX == 0)
+                                    if ((int)radius.Width == 0 || (int)radius.Height == 0)
                                     {
                                         if (partOfOperation)
                                         {
@@ -819,10 +821,11 @@ namespace ShapeMaker
                                     }
                                     else if (start != end)
                                     {
-                                        float angle = float.Atan2(pts[3].Y - mid.Y, pts[3].X - mid.X);
+                                        float angleRadians = float.Atan2(pts[3].Y - center.Y, pts[3].X - center.X);
+                                        float angleDegrees = float.RadiansToDegrees(angleRadians);
 
-                                        IPathGeometry arcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
-                                            start, radiusX, radiusY, angle, largeArc, positiveSweep, end);
+                                        using IPathGeometry arcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
+                                            start, end, radius, angleDegrees, sweepDirection, arcSize);
 
                                         if (partOfOperation)
                                         {
@@ -838,8 +841,11 @@ namespace ShapeMaker
 
                                         if (isActive)
                                         {
-                                            IGeometry activeArcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
-                                                start, radiusX, radiusY, angle, !largeArc, !positiveSweep, end);
+                                            SweepDirection activeDirection = (sweepDirection == SweepDirection.Counterclockwise) ? SweepDirection.Clockwise : SweepDirection.Counterclockwise;
+                                            ArcSize activeSize = (arcSize == ArcSize.Small) ? ArcSize.Large : ArcSize.Small;
+
+                                            using IPathGeometry activeArcGeometry = e.DeviceContext.Factory.CreateArcPathGeometry(
+                                                start, end, radius, angleDegrees, activeDirection, activeSize);
 
                                             using ISolidColorBrush activeArcBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Silver);
                                             e.DeviceContext.DrawGeometry(activeArcGeometry, activeArcBrush, normalStrokeWidth, dashedStrokeStyle);
