@@ -564,7 +564,7 @@ namespace ShapeMaker
             #endregion
 
 #if !FASTDEBUG
-            if (this.drawClippingArea)
+            if (this.drawClippingArea && !e.BitmapRect.Contains(e.ClipRect))
             {
                 RectInt32 hatchRect = new RectInt32(0, 0, 8, 8);
 
