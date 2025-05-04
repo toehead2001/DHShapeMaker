@@ -36,11 +36,6 @@ namespace ShapeMaker
                 ConstrainToInterval(point.Y, interval));
         }
 
-        internal static Point Round(this PointF pointF)
-        {
-            return Point.Round(pointF);
-        }
-
         internal static Rectangle Round(this RectangleF rectangleF)
         {
             return Rectangle.Round(rectangleF);

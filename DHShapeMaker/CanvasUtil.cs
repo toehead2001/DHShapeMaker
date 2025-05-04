@@ -18,14 +18,15 @@ namespace ShapeMaker
             return new PointF(x / width, y / height);
         }
 
-        internal static PointF CanvasCoordToPoint1x(PointF coord)
+        internal static Point CanvasCoordToPoint1x(PointF coord)
         {
             return CanvasCoordToPoint(coord.X, coord.Y, CanvasSize, CanvasSize);
         }
 
-        internal static PointF CanvasCoordToPoint(float x, float y, int width, int height)
+        internal static Point CanvasCoordToPoint(float x, float y, int width, int height)
         {
-            return new PointF(x * width, y * height);
+            PointF point = new PointF(x * width, y * height);
+            return Point.Round(point);
         }
 
         internal static bool IsControlNub(int nubIndex, PathType pathType)

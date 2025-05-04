@@ -1072,7 +1072,7 @@ namespace ShapeMaker
             // render average point for when Scaling and Rotation
             if (this.drawAverage)
             {
-                Point tmpPoint = CanvasCoordToPoint(this.averagePoint).Round();
+                Point tmpPoint = CanvasCoordToPoint(this.averagePoint);
 
                 using ISolidColorBrush averageBrush = e.DeviceContext.CreateSolidColorBrush(SrgbColors.Red);
                 using (e.DeviceContext.UseTranslateTransform(0.5f, 0.5f))
@@ -1135,7 +1135,7 @@ namespace ShapeMaker
             Rectangle hit = new Rectangle(e.X - 4, e.Y - 4, 9, 9);
             for (int i = 0; i < this.canvasPoints.Count; i++)
             {
-                Point p = CanvasCoordToPoint(this.canvasPoints[i]).Round();
+                Point p = CanvasCoordToPoint(this.canvasPoints[i]);
                 if (hit.Contains(p))
                 {
                     this.clickedNub = i;
@@ -1228,7 +1228,7 @@ namespace ShapeMaker
 
                                 for (int i = 0; i < this.canvasPoints.Count; i++)
                                 {
-                                    Point nub = CanvasCoordToPoint(this.canvasPoints[i]).Round();
+                                    Point nub = CanvasCoordToPoint(this.canvasPoints[i]);
                                     if (bhit.Contains(nub))
                                     {
                                         StatusBarNubLocation(nub.X, nub.Y);
@@ -1240,7 +1240,7 @@ namespace ShapeMaker
                         else
                         {
                             setUndo();
-                            Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]).Round();
+                            Point nub = CanvasCoordToPoint(this.canvasPoints[this.clickedNub]);
                             StatusBarNubLocation(nub.X, nub.Y);
                         }
                     }
@@ -1794,7 +1794,7 @@ namespace ShapeMaker
                                 ? this.paths[nearestPath].Points[this.paths[nearestPath].Points.Length - 1]
                                 : this.paths[nearestPath].Points[0];
 
-                            Point nubPoint = CanvasCoordToPoint(otherTerminatingNub).Round();
+                            Point nubPoint = CanvasCoordToPoint(otherTerminatingNub);
                             if (bhit.Contains(nubPoint))
                             {
                                 eX = nubPoint.X;
@@ -2039,7 +2039,7 @@ namespace ShapeMaker
 
         private void ShowOpBox(PointF coord)
         {
-            Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord).Round(), new Size(68, 20));
+            Rectangle opBoxRect = new Rectangle(CanvasCoordToPoint(coord), new Size(68, 20));
             opBoxRect.X += 5;
             opBoxRect.Y += 5;
 
@@ -2361,7 +2361,7 @@ namespace ShapeMaker
                         continue;
                     }
 
-                    Point p = CanvasCoordToPoint(tmp[j]).Round();
+                    Point p = CanvasCoordToPoint(tmp[j]);
                     if (hit.Contains(p))
                     {
                         return i;
@@ -2435,12 +2435,12 @@ namespace ShapeMaker
             return CanvasUtil.PointToCanvasCoord(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
-        private PointF CanvasCoordToPoint(PointF coord)
+        private Point CanvasCoordToPoint(PointF coord)
         {
             return CanvasUtil.CanvasCoordToPoint(coord.X, coord.Y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
 
-        private PointF CanvasCoordToPoint(float x, float y)
+        private Point CanvasCoordToPoint(float x, float y)
         {
             return CanvasUtil.CanvasCoordToPoint(x, y, this.canvas.ClientSize.Width, this.canvas.ClientSize.Height);
         }
@@ -3048,7 +3048,7 @@ namespace ShapeMaker
 
             if (!operationBox.IsEmpty)
             {
-                this.operationBox.Location = CanvasCoordToPoint(opBoxCoord).Round();
+                this.operationBox.Location = CanvasCoordToPoint(opBoxCoord);
                 this.canvas.Invalidate();
             }
         }
