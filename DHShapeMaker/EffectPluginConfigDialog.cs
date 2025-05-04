@@ -1567,24 +1567,13 @@ namespace ShapeMaker
         {
             StatusBarMouseLocation(e.X, e.Y);
 
-            int eX = e.X,
-                eY = e.Y;
-            if (this.Snap.Checked)
-            {
-                eX = eX.ConstrainToInterval(10);
-                eY = eY.ConstrainToInterval(10);
-            }
-
-            //if (!this.canvas.ClientRectangle.Contains(eX, eY))
-            //{
-            //    eX = eX.Clamp(this.canvas.ClientRectangle.Left, this.canvas.ClientRectangle.Right);
-            //    eY = eY.Clamp(this.canvas.ClientRectangle.Top, this.canvas.ClientRectangle.Bottom);
-            //}
-
-            PointF mouseCoord = PointToCanvasCoord(eX, eY);
-
             if (e.Button == MouseButtons.Left)
             {
+                bool snapToGrid = this.Snap.Checked;
+                int eX = snapToGrid ? e.X.ConstrainToInterval(10) : e.X;
+                int eY = snapToGrid ? e.Y.ConstrainToInterval(10) : e.Y;
+                PointF mouseCoord = PointToCanvasCoord(eX, eY);
+
                 int nubIndex = this.clickedNub;
                 int nubCount = this.canvasPoints.Count;
 
@@ -1673,7 +1662,7 @@ namespace ShapeMaker
                         case Operation.Move:
                             PointF rawMouseCoord = PointToCanvasCoord(e.X, e.Y);
                             PointF newCoord = new PointF(rawMouseCoord.X - initialDistSize.Width, rawMouseCoord.Y - initialDistSize.Height);
-                            if (this.Snap.Checked)
+                            if (snapToGrid)
                             {
                                 PointF snapPoint = CanvasCoordToPoint(newCoord).ConstrainToInterval(10);
                                 newCoord = PointToCanvasCoord(snapPoint.X, snapPoint.Y);
